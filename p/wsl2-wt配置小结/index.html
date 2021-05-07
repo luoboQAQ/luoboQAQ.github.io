@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='WSL2&#43;Windows Terminal安装、配置小结'><title>WSL2&#43;WT配置小结</title>
+
+<link rel='canonical' href='https://example.com/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='WSL2&#43;WT配置小结'>
+<meta property='og:description' content='WSL2&#43;Windows Terminal安装、配置小结'>
+<meta property='og:url' content='https://example.com/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2021-04-08T13:14:20&#43;08:00'/><meta property='article:modified_time' content='2021-04-29T21:00:00&#43;08:00'/><meta property='og:image' content='https://example.com/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473.png' />
+<meta name="twitter:title" content="WSL2&#43;WT配置小结">
+<meta name="twitter:description" content="WSL2&#43;Windows Terminal安装、配置小结"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://example.com/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473.png' />
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/chen_hu5b5fd4d1e1380394725d1abd580bba90_406633_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://example.com">luoboQAQ</a></h1>
+        <h2 class="site-description">快乐学习每一天</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://example.com" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/">
+                <img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473_hu0b461f4faf109c1e7e1e6db59436d03b_285140_800x0_resize_box_2.png"
+                        srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473_hu0b461f4faf109c1e7e1e6db59436d03b_285140_800x0_resize_box_2.png 800w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473_hu0b461f4faf109c1e7e1e6db59436d03b_285140_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="537" 
+                        loading="lazy"
+                        alt="Featured image of post WSL2&#43;WT配置小结" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/">WSL2&#43;WT配置小结</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        WSL2&#43;Windows Terminal安装、配置小结
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Apr 08, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>1202年了，是时候抛弃老旧的cmd窗口和臃肿的VM虚拟机了，来试试巨硬推出的WSL2+Windows Terminal(～￣▽￣)～。</p>
+<h2 id="起因">起因</h2>
+<p>在知乎上刷到了一篇<a class="link" href="https://www.zhihu.com/question/324218869/answer/1019888224"  target="_blank" rel="noopener"
+    >回答</a>，是关于Windows编程的体验的。在这篇文章中提到了WSL2和Windows Terminal，我一下就被那精美的界面吸引了（<del>管他好不好用，好看就完事了</del>）。正好现在在上操作系统这门课，需要使用Linux进行实验，这还说什么，直接开冲。</p>
+<p><figure style="flex-grow: 170; flex-basis: 410px">
+		<a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png" data-size="1461x855"><img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png"
+				srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_480x0_resize_box_2.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_1024x0_resize_box_2.png 1024w"
+				width="1461"
+				height="855"
+				loading="lazy"
+				alt="精美的界面">
+		</a>
+		
+		<figcaption>精美的界面</figcaption>
+		
+	</figure></p>
+<h2 id="wsl2安装">WSL2安装</h2>
+<p>安装其实很简单，按照微软的教程一步一步做就完事了。</p>
+<h3 id="0前置条件">0.前置条件</h3>
+<p>想要用WSL2，首先你得是 Windows 10，而且还有版本号要求。</p>
+<ul>
+<li>对于 x64 系统：版本 1903 或更高版本，采用 内部版本 18362 或更高版本。</li>
+<li>对于 ARM64 系统：版本 2004 或更高版本，采用 内部版本 19041 或更高版本。</li>
+</ul>
+<h3 id="1-开启wsl服务">1. 开启WSL服务</h3>
+<p>在Powershell(管理员)中输入下面的命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="nb">Microsoft-Windows</span><span class="n">-Subsystem-Linux</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
+</code></pre></div><h3 id="2-启用虚拟机服务">2. 启用虚拟机服务</h3>
+<p>在Powershell(管理员)中输入下面的命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="n">VirtualMachinePlatform</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
+</code></pre></div><p><strong>重新启动</strong> 计算机，以完成 WSL 安装并更新到 WSL 2。</p>
+<h3 id="3-下载-linux-内核更新包">3. 下载 Linux 内核更新包</h3>
+<p>下载最新包并安装：</p>
+<ul>
+<li><a class="link" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"  target="_blank" rel="noopener"
+    >适用于 x64 计算机的 WSL2 Linux 内核更新包</a></li>
+</ul>
+<h3 id="4-将-wsl-2-设置为默认版本">4. 将 WSL 2 设置为默认版本</h3>
+<p>在Powershell中输入下面的命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="n">2</span>
+</code></pre></div><h3 id="5安装-linux">5.安装 Linux</h3>
+<ol>
+<li>打开 <a class="link" href="https://aka.ms/wslstore"  target="_blank" rel="noopener"
+    >Microsoft Store</a>，并选择你偏好的 Linux 分发版并点击<code>获取</code>进行安装。</li>
+<li>等安装好后，打开并设置用户名和密码。</li>
+</ol>
+<p>到此WSL2就安装完事了。</p>
+<h2 id="windows-terminal安装">Windows Terminal安装</h2>
+<h3 id="1-下载和安装">1. 下载和安装</h3>
+<ul>
+<li>
+<p>从<a class="link" href="https://aka.ms/terminal"  target="_blank" rel="noopener"
+    >Microsoft Store</a>中下载</p>
+</li>
+<li>
+<p>从<a class="link" href="https://github.com/microsoft/terminal/releases"  target="_blank" rel="noopener"
+    >Github</a>上下载</p>
+</li>
+</ul>
+<h3 id="2-配置">2. 配置</h3>
+<p>为了让<code>Windows Terminal</code>看起来更好看一些，我们还要对其进行一些配置。</p>
+<p><figure style="flex-grow: 105; flex-basis: 252px">
+		<a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png" data-size="837x794"><img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png"
+				srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_480x0_resize_box_2.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_1024x0_resize_box_2.png 1024w"
+				width="837"
+				height="794"
+				loading="lazy"
+				alt="设置">
+		</a>
+		
+		<figcaption>设置</figcaption>
+		
+	</figure></p>
+<p>打开<code>Windows Terminal</code>的设置选项，然后选<code>打开JSON文件</code>，把我配好的配置文件粘贴进去</p>
+<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;$schema&#34;</span><span class="p">:</span> <span class="s2">&#34;https://aka.ms/terminal-profiles-schema&#34;</span><span class="p">,</span>
+    <span class="err">//</span> <span class="err">Add</span> <span class="err">custom</span> <span class="err">actions</span> <span class="err">and</span> <span class="err">keybindings</span> <span class="err">to</span> <span class="err">this</span> <span class="err">array.</span>
+    <span class="err">//</span> <span class="err">To</span> <span class="err">unbind</span> <span class="err">a</span> <span class="err">key</span> <span class="err">combination</span> <span class="err">from</span> <span class="err">your</span> <span class="err">defaults.json,</span> <span class="err">set</span> <span class="err">the</span> <span class="err">command</span> <span class="err">to</span> <span class="nt">&#34;unbound&#34;</span><span class="err">.</span>
+    <span class="err">//</span> <span class="err">To</span> <span class="err">learn</span> <span class="err">more</span> <span class="err">about</span> <span class="err">actions</span> <span class="err">and</span> <span class="err">keybindings</span><span class="p">,</span> <span class="err">visit</span> <span class="err">https://aka.ms/terminal-keybindings</span>
+    <span class="nt">&#34;actions&#34;</span><span class="p">:</span> 
+    <span class="p">[</span>
+        <span class="err">//</span> <span class="err">Copy</span> <span class="err">and</span> <span class="err">paste</span> <span class="err">are</span> <span class="err">bound</span> <span class="err">to</span> <span class="err">Ctrl+Shift+C</span> <span class="err">and</span> <span class="err">Ctrl+Shift+V</span> <span class="err">in</span> <span class="err">your</span> <span class="err">defaults.json.</span>
+        <span class="err">//</span> <span class="err">These</span> <span class="err">two</span> <span class="err">lines</span> <span class="err">additionally</span> <span class="err">bind</span> <span class="err">them</span> <span class="err">to</span> <span class="err">Ctrl+C</span> <span class="err">and</span> <span class="err">Ctrl+V.</span>
+        <span class="err">//</span> <span class="err">To</span> <span class="err">learn</span> <span class="err">more</span> <span class="err">about</span> <span class="err">selection</span><span class="p">,</span> <span class="err">visit</span> <span class="err">https://aka.ms/terminal-selection</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
+            <span class="p">{</span>
+                <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;copy&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;singleLine&#34;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+c&#34;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;paste&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+v&#34;</span>
+        <span class="p">},</span>
+        <span class="err">//</span> <span class="err">Press</span> <span class="err">Ctrl+Shift+F</span> <span class="err">to</span> <span class="err">open</span> <span class="err">the</span> <span class="err">search</span> <span class="err">box</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;find&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+shift+f&#34;</span>
+        <span class="p">},</span>
+        <span class="err">//</span> <span class="err">Press</span> <span class="err">Alt+Shift+D</span> <span class="err">to</span> <span class="err">open</span> <span class="err">a</span> <span class="err">new</span> <span class="err">pane.</span>
+        <span class="err">//</span> <span class="err">-</span> <span class="s2">&#34;split&#34;</span><span class="err">:</span> <span class="s2">&#34;auto&#34;</span> <span class="err">makes</span> <span class="err">this</span> <span class="err">pane</span> <span class="err">open</span> <span class="err">in</span> <span class="err">the</span> <span class="err">direction</span> <span class="err">that</span> <span class="err">provides</span> <span class="err">the</span> <span class="err">most</span> <span class="err">surface</span> <span class="err">area.</span>
+        <span class="err">//</span> <span class="err">-</span> <span class="s2">&#34;splitMode&#34;</span><span class="err">:</span> <span class="s2">&#34;duplicate&#34;</span> <span class="err">makes</span> <span class="err">the</span> <span class="err">new</span> <span class="err">pane</span> <span class="err">use</span> <span class="err">the</span> <span class="err">focused</span> <span class="err">pane&#39;s</span> <span class="err">profile.</span>
+        <span class="err">//</span> <span class="err">To</span> <span class="err">learn</span> <span class="err">more</span> <span class="err">about</span> <span class="err">panes</span><span class="p">,</span> <span class="err">visit</span> <span class="err">https://aka.ms/terminal-panes</span>
+        <span class="p">{</span>
+            <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
+            <span class="p">{</span>
+                <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;splitPane&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;split&#34;</span><span class="p">:</span> <span class="s2">&#34;auto&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;splitMode&#34;</span><span class="p">:</span> <span class="s2">&#34;duplicate&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;alt+shift+d&#34;</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&#34;copyFormatting&#34;</span><span class="p">:</span> <span class="s2">&#34;none&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;copyOnSelect&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nt">&#34;defaultProfile&#34;</span><span class="p">:</span> <span class="s2">&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;initialCols&#34;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+    <span class="nt">&#34;initialRows&#34;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> 
+    <span class="p">{</span>
+        <span class="nt">&#34;defaults&#34;</span><span class="p">:</span> 
+        <span class="p">{</span>
+            <span class="nt">&#34;acrylicOpacity&#34;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+            <span class="nt">&#34;closeOnExit&#34;</span><span class="p">:</span> <span class="s2">&#34;graceful&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;colorScheme&#34;</span><span class="p">:</span> <span class="s2">&#34;Campbell&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;cursorColor&#34;</span><span class="p">:</span> <span class="s2">&#34;#FFFFFF&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;cursorShape&#34;</span><span class="p">:</span> <span class="s2">&#34;bar&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;fontFace&#34;</span><span class="p">:</span> <span class="s2">&#34;Consolas&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;fontSize&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+            <span class="nt">&#34;historySize&#34;</span><span class="p">:</span> <span class="mi">9001</span><span class="p">,</span>
+            <span class="nt">&#34;padding&#34;</span><span class="p">:</span> <span class="s2">&#34;0, 0, 0, 0&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;snapOnInput&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="nt">&#34;startingDirectory&#34;</span><span class="p">:</span> <span class="s2">&#34;./&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;useAcrylic&#34;</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;list&#34;</span><span class="p">:</span> 
+        <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="nt">&#34;commandline&#34;</span><span class="p">:</span> <span class="s2">&#34;powershell.exe -NoLogo&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows PowerShell&#34;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&#34;commandline&#34;</span><span class="p">:</span> <span class="s2">&#34;cmd.exe&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{0caa0dad-35be-5f56-a8ff-afceeeaa6101}&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Command Prompt&#34;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{b453ae62-4e3d-5e58-b989-0a998ec441b8}&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Azure Cloud Shell&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows.Terminal.Azure&#34;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Ubuntu&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows.Terminal.Wsl&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;startingDirectory&#34;</span><span class="p">:</span> <span class="s2">&#34;//wsl$/Ubuntu/home/luobo&#34;</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>一般要修改这几项：</p>
+<ul>
+<li><code>fontFace</code> - 字体，我的字体为<code>Consolas</code>，适合1080P的屏幕。高分辩率屏建议用<code>monaco</code>或者<code>fira code</code></li>
+<li><code>fontSize</code> - 字体大小，因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
+<li><code>acrylicOpacity</code> - 背景透明度，同样因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
+<li><code>initialCols</code> - 初始窗口宽度，同样因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
+<li><code>initialRows</code> - 初始窗口高度，同样因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
+<li><code>startingDirectory</code> - Ubuntu的默认打开路径，把其中的<code>luobo</code>换成你自己的用户名。</li>
+</ul>
+<h2 id="wslvscode">WSL+VSCode</h2>
+<p>毕竟都是微软家的软件，直接就能通过VSCode来远程编辑Linux里的文件。vim太难上手？我直接在Windows里编程(雾)。</p>
+<p>只要在项目目录里键入<code>code .</code>，就会自动跳到Windows里的VSCode里了。</p>
+<h2 id="小结">小结</h2>
+<p>WSL+Windows Terminal+VSCode，将三者配合起来，我觉得可以实现1+1+1&gt;3的功能，毕竟，谁不喜欢颜值高的软件呢ヾ(≧▽≦*)o</p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a class="link" href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10"  target="_blank" rel="noopener"
+    >微软官方WSL2教程</a></li>
+<li><a class="link" href="https://docs.microsoft.com/zh-cn/windows/terminal/get-started"  target="_blank" rel="noopener"
+    >微软官方Windows Terminal教程</a></li>
+<li><a class="link" href="https://zhuanlan.zhihu.com/p/144612614"  target="_blank" rel="noopener"
+    >Windows Terminal 终端入门</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span class="article-time--modified">
+            最后更新于 Apr 29, 2021 21:00 &#43;0800
+        </span>
+    </section></footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on luoboQAQ</title>
+    <link>https://example.com/post/</link>
+    <description>Recent content in Posts on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 08 Apr 2021 13:14:20 +0800</lastBuildDate><atom:link href="https://example.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WSL2&#43;WT配置小结</title>
+      <link>https://example.com/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/</link>
+      <pubDate>Thu, 08 Apr 2021 13:14:20 +0800</pubDate>
+      
+      <guid>https://example.com/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/</guid>
+      <description>1202年了，是时候抛弃老旧的cmd窗口和臃肿的VM虚拟机了，来试试巨硬推出的WSL2+Windows Terminal(～￣▽￣)～。
+起因 在知乎上刷到了一篇回答，是关于Windows编程的体验的。在这篇文章中提到了WSL2和Windows Terminal，我一下就被那精美的界面吸引了（管他好不好用，好看就完事了）。正好现在在上操作系统这门课，需要使用Linux进行实验，这还说什么，直接开冲。
+ 精美的界面 
+WSL2安装 安装其实很简单，按照微软的教程一步一步做就完事了。
+0.前置条件 想要用WSL2，首先你得是 Windows 10，而且还有版本号要求。
+ 对于 x64 系统：版本 1903 或更高版本，采用 内部版本 18362 或更高版本。 对于 ARM64 系统：版本 2004 或更高版本，采用 内部版本 19041 或更高版本。  1. 开启WSL服务 在Powershell(管理员)中输入下面的命令：
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart 2. 启用虚拟机服务 在Powershell(管理员)中输入下面的命令：
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart 重新启动 计算机，以完成 WSL 安装并更新到 WSL 2。
+3. 下载 Linux 内核更新包 下载最新包并安装：
+ 适用于 x64 计算机的 WSL2 Linux 内核更新包  4. 将 WSL 2 设置为默认版本 在Powershell中输入下面的命令：</description>
+    </item>
+    
+    <item>
+      <title>PyAipao</title>
+      <link>https://example.com/p/pyaipao/</link>
+      <pubDate>Thu, 11 Mar 2021 10:25:00 +0800</pubDate>
+      
+      <guid>https://example.com/p/pyaipao/</guid>
+      <description>PyAipao简介 该项目可实现阳光体育一键跑步，同时可基于GitHub Actions来实现云跑步。
+仅需一次配置，即可轻松跑完一学期ヾ(≧▽≦*)o
+准备工作 1.一个github账号 2.抓包抓到的IMEICode 3.Server酱的SCKEY或企业微信（可选，用于微信推送跑步结果）  云跑步上手教程 1.点击fork按钮将该仓库复制到你的仓库  fork 
+2.获取 IMEICode
+ 打开抓包软件抓包, 再打开阳光体育 App 登录, 在所有的数据包中找后缀有 IMEICode=  的 URL 请求, 等号后面的字段即为七天有效的 IMEICode (若多次没抓到: 可来回切换几次飞行模式, 杀掉 App 后台重复尝试多次)  如果不需要推送，可以直接略过第3步
+3.1基于Server酱的推送
+ 完成Server酱的注册和绑定 点我直达 在 SendKey这一页中找到SendKey并记录  SendKey   3.2基于企业微信应用消息的推送
+由于Server酱不捐助是无法查看消息内容的，所以为了白嫖我自己写了推送部分的代码，可以直接使用微信官方接口来推送。
+企业微信的配置方法可以在Server酱的消息通道里看到，这里就不赘述了。
+ weisend 
+和Server酱一样，我们也需要企业ID(CORPID)，应用ID(AGENTID)，应用Secret(SECRET)这三个值。
+4.配置Github Actions
+  打开仓库的secrets，在其中建立IMEICODE并将IMEICode填入  4.1 
+  （可选）使用Server酱推送，需要建立SCKEY并填入SendKey
+  （可选）使用企业微信应用消息推送，需要建立CORPID&amp;ndash;填入企业ID，AGENTID&amp;ndash;填入应用ID，SECRET&amp;ndash;填入应用Secret
+  打开Code-.github/workflows-autorun.yml，点击右上角的铅笔图标进行编辑，将时间改为你想让它每天按时跑的时间，默认为每天上午9点；同时修改推送方式，默认不推送。</description>
+    </item>
+    
+    <item>
+      <title>给Blog增加动画</title>
+      <link>https://example.com/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Mon, 01 Feb 2021 13:55:05 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/</guid>
+      <description>看到zsnmwy大佬的博客，和我使用的是同样的主题，但是人家却多了一些动画，瞬间就高级起来了。于是打开百度搜素一波，发现只要改一下CSS就可以实现了。
+准备工具   hugo的扩展版（extended）
+这里一定要下扩展版，因为我使用的主题都是利用scss来生成css的，如果用普通版是无法利用scss生成对应的css的。之前不知道下的是普通版，结果怎么改scss都没有效果，浪费了很多时间😥。
+  相关代码 1.头像转动 在themes/hugo-theme-stack/assets/scss/partials/sidebar.scss中增加以下代码：
+.site-logo { transition: all 1.75s ease-out; } .site-logo:hover { transform: rotate(360deg); } 2.文章头图缩放 在themes/hugo-theme-stack/assets/scss/partials/article.scss中增加以下代码：
+.article-image { overflow:hidden; } .article-image { img { transition:all .5s ease; } &amp;amp;:hover{ transform:scale(1.2); } 3.Archives页面缩放 在themes/hugo-theme-stack/assets/scss/partials/article.scss中增加以下代码：
+article{ transition:.5s ease; } article { &amp;amp;:hover{ transform:scale(1.05,1.05); background:#f0f8ff; } } 4.菜单缩放 在themes/hugo-theme-stack/assets/scss/partials/menu.scss中增加以下代码：
+overflow-y: visible; //把auto改为visible，为了图标放大溢出时不显示滚动条 li { transition:.5s ease; } li{ &amp;amp;:hover{ transform:scale(1.1,1.1); } } 有了动画后，感觉整个博客都变得高级起来了ヾ(•ω•`)o
+在这感谢zsnmwy大佬，上面有些动画懒得自己写了，就直接从他的css中复制了ヾ(￣▽￣)</description>
+    </item>
+    
+    <item>
+      <title>竞赛用STL整理</title>
+      <link>https://example.com/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/</link>
+      <pubDate>Sun, 31 Jan 2021 20:39:29 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/</guid>
+      <description>最近刷了好几道关于STL的竞赛题，许多知识点还是不熟练，在继续学习之前，还是来好好整理一下一些常见的STL和容器吧。紫书上介绍的有以下几种：
+ 线性：vector,list,string 关联：map,set 特殊：stack,queue,priority_queue 算法：sort,lower_bound,find  vector vector可以理解为可以自由变换长度的数组(不定长数组)，个人感觉使用频率还是很高的。vector是连续的，意味着可以使用[]或at()。
+声明： vector&amp;lt;int&amp;gt; a
+常用函数   push_back：在尾部添加一个数据
+  pop_back：删除尾部的一个数据
+  size：当前的大小（就是有多少元素）
+  erase：删除指针指向的数据项
+  clear：清空
+  empty：判断是否为空
+  deque deque可以看作是双向队列，是连续存储结构。vector有的功能它都有，还支持高效的首/尾端插入/删除操作。
+新增函数  push_front：在头部添加一个数据 pop_front：在头部删除一个数据  list list可以看作是双链表，是非连续存储结构。可在两端进行push、pop，同时在内部可以很方便的进行插入和删除操作。不过我没怎么用到这个容器。等我做到相关的题目再来补充一些信息吧。
+string string就是字符串。相比char[]那可是方便不少，c++的cin/cout就只支持string类型而不支持char型数组。string还支持+、=、+=等运算符。
+常用函数   append：在字符串后添加（相当于+=）
+  substr(n,m)：返回string的子串，从n处开始，取m个。当m省略或超过了字符串的长度，则一直取到字符串结束。
+  查找相关函数：
+如果没有查到，返回string::npos。
+  find：从前往后查找子串或字符出现的位置。
+  rfind：从后往前查找子串或字符出现的位置。
+  find_first_of：从前往后查找何处出现另一个字符串中包含的字符。例如：
+  s1.find_first_of(&amp;ldquo;abc&amp;rdquo;); //查找s1中第一次出现&amp;quot;abc&amp;quot;中任一字符的位置
+  find_last_of：从后往前查找何处出现另一个字符串中包含的字符。</description>
+    </item>
+    
+    <item>
+      <title>数据结构算法复习</title>
+      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</link>
+      <pubDate>Sun, 10 Jan 2021 15:06:20 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</guid>
+      <description>考前整理的算法，也顺便放到博客上吧ヾ(•ω•`)o
+数据结构代码复习 3.单链表逆置 带头结点
+int Inverse_Link(LinkList *L) { LinkList *cur, *p; if (L-&amp;gt;next &amp;amp;&amp;amp; L-&amp;gt;next-&amp;gt;next) { p = L-&amp;gt;next-&amp;gt;next; L-&amp;gt;next-&amp;gt;next = NULL; while (p) { cur = L-&amp;gt;next; L-&amp;gt;next = p; p = p-&amp;gt;next; L-&amp;gt;next-&amp;gt;next = cur; } } return 0; } 5.双向链表 双链表定义：
+typedef struct DuLinkList { int data; struct DuLinkList *prior; struct DuLinkList *next; } DuLinkList; 遍历：
+void Printlist_DuL(DuLinkList *L) { DuLinkList *s; s = L-&amp;gt;next; if (L-&amp;gt;next !</description>
+    </item>
+    
+    <item>
+      <title>C语言生成随机数</title>
+      <link>https://example.com/p/c%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</link>
+      <pubDate>Tue, 22 Dec 2020 19:36:53 +0800</pubDate>
+      
+      <guid>https://example.com/p/c%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</guid>
+      <description>生成随机数 在C语言中，生成随机数可以使用stdlib.h头文件里的rand()来生成，例如：
+#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;int main(){ int a = rand(); printf(&amp;#34;%d\n&amp;#34;,a); return 0; } rand() 会随机生成一个位于 0 ~ RAND_MAX 之间的整数。
+但是这样生成的随机数每次开启程序都是一样的，则需要使用srand()来重新播种，一般常与&amp;lt;time.h&amp;gt;里的time()函数一起使用。
+srand((unsigned)time(NULL)); 连续生成多个随机数 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;time.h&amp;gt;int main() { int a, i; srand((unsigned)time(NULL)); //使用for循环生成10个随机数  for (i = 0; i &amp;lt; 10; i++) { a = rand(); printf(&amp;#34;%d &amp;#34;, a); } return 0; } 生成指定范围的随机数 想要生成指定范围的随机数，只要进行%运算就好了
+int a = rand() % 10; //产生0~9的随机数 int a = rand() % 10 + 1; //产生1~10的随机数 连续生成不重复的随机数 这就是本文的重点了ヾ(•ω•`)o （其实就是为了记下这个算法才水了一篇文章）</description>
+    </item>
+    
+    <item>
+      <title>Git的常用命令</title>
+      <link>https://example.com/p/git/</link>
+      <pubDate>Wed, 16 Dec 2020 13:16:45 +0800</pubDate>
+      
+      <guid>https://example.com/p/git/</guid>
+      <description>基本操作 建立版本库：git init
+查看结果：git status
+查看不同：git diff
+版本回退 查看提交日记：git log
+回退：git reset --hard HEAD^
+HEAD^表示上一个版本，HEAD^^表示前两个版本，HEAD~100表示前100个版本
+恢复：git reflog查看命令历史，确定回到未来的哪个版本
+撤销修改  直接丢弃工作区的修改时，用命令git checkout -- file 已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD &amp;lt;file&amp;gt;，第二步按1操作。  上传 git remote add origin 仓库链接 #将远程仓库和本地仓库绑定 git add . git commit -m &amp;quot;提交信息&amp;quot; git push -u origin 自己当前的分支名 #-u将本地库和远程库的分支关联，之后可以不加 下载 git clone 仓库链接 git clone到当前文件夹
+git clone 仓库链接 . 分支管理 创建与合并分支 查看分支：git branch
+创建分支：git branch &amp;lt;name&amp;gt;
+切换分支：git checkout &amp;lt;name&amp;gt;或者git switch &amp;lt;name&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>Blog常用的命令</title>
+      <link>https://example.com/p/blog%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Tue, 15 Dec 2020 18:02:14 +0800</pubDate>
+      
+      <guid>https://example.com/p/blog%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/</guid>
+      <description>主题相关 FrontMatter 字段含义
+title: 标题 description: 描述 image: 显示的特色图片 comments: 显示 / 隐藏评论区(T/F) license: 文章协议 输入 false 可以隐藏 hidden: 隐藏文章（不在首页，归档等页面显示，但是可以直接通过链接访问） math: 是否加载 KaTeX 脚本 slug: 固定链接 draft: 是否为草稿 categories: 分类 tags: 标签 lastmod: 上次更新时间 MarkDown相关 # 我是一级标题 ## 我是二级标题 可对应1-6级标题 *斜体文本* **粗体文本** ***粗斜体文本*** 一行中用三个以上的星号*、减号-、底线_来建立一个分隔线 ~~删除线~~ &amp;lt;u&amp;gt;带下划线文本&amp;lt;/u&amp;gt; 创建脚注格式类似这样 [^JiaoZhu]。 [^JiaoZhu]: 脚注的内容 列表：*、+、-、1. &amp;gt; 区块 [链接文本](网址) 图片在前加! | 表头 | 表头 | | ---- | ---- | | 单元格 | 单元格 | | 单元格 | 单元格 | -: 设置内容和标题栏居右对齐。 :- 设置内容和标题栏居左对齐。 :-: 设置内容和标题栏居中对齐。 </description>
+    </item>
+    
+  </channel>
+</rss>

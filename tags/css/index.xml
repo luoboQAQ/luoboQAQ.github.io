@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSS on luoboQAQ</title>
+    <link>https://example.com/tags/css/</link>
+    <description>Recent content in CSS on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 01 Feb 2021 13:55:05 +0800</lastBuildDate><atom:link href="https://example.com/tags/css/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>给Blog增加动画</title>
+      <link>https://example.com/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/</link>
+      <pubDate>Mon, 01 Feb 2021 13:55:05 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/</guid>
+      <description>看到zsnmwy大佬的博客，和我使用的是同样的主题，但是人家却多了一些动画，瞬间就高级起来了。于是打开百度搜素一波，发现只要改一下CSS就可以实现了。
+准备工具   hugo的扩展版（extended）
+这里一定要下扩展版，因为我使用的主题都是利用scss来生成css的，如果用普通版是无法利用scss生成对应的css的。之前不知道下的是普通版，结果怎么改scss都没有效果，浪费了很多时间😥。
+  相关代码 1.头像转动 在themes/hugo-theme-stack/assets/scss/partials/sidebar.scss中增加以下代码：
+.site-logo { transition: all 1.75s ease-out; } .site-logo:hover { transform: rotate(360deg); } 2.文章头图缩放 在themes/hugo-theme-stack/assets/scss/partials/article.scss中增加以下代码：
+.article-image { overflow:hidden; } .article-image { img { transition:all .5s ease; } &amp;amp;:hover{ transform:scale(1.2); } 3.Archives页面缩放 在themes/hugo-theme-stack/assets/scss/partials/article.scss中增加以下代码：
+article{ transition:.5s ease; } article { &amp;amp;:hover{ transform:scale(1.05,1.05); background:#f0f8ff; } } 4.菜单缩放 在themes/hugo-theme-stack/assets/scss/partials/menu.scss中增加以下代码：
+overflow-y: visible; //把auto改为visible，为了图标放大溢出时不显示滚动条 li { transition:.5s ease; } li{ &amp;amp;:hover{ transform:scale(1.1,1.1); } } 有了动画后，感觉整个博客都变得高级起来了ヾ(•ω•`)o
+在这感谢zsnmwy大佬，上面有些动画懒得自己写了，就直接从他的css中复制了ヾ(￣▽￣)</description>
+    </item>
+    
+  </channel>
+</rss>

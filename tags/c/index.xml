@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on luoboQAQ</title>
+    <link>https://example.com/tags/c/</link>
+    <description>Recent content in C on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 10 Jan 2021 15:06:20 +0800</lastBuildDate><atom:link href="https://example.com/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据结构算法复习</title>
+      <link>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</link>
+      <pubDate>Sun, 10 Jan 2021 15:06:20 +0800</pubDate>
+      
+      <guid>https://example.com/p/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/</guid>
+      <description>考前整理的算法，也顺便放到博客上吧ヾ(•ω•`)o
+数据结构代码复习 3.单链表逆置 带头结点
+int Inverse_Link(LinkList *L) { LinkList *cur, *p; if (L-&amp;gt;next &amp;amp;&amp;amp; L-&amp;gt;next-&amp;gt;next) { p = L-&amp;gt;next-&amp;gt;next; L-&amp;gt;next-&amp;gt;next = NULL; while (p) { cur = L-&amp;gt;next; L-&amp;gt;next = p; p = p-&amp;gt;next; L-&amp;gt;next-&amp;gt;next = cur; } } return 0; } 5.双向链表 双链表定义：
+typedef struct DuLinkList { int data; struct DuLinkList *prior; struct DuLinkList *next; } DuLinkList; 遍历：
+void Printlist_DuL(DuLinkList *L) { DuLinkList *s; s = L-&amp;gt;next; if (L-&amp;gt;next !</description>
+    </item>
+    
+    <item>
+      <title>C语言生成随机数</title>
+      <link>https://example.com/p/c%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</link>
+      <pubDate>Tue, 22 Dec 2020 19:36:53 +0800</pubDate>
+      
+      <guid>https://example.com/p/c%E8%AF%AD%E8%A8%80%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</guid>
+      <description>生成随机数 在C语言中，生成随机数可以使用stdlib.h头文件里的rand()来生成，例如：
+#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;int main(){ int a = rand(); printf(&amp;#34;%d\n&amp;#34;,a); return 0; } rand() 会随机生成一个位于 0 ~ RAND_MAX 之间的整数。
+但是这样生成的随机数每次开启程序都是一样的，则需要使用srand()来重新播种，一般常与&amp;lt;time.h&amp;gt;里的time()函数一起使用。
+srand((unsigned)time(NULL)); 连续生成多个随机数 #include &amp;lt;stdio.h&amp;gt;#include &amp;lt;stdlib.h&amp;gt;#include &amp;lt;time.h&amp;gt;int main() { int a, i; srand((unsigned)time(NULL)); //使用for循环生成10个随机数  for (i = 0; i &amp;lt; 10; i++) { a = rand(); printf(&amp;#34;%d &amp;#34;, a); } return 0; } 生成指定范围的随机数 想要生成指定范围的随机数，只要进行%运算就好了
+int a = rand() % 10; //产生0~9的随机数 int a = rand() % 10 + 1; //产生1~10的随机数 连续生成不重复的随机数 这就是本文的重点了ヾ(•ω•`)o （其实就是为了记下这个算法才水了一篇文章）</description>
+    </item>
+    
+  </channel>
+</rss>

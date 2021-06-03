@@ -15,7 +15,7 @@
       <guid>https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
       <description>这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。（你用ODBC？那没事了）
 我在网上也查了很多资料，但根据步骤来总是会报错，提示没有mysql.h这个头文件。下面就记录一下我成功编译的过程。
-步骤 **注意：**路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改
+步骤 注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改
 1.准备好Qt的源代码，如果没有可以点Uninstall Qt启动Qt组件管理，在里面勾选Src把源码下载下来。
 2.进入D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers目录下，打开sqldrivers.pro这个文件。
 3.在左侧文件树中打开mysql文件夹，选择mysql.pro打开。
@@ -23,7 +23,7 @@
   注释掉QMAKE_USE += mysql这一句
   增加下面三行代码(注意把D:/MySQL/改为你MySQL的安装路径)：
 LIBS +=-LD:/MySQL/lib -llibmysql INCLUDEPATH += D:/MySQL/include DEPENDPATH += D:/MySQL/include   5.点击Qt左下角的小锤子进行构建，不出意外的话就可以在D:\Qt\6.0.3\Src\qtbase\src\plugins这个路径下看到build开头的文件夹，在.\plugins\sqldrivers目录下就能看到编译好的dll了。
-6.最后将qsqlmysql.dll放入D:\Qt\6.0.3\mingw81_64\bin里就行了。如果链接数据库时还报错，就把libmysql.dll复制到Qt的编译器的bin目录。</description>
+6.最后将qsqlmysql.dll放入D:\Qt\6.0.3\mingw81_64\plugins\sqldrivers\里就行了。如果链接数据库时还报错，就把libmysql.dll复制到Qt的编译器的D:\Qt\6.0.3\mingw81_64\bin\目录。</description>
     </item>
     
   </channel>

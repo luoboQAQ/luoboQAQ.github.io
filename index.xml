@@ -14,9 +14,81 @@
         <guid>https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
         <description>&lt;img src="https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963.png" alt="Featured image of post Qt构建qsqlmysql.dll" /&gt;&lt;p&gt;这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。&lt;del&gt;（你用ODBC？那没事了）&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;我在网上也查了很多资料，但根据步骤来总是会报错，提示没有&lt;code&gt;mysql.h&lt;/code&gt;这个头文件。下面就记录一下我成功编译的过程。&lt;/p&gt;
-&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改&lt;/p&gt;
-&lt;p&gt;1.准备好Qt的源代码，如果没有可以点&lt;code&gt;Uninstall Qt&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
+&lt;h2 id=&#34;基于cmake的步骤&#34;&gt;基于cmake的步骤&lt;/h2&gt;
+&lt;p&gt;在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
+&lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
+&lt;p&gt;2.打开&lt;code&gt;cmake-gui&lt;/code&gt;，选择目标文件夹为&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;，并设置生成文件夹为&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 99; flex-basis: 238px&#34;&gt;
+		&lt;a href=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34; data-size=&#34;922x928&#34;&gt;&lt;img src=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34;
+				srcset=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_480x0_resize_box_2.png 480w, https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;922&#34;
+				height=&#34;928&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;配置文件夹&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;配置文件夹&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;3.点击左下角的&lt;code&gt;Configure&lt;/code&gt;，会提示生成的目录不存在是否创建，直接点是就可以了。&lt;/p&gt;
+&lt;p&gt;4.编译器这里选择&lt;code&gt;MinGW Makefiles&lt;/code&gt;,然后点击&lt;code&gt;Finish&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 138; flex-basis: 333px&#34;&gt;
+		&lt;a href=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34; data-size=&#34;500x360&#34;&gt;&lt;img src=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34;
+				srcset=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_480x0_resize_box_2.png 480w, https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;500&#34;
+				height=&#34;360&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;选择编译器&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;选择编译器&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;5.等待生成完成后，把&lt;code&gt;FEATURE_sql_mysql&lt;/code&gt;后面的勾勾上，然后把其余的&lt;code&gt;FEATURE_sql&lt;/code&gt;后面的勾取消。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 103; flex-basis: 248px&#34;&gt;
+		&lt;a href=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34; data-size=&#34;920x889&#34;&gt;&lt;img src=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34;
+				srcset=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_480x0_resize_box_2.png 480w, https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;920&#34;
+				height=&#34;889&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;选择生成模块&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;选择生成模块&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;6.再次点击左下角的&lt;code&gt;Configure&lt;/code&gt;，可以发现上面的红框已经消失了，说明配置成功了。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 99; flex-basis: 238px&#34;&gt;
+		&lt;a href=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34; data-size=&#34;922x928&#34;&gt;&lt;img src=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34;
+				srcset=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_480x0_resize_box_2.png 480w, https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;922&#34;
+				height=&#34;928&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;配置成功&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;配置成功&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;7.这时配置文件已经构建完成了，接下来就是生成dll了，打开&lt;code&gt;PowerShell&lt;/code&gt;切换目录至&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;，输入&lt;code&gt;mingw32-make&lt;/code&gt;开始编译生成dll。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 170; flex-basis: 410px&#34;&gt;
+		&lt;a href=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34; data-size=&#34;1461x855&#34;&gt;&lt;img src=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34;
+				srcset=&#34;https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_480x0_resize_box_2.png 480w, https://example.com/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1461&#34;
+				height=&#34;855&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;编译成功&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;编译成功&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;没有报错，说明生成成功。&lt;/p&gt;
+&lt;p&gt;8.最后打开目录&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers&lt;/code&gt;，就可以看到生成好的&lt;code&gt;qsqlmysql.dll&lt;/code&gt;了。&lt;/p&gt;
+&lt;h2 id=&#34;基于qmake的步骤&#34;&gt;基于qmake的步骤&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
+&lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
 &lt;p&gt;2.进入&lt;code&gt;D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;目录下，打开&lt;code&gt;sqldrivers.pro&lt;/code&gt;这个文件。&lt;/p&gt;
 &lt;p&gt;3.在左侧文件树中打开&lt;code&gt;mysql&lt;/code&gt;文件夹，选择&lt;code&gt;mysql.pro&lt;/code&gt;打开。&lt;/p&gt;
 &lt;p&gt;4.修改里面的内容：&lt;/p&gt;
@@ -438,44 +510,44 @@ DEPENDPATH += D:/MySQL/include
 &lt;h3 id=&#34;1头像转动&#34;&gt;1.头像转动&lt;/h3&gt;
 &lt;p&gt;在&lt;code&gt;themes/hugo-theme-stack/assets/scss/partials/sidebar.scss&lt;/code&gt;中增加以下代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scss&#34; data-lang=&#34;scss&#34;&gt;&lt;span class=&#34;nc&#34;&gt;.site-logo&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;      
-	&lt;span class=&#34;nt&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.75s&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;ease-out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;na&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.75&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;ease-out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
 &lt;span class=&#34;nc&#34;&gt;.site-logo&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:hover&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;nt&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;rotate&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;360deg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;na&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;rotate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;360&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;deg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;2文章头图缩放&#34;&gt;2.文章头图缩放&lt;/h3&gt;
 &lt;p&gt;在&lt;code&gt;themes/hugo-theme-stack/assets/scss/partials/article.scss&lt;/code&gt;中增加以下代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scss&#34; data-lang=&#34;scss&#34;&gt;&lt;span class=&#34;nc&#34;&gt;.article-image&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;nt&#34;&gt;overflow&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:hidden&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;na&#34;&gt;overflow&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;ni&#34;&gt;hidden&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;nc&#34;&gt;.article-image&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;img&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:all&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;.5s&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;ease&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;ni&#34;&gt;all&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;.5&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;ease&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:hover&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:scale&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;scale&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3archives页面缩放&#34;&gt;3.Archives页面缩放&lt;/h3&gt;
 &lt;p&gt;在&lt;code&gt;themes/hugo-theme-stack/assets/scss/partials/article.scss&lt;/code&gt;中增加以下代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scss&#34; data-lang=&#34;scss&#34;&gt;&lt;span class=&#34;nt&#34;&gt;article&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;nt&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.5s&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;ease&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;na&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.5&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;ease&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;article&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:hover&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-		&lt;span class=&#34;nt&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:scale&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.05&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.05&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-		&lt;span class=&#34;nt&#34;&gt;background&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nn&#34;&gt;#f0f8ff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+		&lt;span class=&#34;na&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;scale&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.05&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.05&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+		&lt;span class=&#34;na&#34;&gt;background&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mh&#34;&gt;#f0f8ff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;4菜单缩放&#34;&gt;4.菜单缩放&lt;/h3&gt;
 &lt;p&gt;在&lt;code&gt;themes/hugo-theme-stack/assets/scss/partials/menu.scss&lt;/code&gt;中增加以下代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scss&#34; data-lang=&#34;scss&#34;&gt;&lt;span class=&#34;nt&#34;&gt;overflow-y&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;visible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//把auto改为visible，为了图标放大溢出时不显示滚动条
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scss&#34; data-lang=&#34;scss&#34;&gt;&lt;span class=&#34;na&#34;&gt;overflow-y&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;visible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//把auto改为visible，为了图标放大溢出时不显示滚动条
 &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;li&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-	&lt;span class=&#34;nt&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.5s&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;ease&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	&lt;span class=&#34;na&#34;&gt;transition&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.5&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;ni&#34;&gt;ease&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;nt&#34;&gt;li&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:hover&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;nt&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;nd&#34;&gt;:scale&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;.1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+        &lt;span class=&#34;na&#34;&gt;transform&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;scale&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;.1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;有了动画后，感觉整个博客都变得高级起来了ヾ(•ω•`)o&lt;/p&gt;
@@ -1178,8 +1250,8 @@ lastmod: 上次更新时间
 &lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt;可对应1-6级标题
 
 &lt;span class=&#34;ge&#34;&gt;*斜体文本*&lt;/span&gt;
-**粗体文本**
-&lt;span class=&#34;gs&#34;&gt;***粗斜体文本**&lt;/span&gt;*
+&lt;span class=&#34;gs&#34;&gt;**粗体文本**&lt;/span&gt;
+&lt;span class=&#34;ge&#34;&gt;**&lt;/span&gt;*粗斜体文本***
 
 一行中用三个以上的星号*、减号-、底线_来建立一个分隔线
 &lt;span class=&#34;gd&#34;&gt;~~删除线~~&lt;/span&gt;

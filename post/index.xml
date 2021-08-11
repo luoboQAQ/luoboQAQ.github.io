@@ -6,7 +6,27 @@
     <description>Recent content in Posts on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Aug 2021 11:11:10 +0800</lastBuildDate><atom:link href="https://luobo.cf/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Aug 2021 21:46:24 +0800</lastBuildDate><atom:link href="https://luobo.cf/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>从零开始ASF挂卡</title>
+      <link>https://luobo.cf/p/asf/</link>
+      <pubDate>Wed, 11 Aug 2021 21:46:24 +0800</pubDate>
+      
+      <guid>https://luobo.cf/p/asf/</guid>
+      <description>因为买了一台云服务器，不拿来干点啥实在是太亏了，于是便想到了可以使用云服务器来挂卡。
+步骤 安装.net环境 ASF是基于.netcore开发的程序，所以需要安装环境。这里建议看微软官方的安装文档，里面有不同系统的安装方法。
+我们需要安装的只是ASP.NET Core 运行时。
+我的系统是centos7，这里就只列举我系统上的命令了。
+sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm sudo yum install aspnetcore-runtime-5.0 安装ASF 在ASF的发布页面上下载系统对应的版本解压即可。
+我这里是在本地先下载好后用WinSCP直接传上服务器。
+配置ASF 这里就采用官方的**在线配置文件生成器**自动生成即可。
+我们这里选择机器人，将steam的账号和密码填入，并将Enabled设置为True就行了。
+详细的配置内容可以在官方Wiki上看到，这里就不再赘述了。
+下面放上我的配置文件：
+{ &amp;#34;SteamLogin&amp;#34;: &amp;#34;xxx&amp;#34;, &amp;#34;SteamPassword&amp;#34;: &amp;#34;xxx&amp;#34;, &amp;#34;Enabled&amp;#34;: true, &amp;#34;CustomGamePlayedWhileFarming&amp;#34;: &amp;#34;挂卡中...&amp;#34;, &amp;#34;CustomGamePlayedWhileIdle&amp;#34;: &amp;#34;空闲中...&amp;#34;, &amp;#34;FarmingOrders&amp;#34;: [ 15, 12 ], &amp;#34;HoursUntilCardDrops&amp;#34;: 0, &amp;#34;OnlineStatus&amp;#34;: 1 }  CustomGamePlayedWhileFarming：表示挂卡时显示的游戏名 CustomGamePlayedWhileIdle：表示空闲时显示的游戏名 HoursUntilCardDrops：表示至少将游戏挂到几小时，如果是非限制账户，调到0是最好的。  我们也可以配置ASF本身的设置，这里也同样贴上我的配置：
+{ &amp;#34;s_SteamOwnerID&amp;#34;: &amp;#34;xxx&amp;#34;, &amp;#34;CurrentCulture&amp;#34;: &amp;#34;zh-CN&amp;#34;, &amp;#34;IPCPassword&amp;#34;: &amp;#34;xxx&amp;#34; }  s_SteamOwnerID：该属性定义 ASF 进程所有者的 64 位 Steam ID，直接设置成自己的大号就行 CurrentCulture：ASF的语言 IPCPassword：由于ASF默认会开启IPC服务，为了安全起见建议设置密码或关闭IPC服务。  将配置文件放入config目录里就行了。</description>
+    </item>
+    
     <item>
       <title>MyBatis学习笔记</title>
       <link>https://luobo.cf/p/mybatis/</link>

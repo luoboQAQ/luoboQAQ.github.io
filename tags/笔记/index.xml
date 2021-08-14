@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>笔记 on luoboQAQ</title>
+    <link>https://luobo.cf/tags/%E7%AC%94%E8%AE%B0/</link>
+    <description>Recent content in 笔记 on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 12 Aug 2021 09:38:02 +0800</lastBuildDate><atom:link href="https://luobo.cf/tags/%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring学习笔记</title>
+      <link>https://luobo.cf/p/spring/</link>
+      <pubDate>Thu, 12 Aug 2021 09:38:02 +0800</pubDate>
+      
+      <guid>https://luobo.cf/p/spring/</guid>
+      <description>花了3天时间，Spring也终于看完了,SSM已经干完了两个了，感觉人都要没了😇。还是老样子，留下笔记以免遗忘。
+下面的内容都是基于遇见狂神说的Spring5视频教程而来，在此感谢能提供这么优秀的教程。
+Spring 简介 Spring就是用来简化Java开发的，只能说学Java不学Spring，就像读四大名著不读红楼梦&amp;hellip;&amp;hellip;
+2002年，Rod Jahnson首次推出了Spring框架雏形interface21框架。
+2004年3月24日，Spring框架以interface21框架为基础，经过重新设计，发布了1.0正式版。
+很难想象Rod Johnson的学历 , 他是悉尼大学的博士，然而他的专业不是计算机，而是音乐学。
+Spring理念 : 使现有技术更加实用。 本身就是一个大杂烩 , 整合现有的框架技术。
+SSM：SpringMVC+Spring+MyBatis
+几个常用的网址：
+  官网
+  官方文档（英文）
+  中文文档
+  GitHub
+  &amp;lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-webmvc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.3.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.springframework&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;spring-jdbc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;5.3.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 优点   Spring是一个开源免费的框架 , 容器
+  Spring是一个轻量级的框架 , 非侵入式的
+  控制反转（IoC）,面向切面（Aop）
+  对事务的支持 , 对框架的支持
+  一句话概括：</description>
+    </item>
+    
+    <item>
+      <title>MyBatis学习笔记</title>
+      <link>https://luobo.cf/p/mybatis/</link>
+      <pubDate>Wed, 11 Aug 2021 11:11:10 +0800</pubDate>
+      
+      <guid>https://luobo.cf/p/mybatis/</guid>
+      <description>花了四天的时间，终于把MyBatis的视频教程全部看完了，为了以后不要那么快的遗忘掉，还是来写一下笔记比较好。
+下面的内容都是基于遇见狂神说的MyBatis视频教程而来，在此感谢能提供这么优秀的教程。
+简介  MyBatis的作用用我自己的话说，就是不用自己手动搞JDBC了，省事，行！ MyBatis作用于持久层——DAO层 【DAO (Data Access Object) 数据访问对象】，通俗点说就是用来操作数据库的层 选择MyBatis的最大原因还是用的人多，为后面的Spring打基础_(:з)∠)_  第一个MyBatis程序 思路流程：搭建环境&amp;ndash;&amp;gt;导入MyBatis&amp;mdash;&amp;gt;编写代码&amp;mdash;&amp;gt;测试
+具体代码   创建Maven项目
+  引入依赖包
+&amp;lt;!-- 导入依赖 --&amp;gt; &amp;lt;dependencies&amp;gt; &amp;lt;!-- mysql驱动 --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;mysql&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mysql-connector-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;8.0.25&amp;lt;/version&amp;gt; &amp;lt;scope&amp;gt;runtime&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- mybatis --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.mybatis&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mybatis&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.5.7&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- junit --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt; &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt; &amp;lt;/dependency&amp;gt;   在resources目录下创建mybatis-config.xml，作为MyBatis的配置文件
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34; ?&amp;gt; &amp;lt;!DOCTYPE configuration PUBLIC &amp;#34;-//mybatis.org//DTD Config 3.0//EN&amp;#34; &amp;#34;http://mybatis.org/dtd/mybatis-3-config.dtd&amp;#34;&amp;gt; &amp;lt;!--核心配置文件--&amp;gt; &amp;lt;configuration&amp;gt; &amp;lt;environments default=&amp;#34;development&amp;#34;&amp;gt; &amp;lt;environment id=&amp;#34;development&amp;#34;&amp;gt; &amp;lt;transactionManager type=&amp;#34;JDBC&amp;#34;/&amp;gt; &amp;lt;dataSource type=&amp;#34;POOLED&amp;#34;&amp;gt; &amp;lt;property name=&amp;#34;driver&amp;#34; value=&amp;#34;com.</description>
+    </item>
+    
+  </channel>
+</rss>

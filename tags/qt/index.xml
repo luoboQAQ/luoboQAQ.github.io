@@ -2,33 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Qt on luoboQAQ</title>
-    <link>https://luobo.cf/tags/qt/</link>
+    <link>https://lbqaq.top/tags/qt/</link>
     <description>Recent content in Qt on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 03 Jun 2021 15:44:17 +0800</lastBuildDate><atom:link href="https://luobo.cf/tags/qt/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Jun 2021 15:44:17 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/qt/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Qt构建qsqlmysql.dll</title>
-      <link>https://luobo.cf/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</link>
+      <link>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</link>
       <pubDate>Thu, 03 Jun 2021 15:44:17 +0800</pubDate>
       
-      <guid>https://luobo.cf/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
+      <guid>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
       <description>这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。（你用ODBC？那没事了）
 我在网上也查了很多资料，但根据步骤来总是会报错，提示没有mysql.h这个头文件。下面就记录一下我成功编译的过程。
 基于cmake的步骤 在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。
 注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。
 1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开MaintenanceTool.exe启动Qt组件管理，在里面勾选Src把源码下载下来。
 2.打开cmake-gui，选择目标文件夹为D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers，并设置生成文件夹为D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build
- 配置文件夹 
 3.点击左下角的Configure，会提示生成的目录不存在是否创建，直接点是就可以了。
 4.编译器这里选择MinGW Makefiles,然后点击Finish
- 选择编译器 
 5.等待生成完成后，把FEATURE_sql_mysql后面的勾勾上，然后把其余的FEATURE_sql后面的勾取消。
- 选择生成模块 
 6.再次点击左下角的Configure，可以发现上面的红框已经消失了，说明配置成功了。然后点击Generate，生成Makefiles。
- 配置成功 
 7.这时配置文件已经构建完成了，接下来就是生成dll了，打开PowerShell切换目录至D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build，输入mingw32-make开始编译生成dll。
- 编译成功 
 没有报错，说明生成成功。
 8.最后打开目录D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers，就可以看到生成好的qsqlmysql.dll了。
 基于qmake的步骤 注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Waline on luoboQAQ</title>
+    <link>https://lbqaq.top/tags/waline/</link>
+    <description>Recent content in Waline on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 21 Aug 2021 15:37:44 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/waline/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为博客添加评论系统</title>
+      <link>https://lbqaq.top/p/waline/</link>
+      <pubDate>Sat, 21 Aug 2021 15:37:44 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/waline/</guid>
+      <description>一个完整的博客，怎么能少的了评论系统呢。评论的实现已经有许许多多的方法了，挑来挑去，还是选择了Waline。
+一开始我是采用官方推荐的LeanCloud+Vercel的方式进行部署的，结果步骤全部走完后才发现Vercel已经在国内被墙了，不科学根本上不去😇。总不能要求用户还要开梯子才能评论吧，所幸官方提供了其他的部署方式，因为我才买了自己的服务器~~（不榨干怎么行呢）~~，所以就选择本地部署+SQLlite的方式了。
+部署步骤 安装node.js 由于Waline的服务端是由js写的，所以需要安装node.js
+  在nodejs中文网找到需要的版本，选择阿里云镜像，将下载链接复制下来
+  连接服务器，选择nodejs的安装目录，这里我安装在/usr/local/bin/
+cd /usr/local/bin/   下载安装包到本地
+wget https://npm.taobao.org/mirrors/node/v14.17.5/node-v14.17.5-linux-x64.tar.gz   解压
+tar -xvf node-v14.17.5-linux-x64.tar.gz   重命名目录
+mv node-v14.17.5-linux-x64 nodejs   添加目录到系统变量
+cd /etc/profile.d vim custom.sh 在文件末尾添加export PATH=$PATH:/usr/local/bin/nodejs/bin
+  测试，输入下面3条命令，如果不报错则安装成功。
+node -v npm version npx -v   （可选）安装cnpm
+npm install -g cnpm --registry=https://registry.npm.taobao.org   安装Waline服务端   安装waline的服务端
+npm install -g @waline/vercel   配置数据库。这里我采用的是SQLite，只需要下载 waline.sqlite 文件至合适的位置。</description>
+    </item>
+    
+  </channel>
+</rss>

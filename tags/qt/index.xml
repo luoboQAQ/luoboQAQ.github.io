@@ -19,11 +19,16 @@
 注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。
 1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开MaintenanceTool.exe启动Qt组件管理，在里面勾选Src把源码下载下来。
 2.打开cmake-gui，选择目标文件夹为D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers，并设置生成文件夹为D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build
+ 配置文件夹 
 3.点击左下角的Configure，会提示生成的目录不存在是否创建，直接点是就可以了。
 4.编译器这里选择MinGW Makefiles,然后点击Finish
+ 选择编译器 
 5.等待生成完成后，把FEATURE_sql_mysql后面的勾勾上，然后把其余的FEATURE_sql后面的勾取消。
+ 选择生成模块 
 6.再次点击左下角的Configure，可以发现上面的红框已经消失了，说明配置成功了。然后点击Generate，生成Makefiles。
+ 配置成功 
 7.这时配置文件已经构建完成了，接下来就是生成dll了，打开PowerShell切换目录至D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build，输入mingw32-make开始编译生成dll。
+ 编译成功 
 没有报错，说明生成成功。
 8.最后打开目录D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers，就可以看到生成好的qsqlmysql.dll了。
 基于qmake的步骤 注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='利用Qt源码构建qsqlmysql.dll'><title>Qt构建qsqlmysql.dll</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Qt构建qsqlmysql.dll'>
+<meta property='og:description' content='利用Qt源码构建qsqlmysql.dll'>
+<meta property='og:url' content='https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:tag' content='Qt' /><meta property='article:published_time' content='2021-06-03T15:44:17&#43;08:00'/><meta property='article:modified_time' content='2021-06-19T10:10:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963.png' />
+<meta name="twitter:title" content="Qt构建qsqlmysql.dll">
+<meta name="twitter:description" content="利用Qt源码构建qsqlmysql.dll"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963.png' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://lbqaq.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/">
+                <img src="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963_hu5f736f3854c953c513cfaec8c3d31831_4303313_800x0_resize_box_3.png"
+                        srcset="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963_hu5f736f3854c953c513cfaec8c3d31831_4303313_800x0_resize_box_3.png 800w, /p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963_hu5f736f3854c953c513cfaec8c3d31831_4303313_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="626" 
+                        loading="lazy"
+                        alt="Featured image of post Qt构建qsqlmysql.dll" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/">Qt构建qsqlmysql.dll</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        利用Qt源码构建qsqlmysql.dll
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 03, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。<del>（你用ODBC？那没事了）</del></p>
+<p>我在网上也查了很多资料，但根据步骤来总是会报错，提示没有<code>mysql.h</code>这个头文件。下面就记录一下我成功编译的过程。</p>
+<h2 id="基于cmake的步骤">基于cmake的步骤</h2>
+<p>在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。</p>
+<p><strong>注意：</strong> 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。</p>
+<p>1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开<code>MaintenanceTool.exe</code>启动Qt组件管理，在里面勾选<code>Src</code>把源码下载下来。</p>
+<p>2.打开<code>cmake-gui</code>，选择目标文件夹为<code>D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers</code>，并设置生成文件夹为<code>D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build</code></p>
+<p><figure style="flex-grow: 99; flex-basis: 238px">
+		<a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png" data-size="922x928"><img src="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png"
+				srcset="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_480x0_resize_box_3.png 480w, /p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_1024x0_resize_box_3.png 1024w"
+				width="922"
+				height="928"
+				loading="lazy"
+				alt="配置文件夹">
+		</a>
+		
+		<figcaption>配置文件夹</figcaption>
+		
+	</figure></p>
+<p>3.点击左下角的<code>Configure</code>，会提示生成的目录不存在是否创建，直接点是就可以了。</p>
+<p>4.编译器这里选择<code>MinGW Makefiles</code>,然后点击<code>Finish</code></p>
+<p><figure style="flex-grow: 138; flex-basis: 333px">
+		<a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png" data-size="500x360"><img src="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png"
+				srcset="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_480x0_resize_box_3.png 480w, /p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_1024x0_resize_box_3.png 1024w"
+				width="500"
+				height="360"
+				loading="lazy"
+				alt="选择编译器">
+		</a>
+		
+		<figcaption>选择编译器</figcaption>
+		
+	</figure></p>
+<p>5.等待生成完成后，把<code>FEATURE_sql_mysql</code>后面的勾勾上，然后把其余的<code>FEATURE_sql</code>后面的勾取消。</p>
+<p><figure style="flex-grow: 103; flex-basis: 248px">
+		<a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png" data-size="920x889"><img src="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png"
+				srcset="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_480x0_resize_box_3.png 480w, /p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_1024x0_resize_box_3.png 1024w"
+				width="920"
+				height="889"
+				loading="lazy"
+				alt="选择生成模块">
+		</a>
+		
+		<figcaption>选择生成模块</figcaption>
+		
+	</figure></p>
+<p>6.再次点击左下角的<code>Configure</code>，可以发现上面的红框已经消失了，说明配置成功了。然后点击<code>Generate</code>，生成<code>Makefiles</code>。</p>
+<p><figure style="flex-grow: 99; flex-basis: 238px">
+		<a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png" data-size="922x928"><img src="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png"
+				srcset="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_480x0_resize_box_3.png 480w, /p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_1024x0_resize_box_3.png 1024w"
+				width="922"
+				height="928"
+				loading="lazy"
+				alt="配置成功">
+		</a>
+		
+		<figcaption>配置成功</figcaption>
+		
+	</figure></p>
+<p>7.这时配置文件已经构建完成了，接下来就是生成dll了，打开<code>PowerShell</code>切换目录至<code>D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build</code>，输入<code>mingw32-make</code>开始编译生成dll。</p>
+<p><figure style="flex-grow: 170; flex-basis: 410px">
+		<a href="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png" data-size="1461x855"><img src="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png"
+				srcset="/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_480x0_resize_box_3.png 480w, /p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_1024x0_resize_box_3.png 1024w"
+				width="1461"
+				height="855"
+				loading="lazy"
+				alt="编译成功">
+		</a>
+		
+		<figcaption>编译成功</figcaption>
+		
+	</figure></p>
+<p>没有报错，说明生成成功。</p>
+<p>8.最后打开目录<code>D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers</code>，就可以看到生成好的<code>qsqlmysql.dll</code>了。</p>
+<h2 id="基于qmake的步骤">基于qmake的步骤</h2>
+<p><strong>注意：</strong> 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。</p>
+<p>1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开<code>MaintenanceTool.exe</code>启动Qt组件管理，在里面勾选<code>Src</code>把源码下载下来。</p>
+<p>2.进入<code>D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers</code>目录下，打开<code>sqldrivers.pro</code>这个文件。</p>
+<p>3.在左侧文件树中打开<code>mysql</code>文件夹，选择<code>mysql.pro</code>打开。</p>
+<p>4.修改里面的内容：</p>
+<ul>
+<li>
+<p>注释掉<code>QMAKE_USE += mysql</code>这一句</p>
+</li>
+<li>
+<p>增加下面三行代码(注意把<code>D:/MySQL/</code>改为你MySQL的安装路径)：</p>
+<pre><code>LIBS +=-LD:/MySQL/lib -llibmysql
+INCLUDEPATH += D:/MySQL/include
+DEPENDPATH += D:/MySQL/include
+</code></pre></li>
+</ul>
+<p>5.点击Qt左下角的小锤子进行构建，不出意外的话就可以在<code>D:\Qt\6.0.3\Src\qtbase\src\plugins</code>这个路径下看到<code>build</code>开头的文件夹，在<code>.\plugins\sqldrivers</code>目录下就能看到编译好的dll了。</p>
+<p>6.最后将<code>qsqlmysql.dll</code>放入<code>D:\Qt\6.0.3\mingw81_64\plugins\sqldrivers\</code>里就行了。如果链接数据库时还报错，就把<code>libmysql.dll</code>复制到Qt的编译器的<code>D:\Qt\6.0.3\mingw81_64\bin\</code>目录。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        
+            <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
+        
+            <a href="/tags/qt/">Qt</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Jun 19, 2021 10:10 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#基于cmake的步骤">基于cmake的步骤</a></li>
+    <li><a href="#基于qmake的步骤">基于qmake的步骤</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

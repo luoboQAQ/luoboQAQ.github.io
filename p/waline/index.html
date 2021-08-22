@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录Waline的部署过程和踩坑'><title>为博客添加评论系统</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/waline/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='为博客添加评论系统'>
+<meta property='og:description' content='记录Waline的部署过程和踩坑'>
+<meta property='og:url' content='https://lbqaq.top/p/waline/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Waline' /><meta property='article:published_time' content='2021-08-21T15:37:44&#43;08:00'/><meta property='article:modified_time' content='2021-08-21T22:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/waline/78502982.jpg' />
+<meta name="twitter:title" content="为博客添加评论系统">
+<meta name="twitter:description" content="记录Waline的部署过程和踩坑"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/waline/78502982.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://lbqaq.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/waline/">
+                <img src="/p/waline/78502982_huf2e268671a68175140c81a47a2157b88_156914_800x0_resize_q75_box.jpg"
+                        srcset="/p/waline/78502982_huf2e268671a68175140c81a47a2157b88_156914_800x0_resize_q75_box.jpg 800w, /p/waline/78502982_huf2e268671a68175140c81a47a2157b88_156914_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="436" 
+                        loading="lazy"
+                        alt="Featured image of post 为博客添加评论系统" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/waline/">为博客添加评论系统</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        记录Waline的部署过程和踩坑
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 21, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>一个完整的博客，怎么能少的了评论系统呢。评论的实现已经有许许多多的方法了，挑来挑去，还是选择了Waline。</p>
+<p>一开始我是采用官方推荐的LeanCloud+Vercel的方式进行部署的，结果步骤全部走完后才发现Vercel已经在国内被墙了，不科学根本上不去😇。总不能要求用户还要开梯子才能评论吧，所幸官方提供了其他的部署方式，因为我才买了自己的服务器~~（不榨干怎么行呢）~~，所以就选择本地部署+SQLlite的方式了。</p>
+<h2 id="部署步骤">部署步骤</h2>
+<h3 id="安装nodejs">安装node.js</h3>
+<p>由于Waline的服务端是由js写的，所以需要安装node.js</p>
+<ol>
+<li>
+<p>在<a class="link" href="http://nodejs.cn/download/"  target="_blank" rel="noopener"
+    >nodejs中文网</a>找到需要的版本，选择阿里云镜像，将下载链接复制下来</p>
+</li>
+<li>
+<p>连接服务器，选择nodejs的安装目录，这里我安装在<code>/usr/local/bin/</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /usr/local/bin/
+</code></pre></div></li>
+<li>
+<p>下载安装包到本地</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">wget https://npm.taobao.org/mirrors/node/v14.17.5/node-v14.17.5-linux-x64.tar.gz
+</code></pre></div></li>
+<li>
+<p>解压</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">tar -xvf node-v14.17.5-linux-x64.tar.gz
+</code></pre></div></li>
+<li>
+<p>重命名目录</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">mv node-v14.17.5-linux-x64 nodejs
+</code></pre></div></li>
+<li>
+<p>添加目录到系统变量</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/profile.d
+vim custom.sh
+</code></pre></div><p>在文件末尾添加<code>export PATH=$PATH:/usr/local/bin/nodejs/bin</code></p>
+</li>
+<li>
+<p>测试，输入下面3条命令，如果不报错则安装成功。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">node -v
+npm version
+npx -v
+</code></pre></div></li>
+<li>
+<p>（可选）安装cnpm</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">npm install -g cnpm --registry<span class="o">=</span>https://registry.npm.taobao.org
+</code></pre></div></li>
+</ol>
+<h3 id="安装waline服务端">安装Waline服务端</h3>
+<ol>
+<li>
+<p>安装waline的服务端</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">npm install -g @waline/vercel
+</code></pre></div></li>
+<li>
+<p>配置数据库。这里我采用的是SQLite，只需要下载 <a class="link" href="https://github.com/walinejs/waline/blob/main/assets/waline.sqlite"  target="_blank" rel="noopener"
+    >waline.sqlite</a> 文件至合适的位置。</p>
+<p>其他的数据库可以看<a class="link" href="https://waline.js.org/guide/server/databases.html"  target="_blank" rel="noopener"
+    >官方文档</a>来配置。</p>
+</li>
+<li>
+<p>配置环境变量。</p>
+<p>这里我选择新建<code>waline.sh</code>，方便日后维护。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/profile.d
+vim waline.sh
+<span class="nb">export</span> <span class="nv">SQLITE_PATH</span><span class="o">=</span>/home/luobo
+<span class="nb">export</span> <span class="nv">JWT_TOKEN</span><span class="o">=</span>eqdVMaEwd
+</code></pre></div><ul>
+<li>SQLITE_PATH：表示SQLite文件的位置。</li>
+<li>JWT_TOKEN：随机一串字符串就行。</li>
+</ul>
+</li>
+<li>
+<p>启动模块</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /usr/local/bin/nodejs/lib
+node node_modules/@waline/vercel/vanilla.js
+</code></pre></div></li>
+</ol>
+<h3 id="配置nginx反代">配置nginx反代</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1">#waline
+</span><span class="c1"></span><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span> <span class="s">http2</span><span class="p">;</span>
+
+    <span class="kn">server_name</span> <span class="s">waline.lbqaq.top</span><span class="p">;</span>
+
+    <span class="kn">if</span> <span class="s">(</span><span class="nv">$server_port</span> <span class="s">!~</span> <span class="mi">443</span><span class="s">)</span><span class="p">{</span>
+        <span class="kn">rewrite</span> <span class="s">^(/.*)</span>$ <span class="s">https://</span><span class="nv">$host$1</span> <span class="s">permanent</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">ssl_certificate</span> <span class="s">cert/waline.lbqaq.top.pem</span><span class="p">;</span>
+    <span class="kn">ssl_certificate_key</span> <span class="s">cert/waline.lbqaq.top.key</span><span class="p">;</span>
+    <span class="kn">ssl_session_timeout</span> <span class="mi">5m</span><span class="p">;</span>
+    <span class="kn">ssl_ciphers</span> <span class="s">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span><span class="p">;</span>
+    <span class="kn">ssl_protocols</span> <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
+    <span class="kn">ssl_prefer_server_ciphers</span> <span class="no">on</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8360</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
+        <span class="kn">proxy_set_header</span> <span class="s">REMOTE-HOST</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+        <span class="kn">add_header</span> <span class="s">X-Cache</span> <span class="nv">$upstream_cache_status</span><span class="p">;</span>
+        <span class="c1"># cache
+</span><span class="c1"></span>        <span class="kn">add_header</span> <span class="s">Cache-Control</span> <span class="s">no-cache</span><span class="p">;</span>
+        <span class="kn">expires</span> <span class="s">12h</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="在hugo中启用waline">在hugo中启用Waline</h3>
+<p>由于我用的主题已经支持Waline评论，所以只需要填入<code>serverURL</code>就行了。</p>
+<h3 id="添加qq推送可选">添加QQ推送（可选）</h3>
+<p>官方提供了四种通知方法，分别为邮箱、微信、QQ、Telegram。</p>
+<p>邮箱基本不会去看，Telegram没科学也上不去，微信由于是走的Server酱，没有捐赠一天就支持5条消息。</p>
+<p>最终还是决定采用<a class="link" href="https://qmsg.zendee.cn"  target="_blank" rel="noopener"
+    >Qmsg 酱</a>。</p>
+<p>注册就不在这展开了，具体写一下环境变量的配置。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/profile.d
+vim waline.sh
+<span class="nb">export</span> <span class="nv">QMSG_KEY</span><span class="o">=</span>cc1a964be75aa64e12a0313e0beb54bc
+<span class="nb">export</span> <span class="nv">QQ_ID</span><span class="o">=</span><span class="m">756495338</span>
+<span class="nb">export</span> <span class="nv">AUTHOR_EMAIL</span><span class="o">=</span>luobo110@163.com
+<span class="nb">export</span> <span class="nv">SITE_NAME</span><span class="o">=</span>B
+<span class="nb">export</span> <span class="nv">SITE_URL</span><span class="o">=</span>lbqaq.top
+</code></pre></div><h2 id="踩坑">踩坑</h2>
+<p>本以为启用评论是一件很简单的事，结果花了整个下午加晚上，踩了好多好多坑。在这里就把我踩的坑记录下来，避免之后出现一样的问题。</p>
+<ul>
+<li>
+<p><code>npm install -g @waline/vercel</code>报错</p>
+<p>使用<code>cnpm</code>进行安装</p>
+</li>
+<li>
+<p>想使用<code>lbqaq.top/waline/</code>这样的链接来设置服务端</p>
+<p>直接报404错误，还是选择上文中的子域名方法</p>
+</li>
+<li>
+<p>nginx提示没找到http2模块</p>
+<p>在安装nginx时加上<code>--with-http_v2_module</code>如果已经安装好了，可以重新安装一遍</p>
+</li>
+<li>
+<p>设置了<code>server_name waline.lbqaq.top</code>还是跳转首页</p>
+<p>增加一个默认的server，将所有不匹配的链接阻止</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span> <span class="s">default_server</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">_</span><span class="p">;</span>
+    <span class="kn">return</span> <span class="mi">444</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></li>
+<li>
+<p>nginx配置不生效</p>
+<p>如果配置没有问题，除了<code>nginx -s reload</code>还可以尝试重启nginx</p>
+</li>
+</ul>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a class="link" href="https://waline.js.org/guide/get-started.html"  target="_blank" rel="noopener"
+    >Waline官方文档</a></li>
+<li><a class="link" href="https://www.docs4dev.com/docs/zh/nginx/current/reference/"  target="_blank" rel="noopener"
+    >nginx中文文档</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/waline/">Waline</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Aug 21, 2021 22:30 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#部署步骤">部署步骤</a>
+      <ol>
+        <li><a href="#安装nodejs">安装node.js</a></li>
+        <li><a href="#安装waline服务端">安装Waline服务端</a></li>
+        <li><a href="#配置nginx反代">配置nginx反代</a></li>
+        <li><a href="#在hugo中启用waline">在hugo中启用Waline</a></li>
+        <li><a href="#添加qq推送可选">添加QQ推送（可选）</a></li>
+      </ol>
+    </li>
+    <li><a href="#踩坑">踩坑</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

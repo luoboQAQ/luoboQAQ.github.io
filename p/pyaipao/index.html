@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='基于Github Actions的云跑步'><title>PyAipao</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/pyaipao/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='PyAipao'>
+<meta property='og:description' content='基于Github Actions的云跑步'>
+<meta property='og:url' content='https://lbqaq.top/p/pyaipao/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Python' /><meta property='article:published_time' content='2021-03-11T10:25:00&#43;08:00'/><meta property='article:modified_time' content='2021-03-11T12:36:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/pyaipao/87856451.jpg' />
+<meta name="twitter:title" content="PyAipao">
+<meta name="twitter:description" content="基于Github Actions的云跑步"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/pyaipao/87856451.jpg' />
+    </head>
+    <body class="
+    article-page 
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        on-phone--column extended
+    
+">
+    
+        <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        <h1 class="site-name"><a href="https://lbqaq.top">luoboQAQ</a></h1>
+        <h2 class="site-description">快乐学习每一天</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/pyaipao/">
+                <img src="/p/pyaipao/87856451_huf58260040af023debd102865c61ea42c_2928959_800x0_resize_q75_box.jpg"
+                        srcset="/p/pyaipao/87856451_huf58260040af023debd102865c61ea42c_2928959_800x0_resize_q75_box.jpg 800w, /p/pyaipao/87856451_huf58260040af023debd102865c61ea42c_2928959_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="496" 
+                        loading="lazy"
+                        alt="Featured image of post PyAipao" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/pyaipao/">PyAipao</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        基于Github Actions的云跑步
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 11, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h1 id="pyaipao简介">PyAipao简介</h1>
+<p>该项目可实现阳光体育一键跑步，同时可基于GitHub Actions来实现云跑步。</p>
+<p>仅需一次配置，即可轻松跑完一学期ヾ(≧▽≦*)o</p>
+<h1 id="准备工作">准备工作</h1>
+<pre><code>1.一个github账号
+2.抓包抓到的IMEICode
+3.Server酱的SCKEY或企业微信（可选，用于微信推送跑步结果）
+</code></pre>
+<h1 id="云跑步上手教程">云跑步上手教程</h1>
+<p>1.点击fork按钮将该仓库复制到你的仓库
+<figure style="flex-grow: 1381; flex-basis: 3315px">
+		<a href="/p/pyaipao/IMAGE/Fork.png" data-size="1920x139"><img src="/p/pyaipao/IMAGE/Fork.png"
+				srcset="/p/pyaipao/IMAGE/Fork_hua0e8cfa80cbe9b02a2385bf08ef0c4ff_20985_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/Fork_hua0e8cfa80cbe9b02a2385bf08ef0c4ff_20985_1024x0_resize_box_3.png 1024w"
+				width="1920"
+				height="139"
+				loading="lazy"
+				alt="fork">
+		</a>
+		
+		<figcaption>fork</figcaption>
+		
+	</figure></p>
+<p>2.获取 IMEICode</p>
+<ul>
+<li>打开抓包软件抓包, 再打开阳光体育 App 登录, 在所有的数据包中找后缀有 <code>IMEICode= </code> 的 URL 请求, 等号后面的字段即为七天有效的 <code>IMEICode</code> (若多次没抓到: 可来回切换几次飞行模式, 杀掉 App 后台重复尝试多次)</li>
+</ul>
+<p><strong>如果不需要推送，可以直接略过第3步</strong></p>
+<p>3.1基于Server酱的推送</p>
+<ul>
+<li>完成Server酱的注册和绑定 <a class="link" href="http://sct.ftqq.com"  target="_blank" rel="noopener"
+    >点我直达</a></li>
+<li>在 <a class="link" href="https://sct.ftqq.com/sendkey"  target="_blank" rel="noopener"
+    >SendKey</a>这一页中找到SendKey并记录
+<figure style="flex-grow: 228; flex-basis: 548px">
+		<a href="/p/pyaipao/IMAGE/SendKey.png" data-size="782x342"><img src="/p/pyaipao/IMAGE/SendKey.png"
+				srcset="/p/pyaipao/IMAGE/SendKey_hu5cdaae5d95e85f98c1e26c3fb785e377_34890_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/SendKey_hu5cdaae5d95e85f98c1e26c3fb785e377_34890_1024x0_resize_box_3.png 1024w"
+				width="782"
+				height="342"
+				loading="lazy"
+				alt="SendKey">
+		</a>
+		
+		<figcaption>SendKey</figcaption>
+		
+	</figure></li>
+</ul>
+<p>3.2基于企业微信应用消息的推送</p>
+<p>由于Server酱不捐助是无法查看消息内容的，所以<del>为了白嫖</del>我自己写了推送部分的代码，可以直接使用微信官方接口来推送。</p>
+<p>企业微信的配置方法可以在Server酱的<a class="link" href="https://sct.ftqq.com/forward"  target="_blank" rel="noopener"
+    >消息通道</a>里看到，这里就不赘述了。</p>
+<p><figure style="flex-grow: 293; flex-basis: 705px">
+		<a href="/p/pyaipao/IMAGE/weisend.png" data-size="808x275"><img src="/p/pyaipao/IMAGE/weisend.png"
+				srcset="/p/pyaipao/IMAGE/weisend_hu53f242832958acfd77ffee5b6c1a36d2_37972_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/weisend_hu53f242832958acfd77ffee5b6c1a36d2_37972_1024x0_resize_box_3.png 1024w"
+				width="808"
+				height="275"
+				loading="lazy"
+				alt="weisend">
+		</a>
+		
+		<figcaption>weisend</figcaption>
+		
+	</figure></p>
+<p>和Server酱一样，我们也需要企业ID(CORPID)，应用ID(AGENTID)，应用Secret(SECRET)这三个值。</p>
+<p>4.配置Github Actions</p>
+<ul>
+<li>
+<p>打开仓库的<code>secrets</code>，在其中建立<code>IMEICODE</code>并将IMEICode填入
+<figure style="flex-grow: 217; flex-basis: 521px">
+		<a href="/p/pyaipao/IMAGE/4.1.png" data-size="1733x798"><img src="/p/pyaipao/IMAGE/4.1.png"
+				srcset="/p/pyaipao/IMAGE/4.1_hu3378c3b95e90ce5e8204f15ae250b1da_95319_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/4.1_hu3378c3b95e90ce5e8204f15ae250b1da_95319_1024x0_resize_box_3.png 1024w"
+				width="1733"
+				height="798"
+				loading="lazy"
+				alt="4.1">
+		</a>
+		
+		<figcaption>4.1</figcaption>
+		
+	</figure></p>
+</li>
+<li>
+<p>（可选）使用Server酱推送，需要建立<code>SCKEY</code>并填入SendKey</p>
+</li>
+<li>
+<p>（可选）使用企业微信应用消息推送，需要建立<code>CORPID</code>&ndash;填入企业ID，<code>AGENTID</code>&ndash;填入应用ID，<code>SECRET</code>&ndash;填入应用Secret</p>
+</li>
+<li>
+<p>打开<code>Code</code>-<code>.github/workflows</code>-<code>autorun.yml</code>，点击右上角的铅笔图标进行编辑，将时间改为你想让它每天按时跑的时间，默认为每天上午9点；同时修改推送方式，默认不推送。</p>
+</li>
+</ul>
+<p><figure style="flex-grow: 98; flex-basis: 236px">
+		<a href="/p/pyaipao/IMAGE/4.2.png" data-size="709x720"><img src="/p/pyaipao/IMAGE/4.2.png"
+				srcset="/p/pyaipao/IMAGE/4.2_hu785524cf798a3a5472f9c932ce385a77_49155_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/4.2_hu785524cf798a3a5472f9c932ce385a77_49155_1024x0_resize_box_3.png 1024w"
+				width="709"
+				height="720"
+				loading="lazy"
+				alt="4.2">
+		</a>
+		
+		<figcaption>4.2</figcaption>
+		
+	</figure></p>
+<p><strong>注意</strong>：<code>autorun.yml</code>里的时间为UTC时间而不是北京时间 <a class="link" href="http://www.timebie.com/cn/universalbeijing.php"  target="_blank" rel="noopener"
+    >点我转换</a></p>
+<ul>
+<li>
+<p>启用Github Actions</p>
+<p><figure style="flex-grow: 285; flex-basis: 685px">
+		<a href="/p/pyaipao/IMAGE/workflow.png" data-size="1534x537"><img src="/p/pyaipao/IMAGE/workflow.png"
+				srcset="/p/pyaipao/IMAGE/workflow_hu69a9850e5b6fce3355e54e21e5120a70_46498_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/workflow_hu69a9850e5b6fce3355e54e21e5120a70_46498_1024x0_resize_box_3.png 1024w"
+				width="1534"
+				height="537"
+				loading="lazy"
+				alt="workflow">
+		</a>
+		
+		<figcaption>workflow</figcaption>
+		
+	</figure></p>
+</li>
+</ul>
+<p><figure style="flex-grow: 585; flex-basis: 1404px">
+		<a href="/p/pyaipao/IMAGE/4.3.png" data-size="1662x284"><img src="/p/pyaipao/IMAGE/4.3.png"
+				srcset="/p/pyaipao/IMAGE/4.3_hub86ed0fbe25da527b36fee2eca4f8a4c_40851_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/4.3_hub86ed0fbe25da527b36fee2eca4f8a4c_40851_1024x0_resize_box_3.png 1024w"
+				width="1662"
+				height="284"
+				loading="lazy"
+				alt="4.3">
+		</a>
+		
+		<figcaption>4.3</figcaption>
+		
+	</figure></p>
+<p>到这步已经配置完成了，它每天就会自己跑了。</p>
+<p>5.(可选)手动开始跑步</p>
+<ul>
+<li>如果想手动开始跑步，点击<code>Actions</code>，按照图示步骤操作即可。
+<figure style="flex-grow: 264; flex-basis: 635px">
+		<a href="/p/pyaipao/IMAGE/5.1.png" data-size="1703x643"><img src="/p/pyaipao/IMAGE/5.1.png"
+				srcset="/p/pyaipao/IMAGE/5.1_hu467152af85120ff49846174e9a1c1534_74372_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/5.1_hu467152af85120ff49846174e9a1c1534_74372_1024x0_resize_box_3.png 1024w"
+				width="1703"
+				height="643"
+				loading="lazy"
+				alt="5.1">
+		</a>
+		
+		<figcaption>5.1</figcaption>
+		
+	</figure></li>
+</ul>
+<p>6.关闭自动跑步</p>
+<ul>
+<li>
+<p>在仓库<code>Settings</code>-<code>Actions</code>中选择<code>Disable Actions</code></p>
+<p><figure style="flex-grow: 181; flex-basis: 436px">
+		<a href="/p/pyaipao/IMAGE/6.1.png" data-size="1232x677"><img src="/p/pyaipao/IMAGE/6.1.png"
+				srcset="/p/pyaipao/IMAGE/6.1_hub273d74d16c92dd2bab8affa63c32f09_68510_480x0_resize_box_3.png 480w, /p/pyaipao/IMAGE/6.1_hub273d74d16c92dd2bab8affa63c32f09_68510_1024x0_resize_box_3.png 1024w"
+				width="1232"
+				height="677"
+				loading="lazy"
+				alt="6.1">
+		</a>
+		
+		<figcaption>6.1</figcaption>
+		
+	</figure></p>
+</li>
+</ul>
+<h1 id="参考链接">参考链接</h1>
+<ul>
+<li><a class="link" href="https://github.com/Saujyun/AutoAction"  target="_blank" rel="noopener"
+    >AutoAction</a></li>
+<li><a class="link" href="https://github.com/LiaoGuoYin/AiPao"  target="_blank" rel="noopener"
+    >AiPao</a></li>
+</ul>
+<h1 id="注意事项">注意事项</h1>
+<p><strong>License GPL v3.0</strong></p>
+<p>本文仅供研究，使用者造成的任何后果由使用者自行承担，与作者无关。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/python/">Python</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 11, 2021 12:36 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录一些常用命令作为备忘'><title>Git的常用命令</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/git/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Git的常用命令'>
+<meta property='og:description' content='记录一些常用命令作为备忘'>
+<meta property='og:url' content='https://lbqaq.top/p/git/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Git' /><meta property='article:published_time' content='2020-12-16T13:16:45&#43;08:00'/><meta property='article:modified_time' content='2021-01-18T12:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/git/79008828.jpg' />
+<meta name="twitter:title" content="Git的常用命令">
+<meta name="twitter:description" content="记录一些常用命令作为备忘"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/git/79008828.jpg' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://lbqaq.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/git/">
+                <img src="/p/git/79008828_hu0acf08fa0a8e929040b98749b2927875_1528743_800x0_resize_q75_box.jpg"
+                        srcset="/p/git/79008828_hu0acf08fa0a8e929040b98749b2927875_1528743_800x0_resize_q75_box.jpg 800w, /p/git/79008828_hu0acf08fa0a8e929040b98749b2927875_1528743_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post Git的常用命令" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/git/">Git的常用命令</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        记录一些常用命令作为备忘
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 16, 2020</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="基本操作">基本操作</h2>
+<p>建立版本库：<code>git init</code></p>
+<p>查看结果：<code>git status</code></p>
+<p>查看不同：<code>git diff</code></p>
+<h3 id="版本回退">版本回退</h3>
+<p>查看提交日记：<code>git log</code></p>
+<p>回退：<code>git reset --hard HEAD^</code></p>
+<p><code>HEAD^</code>表示上一个版本，<code>HEAD^^</code>表示前两个版本，<code>HEAD~100</code>表示前100个版本</p>
+<p>恢复：<code>git reflog</code>查看命令历史，确定回到未来的哪个版本</p>
+<h3 id="撤销修改">撤销修改</h3>
+<ol>
+<li>直接丢弃工作区的修改时，用命令<code>git checkout -- file</code></li>
+<li>已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，第二步按1操作。</li>
+</ol>
+<h2 id="上传">上传</h2>
+<pre><code>git remote add origin 仓库链接     #将远程仓库和本地仓库绑定
+git add .
+git commit  -m  &quot;提交信息&quot;
+git push -u origin 自己当前的分支名   #-u将本地库和远程库的分支关联，之后可以不加
+</code></pre><h2 id="下载">下载</h2>
+<pre><code>git clone 仓库链接
+</code></pre><p>git clone到当前文件夹</p>
+<pre><code>git clone 仓库链接 .
+</code></pre><h2 id="分支管理">分支管理</h2>
+<h3 id="创建与合并分支">创建与合并分支</h3>
+<p>查看分支：<code>git branch</code></p>
+<p>创建分支：<code>git branch &lt;name&gt;</code></p>
+<p>切换分支：<code>git checkout &lt;name&gt;</code>或者<code>git switch &lt;name&gt;</code></p>
+<p>创建+切换分支：<code>git checkout -b &lt;name&gt;</code>或者<code>git switch -c &lt;name&gt;</code></p>
+<p>删除分支：<code>git branch -d &lt;name&gt;</code></p>
+<p>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></p>
+<ul>
+<li>当Git无法自动合并分支时，就必须首先解决冲突，自己手动修改冲突文件再合并即可。</li>
+<li>查看分支合并图：<code>git log --graph</code></li>
+<li>使用非快速模式合并，有commit：<code>git merge --no-ff -m &quot;merge with no-ff&quot; dev</code></li>
+</ul>
+<h3 id="bug分支">Bug分支</h3>
+<p>需要紧急处理Bug时，可以使用<code>git stash</code>将现在的工作区暂存</p>
+<p><strong>恢复原来的工作区</strong></p>
+<ul>
+<li>恢复但不删除stash内容：<code>git stash apply</code></li>
+<li>手动删除stash内容：<code>git stash drop</code></li>
+<li>恢复且删除stash内容：<code>git stash pop</code></li>
+</ul>
+<p>可以多次stash，恢复的时候，先用<code>git stash list</code>查看，然后恢复指定的stash，如：</p>
+<pre><code>git stash apply stash@{0}
+</code></pre><p>在master分支上修复的bug，想要合并到当前dev分支，可以用<code>git cherry-pick &lt;commit&gt;</code>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。</p>
+<h3 id="多人协作">多人协作</h3>
+<ul>
+<li>
+<p>查看远程库信息，使用<code>git remote -v</code></p>
+</li>
+<li>
+<p>从本地推送分支，使用<code>git push origin branch-name</code></p>
+</li>
+<li>
+<p>如果冲突，先<code>git pull</code>抓取远程的新提交，处理好后再<code>push</code></p>
+</li>
+<li>
+<p>在本地创建和远程分支对应的分支：<code>git checkout -b branch-name origin/branch-name</code></p>
+</li>
+<li>
+<p>建立本地分支和远程分支的关联：<code>git branch --set-upstream branch-name origin/branch-name</code></p>
+</li>
+<li>
+<p>将非直线的提交日记变为直线：<code>git rebase</code></p>
+</li>
+</ul>
+<h2 id="标签管理">标签管理</h2>
+<h3 id="创建标签">创建标签</h3>
+<ul>
+<li>
+<p>新建一个标签：<code>git tag &lt;name&gt;</code>,默认为<code>HEAD</code>，也可以指定一个commit id</p>
+</li>
+<li>
+<p>指定标签信息：<code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code></p>
+</li>
+<li>
+<p>查看所有标签：<code>git tag</code></p>
+</li>
+</ul>
+<h3 id="标签管理-1">标签管理</h3>
+<ul>
+<li>推送一个本地标签：<code>git push origin &lt;tagname&gt;</code></li>
+<li>推送全部未推送过的本地标签：<code>git push origin --tags</code></li>
+<li>删除一个本地标签：<code>git tag -d &lt;tagname&gt;</code></li>
+<li>删除一个远程标签：<code>git push origin :refs/tags/&lt;tagname&gt;</code></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/git/">Git</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Jan 18, 2021 12:00 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.1.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#基本操作">基本操作</a>
+      <ol>
+        <li><a href="#版本回退">版本回退</a></li>
+        <li><a href="#撤销修改">撤销修改</a></li>
+      </ol>
+    </li>
+    <li><a href="#上传">上传</a></li>
+    <li><a href="#下载">下载</a></li>
+    <li><a href="#分支管理">分支管理</a>
+      <ol>
+        <li><a href="#创建与合并分支">创建与合并分支</a></li>
+        <li><a href="#bug分支">Bug分支</a></li>
+        <li><a href="#多人协作">多人协作</a></li>
+      </ol>
+    </li>
+    <li><a href="#标签管理">标签管理</a>
+      <ol>
+        <li><a href="#创建标签">创建标签</a></li>
+        <li><a href="#标签管理-1">标签管理</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

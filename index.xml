@@ -6,7 +6,134 @@
         <description>Recent content on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 21 Aug 2021 15:37:44 +0800</lastBuildDate><atom:link href="https://lbqaq.top/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 23 Aug 2021 15:44:59 +0800</lastBuildDate><atom:link href="https://lbqaq.top/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>使用Webhooks实现自动部署</title>
+        <link>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
+        <pubDate>Mon, 23 Aug 2021 15:44:59 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307.webp" alt="Featured image of post 使用Webhooks实现自动部署" /&gt;&lt;p&gt;每次写完博客，需要在本地编译，然后再手动通过WinSCP送到服务器上。作为一个懒人，这上面几步下来还是觉得麻烦，而且每次编译又会生成一顿不需要的文件，于是便决定整点自动化的流程，直接解放双手。&lt;/p&gt;
+&lt;p&gt;因为我的博客在没买服务器之前都是托管在Github上的，于是自然而然地就想到了Webhook，在每次Push后自动发送消息给服务器，让其自动拉取代码。&lt;/p&gt;
+&lt;p&gt;网上的教程大多都是在本地编译，然而我觉得既然要懒，就一懒到底吧，编译也直接通过Github Actions来完成就行了。&lt;/p&gt;
+&lt;h2 id=&#34;流程&#34;&gt;流程&lt;/h2&gt;
+&lt;p&gt;需要2个Github仓库（1个应该也可以），一个存放网站的源码，一个是存放编译好的html文件。整个工作流程就如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 133; 
+			flex-basis: 321px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1.png&#34; data-size=&#34;391x292&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1.png&#34;
+			width=&#34;391&#34;
+			height=&#34;292&#34;
+			srcset=&#34;https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu503c65b31b42912d633bc0d58c32116b_6879_480x0_resize_box_3.png 480w, https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu503c65b31b42912d633bc0d58c32116b_6879_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;流程图&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;流程图&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
+&lt;h3 id=&#34;设置脚本&#34;&gt;设置脚本&lt;/h3&gt;
+&lt;p&gt;首先要写一个shell脚本，功能很简单就是自动拉取代码。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /home/luobo/Blog
+git pull
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;创建webhook服务后端&#34;&gt;创建webhook服务后端&lt;/h3&gt;
+&lt;p&gt;这里就直接使用NodeJS来创建，使用的原因很简单，因为已经有现成的插件可以使用了。&lt;/p&gt;
+&lt;p&gt;首先安装依赖&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;npm i -S github-webhook-handler
+npm i -g pm2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后创建&lt;code&gt;webhook.js&lt;/code&gt;作为后端&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;http&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;spawn&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;child_process&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;spawn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createHandler&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;require&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;github-webhook-handler&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//注意要将 secret 修改你自己的
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;handler&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;createHandler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;/webhook&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;secret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxxx&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;http&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;createServer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;handler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;statusCode&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;404&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;res&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;no such location&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}).&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;listen&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;6666&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;handler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Error:&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;message&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;handler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;push&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Received a push event for %s to %s&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;payload&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;repository&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;payload&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ref&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+  &lt;span class=&#34;nx&#34;&gt;runCommand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;sh&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;./deploy.sh&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;txt&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;txt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+
+&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;runCommand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;callback&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;spawn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;cmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;args&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Deploy OK&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;child&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stdout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;buffer&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;){&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;buffer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;toString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;child&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;stdout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;end&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(){&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;callback&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;resp&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后启动服务即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;pm2 start webhook.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;nginx设置反代&#34;&gt;Nginx设置反代&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span class=&#34;k&#34;&gt;location&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/webhook&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kn&#34;&gt;proxy_pass&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;http://127.0.0.1:6666&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;配置github-webhook&#34;&gt;配置Github Webhook&lt;/h3&gt;
+&lt;p&gt;在 html仓库的 &lt;code&gt;Settings&lt;/code&gt; - &lt;code&gt;webhooks&lt;/code&gt; 设置中创建一个新的 webhook。&lt;/p&gt;
+&lt;p&gt;将Content Type 设置为 &lt;code&gt;application/json&lt;/code&gt;，secret 设置成与 &lt;code&gt;webhook.js&lt;/code&gt; 中的相同。&lt;/p&gt;
+&lt;p&gt;trigeer选择&lt;code&gt;Just the push event. &lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;完成后Github会自动发起一个测试请求，如果返回为&lt;code&gt;200&lt;/code&gt;说明配置完成，&lt;/p&gt;
+&lt;h3 id=&#34;配置自动编译&#34;&gt;配置自动编译&lt;/h3&gt;
+&lt;p&gt;在源代码仓库的&lt;code&gt;.github/workflows&lt;/code&gt;目录下创建&lt;code&gt;deploy.yml&lt;/code&gt;，并填入以下内容。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Build and Deploy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;l&#34;&gt;push]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 任务&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;jobs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;build-and-deploy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 服务器环境：最新版 Ubuntu&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;runs-on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ubuntu-latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;steps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 拉取代码&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Checkout&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;uses&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;actions/checkout@v2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 安装Hugo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Setup Hugo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;uses&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;peaceiris/actions-hugo@v2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;with&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;hugo-version&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;extended&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Build &lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;run&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;hugo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 部署到 GitHub Pages&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Deploy to GitHub Pages&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;uses&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;JamesIves/github-pages-deploy-action@4.1.4&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;with&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;BRANCH&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;FOLDER&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;token&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;${{ secrets.GP_TOKEN }}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;repository-name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;luoboQAQ/luoboQAQ.github.io&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;注意要将最后的&lt;code&gt;repository-name&lt;/code&gt;换为你自己的仓库，同时需要申请和配置Github Token，这里我就不展开了。&lt;/p&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://jimmysong.io/blog/github-webhook-website-auto-deploy/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;使用 GitHub Webhook 实现静态网站自动化部署&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>为博客添加评论系统</title>
         <link>https://lbqaq.top/p/waline/</link>
         <pubDate>Sat, 21 Aug 2021 15:37:44 +0800</pubDate>
@@ -329,45 +456,66 @@ ${msg}
 &lt;h3 id=&#34;中心控制器&#34;&gt;中心控制器&lt;/h3&gt;
 &lt;p&gt;​	Spring的web框架围绕DispatcherServlet设计。DispatcherServlet的作用是将请求分发到不同的处理器。从Spring 2.5开始，使用Java 5或者以上版本的用户可以采用基于注解的controller声明方式。&lt;/p&gt;
 &lt;p&gt;​	Spring MVC框架像许多其他MVC框架一样, &lt;strong&gt;以请求为驱动&lt;/strong&gt; , &lt;strong&gt;围绕一个中心Servlet分派请求及提供其他功能&lt;/strong&gt;，&lt;strong&gt;DispatcherServlet是一个实际的Servlet (它继承自HttpServlet 基类)&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 198; flex-basis: 476px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/springmvc/IMAGE/1.webp&#34; data-size=&#34;1080x544&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/springmvc/IMAGE/1.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/springmvc/IMAGE/1_hu3ae3d7abd996046a483493c2f9ce3e4d_130291_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/springmvc/IMAGE/1_hu3ae3d7abd996046a483493c2f9ce3e4d_130291_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;1080&#34;
-				height=&#34;544&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;DispatcherServlet&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;DispatcherServlet&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 198; 
+			flex-basis: 476px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/springmvc/IMAGE/1.webp&#34; data-size=&#34;1080x544&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/springmvc/IMAGE/1.webp&#34;
+			width=&#34;1080&#34;
+			height=&#34;544&#34;
+			srcset=&#34;https://lbqaq.top/p/springmvc/IMAGE/1_hu3ae3d7abd996046a483493c2f9ce3e4d_130291_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/springmvc/IMAGE/1_hu3ae3d7abd996046a483493c2f9ce3e4d_130291_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;DispatcherServlet&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;DispatcherServlet&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;SpringMVC的原理如下图所示：&lt;/p&gt;
 &lt;p&gt;​	当发起请求时被前置的控制器拦截到请求，根据请求参数生成代理请求，找到请求对应的实际控制器，控制器处理请求，创建数据模型，访问数据库，将模型响应给中心控制器，控制器使用模型与视图渲染视图结果，将结果返回给中心控制器，再将结果返回给请求者。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 203; flex-basis: 488px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/springmvc/IMAGE/2.webp&#34; data-size=&#34;930x457&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/springmvc/IMAGE/2.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/springmvc/IMAGE/2_hu84e54ca18cc3cb270153e6879a8b884f_168308_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/springmvc/IMAGE/2_hu84e54ca18cc3cb270153e6879a8b884f_168308_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;930&#34;
-				height=&#34;457&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;SpringMVC流程&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;SpringMVC流程&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 203; 
+			flex-basis: 488px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/springmvc/IMAGE/2.webp&#34; data-size=&#34;930x457&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/springmvc/IMAGE/2.webp&#34;
+			width=&#34;930&#34;
+			height=&#34;457&#34;
+			srcset=&#34;https://lbqaq.top/p/springmvc/IMAGE/2_hu84e54ca18cc3cb270153e6879a8b884f_168308_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/springmvc/IMAGE/2_hu84e54ca18cc3cb270153e6879a8b884f_168308_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;SpringMVC流程&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;SpringMVC流程&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h3 id=&#34;springmvc执行原理&#34;&gt;SpringMVC执行原理&lt;/h3&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 187; flex-basis: 450px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/springmvc/IMAGE/3.webp&#34; data-size=&#34;952x507&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/springmvc/IMAGE/3.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/springmvc/IMAGE/3_hu4c84172d8d8e4cc230c228551308ad18_221329_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/springmvc/IMAGE/3_hu4c84172d8d8e4cc230c228551308ad18_221329_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;952&#34;
-				height=&#34;507&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;执行流程&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;执行流程&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 187; 
+			flex-basis: 450px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/springmvc/IMAGE/3.webp&#34; data-size=&#34;952x507&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/springmvc/IMAGE/3.webp&#34;
+			width=&#34;952&#34;
+			height=&#34;507&#34;
+			srcset=&#34;https://lbqaq.top/p/springmvc/IMAGE/3_hu4c84172d8d8e4cc230c228551308ad18_221329_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/springmvc/IMAGE/3_hu4c84172d8d8e4cc230c228551308ad18_221329_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;执行流程&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;执行流程&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;图为SpringMVC的一个较完整的流程图，实线表示SpringMVC框架提供的技术，不需要开发者实现，虚线表示需要开发者实现。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;简要分析执行流程&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -1313,20 +1461,40 @@ Controller方法
 &lt;p&gt;这种思想，从本质上解决了问题，我们程序员不再去管理对象的创建了，更多的去关注业务的实现。耦合性大大降低， 这也就是IOC的原型！&lt;/p&gt;
 &lt;h3 id=&#34;ioc本质&#34;&gt;IOC本质&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;控制反转IoC(Inversion of Control)，是一种设计思想，DI(依赖注入)是实现IoC的一种方法&lt;/strong&gt;，也有人认为DI只是IoC的另一种说法。没有IoC的程序中 , 我们使用面向对象编程 , 对象的创建与对象间的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方，个人认为所谓控制反转就是：获得依赖对象的方式反转了。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 335; flex-basis: 805px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/image-20210812103941254.png&#34; data-size=&#34;967x288&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/image-20210812103941254.png&#34;
-				srcset=&#34;https://lbqaq.top/p/spring/IMAGE/image-20210812103941254_hub4e9c5e0f9d384a7b7acb09d2ae7816f_133620_480x0_resize_box_3.png 480w, https://lbqaq.top/p/spring/IMAGE/image-20210812103941254_hub4e9c5e0f9d384a7b7acb09d2ae7816f_133620_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;967&#34;
-				height=&#34;288&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;IoC图示&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;IoC图示&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 335; 
+			flex-basis: 805px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/image-20210812103941254.png&#34; data-size=&#34;967x288&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/image-20210812103941254.png&#34;
+			width=&#34;967&#34;
+			height=&#34;288&#34;
+			srcset=&#34;https://lbqaq.top/p/spring/IMAGE/image-20210812103941254_hub4e9c5e0f9d384a7b7acb09d2ae7816f_133620_480x0_resize_box_3.png 480w, https://lbqaq.top/p/spring/IMAGE/image-20210812103941254_hub4e9c5e0f9d384a7b7acb09d2ae7816f_133620_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;IoC图示&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;IoC图示&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;Spring的工作原理：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/container-magic.png&#34; alt=&#34;container magic&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	&gt;
+	&lt;a href=&#34;https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/container-magic.png&#34; &gt;
+		&lt;img src=&#34;https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/container-magic.png&#34;
+			
+			
+			
+			loading=&#34;lazy&#34;
+			alt=&#34;container magic&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;container magic&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;控制反转是一种通过描述（XML或注解）并通过第三方去生产或获取特定对象的方式。在Spring中实现控制反转的是IoC容器，其实现方法是依赖注入（Dependency Injection,DI）。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1993,18 +2161,25 @@ http://www.springframework.org/schema/context/spring-context.xsd
 &lt;li&gt;类多了，多了代理类，工作量变大了，开发效率降低。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;我们在不改变原来的代码的情况下，实现了对原有功能的增强，这是AOP中最核心的思想。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 272; flex-basis: 653px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/640.webp&#34; data-size=&#34;1038x381&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/640.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/spring/IMAGE/640_hu289ffb23b4f60e67b3c978be7bc91b02_13144_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/640_hu289ffb23b4f60e67b3c978be7bc91b02_13144_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;1038&#34;
-				height=&#34;381&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;AOP&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;AOP&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 272; 
+			flex-basis: 653px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/640.webp&#34; data-size=&#34;1038x381&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/640.webp&#34;
+			width=&#34;1038&#34;
+			height=&#34;381&#34;
+			srcset=&#34;https://lbqaq.top/p/spring/IMAGE/640_hu289ffb23b4f60e67b3c978be7bc91b02_13144_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/640_hu289ffb23b4f60e67b3c978be7bc91b02_13144_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;AOP&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;AOP&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h3 id=&#34;动态代理&#34;&gt;动态代理&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2103,18 +2278,25 @@ http://www.springframework.org/schema/context/spring-context.xsd
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;aop&#34;&gt;AOP&lt;/h2&gt;
 &lt;h3 id=&#34;什么是aop&#34;&gt;什么是AOP&lt;/h3&gt;
 &lt;p&gt;AOP（Aspect Oriented Programming）意为：面向切面编程，通过预编译方式和运行期动态代理实现程序功能的统一维护的一种技术。AOP是OOP的延续，是软件开发中的一个热点，也是Spring框架中的一个重要内容，是函数式编程的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的耦合度降低，提高程序的可重用性，同时提高了开发的效率。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 172; flex-basis: 414px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/1.webp&#34; data-size=&#34;952x551&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/1.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/spring/IMAGE/1_hu84b1dccd657550499b9b43336939abac_174003_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/1_hu84b1dccd657550499b9b43336939abac_174003_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;952&#34;
-				height=&#34;551&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;AOP&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;AOP&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 172; 
+			flex-basis: 414px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/1.webp&#34; data-size=&#34;952x551&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/1.webp&#34;
+			width=&#34;952&#34;
+			height=&#34;551&#34;
+			srcset=&#34;https://lbqaq.top/p/spring/IMAGE/1_hu84b1dccd657550499b9b43336939abac_174003_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/1_hu84b1dccd657550499b9b43336939abac_174003_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;AOP&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;AOP&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;通俗点说，就是在不改变原有代码的情况下去增加新的功能。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -2129,31 +2311,45 @@ http://www.springframework.org/schema/context/spring-context.xsd
 &lt;li&gt;切入点（PointCut）：切面通知 执行的 “地点”的定义。&lt;/li&gt;
 &lt;li&gt;连接点（JointPoint）：与切入点匹配的执行点。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 157; flex-basis: 379px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/2.webp&#34; data-size=&#34;744x471&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/2.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/spring/IMAGE/2_huaf993d9e14e97c0be385194054ffe2df_11652_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/2_huaf993d9e14e97c0be385194054ffe2df_11652_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;744&#34;
-				height=&#34;471&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;2&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;2&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 157; 
+			flex-basis: 379px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/2.webp&#34; data-size=&#34;744x471&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/2.webp&#34;
+			width=&#34;744&#34;
+			height=&#34;471&#34;
+			srcset=&#34;https://lbqaq.top/p/spring/IMAGE/2_huaf993d9e14e97c0be385194054ffe2df_11652_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/2_huaf993d9e14e97c0be385194054ffe2df_11652_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;2&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;2&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;SpringAOP中，通过Advice定义横切逻辑，Spring中支持5种类型的Advice：&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 160; flex-basis: 385px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/3.webp&#34; data-size=&#34;762x474&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/3.webp&#34;
-				srcset=&#34;https://lbqaq.top/p/spring/IMAGE/3_hu03ff19b2ff1e68dcdf16547ed269b4f0_134853_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/3_hu03ff19b2ff1e68dcdf16547ed269b4f0_134853_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
-				width=&#34;762&#34;
-				height=&#34;474&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;Advice&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;Advice&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 160; 
+			flex-basis: 385px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/spring/IMAGE/3.webp&#34; data-size=&#34;762x474&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/spring/IMAGE/3.webp&#34;
+			width=&#34;762&#34;
+			height=&#34;474&#34;
+			srcset=&#34;https://lbqaq.top/p/spring/IMAGE/3_hu03ff19b2ff1e68dcdf16547ed269b4f0_134853_480x0_resize_q75_h2_box_2.webp 480w, https://lbqaq.top/p/spring/IMAGE/3_hu03ff19b2ff1e68dcdf16547ed269b4f0_134853_1024x0_resize_q75_h2_box_2.webp 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;Advice&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;Advice&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h3 id=&#34;使用spring实现aop&#34;&gt;使用Spring实现AOP&lt;/h3&gt;
 &lt;p&gt;导入依赖包&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&amp;gt;&lt;/span&gt;
@@ -3759,71 +3955,106 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
 &lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
 &lt;p&gt;2.打开&lt;code&gt;cmake-gui&lt;/code&gt;，选择目标文件夹为&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;，并设置生成文件夹为&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 99; flex-basis: 238px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34; data-size=&#34;922x928&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34;
-				srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;922&#34;
-				height=&#34;928&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;配置文件夹&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;配置文件夹&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 99; 
+			flex-basis: 238px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34; data-size=&#34;922x928&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34;
+			width=&#34;922&#34;
+			height=&#34;928&#34;
+			srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;配置文件夹&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;配置文件夹&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;3.点击左下角的&lt;code&gt;Configure&lt;/code&gt;，会提示生成的目录不存在是否创建，直接点是就可以了。&lt;/p&gt;
 &lt;p&gt;4.编译器这里选择&lt;code&gt;MinGW Makefiles&lt;/code&gt;,然后点击&lt;code&gt;Finish&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 138; flex-basis: 333px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34; data-size=&#34;500x360&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34;
-				srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;500&#34;
-				height=&#34;360&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;选择编译器&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;选择编译器&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 138; 
+			flex-basis: 333px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34; data-size=&#34;500x360&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34;
+			width=&#34;500&#34;
+			height=&#34;360&#34;
+			srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;选择编译器&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;选择编译器&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;5.等待生成完成后，把&lt;code&gt;FEATURE_sql_mysql&lt;/code&gt;后面的勾勾上，然后把其余的&lt;code&gt;FEATURE_sql&lt;/code&gt;后面的勾取消。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 103; flex-basis: 248px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34; data-size=&#34;920x889&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34;
-				srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;920&#34;
-				height=&#34;889&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;选择生成模块&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;选择生成模块&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 103; 
+			flex-basis: 248px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34; data-size=&#34;920x889&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34;
+			width=&#34;920&#34;
+			height=&#34;889&#34;
+			srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;选择生成模块&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;选择生成模块&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;6.再次点击左下角的&lt;code&gt;Configure&lt;/code&gt;，可以发现上面的红框已经消失了，说明配置成功了。然后点击&lt;code&gt;Generate&lt;/code&gt;，生成&lt;code&gt;Makefiles&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 99; flex-basis: 238px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34; data-size=&#34;922x928&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34;
-				srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;922&#34;
-				height=&#34;928&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;配置成功&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;配置成功&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 99; 
+			flex-basis: 238px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34; data-size=&#34;922x928&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34;
+			width=&#34;922&#34;
+			height=&#34;928&#34;
+			srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;配置成功&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;配置成功&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;7.这时配置文件已经构建完成了，接下来就是生成dll了，打开&lt;code&gt;PowerShell&lt;/code&gt;切换目录至&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;，输入&lt;code&gt;mingw32-make&lt;/code&gt;开始编译生成dll。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 170; flex-basis: 410px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34; data-size=&#34;1461x855&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34;
-				srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1461&#34;
-				height=&#34;855&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;编译成功&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;编译成功&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 170; 
+			flex-basis: 410px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34; data-size=&#34;1461x855&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34;
+			width=&#34;1461&#34;
+			height=&#34;855&#34;
+			srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;编译成功&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;编译成功&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;没有报错，说明生成成功。&lt;/p&gt;
 &lt;p&gt;8.最后打开目录&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers&lt;/code&gt;，就可以看到生成好的&lt;code&gt;qsqlmysql.dll&lt;/code&gt;了。&lt;/p&gt;
 &lt;h2 id=&#34;基于qmake的步骤&#34;&gt;基于qmake的步骤&lt;/h2&gt;
@@ -3857,18 +4088,25 @@ DEPENDPATH += D:/MySQL/include
 &lt;h2 id=&#34;起因&#34;&gt;起因&lt;/h2&gt;
 &lt;p&gt;在知乎上刷到了一篇&lt;a class=&#34;link&#34; href=&#34;https://www.zhihu.com/question/324218869/answer/1019888224&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;回答&lt;/a&gt;，是关于Windows编程的体验的。在这篇文章中提到了WSL2和Windows Terminal，我一下就被那精美的界面吸引了（&lt;del&gt;管他好不好用，好看就完事了&lt;/del&gt;）。正好现在在上操作系统这门课，需要使用Linux进行实验，这还说什么，直接开冲。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 170; flex-basis: 410px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png&#34; data-size=&#34;1461x855&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png&#34;
-				srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1461&#34;
-				height=&#34;855&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;精美的界面&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;精美的界面&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 170; 
+			flex-basis: 410px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png&#34; data-size=&#34;1461x855&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png&#34;
+			width=&#34;1461&#34;
+			height=&#34;855&#34;
+			srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;精美的界面&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;精美的界面&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;h2 id=&#34;wsl2安装&#34;&gt;WSL2安装&lt;/h2&gt;
 &lt;p&gt;安装其实很简单，按照微软的教程一步一步做就完事了。&lt;/p&gt;
 &lt;h3 id=&#34;0前置条件&#34;&gt;0.前置条件&lt;/h3&gt;
@@ -3914,18 +4152,25 @@ DEPENDPATH += D:/MySQL/include
 &lt;/ul&gt;
 &lt;h3 id=&#34;2-配置&#34;&gt;2. 配置&lt;/h3&gt;
 &lt;p&gt;为了让&lt;code&gt;Windows Terminal&lt;/code&gt;看起来更好看一些，我们还要对其进行一些配置。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 105; flex-basis: 252px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png&#34; data-size=&#34;837x794&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png&#34;
-				srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;837&#34;
-				height=&#34;794&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;设置&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;设置&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 105; 
+			flex-basis: 252px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png&#34; data-size=&#34;837x794&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png&#34;
+			width=&#34;837&#34;
+			height=&#34;794&#34;
+			srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;设置&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;设置&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;打开&lt;code&gt;Windows Terminal&lt;/code&gt;的设置选项，然后选&lt;code&gt;打开JSON文件&lt;/code&gt;，把我配好的配置文件粘贴进去&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;nt&#34;&gt;&amp;#34;$schema&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://aka.ms/terminal-profiles-schema&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -4061,18 +4306,25 @@ DEPENDPATH += D:/MySQL/include
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h1 id=&#34;云跑步上手教程&#34;&gt;云跑步上手教程&lt;/h1&gt;
 &lt;p&gt;1.点击fork按钮将该仓库复制到你的仓库
-&lt;figure style=&#34;flex-grow: 1381; flex-basis: 3315px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/Fork.png&#34; data-size=&#34;1920x139&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/Fork.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/Fork_hua0e8cfa80cbe9b02a2385bf08ef0c4ff_20985_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/Fork_hua0e8cfa80cbe9b02a2385bf08ef0c4ff_20985_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1920&#34;
-				height=&#34;139&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;fork&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;fork&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 1381; 
+			flex-basis: 3315px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/Fork.png&#34; data-size=&#34;1920x139&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/Fork.png&#34;
+			width=&#34;1920&#34;
+			height=&#34;139&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/Fork_hua0e8cfa80cbe9b02a2385bf08ef0c4ff_20985_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/Fork_hua0e8cfa80cbe9b02a2385bf08ef0c4ff_20985_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;fork&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;fork&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;2.获取 IMEICode&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;打开抓包软件抓包, 再打开阳光体育 App 登录, 在所有的数据包中找后缀有 &lt;code&gt;IMEICode= &lt;/code&gt; 的 URL 请求, 等号后面的字段即为七天有效的 &lt;code&gt;IMEICode&lt;/code&gt; (若多次没抓到: 可来回切换几次飞行模式, 杀掉 App 后台重复尝试多次)&lt;/li&gt;
@@ -4084,52 +4336,73 @@ DEPENDPATH += D:/MySQL/include
     &gt;点我直达&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;在 &lt;a class=&#34;link&#34; href=&#34;https://sct.ftqq.com/sendkey&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;SendKey&lt;/a&gt;这一页中找到SendKey并记录
-&lt;figure style=&#34;flex-grow: 228; flex-basis: 548px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/SendKey.png&#34; data-size=&#34;782x342&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/SendKey.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/SendKey_hu5cdaae5d95e85f98c1e26c3fb785e377_34890_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/SendKey_hu5cdaae5d95e85f98c1e26c3fb785e377_34890_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;782&#34;
-				height=&#34;342&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;SendKey&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;SendKey&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/li&gt;
+&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 228; 
+			flex-basis: 548px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/SendKey.png&#34; data-size=&#34;782x342&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/SendKey.png&#34;
+			width=&#34;782&#34;
+			height=&#34;342&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/SendKey_hu5cdaae5d95e85f98c1e26c3fb785e377_34890_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/SendKey_hu5cdaae5d95e85f98c1e26c3fb785e377_34890_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;SendKey&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;SendKey&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;3.2基于企业微信应用消息的推送&lt;/p&gt;
 &lt;p&gt;由于Server酱不捐助是无法查看消息内容的，所以&lt;del&gt;为了白嫖&lt;/del&gt;我自己写了推送部分的代码，可以直接使用微信官方接口来推送。&lt;/p&gt;
 &lt;p&gt;企业微信的配置方法可以在Server酱的&lt;a class=&#34;link&#34; href=&#34;https://sct.ftqq.com/forward&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;消息通道&lt;/a&gt;里看到，这里就不赘述了。&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 293; flex-basis: 705px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/weisend.png&#34; data-size=&#34;808x275&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/weisend.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/weisend_hu53f242832958acfd77ffee5b6c1a36d2_37972_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/weisend_hu53f242832958acfd77ffee5b6c1a36d2_37972_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;808&#34;
-				height=&#34;275&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;weisend&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;weisend&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 293; 
+			flex-basis: 705px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/weisend.png&#34; data-size=&#34;808x275&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/weisend.png&#34;
+			width=&#34;808&#34;
+			height=&#34;275&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/weisend_hu53f242832958acfd77ffee5b6c1a36d2_37972_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/weisend_hu53f242832958acfd77ffee5b6c1a36d2_37972_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;weisend&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;weisend&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;和Server酱一样，我们也需要企业ID(CORPID)，应用ID(AGENTID)，应用Secret(SECRET)这三个值。&lt;/p&gt;
 &lt;p&gt;4.配置Github Actions&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;打开仓库的&lt;code&gt;secrets&lt;/code&gt;，在其中建立&lt;code&gt;IMEICODE&lt;/code&gt;并将IMEICode填入
-&lt;figure style=&#34;flex-grow: 217; flex-basis: 521px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.1.png&#34; data-size=&#34;1733x798&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.1.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.1_hu3378c3b95e90ce5e8204f15ae250b1da_95319_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/4.1_hu3378c3b95e90ce5e8204f15ae250b1da_95319_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1733&#34;
-				height=&#34;798&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;4.1&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;4.1&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 217; 
+			flex-basis: 521px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.1.png&#34; data-size=&#34;1733x798&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.1.png&#34;
+			width=&#34;1733&#34;
+			height=&#34;798&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.1_hu3378c3b95e90ce5e8204f15ae250b1da_95319_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/4.1_hu3378c3b95e90ce5e8204f15ae250b1da_95319_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;4.1&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;4.1&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;（可选）使用Server酱推送，需要建立&lt;code&gt;SCKEY&lt;/code&gt;并填入SendKey&lt;/p&gt;
@@ -4141,82 +4414,117 @@ DEPENDPATH += D:/MySQL/include
 &lt;p&gt;打开&lt;code&gt;Code&lt;/code&gt;-&lt;code&gt;.github/workflows&lt;/code&gt;-&lt;code&gt;autorun.yml&lt;/code&gt;，点击右上角的铅笔图标进行编辑，将时间改为你想让它每天按时跑的时间，默认为每天上午9点；同时修改推送方式，默认不推送。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 98; flex-basis: 236px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.2.png&#34; data-size=&#34;709x720&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.2.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.2_hu785524cf798a3a5472f9c932ce385a77_49155_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/4.2_hu785524cf798a3a5472f9c932ce385a77_49155_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;709&#34;
-				height=&#34;720&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;4.2&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;4.2&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 98; 
+			flex-basis: 236px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.2.png&#34; data-size=&#34;709x720&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.2.png&#34;
+			width=&#34;709&#34;
+			height=&#34;720&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.2_hu785524cf798a3a5472f9c932ce385a77_49155_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/4.2_hu785524cf798a3a5472f9c932ce385a77_49155_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;4.2&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;4.2&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;code&gt;autorun.yml&lt;/code&gt;里的时间为UTC时间而不是北京时间 &lt;a class=&#34;link&#34; href=&#34;http://www.timebie.com/cn/universalbeijing.php&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;点我转换&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;启用Github Actions&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 285; flex-basis: 685px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/workflow.png&#34; data-size=&#34;1534x537&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/workflow.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/workflow_hu69a9850e5b6fce3355e54e21e5120a70_46498_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/workflow_hu69a9850e5b6fce3355e54e21e5120a70_46498_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1534&#34;
-				height=&#34;537&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;workflow&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;workflow&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 285; 
+			flex-basis: 685px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/workflow.png&#34; data-size=&#34;1534x537&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/workflow.png&#34;
+			width=&#34;1534&#34;
+			height=&#34;537&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/workflow_hu69a9850e5b6fce3355e54e21e5120a70_46498_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/workflow_hu69a9850e5b6fce3355e54e21e5120a70_46498_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;workflow&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;workflow&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 585; flex-basis: 1404px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.3.png&#34; data-size=&#34;1662x284&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.3.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.3_hub86ed0fbe25da527b36fee2eca4f8a4c_40851_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/4.3_hub86ed0fbe25da527b36fee2eca4f8a4c_40851_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1662&#34;
-				height=&#34;284&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;4.3&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;4.3&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 585; 
+			flex-basis: 1404px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.3.png&#34; data-size=&#34;1662x284&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.3.png&#34;
+			width=&#34;1662&#34;
+			height=&#34;284&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/4.3_hub86ed0fbe25da527b36fee2eca4f8a4c_40851_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/4.3_hub86ed0fbe25da527b36fee2eca4f8a4c_40851_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;4.3&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;4.3&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;到这步已经配置完成了，它每天就会自己跑了。&lt;/p&gt;
 &lt;p&gt;5.(可选)手动开始跑步&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果想手动开始跑步，点击&lt;code&gt;Actions&lt;/code&gt;，按照图示步骤操作即可。
-&lt;figure style=&#34;flex-grow: 264; flex-basis: 635px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/5.1.png&#34; data-size=&#34;1703x643&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/5.1.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/5.1_hu467152af85120ff49846174e9a1c1534_74372_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/5.1_hu467152af85120ff49846174e9a1c1534_74372_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1703&#34;
-				height=&#34;643&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;5.1&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;5.1&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/li&gt;
+&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 264; 
+			flex-basis: 635px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/5.1.png&#34; data-size=&#34;1703x643&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/5.1.png&#34;
+			width=&#34;1703&#34;
+			height=&#34;643&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/5.1_hu467152af85120ff49846174e9a1c1534_74372_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/5.1_hu467152af85120ff49846174e9a1c1534_74372_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;5.1&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;5.1&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;6.关闭自动跑步&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;在仓库&lt;code&gt;Settings&lt;/code&gt;-&lt;code&gt;Actions&lt;/code&gt;中选择&lt;code&gt;Disable Actions&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;figure style=&#34;flex-grow: 181; flex-basis: 436px&#34;&gt;
-		&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/6.1.png&#34; data-size=&#34;1232x677&#34;&gt;&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/6.1.png&#34;
-				srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/6.1_hub273d74d16c92dd2bab8affa63c32f09_68510_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/6.1_hub273d74d16c92dd2bab8affa63c32f09_68510_1024x0_resize_box_3.png 1024w&#34;
-				width=&#34;1232&#34;
-				height=&#34;677&#34;
-				loading=&#34;lazy&#34;
-				alt=&#34;6.1&#34;&gt;
-		&lt;/a&gt;
-		
-		&lt;figcaption&gt;6.1&lt;/figcaption&gt;
-		
-	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 181; 
+			flex-basis: 436px&#34;
+	&gt;
+	&lt;a href=&#34;https://lbqaq.top/p/pyaipao/IMAGE/6.1.png&#34; data-size=&#34;1232x677&#34;&gt;
+		&lt;img src=&#34;https://lbqaq.top/p/pyaipao/IMAGE/6.1.png&#34;
+			width=&#34;1232&#34;
+			height=&#34;677&#34;
+			srcset=&#34;https://lbqaq.top/p/pyaipao/IMAGE/6.1_hub273d74d16c92dd2bab8affa63c32f09_68510_480x0_resize_box_3.png 480w, https://lbqaq.top/p/pyaipao/IMAGE/6.1_hub273d74d16c92dd2bab8affa63c32f09_68510_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;6.1&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;6.1&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h1 id=&#34;参考链接&#34;&gt;参考链接&lt;/h1&gt;

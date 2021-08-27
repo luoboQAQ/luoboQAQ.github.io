@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用Github Webhooks来实现自动部署'><title>使用Webhooks实现自动部署</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='使用Webhooks实现自动部署'>
+<meta property='og:description' content='使用Github Webhooks来实现自动部署'>
+<meta property='og:url' content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2021-08-23T15:44:59&#43;08:00'/><meta property='article:modified_time' content='2021-08-27T10:20:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307.webp' />
+<meta name="twitter:title" content="使用Webhooks实现自动部署">
+<meta name="twitter:description" content="使用Github Webhooks来实现自动部署"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307.webp' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://lbqaq.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">
+                <img src="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307_hu21d577faae26e3bf07e8b4590cabf640_189496_800x0_resize_q75_h2_box_2.webp"
+                        srcset="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307_hu21d577faae26e3bf07e8b4590cabf640_189496_800x0_resize_q75_h2_box_2.webp 800w, /p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307_hu21d577faae26e3bf07e8b4590cabf640_189496_1600x0_resize_q75_h2_box_2.webp 1600w"
+                        width="800" 
+                        height="493" 
+                        loading="lazy"
+                        alt="Featured image of post 使用Webhooks实现自动部署" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/">使用Webhooks实现自动部署</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        使用Github Webhooks来实现自动部署
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 23, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>每次写完博客，需要在本地编译，然后再手动通过WinSCP送到服务器上。作为一个懒人，这上面几步下来还是觉得麻烦，而且每次编译又会生成一顿不需要的文件，于是便决定整点自动化的流程，直接解放双手。</p>
+<p>因为我的博客在没买服务器之前都是托管在Github上的，于是自然而然地就想到了Webhook，在每次Push后自动发送消息给服务器，让其自动拉取代码。</p>
+<p>网上的教程大多都是在本地编译，然而我觉得既然要懒，就一懒到底吧，编译也直接通过Github Actions来完成就行了。</p>
+<h2 id="流程">流程</h2>
+<p>需要2个Github仓库（1个应该也可以），一个存放网站的源码，一个是存放编译好的html文件。整个工作流程就如下图所示：</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 321px"
+	>
+	<a href="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1.png" data-size="391x292">
+		<img src="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1.png"
+			width="391"
+			height="292"
+			srcset="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu503c65b31b42912d633bc0d58c32116b_6879_480x0_resize_box_3.png 480w, /p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu503c65b31b42912d633bc0d58c32116b_6879_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="流程图">
+	</a>
+	
+	<figcaption>流程图</figcaption>
+	
+</figure></p>
+<h2 id="步骤">步骤</h2>
+<h3 id="设置脚本">设置脚本</h3>
+<p>首先要写一个shell脚本，功能很简单就是自动拉取代码。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nb">cd</span> /home/luobo/Blog
+git pull
+</code></pre></div><h3 id="创建webhook服务后端">创建webhook服务后端</h3>
+<p>这里就直接使用NodeJS来创建，使用的原因很简单，因为已经有现成的插件可以使用了。</p>
+<p>首先安装依赖</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">npm i -S github-webhook-handler
+npm i -g pm2
+</code></pre></div><p>然后创建<code>webhook.js</code>作为后端</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">spawn</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">createHandler</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;github-webhook-handler&#39;</span><span class="p">);</span>
+<span class="c1">//注意要将 secret 修改你自己的
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">createHandler</span><span class="p">({</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/webhook&#39;</span><span class="p">,</span> <span class="nx">secret</span><span class="o">:</span> <span class="s1">&#39;xxxxx&#39;</span> <span class="p">});</span>
+
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;no such location&#39;</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">6666</span><span class="p">);</span>
+
+<span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+<span class="p">});</span>
+
+<span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Received a push event for %s to %s&#39;</span><span class="p">,</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">ref</span><span class="p">);</span>
+
+  <span class="nx">runCommand</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;./deploy.sh&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">txt</span> <span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nx">runCommand</span><span class="p">(</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">spawn</span><span class="p">(</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="s1">&#39;Deploy OK&#39;</span><span class="p">;</span>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">buffer</span> <span class="p">){</span> <span class="nx">resp</span> <span class="o">+=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span> <span class="p">});</span>
+    <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">callback</span><span class="p">(</span> <span class="nx">resp</span> <span class="p">)</span> <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div><p>最后启动服务即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">pm2 start webhook.js
+</code></pre></div><h3 id="nginx设置反代">Nginx设置反代</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/webhook</span> <span class="p">{</span>
+    <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:6666</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="配置github-webhook">配置Github Webhook</h3>
+<p>在 html仓库的 <code>Settings</code> - <code>webhooks</code> 设置中创建一个新的 webhook。</p>
+<p>将Content Type 设置为 <code>application/json</code>，secret 设置成与 <code>webhook.js</code> 中的相同。</p>
+<p>trigeer选择<code>Just the push event. </code>。</p>
+<p>完成后Github会自动发起一个测试请求，如果返回为<code>200</code>说明配置完成，</p>
+<h3 id="配置自动编译">配置自动编译</h3>
+<p>在源代码仓库的<code>.github/workflows</code>目录下创建<code>deploy.yml</code>，并填入以下内容。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build and Deploy</span><span class="w">
+</span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># 任务</span><span class="w">
+</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">build-and-deploy</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># 服务器环境：最新版 Ubuntu</span><span class="w">
+</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="c"># 拉取代码</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span><span class="c"># 安装Hugo</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w">
+</span><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build </span><span class="w">
+</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo</span><span class="w">
+</span><span class="w">
+</span><span class="w">      </span><span class="c"># 部署到 GitHub Pages</span><span class="w">
+</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to GitHub Pages</span><span class="w">
+</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">JamesIves/github-pages-deploy-action@4.1.4</span><span class="w">
+</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span><span class="w">          </span><span class="nt">BRANCH</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span><span class="w">          </span><span class="nt">FOLDER</span><span class="p">:</span><span class="w"> </span><span class="l">public</span><span class="w">
+</span><span class="w">          </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GP_TOKEN }}</span><span class="w">
+</span><span class="w">          </span><span class="nt">repository-name</span><span class="p">:</span><span class="w"> </span><span class="l">luoboQAQ/luoboQAQ.github.io</span><span class="w">
+</span></code></pre></div><p>注意要将最后的<code>repository-name</code>换为你自己的仓库，同时需要申请和配置Github Token，这里我就不展开了。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a class="link" href="https://jimmysong.io/blog/github-webhook-website-auto-deploy/"  target="_blank" rel="noopener"
+    >使用 GitHub Webhook 实现静态网站自动化部署</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Aug 27, 2021 10:20 &#43;0800
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#流程">流程</a></li>
+    <li><a href="#步骤">步骤</a>
+      <ol>
+        <li><a href="#设置脚本">设置脚本</a></li>
+        <li><a href="#创建webhook服务后端">创建webhook服务后端</a></li>
+        <li><a href="#nginx设置反代">Nginx设置反代</a></li>
+        <li><a href="#配置github-webhook">配置Github Webhook</a></li>
+        <li><a href="#配置自动编译">配置自动编译</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

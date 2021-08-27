@@ -6,7 +6,25 @@
     <description>Recent content in Posts on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 21 Aug 2021 15:37:44 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 23 Aug 2021 15:44:59 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Webhooks实现自动部署</title>
+      <link>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Mon, 23 Aug 2021 15:44:59 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</guid>
+      <description>每次写完博客，需要在本地编译，然后再手动通过WinSCP送到服务器上。作为一个懒人，这上面几步下来还是觉得麻烦，而且每次编译又会生成一顿不需要的文件，于是便决定整点自动化的流程，直接解放双手。
+因为我的博客在没买服务器之前都是托管在Github上的，于是自然而然地就想到了Webhook，在每次Push后自动发送消息给服务器，让其自动拉取代码。
+网上的教程大多都是在本地编译，然而我觉得既然要懒，就一懒到底吧，编译也直接通过Github Actions来完成就行了。
+流程 需要2个Github仓库（1个应该也可以），一个存放网站的源码，一个是存放编译好的html文件。整个工作流程就如下图所示：
+ 流程图 
+步骤 设置脚本 首先要写一个shell脚本，功能很简单就是自动拉取代码。
+#!/bin/bash cd /home/luobo/Blog git pull 创建webhook服务后端 这里就直接使用NodeJS来创建，使用的原因很简单，因为已经有现成的插件可以使用了。
+首先安装依赖
+npm i -S github-webhook-handler npm i -g pm2 然后创建webhook.js作为后端
+var http = require(&amp;#39;http&amp;#39;); var spawn = require(&amp;#39;child_process&amp;#39;).spawn; var createHandler = require(&amp;#39;github-webhook-handler&amp;#39;); //注意要将 secret 修改你自己的 var handler = createHandler({ path: &amp;#39;/webhook&amp;#39;, secret: &amp;#39;xxxxx&amp;#39; }); http.createServer(function (req, res) { handler(req, res, function (err) { res.statusCode = 404; res.end(&amp;#39;no such location&amp;#39;); }) }).listen(6666); handler.</description>
+    </item>
+    
     <item>
       <title>为博客添加评论系统</title>
       <link>https://lbqaq.top/p/waline/</link>

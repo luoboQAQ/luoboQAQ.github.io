@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录学习Vue的心得'><title>Vue学习笔记</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Vue学习笔记'>
+<meta property='og:description' content='记录学习Vue的心得'>
+<meta property='og:url' content='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='笔记' /><meta property='article:tag' content='Vue' /><meta property='article:published_time' content='2021-09-22T08:21:14&#43;08:00'/><meta property='article:modified_time' content='2021-09-22T08:21:14&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/88417243.webp' />
+<meta name="twitter:title" content="Vue学习笔记">
+<meta name="twitter:description" content="记录学习Vue的心得"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/88417243.webp' />
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://lbqaq.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/88417243.webp"
+                        
+                        width="1536" 
+                        height="864" 
+                        loading="lazy"
+                        alt="Featured image of post Vue学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <h2 class="article-title">
+        <a href="/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Vue学习笔记</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        记录学习Vue的心得
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 22, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <p>最近看了很久的Vue教程，为了避免之后的遗忘，还是停下脚步，花点时间讲笔记写出来吧。</p>
+<p>这篇笔记是基于B站上的<a class="link" href="https://www.bilibili.com/video/BV1Zy4y1K7SH"  target="_blank" rel="noopener"
+    >尚硅谷Vue2.0+Vue3.0全套教程</a>而成，在此感谢提供这么优秀的学习教程。</p>
+<h2 id="vue基础">Vue基础</h2>
+<p>想要学好Vue，那肯定还是从Vue2开始学起。那么这一章主要是Vue中的基础内容，没有使用到脚手架。</p>
+<h3 id="初识vue">初识Vue</h3>
+<p>每学一个新的语言，HelloWord是必不可少的。话不多说，上代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 准备好一个容器 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;demo&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello，{{name.toUpperCase()}}，{{address}}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span> <span class="p">&gt;</span>
+    <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span> <span class="c1">//阻止 vue 在启动时生成生产提示。
+</span><span class="c1"></span>
+    <span class="c1">//创建Vue实例
+</span><span class="c1"></span>    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#demo&#39;</span><span class="p">,</span> <span class="c1">//el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串。
+</span><span class="c1"></span>        <span class="nx">data</span><span class="o">:</span><span class="p">{</span> 		<span class="c1">//data中用于存储数据，数据供el所指定的容器去使用，值我们暂时先写成一个对象。
+</span><span class="c1"></span>            <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;vue&#39;</span><span class="p">,</span>
+            <span class="nx">address</span><span class="o">:</span><span class="s1">&#39;北京&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>这样就完成了一个基础的Vue程序。</p>
+<p>1.想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象；</p>
+<p>2.root容器里的代码依然符合html规范，只不过混入了一些特殊的Vue语法；</p>
+<p>3.root容器里的代码被称为【Vue模板】；</p>
+<p>4.Vue实例和容器是一一对应的；</p>
+<p>5.真实开发中只有一个Vue实例，并且会配合着组件一起使用；</p>
+<p>6.{{xxx}}中的xxx要写js表达式，且xxx可以自动读取到data中的所有属性；</p>
+<p>7.一旦data中的数据发生改变，那么页面中用到该数据的地方也会自动更新；</p>
+<h3 id="vue模板语法">Vue模板语法</h3>
+<p>Vue模板语法有2大类：</p>
+<p>1.插值语法：</p>
+<p>​      功能：用于解析标签体内容。</p>
+<p>​      写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。</p>
+<p>2.指令语法：</p>
+<p>​      功能：用于解析标签（包括：标签属性、标签体内容、绑定事件&hellip;..）。</p>
+<p>​      举例：v-bind:href=&ldquo;xxx&rdquo; 或 简写为 :href=&ldquo;xxx&rdquo;，xxx同样要写js表达式，</p>
+<p>​            且可以直接读取到data中的所有属性。</p>
+<p>​      备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。</p>
+<p>其实很好理解，想要显示在页面上的内容就使用<code>{{value}}</code>这样的写法，而<code>v-bind:</code>则是用于html标签中的属性绑定。</p>
+<h3 id="数据绑定">数据绑定</h3>
+<p>Vue中有2种数据绑定的方式：</p>
+<p>​    1.单向绑定(v-bind)：数据只能从data流向页面。</p>
+<p>​    2.双向绑定(v-model)：数据不仅能从data流向页面，还可以从页面流向data。</p>
+<p>​      备注：</p>
+<p>​          1.双向绑定一般都应用在表单类元素上（如：input、select等）</p>
+<p>​          2.v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 普通写法 --&gt;</span>
+单向数据绑定：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-bind:value</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+双向数据绑定：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-model:value</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+
+<span class="c">&lt;!-- 简写 --&gt;</span>
+单向数据绑定：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">:value</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+双向数据绑定：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+</code></pre></div><h3 id="el与data的两种写法">el与data的两种写法</h3>
+<p>data与el的2种写法</p>
+<p>​    1.el有2种写法</p>
+<p>​            (1).new Vue时候配置el属性。</p>
+<p>​            (2).先创建Vue实例，随后再通过vm.$mount('#root')指定el的值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">v</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="c1">//el:&#39;#root&#39;, //第一种写法
+</span><span class="c1"></span>    <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Vue&#39;</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+<span class="nx">v</span><span class="p">.</span><span class="nx">$mount</span><span class="p">(</span><span class="s1">&#39;#root&#39;</span><span class="p">)</span> <span class="c1">//第二种写法
+</span></code></pre></div><p>​    2.data有2种写法</p>
+<p>​            (1).对象式</p>
+<p>​            (2).函数式</p>
+<p>​            如何选择：目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报错。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+    <span class="c1">//data的第一种写法：对象式
+</span><span class="c1"></span>    <span class="cm">/* data:{
+</span><span class="cm">				name:&#39;Vue&#39;
+</span><span class="cm">			} */</span>
+
+    <span class="c1">//data的第二种写法：函数式
+</span><span class="c1"></span>    <span class="nx">data</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;@@@&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">)</span> <span class="c1">//此处的this是Vue实例对象
+</span><span class="c1"></span>        <span class="k">return</span><span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Vue&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div><p>​    3.一个重要的原则：</p>
+<p>​            由Vue管理的函数，一定不要写箭头函数，一旦写了箭头函数，this就不再是Vue实例了。</p>
+<h3 id="数据代理">数据代理</h3>
+<p>在讲Vue中的数据代理之前，先讲一下js中<code>Object.defineproperty</code>方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">number</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="kd">let</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span>
+    <span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">person</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">,{</span>
+    <span class="c1">// value:18,
+</span><span class="c1"></span>    <span class="c1">// enumerable:true, //控制属性是否可以枚举，默认值是false
+</span><span class="c1"></span>    <span class="c1">// writable:true, //控制属性是否可以被修改，默认值是false
+</span><span class="c1"></span>    <span class="c1">// configurable:true //控制属性是否可以被删除，默认值是false
+</span><span class="c1"></span>
+    <span class="c1">//当有人读取person的age属性时，get函数(getter)就会被调用，且返回值就是age的值
+</span><span class="c1"></span>    <span class="nx">get</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;有人读取age属性了&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nx">number</span>
+    <span class="p">},</span>
+
+    <span class="c1">//当有人修改person的age属性时，set函数(setter)就会被调用，且会收到修改的具体值
+</span><span class="c1"></span>    <span class="nx">set</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;有人修改了age属性，且值是&#39;</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span>
+        <span class="nx">number</span> <span class="o">=</span> <span class="nx">value</span>
+    <span class="p">}</span>
+
+<span class="p">})</span>
+
+<span class="c1">// 输出person中所有的key
+</span><span class="c1">// console.log(Object.keys(person))
+</span><span class="c1"></span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span>
+</code></pre></div><p>通过<code>Object.defineProperty</code>添加进的属性，默认是不可枚举、不可修改、不可删除的，可以通过上面的三条配置项，让其和普通的属性一样。</p>
+<p>所谓数据代理，就是指通过一个对象代理对另一个对象中属性的操作（读/写）。</p>
+<p>1.Vue中的数据代理：</p>
+<p>​      通过vm对象来代理data对象中属性的操作（读/写）</p>
+<p>2.Vue中数据代理的好处：</p>
+<p>​      更加方便的操作data中的数据</p>
+<p>3.基本原理：</p>
+<p>​      通过Object.defineProperty()把data对象中所有属性添加到vm上。</p>
+<p>​      为每一个添加到vm上的属性，都指定一个getter/setter。</p>
+<p>​      在getter/setter内部去操作（读/写）data中对应的属性。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Vue&#39;</span><span class="p">,</span>
+        <span class="nx">password</span><span class="o">:</span><span class="mi">123</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div><p>通过在控制台查看<code>vm</code>，可以发现<code>data</code>中的数据都通过数据代理在<code>vm</code>身上了</p>
+<h3 id="事件处理">事件处理</h3>
+<p>事件的基本使用：</p>
+<p>​      1.使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名；</p>
+<p>​      2.事件的回调需要配置在methods对象中，最终会在vm上；</p>
+<p>​      3.methods中配置的函数，不要用箭头函数！否则this就不是vm了；</p>
+<p>​      4.methods中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；</p>
+<p>​      5.@click=&ldquo;demo&rdquo; 和 @click=&ldquo;demo($event)&rdquo; 效果一致，但后者可以传参；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 准备好一个容器--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Hello,{{name}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- &lt;button v-on:click=&#34;showInfo&#34;&gt;点我提示信息&lt;/button&gt; --&gt;</span>
+	<span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;showInfo1&#34;</span><span class="p">&gt;</span>点我提示信息1（不传参）<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;showInfo2($event,66)&#34;</span><span class="p">&gt;</span>点我提示信息2（传参）<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Vue&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">methods</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">showInfo1</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
+                <span class="c1">// console.log(event.target.innerText)
+</span><span class="c1"></span>                <span class="c1">// console.log(this) //此处的this是vm
+</span><span class="c1"></span>                <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;同学你好！&#39;</span><span class="p">)</span>
+            <span class="p">},</span>
+            <span class="nx">showInfo2</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="nx">number</span><span class="p">){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span><span class="nx">number</span><span class="p">)</span>
+                <span class="c1">// console.log(event.target.innerText)
+</span><span class="c1"></span>                <span class="c1">// console.log(this) //此处的this是vm
+</span><span class="c1"></span>                <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;同学你好！！&#39;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>Vue中的事件修饰符：</p>
+<p>​    1.prevent：阻止默认事件（常用）；</p>
+<p>​    2.stop：阻止事件冒泡（常用）；</p>
+<p>​    3.once：事件只触发一次（常用）；</p>
+<p>​    4.capture：使用事件的捕获模式；</p>
+<p>​    5.self：只有event.target是当前操作的元素时才触发事件；</p>
+<p>​    6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕；</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 阻止默认事件（常用） --&gt;</span>
+<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://www.baidu.com&#34;</span> <span class="err">@</span><span class="na">click</span><span class="err">.</span><span class="na">prevent</span><span class="o">=</span><span class="s">&#34;showInfo&#34;</span><span class="p">&gt;</span>点我提示信息<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- 阻止事件冒泡（常用） --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;demo1&#34;</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;showInfo&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="err">.</span><span class="na">stop</span><span class="o">=</span><span class="s">&#34;showInfo&#34;</span><span class="p">&gt;</span>点我提示信息<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- 修饰符可以连续写 --&gt;</span>
+    <span class="c">&lt;!-- &lt;a href=&#34;http://www.baidu.com&#34; @click.prevent.stop=&#34;showInfo&#34;&gt;点我提示信息&lt;/a&gt; --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- 事件只触发一次（常用） --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="err">.</span><span class="na">once</span><span class="o">=</span><span class="s">&#34;showInfo&#34;</span><span class="p">&gt;</span>点我提示信息<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div><p>1.Vue中常用的按键别名：</p>
+<p>​      回车 =&gt; enter</p>
+<p>​      删除 =&gt; delete (捕获“删除”和“退格”键)</p>
+<p>​      退出 =&gt; esc</p>
+<p>​      空格 =&gt; space</p>
+<p>​      换行 =&gt; tab (特殊，必须配合keydown去使用)</p>
+<p>​      上 =&gt; up</p>
+<p>​      下 =&gt; down</p>
+<p>​      左 =&gt; left</p>
+<p>​      右 =&gt; right</p>
+<p>2.Vue未提供别名的按键，可以使用按键原始的key值去绑定，但注意要转为kebab-case（短横线命名）</p>
+<p>3.系统修饰键（用法特殊）：ctrl、alt、shift、meta</p>
+<p>​      (1).配合keyup使用：按下修饰键的同时，再按下其他键，随后释放其他键，事件才被触发。</p>
+<p>​      (2).配合keydown使用：正常触发事件。</p>
+<p>4.也可以使用keyCode去指定具体的按键（不推荐）</p>
+<p>5.Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名</p>
+<p>一般都是<code>@keydown.xxx</code>或者<code>@keyup.xxx</code>来绑定按键</p>
+<h3 id="计算属性">计算属性</h3>
+<p>计算属性：</p>
+<p>​    1.定义：要用的属性不存在，要通过已有属性计算得来。</p>
+<p>​    2.原理：底层借助了Objcet.defineproperty方法提供的getter和setter。</p>
+<p>​    3.get函数什么时候执行？</p>
+<p>​          (1).初次读取时会执行一次。</p>
+<p>​          (2).当依赖的数据发生改变时会被再次调用。</p>
+<p>​    4.优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便。</p>
+<p>​    5.备注：</p>
+<p>​        1.计算属性最终会出现在vm上，直接读取使用即可。</p>
+<p>​        2.如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">firstName</span><span class="o">:</span><span class="s1">&#39;张&#39;</span><span class="p">,</span>
+        <span class="nx">lastName</span><span class="o">:</span><span class="s1">&#39;三&#39;</span><span class="p">,</span>
+        <span class="nx">x</span><span class="o">:</span><span class="s1">&#39;你好&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">computed</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">fullName</span><span class="o">:</span><span class="p">{</span>
+            <span class="c1">//get有什么作用？当有人读取fullName时，get就会被调用，且返回值就作为fullName的值
+</span><span class="c1"></span>            <span class="c1">//get什么时候调用？1.初次读取fullName时。2.所依赖的数据发生变化时。
+</span><span class="c1"></span>            <span class="nx">get</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;get被调用了&#39;</span><span class="p">)</span>
+                <span class="c1">// console.log(this) //此处的this是vm
+</span><span class="c1"></span>                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>
+            <span class="p">},</span>
+            <span class="c1">//set什么时候调用? 当fullName被修改时。
+</span><span class="c1"></span>            <span class="nx">set</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span>
+                <span class="kr">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div><p>计算属性调用就和普通属性的调用一样，用<code>{{key}}</code>就行了。</p>
+<p>当我们不需要计算属性的set方法时，我们就可以使用简写方法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+    <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">firstName</span><span class="o">:</span><span class="s1">&#39;张&#39;</span><span class="p">,</span>
+        <span class="nx">lastName</span><span class="o">:</span><span class="s1">&#39;三&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="nx">computed</span><span class="o">:</span><span class="p">{</span>
+        <span class="c1">//简写
+</span><span class="c1"></span>        <span class="nx">fullName</span><span class="p">(){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;get被调用了&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div><h3 id="监视属性">监视属性</h3>
+<p>监视属性watch：</p>
+<p>1.当被监视的属性变化时, 回调函数自动调用, 进行相关操作</p>
+<p>2.监视的属性必须存在，才能进行监视！！</p>
+<p>3.监视的两种写法：</p>
+<p>​      (1).new Vue时传入watch配置</p>
+<p>​      (2).通过vm.$watch监视</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 准备好一个容器--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>今天天气很{{info}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;changeWeather&#34;</span><span class="p">&gt;</span>切换天气<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">isHot</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="nx">computed</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">info</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">isHot</span> <span class="o">?</span> <span class="s1">&#39;炎热&#39;</span> <span class="o">:</span> <span class="s1">&#39;凉爽&#39;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">changeWeather</span><span class="p">(){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">isHot</span> <span class="o">=</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isHot</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="cm">/* watch:{
+</span><span class="cm">				isHot:{
+</span><span class="cm">					immediate:true, //初始化时让handler调用一下
+</span><span class="cm">					//handler什么时候调用？当isHot发生改变时。
+</span><span class="cm">					handler(newValue,oldValue){
+</span><span class="cm">						console.log(&#39;isHot被修改了&#39;,newValue,oldValue)
+</span><span class="cm">					}
+</span><span class="cm">				}
+</span><span class="cm">			} */</span>
+    <span class="p">})</span>
+
+    <span class="nx">vm</span><span class="p">.</span><span class="nx">$watch</span><span class="p">(</span><span class="s1">&#39;isHot&#39;</span><span class="p">,{</span>
+        <span class="nx">immediate</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="c1">//初始化时让handler调用一下
+</span><span class="c1"></span>        <span class="c1">//handler什么时候调用？当isHot发生改变时。
+</span><span class="c1"></span>        <span class="nx">handler</span><span class="p">(</span><span class="nx">newValue</span><span class="p">,</span><span class="nx">oldValue</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;isHot被修改了&#39;</span><span class="p">,</span><span class="nx">newValue</span><span class="p">,</span><span class="nx">oldValue</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>深度监视：</p>
+<p>​      (1).Vue中的watch默认不监测对象内部值的改变（一层）。</p>
+<p>​      (2).配置<code>deep:true</code>可以监测对象内部值改变（多层）。</p>
+<p>备注：</p>
+<p>​    (1).Vue自身可以监测对象内部值的改变，但Vue提供的watch默认不可以！</p>
+<p>​    (2).使用watch时根据数据的具体结构，决定是否采用深度监视。</p>
+<p>计算属性也同样可以简写：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">watch</span><span class="o">:</span><span class="p">{</span>
+    <span class="c1">//简写
+</span><span class="c1"></span>    <span class="nx">isHot</span><span class="p">(</span><span class="nx">newValue</span><span class="p">,</span><span class="nx">oldValue</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;isHot被修改了&#39;</span><span class="p">,</span><span class="nx">newValue</span><span class="p">,</span><span class="nx">oldValue</span><span class="p">,</span><span class="k">this</span><span class="p">)</span>
+    <span class="p">}</span> 
+<span class="p">}</span>
+</code></pre></div><p><strong>computed和watch之间的区别：</strong></p>
+<p>​    1.computed能完成的功能，watch都可以完成。</p>
+<p>​    2.watch能完成的功能，computed不一定能完成，例如：watch可以进行异步操作。</p>
+<p>两个重要的小原则：</p>
+<p>​      1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm 或 组件实例对象。</p>
+<p>​      2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，</p>
+<p>​        这样this的指向才是vm 或 组件实例对象。</p>
+<h3 id="绑定样式">绑定样式</h3>
+<p>绑定样式：</p>
+<ol>
+<li>
+<p>class样式</p>
+<p>写法:class=&ldquo;xxx&rdquo; xxx可以是字符串、对象、数组。</p>
+<p>字符串写法适用于：类名不确定，要动态获取。</p>
+<p>对象写法适用于：要绑定多个样式，个数不确定，名字也不确定。</p>
+<p>数组写法适用于：要绑定多个样式，个数确定，名字也确定，但不确定用不用。</p>
+</li>
+<li>
+<p>style样式</p>
+<p>:style=&quot;{fontSize: xxx}&ldquo;其中xxx是动态值。</p>
+<p>:style=&quot;[a,b]&ldquo;其中a、b是样式对象。</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- 绑定class样式--字符串写法，适用于：样式的类名不确定，需要动态指定 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;basic&#34;</span> <span class="na">:class</span><span class="o">=</span><span class="s">&#34;mood&#34;</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;changeMood&#34;</span><span class="p">&gt;</span>{{name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+
+    <span class="c">&lt;!-- 绑定class样式--数组写法，适用于：要绑定的样式个数不确定、名字也不确定 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;basic&#34;</span> <span class="na">:class</span><span class="o">=</span><span class="s">&#34;classArr&#34;</span><span class="p">&gt;</span>{{name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+
+    <span class="c">&lt;!-- 绑定class样式--对象写法，适用于：要绑定的样式个数确定、名字也确定，但要动态决定用不用 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;basic&#34;</span> <span class="na">:class</span><span class="o">=</span><span class="s">&#34;classObj&#34;</span><span class="p">&gt;</span>{{name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+
+    <span class="c">&lt;!-- 绑定style样式--对象写法 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;basic&#34;</span> <span class="na">:style</span><span class="o">=</span><span class="s">&#34;styleObj&#34;</span><span class="p">&gt;</span>{{name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    <span class="c">&lt;!-- 绑定style样式--数组写法 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;basic&#34;</span> <span class="na">:style</span><span class="o">=</span><span class="s">&#34;styleArr&#34;</span><span class="p">&gt;</span>{{name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;尚硅谷&#39;</span><span class="p">,</span>
+            <span class="nx">mood</span><span class="o">:</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+            <span class="nx">classArr</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;atguigu1&#39;</span><span class="p">,</span><span class="s1">&#39;atguigu2&#39;</span><span class="p">,</span><span class="s1">&#39;atguigu3&#39;</span><span class="p">],</span>
+            <span class="nx">classObj</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">atguigu1</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+                <span class="nx">atguigu2</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nx">styleObj</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">fontSize</span><span class="o">:</span> <span class="s1">&#39;40px&#39;</span><span class="p">,</span>
+                <span class="nx">color</span><span class="o">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="nx">styleObj2</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">backgroundColor</span><span class="o">:</span><span class="s1">&#39;orange&#39;</span>
+            <span class="p">},</span>
+            <span class="nx">styleArr</span><span class="o">:</span><span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="nx">fontSize</span><span class="o">:</span> <span class="s1">&#39;40px&#39;</span><span class="p">,</span>
+                    <span class="nx">color</span><span class="o">:</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="nx">backgroundColor</span><span class="o">:</span><span class="s1">&#39;gray&#39;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">changeMood</span><span class="p">(){</span>
+                <span class="kr">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;happy&#39;</span><span class="p">,</span><span class="s1">&#39;sad&#39;</span><span class="p">,</span><span class="s1">&#39;normal&#39;</span><span class="p">]</span>
+                <span class="kr">const</span> <span class="nx">index</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">mood</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="条件渲染">条件渲染</h3>
+<p>条件渲染：</p>
+<p>​      1.v-if</p>
+<p>​            写法：</p>
+<p>​                (1).v-if=&ldquo;表达式&rdquo;</p>
+<p>​                (2).v-else-if=&ldquo;表达式&rdquo;</p>
+<p>​                (3).v-else=&ldquo;表达式&rdquo;</p>
+<p>​            适用于：切换频率较低的场景。</p>
+<p>​            特点：不展示的DOM元素直接被移除。</p>
+<p>​            注意：v-if可以和:v-else-if、v-else一起使用，但要求结构不能被“打断”。</p>
+<p>​      2.v-show</p>
+<p>​            写法：v-show=&ldquo;表达式&rdquo;</p>
+<p>​            适用于：切换频率较高的场景。</p>
+<p>​            特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉</p>
+<p>​      3.备注：使用v-if的时，元素可能无法获取到，而使用v-show一定可以获取到。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 使用v-show做条件渲染 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span> <span class="na">v-show</span><span class="o">=</span><span class="s">&#34;false&#34;</span><span class="p">&gt;</span>欢迎来到{{name}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span> <span class="na">v-show</span><span class="o">=</span><span class="s">&#34;1 === 1&#34;</span><span class="p">&gt;</span>欢迎来到{{name}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- 使用v-if做条件渲染 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;1 === 1&#34;</span><span class="p">&gt;</span>欢迎来到{{name}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;false&#34;</span><span class="p">&gt;</span>欢迎来到{{name}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- v-else和v-else-if --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;n === 1&#34;</span><span class="p">&gt;</span>Angular<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else-if</span><span class="o">=</span><span class="s">&#34;n === 2&#34;</span><span class="p">&gt;</span>React<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else-if</span><span class="o">=</span><span class="s">&#34;n === 3&#34;</span><span class="p">&gt;</span>Vue<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">v-else</span><span class="p">&gt;</span>哈哈<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- v-if与template的配合使用 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">v-if</span><span class="o">=</span><span class="s">&#34;n === 1&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>你好<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>尚硅谷<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>北京<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="列表渲染">列表渲染</h3>
+<h4 id="基本列表">基本列表</h4>
+<p>v-for指令:</p>
+<p>​    1.用于展示列表数据</p>
+<p>​    2.语法：v-for=&quot;(item, index) in xxx&rdquo; :key=&ldquo;yyy&rdquo;</p>
+<p>​    3.可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 遍历数组 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>人员列表（遍历数组）<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(p,index) of persons&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;index&#34;</span><span class="p">&gt;</span>
+        {{p.name}}-{{p.age}}
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- 遍历对象 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>汽车信息（遍历对象）<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(value,k) of car&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;k&#34;</span><span class="p">&gt;</span>
+        {{k}}-{{value}}
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- 遍历字符串 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>测试遍历字符串（用得少）<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(char,index) of str&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;index&#34;</span><span class="p">&gt;</span>
+        {{char}}-{{index}}
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- 遍历指定次数 --&gt;</span>
+<span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>测试遍历指定次数（用得少）<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(number,index) of 5&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;index&#34;</span><span class="p">&gt;</span>
+        {{index}}-{{number}}
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">persons</span><span class="o">:</span><span class="p">[</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;张三&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">18</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;002&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;李四&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">19</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;003&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;王五&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">20</span><span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nx">car</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;奥迪A8&#39;</span><span class="p">,</span>
+                <span class="nx">price</span><span class="o">:</span><span class="s1">&#39;70万&#39;</span><span class="p">,</span>
+                <span class="nx">color</span><span class="o">:</span><span class="s1">&#39;黑色&#39;</span>
+            <span class="p">},</span>
+            <span class="nx">str</span><span class="o">:</span><span class="s1">&#39;hello&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>面试题：react、vue中的key有什么作用？（key的内部原理）</p>
+<ol>
+<li>虚拟DOM中key的作用：</li>
+</ol>
+<p>​            key是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】,</p>
+<p>​            随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：</p>
+<p>​    2.对比规则：</p>
+<p>​          (1).旧虚拟DOM中找到了与新虚拟DOM相同的key：</p>
+<p>​                ①.若虚拟DOM中内容没变, 直接使用之前的真实DOM！</p>
+<p>​                ②.若虚拟DOM中内容变了, 则生成新的真实DOM，随后替换掉页面中之前的真实DOM。</p>
+<p>​          (2).旧虚拟DOM中未找到与新虚拟DOM相同的key</p>
+<p>​                创建新的真实DOM，随后渲染到到页面。</p>
+<p>​    3. 用index作为key可能会引发的问题：</p>
+<p>​              1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:</p>
+<p>​                      会产生没有必要的真实DOM更新 ==&gt; 界面效果没问题, 但效率低。</p>
+<p>​              2. 如果结构中还包含输入类的DOM：</p>
+<p>​                      会产生错误DOM更新 ==&gt; 界面有问题。</p>
+<p>​    4. 开发中如何选择key?:</p>
+<p>​              1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。</p>
+<p>​              2.如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，</p>
+<p>​                使用index作为key是没有问题的。</p>
+<h4 id="列表过滤">列表过滤</h4>
+<p>可以通过<code>watch</code>或者<code>computed</code>实现。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 准备好一个容器--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>人员列表<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;请输入名字&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;keyWord&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(p,index) of filPerons&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;index&#34;</span><span class="p">&gt;</span>
+            {{p.name}}-{{p.age}}-{{p.sex}}
+        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="c1">//用watch实现
+</span><span class="c1"></span>    <span class="c1">//#region 
+</span><span class="c1"></span>    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">keyWord</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">persons</span><span class="o">:</span><span class="p">[</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;马冬梅&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;女&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;002&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;周冬雨&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;女&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;003&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;周杰伦&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">21</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;004&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;温兆伦&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">22</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">}</span>
+            <span class="p">],</span>
+            <span class="nx">filPerons</span><span class="o">:</span><span class="p">[]</span>
+        <span class="p">},</span>
+        <span class="nx">watch</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">keyWord</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">immediate</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span>
+                <span class="nx">handler</span><span class="p">(</span><span class="nx">val</span><span class="p">){</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">filPerons</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">persons</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">p</span><span class="p">)=&gt;{</span>
+                        <span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+                    <span class="p">})</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="c1">//#endregion
+</span><span class="c1"></span>
+    <span class="c1">//用computed实现
+</span><span class="c1"></span>    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">keyWord</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">persons</span><span class="o">:</span><span class="p">[</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;马冬梅&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;女&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;002&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;周冬雨&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">20</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;女&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;003&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;周杰伦&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">21</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;004&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;温兆伦&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">22</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nx">computed</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">filPerons</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">persons</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">p</span><span class="p">)=&gt;{</span>
+                    <span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyWord</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="p">})</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span> 
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h4 id="列表排序">列表排序</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- 准备好一个容器--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>人员列表<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;请输入名字&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;keyWord&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;sortType = 2&#34;</span><span class="p">&gt;</span>年龄升序<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;sortType = 1&#34;</span><span class="p">&gt;</span>年龄降序<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="err">@</span><span class="na">click</span><span class="o">=</span><span class="s">&#34;sortType = 0&#34;</span><span class="p">&gt;</span>原顺序<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">v-for</span><span class="o">=</span><span class="s">&#34;(p,index) of filPerons&#34;</span> <span class="na">:key</span><span class="o">=</span><span class="s">&#34;p.id&#34;</span><span class="p">&gt;</span>
+            {{p.name}}-{{p.age}}-{{p.sex}}
+            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+    <span class="nx">Vue</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">productionTip</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">keyWord</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="nx">sortType</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="c1">//0原顺序 1降序 2升序
+</span><span class="c1"></span>            <span class="nx">persons</span><span class="o">:</span><span class="p">[</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;001&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;马冬梅&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">30</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;女&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;002&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;周冬雨&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">31</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;女&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;003&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;周杰伦&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">18</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;004&#39;</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;温兆伦&#39;</span><span class="p">,</span><span class="nx">age</span><span class="o">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;男&#39;</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="nx">computed</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">filPerons</span><span class="p">(){</span>
+                <span class="kr">const</span> <span class="nx">arr</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">persons</span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">p</span><span class="p">)=&gt;{</span>
+                    <span class="k">return</span> <span class="nx">p</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">keyWord</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span>
+                <span class="p">})</span>
+                <span class="c1">//判断一下是否需要排序
+</span><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">sortType</span><span class="p">){</span>
+                    <span class="nx">arr</span><span class="p">.</span><span class="nx">sort</span><span class="p">((</span><span class="nx">p1</span><span class="p">,</span><span class="nx">p2</span><span class="p">)=&gt;{</span>
+                        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">sortType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">?</span> <span class="nx">p2</span><span class="p">.</span><span class="nx">age</span><span class="o">-</span><span class="nx">p1</span><span class="p">.</span><span class="nx">age</span> <span class="o">:</span> <span class="nx">p1</span><span class="p">.</span><span class="nx">age</span><span class="o">-</span><span class="nx">p2</span><span class="p">.</span><span class="nx">age</span>
+                    <span class="p">})</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="nx">arr</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span> 
+
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><p>Vue监视数据的原理：</p>
+<ol>
+<li>
+<p>vue会监视data中所有层次的数据。</p>
+</li>
+<li>
+<p>如何监测对象中的数据？</p>
+</li>
+</ol>
+<p>​          通过setter实现监视，且要在new Vue时就传入要监测的数据。</p>
+<p>​            (1).对象中后追加的属性，Vue默认不做响应式处理</p>
+<p>​            (2).如需给后添加的属性做响应式，请使用如下API：</p>
+<p>​                    Vue.set(target，propertyName/index，value) 或</p>
+<p>​                    vm.$set(target，propertyName/index，value)</p>
+<ol start="3">
+<li>如何监测数组中的数据？</li>
+</ol>
+<p>​            通过包裹数组更新元素的方法实现，本质就是做了两件事：</p>
+<p>​              (1).调用原生对应的方法对数组进行更新。</p>
+<p>​              (2).重新解析模板，进而更新页面。</p>
+<p>4.在Vue修改数组中的某个元素一定要用如下方法：</p>
+<p>​        1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()</p>
+<p>​        2.Vue.set() 或 vm.$set()</p>
+<p>特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！</p>
+<h3 id="收集表单数据">收集表单数据</h3>
+<p>若：<code>&lt;input type=&quot;text&quot;/&gt;</code>，则v-model收集的是value值，用户输入的就是value值。</p>
+<p>若：<code>&lt;input type=&quot;radio&quot;/&gt;</code>，则v-model收集的是value值，且要给标签配置value值。</p>
+<p>若：<code>&lt;input type=&quot;checkbox&quot;/&gt;</code></p>
+<p>​    1.没有配置input的value属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）</p>
+<p>​    2.配置input的value属性:</p>
+<p>​        (1)v-model的初始值是非数组，那么收集的就是checked（勾选 or 未勾选，是布尔值）</p>
+<p>​        (2)v-model的初始值是数组，那么收集的的就是value组成的数组</p>
+<p>备注：v-model的三个修饰符：</p>
+<p>​        lazy：失去焦点再收集数据</p>
+<p>​        number：输入字符串转为有效的数字</p>
+<p>​        trim：输入首尾空格过滤</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="err">@</span><span class="na">submit</span><span class="err">.</span><span class="na">prevent</span><span class="o">=</span><span class="s">&#34;demo&#34;</span><span class="p">&gt;</span>
+    账号：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-model</span><span class="err">.</span><span class="na">trim</span><span class="o">=</span><span class="s">&#34;userInfo.account&#34;</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    密码：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.password&#34;</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    年龄：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;number&#34;</span> <span class="na">v-model</span><span class="err">.</span><span class="na">number</span><span class="o">=</span><span class="s">&#34;userInfo.age&#34;</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    性别：
+    男<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;sex&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.sex&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;male&#34;</span><span class="p">&gt;</span>
+    女<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;sex&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.sex&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;female&#34;</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    爱好：
+    学习<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.hobby&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;study&#34;</span><span class="p">&gt;</span>
+    打游戏<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.hobby&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;game&#34;</span><span class="p">&gt;</span>
+    吃饭<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.hobby&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;eat&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    所属校区
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.city&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>请选择校区<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;beijing&#34;</span><span class="p">&gt;</span>北京<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;shanghai&#34;</span><span class="p">&gt;</span>上海<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;shenzhen&#34;</span><span class="p">&gt;</span>深圳<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">option</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;wuhan&#34;</span><span class="p">&gt;</span>武汉<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    其他信息：
+    <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">v-model</span><span class="err">.</span><span class="na">lazy</span><span class="o">=</span><span class="s">&#34;userInfo.other&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">br</span><span class="p">/&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;userInfo.agree&#34;</span><span class="p">&gt;</span>阅读并接受<span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://www.atguigu.com&#34;</span><span class="p">&gt;</span>《用户协议》<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span><span class="p">&gt;</span>提交<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">userInfo</span><span class="o">:</span><span class="p">{</span>
+                <span class="nx">account</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="nx">password</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="nx">age</span><span class="o">:</span><span class="mi">18</span><span class="p">,</span>
+                <span class="nx">sex</span><span class="o">:</span><span class="s1">&#39;female&#39;</span><span class="p">,</span>
+                <span class="nx">hobby</span><span class="o">:</span><span class="p">[],</span>
+                <span class="nx">city</span><span class="o">:</span><span class="s1">&#39;beijing&#39;</span><span class="p">,</span>
+                <span class="nx">other</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                <span class="nx">agree</span><span class="o">:</span><span class="s1">&#39;&#39;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">demo</span><span class="p">(){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">userInfo</span><span class="p">))</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="过滤器">过滤器</h3>
+<p>过滤器：</p>
+<p>定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）。</p>
+<p>语法：</p>
+<p>​      1.注册过滤器：Vue.filter(name,callback) 或 new Vue{filters:{}}</p>
+<p>​      2.使用过滤器：{{ xxx | 过滤器名}} 或 v-bind:属性 = &ldquo;xxx | 过滤器名&rdquo;</p>
+<p>备注：</p>
+<p>​      1.过滤器也可以接收额外参数、多个过滤器也可以串联</p>
+<p>​      2.并没有改变原本的数据, 是产生新的对应的数据</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>显示格式化后的时间<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- 计算属性实现 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>现在是：{{fmtTime}}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- methods实现 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>现在是：{{getFmtTime()}}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- 过滤器实现 --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>现在是：{{time | timeFormater}}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- 过滤器实现（传参） --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>现在是：{{time | timeFormater(&#39;YYYY_MM_DD&#39;) | mySlice}}<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">:x</span><span class="o">=</span><span class="s">&#34;msg | mySlice&#34;</span><span class="p">&gt;</span>尚硅谷<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;root2&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{msg | mySlice}}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nx">Vue</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s1">&#39;mySlice&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">time</span><span class="o">:</span><span class="mi">1621561377603</span><span class="p">,</span> <span class="c1">//时间戳
+</span><span class="c1"></span>            <span class="nx">msg</span><span class="o">:</span><span class="s1">&#39;你好，尚硅谷&#39;</span>
+        <span class="p">},</span>
+        <span class="nx">computed</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">fmtTime</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="nx">dayjs</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">time</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;YYYY年MM月DD日 HH:mm:ss&#39;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">methods</span><span class="o">:</span> <span class="p">{</span>
+            <span class="nx">getFmtTime</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="nx">dayjs</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">time</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="s1">&#39;YYYY年MM月DD日 HH:mm:ss&#39;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="c1">//局部过滤器
+</span><span class="c1"></span>        <span class="nx">filters</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">timeFormater</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="nx">str</span><span class="o">=</span><span class="s1">&#39;YYYY年MM月DD日 HH:mm:ss&#39;</span><span class="p">){</span>
+                <span class="c1">// console.log(&#39;@&#39;,value)
+</span><span class="c1"></span>                <span class="k">return</span> <span class="nx">dayjs</span><span class="p">(</span><span class="nx">value</span><span class="p">).</span><span class="nx">format</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+
+    <span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
+        <span class="nx">el</span><span class="o">:</span><span class="s1">&#39;#root2&#39;</span><span class="p">,</span>
+        <span class="nx">data</span><span class="o">:</span><span class="p">{</span>
+            <span class="nx">msg</span><span class="o">:</span><span class="s1">&#39;hello,atguigu!&#39;</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div><h3 id="内置指令">内置指令</h3>
+<p>我们学过的指令：</p>
+<p>​    v-bind : 单向绑定解析表达式, 可简写为 :xxx</p>
+<p>​    v-model : 双向数据绑定</p>
+<p>​    v-for  : 遍历数组/对象/字符串</p>
+<p>​    v-on  : 绑定事件监听, 可简写为@</p>
+<p>​    v-if    : 条件渲染（动态控制节点是否存存在）</p>
+<p>​    v-else : 条件渲染（动态控制节点是否存存在）</p>
+<p>​    v-show : 条件渲染 (动态控制节点是否展示)</p>
+<p>v-text指令：</p>
+<p>​    1.作用：向其所在的节点中渲染文本内容。</p>
+<p>​    2.与插值语法的区别：v-text会替换掉节点中的内容，{{xx}}则不会。</p>
+<p>v-html指令：</p>
+<p>​    1.作用：向指定节点中渲染包含html结构的内容。</p>
+<p>​    2.与插值语法的区别：</p>
+<p>​          (1).v-html会替换掉节点中所有的内容，{{xx}}则不会。</p>
+<p>​          (2).v-html可以识别html结构。</p>
+<p>​    3.严重注意：v-html有安全性问题！！！！</p>
+<p>​          (1).在网站上动态渲染任意HTML是非常危险的，容易导致XSS攻击。</p>
+<p>​          (2).一定要在可信的内容上使用v-html，永不要用在用户提交的内容上！</p>
+<p>v-cloak指令（没有值）：</p>
+<p>​    1.本质是一个特殊属性，Vue实例创建完毕并接管容器后，会删掉v-cloak属性。</p>
+<p>​    2.使用css配合v-cloak可以解决网速慢时页面展示出{{xxx}}的问题。</p>
+<p>v-once指令：</p>
+<p>​      1.v-once所在节点在初次动态渲染后，就视为静态内容了。</p>
+<p>​      2.以后数据的改变不会引起v-once所在结构的更新，可以用于优化性能。</p>
+<p>v-pre指令：</p>
+<p>​    1.跳过其所在节点的编译过程。</p>
+<p>​    2.可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。</p>
+<h3 id="生命周期">生命周期</h3>
+<p>生命周期：</p>
+<p>​    1.又名：生命周期回调函数、生命周期函数、生命周期钩子。</p>
+<p>​    2.是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数。</p>
+<p>​    3.生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。</p>
+<p>​    4.生命周期函数中的this指向是vm 或 组件实例对象。</p>
+<p>常用的生命周期钩子：</p>
+<p>​    1.<code>mounted</code>: 发送ajax请求、启动定时器、绑定自定义事件、订阅消息等【初始化操作】。</p>
+<p>​    2.<code>beforeDestroy</code>: 清除定时器、解绑自定义事件、取消订阅消息等【收尾工作】。</p>
+<p>关于销毁Vue实例</p>
+<p>​    1.销毁后借助Vue开发者工具看不到任何信息。</p>
+<p>​    2.销毁后自定义事件会失效，但原生DOM事件依然有效。</p>
+<p>​    3.一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。</p>
+<h3 id="组件">组件</h3>
+<p>Vue中使用组件的三大步骤：</p>
+<p>​    一、定义组件(创建组件)</p>
+<p>​    二、注册组件</p>
+<p>​    三、使用组件(写组件标签)</p>
+<p>一、如何定义一个组件？</p>
+<p>​      使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但也有点区别；</p>
+<p>​      区别如下：</p>
+<p>​          1.el不要写，为什么？ ——— 最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器。</p>
+<p>​          2.data必须写成函数，为什么？ ———— 避免组件被复用时，数据存在引用关系。</p>
+<p>​      备注：使用template可以配置组件结构。</p>
+<p>二、如何注册组件？</p>
+<p>​        1.局部注册：靠new Vue的时候传入components选项</p>
+<p>​        2.全局注册：靠Vue.component(&lsquo;组件名&rsquo;,组件)</p>
+<p>三、编写组件标签：</p>
+<p>​        <code>&lt;school&gt;&lt;/school&gt;</code></p>
+<p>几个注意点：</p>
+<p>​    1.关于组件名:</p>
+<p>​          一个单词组成：</p>
+<p>​                第一种写法(首字母小写)：school</p>
+<p>​                第二种写法(首字母大写)：School</p>
+<p>​          多个单词组成：</p>
+<p>​                第一种写法(kebab-case命名)：my-school</p>
+<p>​                第二种写法(CamelCase命名)：MySchool (需要Vue脚手架支持)</p>
+<p>​          备注：</p>
+<p>​              (1).组件名尽可能回避HTML中已有的元素名称，例如：h2、H2都不行。</p>
+<p>​              (2).可以使用name配置项指定组件在开发者工具中呈现的名字。</p>
+<p>​    2.关于组件标签:</p>
+<p>​          第一种写法：<!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<p>​          第二种写法：<!-- raw HTML omitted --></p>
+<p>​          备注：不用使用脚手架时，<!-- raw HTML omitted -->会导致后续组件不能渲染。</p>
+<p>​    3.一个简写方式：</p>
+<p>​          const school = Vue.extend(options) 可简写为：const school = options</p>
+<p>关于VueComponent：</p>
+<p>​      1.school组件本质是一个名为VueComponent的构造函数，且不是程序员定义的，是Vue.extend生成的。</p>
+<p>​      2.我们只需要写<!-- raw HTML omitted -->或<!-- raw HTML omitted --><!-- raw HTML omitted -->，Vue解析时会帮我们创建school组件的实例对象，</p>
+<p>​        即Vue帮我们执行的：new VueComponent(options)。</p>
+<p>​      3.特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent！！！！</p>
+<p>​      4.关于this指向：</p>
+<p>​          (1).组件配置中：</p>
+<p>​                data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【VueComponent实例对象】。</p>
+<p>​          (2).new Vue(options)配置中：</p>
+<p>​                data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【Vue实例对象】。</p>
+<p>​      5.VueComponent的实例对象，以后简称vc（也可称之为：组件实例对象）。</p>
+<p>​        Vue的实例对象，以后简称vm。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a>
+        
+            <a href="/tags/vue/">Vue</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#vue基础">Vue基础</a>
+      <ol>
+        <li><a href="#初识vue">初识Vue</a></li>
+        <li><a href="#vue模板语法">Vue模板语法</a></li>
+        <li><a href="#数据绑定">数据绑定</a></li>
+        <li><a href="#el与data的两种写法">el与data的两种写法</a></li>
+        <li><a href="#数据代理">数据代理</a></li>
+        <li><a href="#事件处理">事件处理</a></li>
+        <li><a href="#计算属性">计算属性</a></li>
+        <li><a href="#监视属性">监视属性</a></li>
+        <li><a href="#绑定样式">绑定样式</a></li>
+        <li><a href="#条件渲染">条件渲染</a></li>
+        <li><a href="#列表渲染">列表渲染</a>
+          <ol>
+            <li><a href="#基本列表">基本列表</a></li>
+            <li><a href="#列表过滤">列表过滤</a></li>
+            <li><a href="#列表排序">列表排序</a></li>
+          </ol>
+        </li>
+        <li><a href="#收集表单数据">收集表单数据</a></li>
+        <li><a href="#过滤器">过滤器</a></li>
+        <li><a href="#内置指令">内置指令</a></li>
+        <li><a href="#生命周期">生命周期</a></li>
+        <li><a href="#组件">组件</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

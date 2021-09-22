@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on luoboQAQ</title>
+    <link>https://lbqaq.top/tags/vue/</link>
+    <description>Recent content in Vue on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 22 Sep 2021 08:21:14 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue学习笔记</title>
+      <link>https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Wed, 22 Sep 2021 08:21:14 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>最近看了很久的Vue教程，为了避免之后的遗忘，还是停下脚步，花点时间讲笔记写出来吧。
+这篇笔记是基于B站上的尚硅谷Vue2.0+Vue3.0全套教程而成，在此感谢提供这么优秀的学习教程。
+Vue基础 想要学好Vue，那肯定还是从Vue2开始学起。那么这一章主要是Vue中的基础内容，没有使用到脚手架。
+初识Vue 每学一个新的语言，HelloWord是必不可少的。话不多说，上代码：
+&amp;lt;!-- 准备好一个容器 --&amp;gt; &amp;lt;div id=&amp;#34;demo&amp;#34;&amp;gt; &amp;lt;h1&amp;gt;Hello，{{name.toUpperCase()}}，{{address}}&amp;lt;/h1&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script type=&amp;#34;text/javascript&amp;#34; &amp;gt; Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。  //创建Vue实例  new Vue({ el:&amp;#39;#demo&amp;#39;, //el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串。  data:{ //data中用于存储数据，数据供el所指定的容器去使用，值我们暂时先写成一个对象。  name:&amp;#39;vue&amp;#39;, address:&amp;#39;北京&amp;#39; } }) &amp;lt;/script&amp;gt; 这样就完成了一个基础的Vue程序。
+1.想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象；
+2.root容器里的代码依然符合html规范，只不过混入了一些特殊的Vue语法；
+3.root容器里的代码被称为【Vue模板】；
+4.Vue实例和容器是一一对应的；
+5.真实开发中只有一个Vue实例，并且会配合着组件一起使用；
+6.{{xxx}}中的xxx要写js表达式，且xxx可以自动读取到data中的所有属性；
+7.一旦data中的数据发生改变，那么页面中用到该数据的地方也会自动更新；
+Vue模板语法 Vue模板语法有2大类：
+1.插值语法：
+​ 功能：用于解析标签体内容。
+​ 写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。
+2.指令语法：
+​ 功能：用于解析标签（包括：标签属性、标签体内容、绑定事件&amp;hellip;..）。
+​ 举例：v-bind:href=&amp;ldquo;xxx&amp;rdquo; 或 简写为 :href=&amp;ldquo;xxx&amp;rdquo;，xxx同样要写js表达式，
+​ 且可以直接读取到data中的所有属性。
+​ 备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。
+其实很好理解，想要显示在页面上的内容就使用{{value}}这样的写法，而v-bind:则是用于html标签中的属性绑定。
+数据绑定 Vue中有2种数据绑定的方式：
+​ 1.单向绑定(v-bind)：数据只能从data流向页面。</description>
+    </item>
+    
+  </channel>
+</rss>

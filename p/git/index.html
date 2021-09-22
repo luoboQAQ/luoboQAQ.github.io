@@ -140,14 +140,14 @@
 <li>已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，第二步按1操作。</li>
 </ol>
 <h2 id="上传">上传</h2>
-<pre><code>git remote add origin 仓库链接     #将远程仓库和本地仓库绑定
+<pre tabindex="0"><code>git remote add origin 仓库链接     #将远程仓库和本地仓库绑定
 git add .
 git commit  -m  &quot;提交信息&quot;
 git push -u origin 自己当前的分支名   #-u将本地库和远程库的分支关联，之后可以不加
 </code></pre><h2 id="下载">下载</h2>
-<pre><code>git clone 仓库链接
+<pre tabindex="0"><code>git clone 仓库链接
 </code></pre><p>git clone到当前文件夹</p>
-<pre><code>git clone 仓库链接 .
+<pre tabindex="0"><code>git clone 仓库链接 .
 </code></pre><h2 id="分支管理">分支管理</h2>
 <h3 id="创建与合并分支">创建与合并分支</h3>
 <p>查看分支：<code>git branch</code></p>
@@ -170,7 +170,7 @@ git push -u origin 自己当前的分支名   #-u将本地库和远程库的分�
 <li>恢复且删除stash内容：<code>git stash pop</code></li>
 </ul>
 <p>可以多次stash，恢复的时候，先用<code>git stash list</code>查看，然后恢复指定的stash，如：</p>
-<pre><code>git stash apply stash@{0}
+<pre tabindex="0"><code>git stash apply stash@{0}
 </code></pre><p>在master分支上修复的bug，想要合并到当前dev分支，可以用<code>git cherry-pick &lt;commit&gt;</code>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。</p>
 <h3 id="多人协作">多人协作</h3>
 <ul>

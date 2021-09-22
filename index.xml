@@ -6,7 +6,111 @@
         <description>Recent content on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 23 Aug 2021 15:44:59 +0800</lastBuildDate><atom:link href="https://lbqaq.top/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 09 Sep 2021 15:09:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Swagger3初体验</title>
+        <link>https://lbqaq.top/p/swagger/</link>
+        <pubDate>Thu, 09 Sep 2021 15:09:04 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/swagger/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/swagger/92079701.webp" alt="Featured image of post Swagger3初体验" /&gt;&lt;p&gt;最近做项目需要前后端分离，所以需要接口文档给前端方便联调。手写文档是不可能的，这时就需要使用Swagger了。网上的教程大部分版本都在2.x甚至是1.x，很少有3.0的教程，我个人就是喜欢用最新版，所以我就来分享一下我使用Swagger3的体验和坑吧。&lt;/p&gt;
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+&lt;p&gt;这里就分享springboot版本的方法了，现在的项目应该都用springboot创建了吧。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;导入Maven依赖&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.springfox&lt;span class=&#34;nt&#34;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;springfox-boot-starter&lt;span class=&#34;nt&#34;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;nt&#34;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;3.0.0&lt;span class=&#34;nt&#34;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在启动类上加上&lt;code&gt;@EnableOpenApi&lt;/code&gt;就行了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当然，这样只是默认的，我们要用肯定要配置一下，我们去创建一个Config类，在里面建立一个函数返回Docket类，我们所有的配置就在这个Docket类里配置。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&#34;nd&#34;&gt;@EnableOpenApi&lt;/span&gt;
+&lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;SwaggerConfig&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nd&#34;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Docket&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;docket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(){&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Docket&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DocumentationType&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;OAS_30&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;//3.0版本用OAS_30这个标准
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;apiInfo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getApiInfo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;())&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+                &lt;span class=&#34;c1&#34;&gt;//扫描指定包下的接口
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;apis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RequestHandlerSelectors&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;basePackage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;top.lbqaq.controller&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
+                &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;build&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;();&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;cm&#34;&gt;/**
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     * 配置swagger信息
+&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;     */&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ApiInfo&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getApiInfo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(){&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;//这里是作者信息，分别为姓名、个人主页、邮箱
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;Contact&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;contact&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Contact&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;luoboQAQ&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;https://lbqaq.top&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;123@xx.com&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ApiInfo&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;
+                &lt;span class=&#34;s&#34;&gt;&amp;#34;项目名&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;s&#34;&gt;&amp;#34;项目描述&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;s&#34;&gt;&amp;#34;版本&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;s&#34;&gt;&amp;#34;项目主页&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;contact&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;s&#34;&gt;&amp;#34;Apache 2.0&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;s&#34;&gt;&amp;#34;https://www.apache.org/licenses/LICENSE-2.0&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArrayList&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;());&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这样一个带有个人信息的配置页就做好了。&lt;/p&gt;
+&lt;h2 id=&#34;注解&#34;&gt;注解&lt;/h2&gt;
+&lt;p&gt;首先是2.0版本的注解，当然新版本也同样通用。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Swagger注解&lt;/th&gt;
+&lt;th&gt;简单说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;@Api(tags = &amp;ldquo;xxx模块说明&amp;rdquo;)&lt;/td&gt;
+&lt;td&gt;作用在模块类上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@ApiOperation(&amp;ldquo;xxx接口说明&amp;rdquo;)&lt;/td&gt;
+&lt;td&gt;作用在接口方法上&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@ApiModel(&amp;ldquo;xxxPOJO说明&amp;rdquo;)&lt;/td&gt;
+&lt;td&gt;作用在模型类上：如VO、BO&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@ApiModelProperty(value = &amp;ldquo;xxx属性说明&amp;rdquo;,hidden = true)&lt;/td&gt;
+&lt;td&gt;作用在类方法和属性上，hidden设置为true可以隐藏该属性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;@ApiParam(&amp;ldquo;xxx参数说明&amp;rdquo;)&lt;/td&gt;
+&lt;td&gt;作用在参数、方法和字段上，类似@ApiModelProperty&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;既然用了3.0，也就可以使用3.0的新注释。&lt;/p&gt;
+&lt;p&gt;先放上官网链接：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/swagger-api/swagger-core/wiki/Swagger-2.X---Annotations&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Swagger注解&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://springfox.github.io/springfox/docs/current/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;SpringFox文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Swagger是底层，实现是由SpringFox来完成的，所以有些在Swagger文档里的注解放到SpringFox里就无法实现，比如&lt;code&gt;@RequestBody&lt;/code&gt;这个注解就无法实现。下面就列举我测试过可以成功的注解：&lt;/p&gt;
+&lt;p&gt;在方法上进行注释&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Operation&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;summary&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;这会显示在主页上&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;description&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;这显示在内页里&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;tags&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;test&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;})&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;//会将接口分类出去
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在参数上注释&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;nd&#34;&gt;@Parameter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;description&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;这里是描述&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;required&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;只测了这么多，之前为了测试&lt;code&gt;@RequestBody&lt;/code&gt;花了太多时间，结果一无所获。因为2.0的注解还能用，这里就挖个坑，等之后有时间再来完善吧。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>使用Webhooks实现自动部署</title>
         <link>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
         <pubDate>Mon, 23 Aug 2021 15:44:59 +0800</pubDate>
@@ -403,7 +507,7 @@ vim waline.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;编写&lt;code&gt;test.jsp&lt;/code&gt;，在&lt;code&gt;WEB-INF&lt;/code&gt;目录下新建一个&lt;code&gt;jsp&lt;/code&gt;的文件夹，新建&lt;code&gt;test.jsp&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-jsp&#34; data-lang=&#34;jsp&#34;&gt;&amp;lt;%@ page contentType=&amp;quot;text/html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-jsp&#34; data-lang=&#34;jsp&#34;&gt;&amp;lt;%@ page contentType=&amp;quot;text/html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt;
 &amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
     &amp;lt;title&amp;gt;Title&amp;lt;/title&amp;gt;
@@ -737,7 +841,7 @@ ${msg}
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;创建视图层，在&lt;code&gt;WEB-INF/jsp&lt;/code&gt;目录中创建&lt;code&gt;hello.jsp&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-jsp&#34; data-lang=&#34;jsp&#34;&gt;&amp;lt;%@ page contentType=&amp;quot;text/html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-jsp&#34; data-lang=&#34;jsp&#34;&gt;&amp;lt;%@ page contentType=&amp;quot;text/html;charset=UTF-8&amp;quot; language=&amp;quot;java&amp;quot; %&amp;gt;
 &amp;lt;html&amp;gt;
 &amp;lt;head&amp;gt;
     &amp;lt;title&amp;gt;Title&amp;lt;/title&amp;gt;
@@ -1145,7 +1249,7 @@ ${msg}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;执行顺序如下：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;------------处理前------------
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;------------处理前------------
 Controller方法
 ------------处理后------------
 ------------清理------------
@@ -3367,7 +3471,7 @@ mappers（映射器）
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;在&lt;code&gt;resources&lt;/code&gt;目录下创建&lt;code&gt;db.properties&lt;/code&gt;，填入下面的内容&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-properties&#34; data-lang=&#34;properties&#34;&gt;driver=com.mysql.cj.jdbc.Driver
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-properties&#34; data-lang=&#34;properties&#34;&gt;driver=com.mysql.cj.jdbc.Driver
 url=jdbc:mysql://localhost:3306/mybatis
 username=root
 password=root
@@ -3683,7 +3787,7 @@ password=root
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在&lt;code&gt;resources&lt;/code&gt;目录下新建&lt;code&gt;log4j.properties&lt;/code&gt;，并填入以下配置文件&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-properties&#34; data-lang=&#34;properties&#34;&gt;#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-properties&#34; data-lang=&#34;properties&#34;&gt;#将等级为DEBUG的日志信息输出到console和file这两个目的地，console和file的定义在下面的代码
 log4j.rootLogger=DEBUG,console,file
 
 #控制台输出的相关设置
@@ -4069,7 +4173,7 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;增加下面三行代码(注意把&lt;code&gt;D:/MySQL/&lt;/code&gt;改为你MySQL的安装路径)：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;LIBS +=-LD:/MySQL/lib -llibmysql
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;LIBS +=-LD:/MySQL/lib -llibmysql
 INCLUDEPATH += D:/MySQL/include
 DEPENDPATH += D:/MySQL/include
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
@@ -5197,14 +5301,14 @@ DEPENDPATH += D:/MySQL/include
 &lt;li&gt;已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令&lt;code&gt;git reset HEAD &amp;lt;file&amp;gt;&lt;/code&gt;，第二步按1操作。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;上传&#34;&gt;上传&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git remote add origin 仓库链接     #将远程仓库和本地仓库绑定
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git remote add origin 仓库链接     #将远程仓库和本地仓库绑定
 git add .
 git commit  -m  &amp;quot;提交信息&amp;quot;
 git push -u origin 自己当前的分支名   #-u将本地库和远程库的分支关联，之后可以不加
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;下载&#34;&gt;下载&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;git clone 仓库链接
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone 仓库链接
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;git clone到当前文件夹&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git clone 仓库链接 .
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone 仓库链接 .
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;分支管理&#34;&gt;分支管理&lt;/h2&gt;
 &lt;h3 id=&#34;创建与合并分支&#34;&gt;创建与合并分支&lt;/h3&gt;
 &lt;p&gt;查看分支：&lt;code&gt;git branch&lt;/code&gt;&lt;/p&gt;
@@ -5227,7 +5331,7 @@ git push -u origin 自己当前的分支名   #-u将本地库和远程库的分�
 &lt;li&gt;恢复且删除stash内容：&lt;code&gt;git stash pop&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;可以多次stash，恢复的时候，先用&lt;code&gt;git stash list&lt;/code&gt;查看，然后恢复指定的stash，如：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;git stash apply stash@{0}
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git stash apply stash@{0}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在master分支上修复的bug，想要合并到当前dev分支，可以用&lt;code&gt;git cherry-pick &amp;lt;commit&amp;gt;&lt;/code&gt;命令，把bug提交的修改“复制”到当前分支，避免重复劳动。&lt;/p&gt;
 &lt;h3 id=&#34;多人协作&#34;&gt;多人协作&lt;/h3&gt;
 &lt;ul&gt;
@@ -5280,7 +5384,7 @@ git push -u origin 自己当前的分支名   #-u将本地库和远程库的分�
         <guid>https://lbqaq.top/p/blog%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/</guid>
         <description>&lt;img src="https://lbqaq.top/p/blog%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4/80228475.webp" alt="Featured image of post Blog常用的命令" /&gt;&lt;h2 id=&#34;主题相关&#34;&gt;主题相关&lt;/h2&gt;
 &lt;p&gt;FrontMatter 字段含义&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;title: 标题
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;title: 标题
 description: 描述
 image: 显示的特色图片
 comments: 显示 / 隐藏评论区(T/F)

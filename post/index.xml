@@ -6,7 +6,22 @@
     <description>Recent content in Posts on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 23 Aug 2021 15:44:59 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Sep 2021 15:09:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Swagger3初体验</title>
+      <link>https://lbqaq.top/p/swagger/</link>
+      <pubDate>Thu, 09 Sep 2021 15:09:04 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/swagger/</guid>
+      <description>最近做项目需要前后端分离，所以需要接口文档给前端方便联调。手写文档是不可能的，这时就需要使用Swagger了。网上的教程大部分版本都在2.x甚至是1.x，很少有3.0的教程，我个人就是喜欢用最新版，所以我就来分享一下我使用Swagger3的体验和坑吧。
+配置 这里就分享springboot版本的方法了，现在的项目应该都用springboot创建了吧。
+  导入Maven依赖
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;io.springfox&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;springfox-boot-starter&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.0.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;   在启动类上加上@EnableOpenApi就行了。
+  当然，这样只是默认的，我们要用肯定要配置一下，我们去创建一个Config类，在里面建立一个函数返回Docket类，我们所有的配置就在这个Docket类里配置。
+@Configuration @EnableOpenApi public class SwaggerConfig { @Bean public Docket docket(){ return new Docket(DocumentationType.OAS_30)	//3.0版本用OAS_30这个标准  .apiInfo(getApiInfo()) .select() //扫描指定包下的接口  .apis(RequestHandlerSelectors.basePackage(&amp;#34;top.lbqaq.controller&amp;#34;)) .build(); } /** * 配置swagger信息 */ private ApiInfo getApiInfo(){ //这里是作者信息，分别为姓名、个人主页、邮箱  Contact contact = new Contact(&amp;#34;luoboQAQ&amp;#34;,&amp;#34;https://lbqaq.top&amp;#34;,&amp;#34;123@xx.com&amp;#34;); return new ApiInfo( &amp;#34;项目名&amp;#34;, &amp;#34;项目描述&amp;#34;, &amp;#34;版本&amp;#34;, &amp;#34;项目主页&amp;#34;, contact, &amp;#34;Apache 2.0&amp;#34;, &amp;#34;https://www.apache.org/licenses/LICENSE-2.0&amp;#34;, new ArrayList()); } } 这样一个带有个人信息的配置页就做好了。
+注解 首先是2.</description>
+    </item>
+    
     <item>
       <title>使用Webhooks实现自动部署</title>
       <link>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>

@@ -6,7 +6,31 @@
     <description>Recent content in Posts on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 22 Sep 2021 08:21:14 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Oct 2021 15:19:44 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>shiro整合JWT</title>
+      <link>https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/</link>
+      <pubDate>Fri, 08 Oct 2021 15:19:44 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/</guid>
+      <description>在我现在在做的项目中需要进行身份和权限认证，在网上找了些教程，推荐都是使用JWT来进行身份认证，于是便决定使用此方法来实现。（然而用完了才发现JWT也有缺点）
+何为JWT 所谓JWT，全称是JSON Web Token。下面是从官网摘抄的定义：
+ JWT是一个开放的标准（RFC 7519），它定义了一种紧凑和独立的方式，以JSON对象的形式在各方之间安全地传输信息。这种信息可以被验证和信任，因为它是经过数字签名的。JWTs可以使用秘密（使用HMAC算法）或使用RSA或ECDSA的公共/私人密钥对进行签名。
+ 按我的理解，JWT其实就是将传统的session认证中的token存储位置从服务器上下发给用户，服务器只需要判断传来的token是否合法而无需存储。这样做的好处就是可以做分布式的服务器，无需考虑用户是在哪一台服务器上登录的。
+详细的定义和构成我这里就不展开了，这里主要关注JWT中Payload（载荷）。这是有效信息存放的地方，我们一般关注这里就行了。
+下面是官方提供且建议（并不强制）使用的声明：
+  iss: jwt签发者
+  sub: 主题
+  aud: 接收jwt的一方
+  exp: jwt的过期时间，这个过期时间必须要大于签发时间
+  nbf: 生效时间，在此时间之前该jwt都是不可用的.
+  iat: jwt的签发时间
+  jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
+  当然，在载荷中还可以存放自定义的信息，在本项目中使用官方提供的就足以了，故不展开。
+认证流程  用户使用用户名密码来请求服务器 服务器进行验证用户的信息 服务器通过验证发送给用户一个token 客户端存储token，并在每次请求时附送上这个token值 服务端验证token值，并返回数据  具体实现 导入依赖包 第一步当然是导入相关依赖了，使用Maven进行包管理。
+&amp;lt;!-- shiro --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.shiro&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;shiro-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.8.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- jwt --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.auth0&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;java-jwt&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.18.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 封装JWT工具类 这里主要实现JWT的生成、验证、提取用户名三个功能</description>
+    </item>
+    
     <item>
       <title>Vue学习笔记</title>
       <link>https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>

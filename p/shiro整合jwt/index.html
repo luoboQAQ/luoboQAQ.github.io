@@ -482,6 +482,22 @@
         <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
+</code></pre></div><h3 id="解决中文报错">解决中文报错</h3>
+<p>在Shiro1.7版本之后增加了url校验，如果有中文字符就不通过。然而我们项目里返回错误信息就是通过url来实现的。参考<a class="link" href="https://blog.csdn.net/qq_35598240/article/details/110310638"  target="_blank" rel="noopener"
+    >这篇文章</a>知道，需要自己重写<code>ShiroFilterFactoryBean</code>来实现关闭url校验</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomShiroFilterFactoryBean</span> <span class="kd">extends</span> <span class="n">ShiroFilterFactoryBean</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="n">FilterChainManager</span> <span class="nf">createFilterChainManager</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">FilterChainManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">createFilterChainManager</span><span class="o">();</span>
+        <span class="c1">// URL携带中文400，servletPath中文校验bug
+</span><span class="c1"></span>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Filter</span><span class="o">&gt;</span> <span class="n">filterMap</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">getFilters</span><span class="o">();</span>
+        <span class="n">Filter</span> <span class="n">invalidRequestFilter</span> <span class="o">=</span> <span class="n">filterMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">DefaultFilter</span><span class="o">.</span><span class="na">invalidRequest</span><span class="o">.</span><span class="na">name</span><span class="o">());</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">invalidRequestFilter</span> <span class="k">instanceof</span> <span class="n">InvalidRequestFilter</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">((</span><span class="n">InvalidRequestFilter</span><span class="o">)</span> <span class="n">invalidRequestFilter</span><span class="o">).</span><span class="na">setBlockNonAscii</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">manager</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre></div><h3 id="开始使用">开始使用</h3>
 <ul>
 <li>
@@ -794,6 +810,7 @@
         <li><a href="#自定义过滤器">自定义过滤器</a></li>
         <li><a href="#自定义realm">自定义Realm</a></li>
         <li><a href="#异常处理">异常处理</a></li>
+        <li><a href="#解决中文报错">解决中文报错</a></li>
         <li><a href="#开始使用">开始使用</a></li>
       </ol>
     </li>

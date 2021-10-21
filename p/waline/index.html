@@ -9,7 +9,7 @@
 <meta property='og:description' content='记录Waline的部署过程和踩坑'>
 <meta property='og:url' content='https://lbqaq.top/p/waline/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Waline' /><meta property='article:published_time' content='2021-08-21T15:37:44&#43;08:00'/><meta property='article:modified_time' content='2021-08-21T22:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/waline/78502982.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Waline' /><meta property='article:published_time' content='2021-08-21T15:37:44&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T11:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/waline/78502982.webp' />
 <meta name="twitter:title" content="为博客添加评论系统">
 <meta name="twitter:description" content="记录Waline的部署过程和踩坑"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/waline/78502982.webp' />
@@ -115,7 +115,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -251,7 +251,21 @@ vim waline.sh
 <li>
 <p><code>npm install -g @waline/vercel</code>报错</p>
 <p>使用<code>cnpm</code>进行安装</p>
-</li>
+<p><strong>2021/10/21更新：</strong></p>
+<p>更新系统后再尝试安装无论是<code>npm</code>还是<code>cnpm</code>都无法安装，故使用Docker进行安装和运行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">docker run -d <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">SQLITE_PATH</span><span class="o">=</span>/data <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">JWT_TOKEN</span><span class="o">=</span>xxx <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">QMSG_KEY</span><span class="o">=</span>xxxx <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">QQ_ID</span><span class="o">=</span><span class="m">123</span> <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">AUTHOR_EMAIL</span><span class="o">=</span>xxx@xx.com <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">SITE_NAME</span><span class="o">=</span>Blog <span class="se">\
+</span><span class="se"></span>  -e <span class="nv">SITE_URL</span><span class="o">=</span>lbqaq.top <span class="se">\
+</span><span class="se"></span>  -p 8360:8360 <span class="se">\
+</span><span class="se"></span>  -v /home/admin/waline:/data <span class="se">\
+</span><span class="se"></span>  --name<span class="o">=</span>waline <span class="se">\
+</span><span class="se"></span>  lizheming/waline
+</code></pre></div></li>
 <li>
 <p>想使用<code>lbqaq.top/waline/</code>这样的链接来设置服务端</p>
 <p>直接报404错误，还是选择上文中的子域名方法</p>
@@ -316,7 +330,7 @@ vim waline.sh
 
 
         <span>
-            最后更新于 Aug 21, 2021 22:30 &#43;0800
+            最后更新于 Oct 21, 2021 11:30 &#43;0800
         </span>
     </section></footer>
 

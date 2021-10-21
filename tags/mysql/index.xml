@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on luoboQAQ</title>
+    <link>https://lbqaq.top/tags/mysql/</link>
+    <description>Recent content in MySQL on luoboQAQ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 21 Oct 2021 10:19:52 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL8开启远程访问</title>
+      <link>https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/</link>
+      <pubDate>Thu, 21 Oct 2021 10:19:52 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/</guid>
+      <description>最近把服务器重装成Ubuntu了，所以要重装MySQL，没想到在这里踩了好几个坑，在这里记录下来备忘。
+安装 这其实很简单，直接通过Ubuntu的包管理器直接安装就行了（我把系统转为Ubuntu也有这方面的原因）。
+sudo apt-get install mysql-server 通过这条命令安装的MySQL的root账号是没有密码的，所以只要输入mysql就直接可以进入了
+开启远程访问 这里就是本文的重点了，我在这里花了很多时间😇
+设定MySQL的监听端口 通过apt安装的MySQL默认是只监听本地的端口的，我们要修改使其监听所有ip地址的请求。
+vim /etc/mysql/mysql.conf.d/mysqld.cnf #把bind - address后面的127.0.0.1改为0.0.0.0 #重启MySQL服务器 systemctl restart mysql 设置root账号密码并开启远程访问 默认root账号是没有密码的，这当然是不行的，我们需要给一个密码
+usemysql;ALTERUSER&amp;#39;root&amp;#39;@&amp;#39;localhost&amp;#39;IDENTIFIEDWITHmysql_native_passwordBY&amp;#39;新的密码&amp;#39;;updateusersethost=&amp;#39;%&amp;#39;whereuser=&amp;#39;root&amp;#39;;flushprivileges;还要注意把防火墙的3306端口放行，这样就可以实现MySQL的远程访问了。</description>
+    </item>
+    
+  </channel>
+</rss>

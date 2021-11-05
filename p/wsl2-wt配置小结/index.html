@@ -215,15 +215,15 @@
 <p>打开<code>Windows Terminal</code>的设置选项，然后选<code>打开JSON文件</code>，把我配好的配置文件粘贴进去</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&#34;$schema&#34;</span><span class="p">:</span> <span class="s2">&#34;https://aka.ms/terminal-profiles-schema&#34;</span><span class="p">,</span>
-    <span class="err">//</span> <span class="err">Add</span> <span class="err">custom</span> <span class="err">actions</span> <span class="err">and</span> <span class="err">keybindings</span> <span class="err">to</span> <span class="err">this</span> <span class="err">array.</span>
-    <span class="err">//</span> <span class="err">To</span> <span class="err">unbind</span> <span class="err">a</span> <span class="err">key</span> <span class="err">combination</span> <span class="err">from</span> <span class="err">your</span> <span class="err">defaults.json,</span> <span class="err">set</span> <span class="err">the</span> <span class="err">command</span> <span class="err">to</span> <span class="nt">&#34;unbound&#34;</span><span class="err">.</span>
-    <span class="err">//</span> <span class="err">To</span> <span class="err">learn</span> <span class="err">more</span> <span class="err">about</span> <span class="err">actions</span> <span class="err">and</span> <span class="err">keybindings</span><span class="p">,</span> <span class="err">visit</span> <span class="err">https://aka.ms/terminal-keybindings</span>
-    <span class="nt">&#34;actions&#34;</span><span class="p">:</span> 
+    <span class="c1">// Add custom actions and keybindings to this array.
+</span><span class="c1"></span>    <span class="c1">// To unbind a key combination from your defaults.json, set the command to &#34;unbound&#34;.
+</span><span class="c1"></span>    <span class="c1">// To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
+</span><span class="c1"></span>    <span class="nt">&#34;actions&#34;</span><span class="p">:</span> 
     <span class="p">[</span>
-        <span class="err">//</span> <span class="err">Copy</span> <span class="err">and</span> <span class="err">paste</span> <span class="err">are</span> <span class="err">bound</span> <span class="err">to</span> <span class="err">Ctrl+Shift+C</span> <span class="err">and</span> <span class="err">Ctrl+Shift+V</span> <span class="err">in</span> <span class="err">your</span> <span class="err">defaults.json.</span>
-        <span class="err">//</span> <span class="err">These</span> <span class="err">two</span> <span class="err">lines</span> <span class="err">additionally</span> <span class="err">bind</span> <span class="err">them</span> <span class="err">to</span> <span class="err">Ctrl+C</span> <span class="err">and</span> <span class="err">Ctrl+V.</span>
-        <span class="err">//</span> <span class="err">To</span> <span class="err">learn</span> <span class="err">more</span> <span class="err">about</span> <span class="err">selection</span><span class="p">,</span> <span class="err">visit</span> <span class="err">https://aka.ms/terminal-selection</span>
-        <span class="p">{</span>
+        <span class="c1">// Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
+</span><span class="c1"></span>        <span class="c1">// These two lines additionally bind them to Ctrl+C and Ctrl+V.
+</span><span class="c1"></span>        <span class="c1">// To learn more about selection, visit https://aka.ms/terminal-selection
+</span><span class="c1"></span>        <span class="p">{</span>
             <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
             <span class="p">{</span>
                 <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;copy&#34;</span><span class="p">,</span>
@@ -235,16 +235,16 @@
             <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;paste&#34;</span><span class="p">,</span>
             <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+v&#34;</span>
         <span class="p">},</span>
-        <span class="err">//</span> <span class="err">Press</span> <span class="err">Ctrl+Shift+F</span> <span class="err">to</span> <span class="err">open</span> <span class="err">the</span> <span class="err">search</span> <span class="err">box</span>
-        <span class="p">{</span>
+        <span class="c1">// Press Ctrl+Shift+F to open the search box
+</span><span class="c1"></span>        <span class="p">{</span>
             <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;find&#34;</span><span class="p">,</span>
             <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+shift+f&#34;</span>
         <span class="p">},</span>
-        <span class="err">//</span> <span class="err">Press</span> <span class="err">Alt+Shift+D</span> <span class="err">to</span> <span class="err">open</span> <span class="err">a</span> <span class="err">new</span> <span class="err">pane.</span>
-        <span class="err">//</span> <span class="err">-</span> <span class="s2">&#34;split&#34;</span><span class="err">:</span> <span class="s2">&#34;auto&#34;</span> <span class="err">makes</span> <span class="err">this</span> <span class="err">pane</span> <span class="err">open</span> <span class="err">in</span> <span class="err">the</span> <span class="err">direction</span> <span class="err">that</span> <span class="err">provides</span> <span class="err">the</span> <span class="err">most</span> <span class="err">surface</span> <span class="err">area.</span>
-        <span class="err">//</span> <span class="err">-</span> <span class="s2">&#34;splitMode&#34;</span><span class="err">:</span> <span class="s2">&#34;duplicate&#34;</span> <span class="err">makes</span> <span class="err">the</span> <span class="err">new</span> <span class="err">pane</span> <span class="err">use</span> <span class="err">the</span> <span class="err">focused</span> <span class="err">pane&#39;s</span> <span class="err">profile.</span>
-        <span class="err">//</span> <span class="err">To</span> <span class="err">learn</span> <span class="err">more</span> <span class="err">about</span> <span class="err">panes</span><span class="p">,</span> <span class="err">visit</span> <span class="err">https://aka.ms/terminal-panes</span>
-        <span class="p">{</span>
+        <span class="c1">// Press Alt+Shift+D to open a new pane.
+</span><span class="c1"></span>        <span class="c1">// - &#34;split&#34;: &#34;auto&#34; makes this pane open in the direction that provides the most surface area.
+</span><span class="c1"></span>        <span class="c1">// - &#34;splitMode&#34;: &#34;duplicate&#34; makes the new pane use the focused pane&#39;s profile.
+</span><span class="c1"></span>        <span class="c1">// To learn more about panes, visit https://aka.ms/terminal-panes
+</span><span class="c1"></span>        <span class="p">{</span>
             <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
             <span class="p">{</span>
                 <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;splitPane&#34;</span><span class="p">,</span>

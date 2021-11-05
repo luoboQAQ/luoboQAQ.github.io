@@ -1244,7 +1244,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="k">new</span> <span class="nx">Vue</span><span class="p">({</span>
 	<span class="p">......</span>
 	<span class="nx">beforeCreate</span><span class="p">()</span> <span class="p">{</span>
-     <span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$bus</span> <span class="o">=</span> <span class="k">this</span> <span class="c1">//安装全局事件总线，$bus就是当前应用的vm
+		<span class="nx">Vue</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">$bus</span> <span class="o">=</span> <span class="k">this</span> <span class="c1">//安装全局事件总线，$bus就是当前应用的vm
 </span><span class="c1"></span>	<span class="p">},</span>
     <span class="p">......</span>
 <span class="p">})</span> 
@@ -1447,21 +1447,21 @@
 <li>
 <p>具体编码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-vue" data-lang="vue"><span class="nx">父组件中</span><span class="err">：</span>
-       <span class="p">&lt;</span><span class="nt">Category</span><span class="p">&gt;</span>
-           <span class="p">&lt;</span><span class="nt">template</span> <span class="na">scope</span><span class="o">=</span><span class="s">&#34;scopeData&#34;</span><span class="p">&gt;</span>
-               <span class="c">&lt;!--</span> <span class="nx">生成的是ul列表</span> <span class="o">--&gt;</span>
-               <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-                   <span class="p">&lt;</span><span class="nt">li</span> <span class="nt">v-for</span><span class="s">=&#34;g in scopeData.games&#34; :key=&#34;g&#34;&gt;{{g}}&lt;/li&gt;
-</span><span class="s">               &lt;/ul&gt;
-</span><span class="s">           &lt;/template&gt;
-</span><span class="s">       &lt;/Category&gt;
+		<span class="p">&lt;</span><span class="nt">Category</span><span class="p">&gt;</span>
+			<span class="p">&lt;</span><span class="nt">template</span> <span class="na">scope</span><span class="o">=</span><span class="s">&#34;scopeData&#34;</span><span class="p">&gt;</span>
+				<span class="c">&lt;!--</span> <span class="nx">生成的是ul列表</span> <span class="o">--&gt;</span>
+				<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+					<span class="p">&lt;</span><span class="nt">li</span> <span class="nt">v-for</span><span class="s">=&#34;g in scopeData.games&#34; :key=&#34;g&#34;&gt;{{g}}&lt;/li&gt;
+</span><span class="s">				&lt;/ul&gt;
+</span><span class="s">			&lt;/template&gt;
+</span><span class="s">		&lt;/Category&gt;
 </span><span class="s">
-</span><span class="s">       &lt;Category&gt;
-</span><span class="s">           &lt;template slot-scope=&#34;scopeData&#34;&gt;
-</span><span class="s">               &lt;!-- 生成的是h4标题 --&gt;
-</span><span class="s">               &lt;h4 v-for=&#34;g in scopeData.games&#34; :key=&#34;g&#34;&gt;{{g}}&lt;/h4&gt;
-</span><span class="s">           &lt;/template&gt;
-</span><span class="s">       &lt;/Category&gt;
+</span><span class="s">		&lt;Category&gt;
+</span><span class="s">			&lt;template slot-scope=&#34;scopeData&#34;&gt;
+</span><span class="s">				&lt;!-- 生成的是h4标题 --&gt;
+</span><span class="s">				&lt;h4 v-for=&#34;g in scopeData.games&#34; :key=&#34;g&#34;&gt;{{g}}&lt;/h4&gt;
+</span><span class="s">			&lt;/template&gt;
+</span><span class="s">		&lt;/Category&gt;
 </span><span class="s">子组件中：
 </span><span class="s">        &lt;template&gt;
 </span><span class="s">            &lt;div&gt;
@@ -1546,16 +1546,16 @@
 <span class="kr">const</span> <span class="nx">actions</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">//响应组件中加的动作
 </span><span class="c1"></span>	<span class="nx">jia</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span><span class="nx">value</span><span class="p">){</span>
-     <span class="c1">// console.log(&#39;actions中的jia被调用了&#39;,miniStore,value)
-</span><span class="c1"></span>     <span class="nx">context</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="s1">&#39;JIA&#39;</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span>
+		<span class="c1">// console.log(&#39;actions中的jia被调用了&#39;,miniStore,value)
+</span><span class="c1"></span>		<span class="nx">context</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="s1">&#39;JIA&#39;</span><span class="p">,</span><span class="nx">value</span><span class="p">)</span>
 	<span class="p">},</span>
 <span class="p">}</span>
 
 <span class="kr">const</span> <span class="nx">mutations</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1">//执行加
 </span><span class="c1"></span>	<span class="nx">JIA</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="nx">value</span><span class="p">){</span>
-     <span class="c1">// console.log(&#39;mutations中的JIA被调用了&#39;,state,value)
-</span><span class="c1"></span>     <span class="nx">state</span><span class="p">.</span><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span>
+		<span class="c1">// console.log(&#39;mutations中的JIA被调用了&#39;,state,value)
+</span><span class="c1"></span>		<span class="nx">state</span><span class="p">.</span><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">value</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 
@@ -1592,7 +1592,7 @@
 
 <span class="kr">const</span> <span class="nx">getters</span> <span class="o">=</span> <span class="p">{</span>
 	<span class="nx">bigSum</span><span class="p">(</span><span class="nx">state</span><span class="p">){</span>
-     <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">sum</span> <span class="o">*</span> <span class="mi">10</span>
+		<span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">sum</span> <span class="o">*</span> <span class="mi">10</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 
@@ -1738,14 +1738,14 @@
 <span class="c1">//创建router实例对象，去管理一组一组的路由规则
 </span><span class="c1"></span><span class="kr">const</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
 	<span class="nx">routes</span><span class="o">:</span><span class="p">[</span>
-     <span class="p">{</span>
-         <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/about&#39;</span><span class="p">,</span>
-         <span class="nx">component</span><span class="o">:</span><span class="nx">About</span>
-     <span class="p">},</span>
-     <span class="p">{</span>
-         <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span>
-         <span class="nx">component</span><span class="o">:</span><span class="nx">Home</span>
-     <span class="p">}</span>
+		<span class="p">{</span>
+			<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/about&#39;</span><span class="p">,</span>
+			<span class="nx">component</span><span class="o">:</span><span class="nx">About</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span>
+			<span class="nx">component</span><span class="o">:</span><span class="nx">Home</span>
+		<span class="p">}</span>
 	<span class="p">]</span>
 <span class="p">})</span>
 
@@ -1774,22 +1774,22 @@
 <p>配置路由规则，使用children配置项：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">routes</span><span class="o">:</span><span class="p">[</span>
 	<span class="p">{</span>
-     <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/about&#39;</span><span class="p">,</span>
-     <span class="nx">component</span><span class="o">:</span><span class="nx">About</span><span class="p">,</span>
+		<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/about&#39;</span><span class="p">,</span>
+		<span class="nx">component</span><span class="o">:</span><span class="nx">About</span><span class="p">,</span>
 	<span class="p">},</span>
 	<span class="p">{</span>
-     <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span>
-     <span class="nx">component</span><span class="o">:</span><span class="nx">Home</span><span class="p">,</span>
-     <span class="nx">children</span><span class="o">:</span><span class="p">[</span> <span class="c1">//通过children配置子级路由
-</span><span class="c1"></span>         <span class="p">{</span>
-             <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="c1">//此处一定不要写：/news
-</span><span class="c1"></span>             <span class="nx">component</span><span class="o">:</span><span class="nx">News</span>
-         <span class="p">},</span>
-         <span class="p">{</span>
-             <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="c1">//此处一定不要写：/message
-</span><span class="c1"></span>             <span class="nx">component</span><span class="o">:</span><span class="nx">Message</span>
-         <span class="p">}</span>
-     <span class="p">]</span>
+		<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span>
+		<span class="nx">component</span><span class="o">:</span><span class="nx">Home</span><span class="p">,</span>
+		<span class="nx">children</span><span class="o">:</span><span class="p">[</span> <span class="c1">//通过children配置子级路由
+</span><span class="c1"></span>			<span class="p">{</span>
+				<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="c1">//此处一定不要写：/news
+</span><span class="c1"></span>				<span class="nx">component</span><span class="o">:</span><span class="nx">News</span>
+			<span class="p">},</span>
+			<span class="p">{</span>
+				<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="c1">//此处一定不要写：/message
+</span><span class="c1"></span>				<span class="nx">component</span><span class="o">:</span><span class="nx">Message</span>
+			<span class="p">}</span>
+		<span class="p">]</span>
 	<span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div></li>
@@ -1808,11 +1808,11 @@
 <span class="c">&lt;!--</span> <span class="nx">跳转并携带query参数</span><span class="err">，</span><span class="nx">to的对象写法</span> <span class="o">--&gt;</span>
 <span class="p">&lt;</span><span class="nt">router-link</span> 
 	<span class="o">:</span><span class="na">to</span><span class="o">=</span><span class="s">&#34;{
-</span><span class="s">     path:&#39;/home/message/detail&#39;,
-</span><span class="s">     query:{
-</span><span class="s">        id:666,
+</span><span class="s">		path:&#39;/home/message/detail&#39;,
+</span><span class="s">		query:{
+</span><span class="s">		   id:666,
 </span><span class="s">            title:&#39;你好&#39;
-</span><span class="s">     }
+</span><span class="s">		}
 </span><span class="s">	}&#34;</span>
 <span class="p">&gt;</span><span class="nx">跳转</span><span class="o">&lt;</span><span class="err">/router-link&gt;</span>
 </code></pre></div></li>
@@ -1836,17 +1836,17 @@
 	<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/demo&#39;</span><span class="p">,</span>
 	<span class="nx">component</span><span class="o">:</span><span class="nx">Demo</span><span class="p">,</span>
 	<span class="nx">children</span><span class="o">:</span><span class="p">[</span>
-      <span class="p">{</span>
-          <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
-          <span class="nx">component</span><span class="o">:</span><span class="nx">Test</span><span class="p">,</span>
-          <span class="nx">children</span><span class="o">:</span><span class="p">[</span>
-              <span class="p">{</span>
+		<span class="p">{</span>
+			<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;test&#39;</span><span class="p">,</span>
+			<span class="nx">component</span><span class="o">:</span><span class="nx">Test</span><span class="p">,</span>
+			<span class="nx">children</span><span class="o">:</span><span class="p">[</span>
+				<span class="p">{</span>
                       <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;hello&#39;</span> <span class="c1">//给路由命名
-</span><span class="c1"></span>                  <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span>
-                  <span class="nx">component</span><span class="o">:</span><span class="nx">Hello</span><span class="p">,</span>
-              <span class="p">}</span>
-          <span class="p">]</span>
-      <span class="p">}</span>
+</span><span class="c1"></span>					<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;welcome&#39;</span><span class="p">,</span>
+					<span class="nx">component</span><span class="o">:</span><span class="nx">Hello</span><span class="p">,</span>
+				<span class="p">}</span>
+			<span class="p">]</span>
+		<span class="p">}</span>
 	<span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div></li>
@@ -1861,11 +1861,11 @@
 <span class="c">&lt;!--</span><span class="nx">简化写法配合传递参数</span> <span class="o">--&gt;</span>
 <span class="p">&lt;</span><span class="nt">router-link</span> 
 	<span class="o">:</span><span class="na">to</span><span class="o">=</span><span class="s">&#34;{
-</span><span class="s">      name:&#39;hello&#39;,
-</span><span class="s">      query:{
-</span><span class="s">         id:666,
+</span><span class="s">		name:&#39;hello&#39;,
+</span><span class="s">		query:{
+</span><span class="s">		   id:666,
 </span><span class="s">            title:&#39;你好&#39;
-</span><span class="s">      }
+</span><span class="s">		}
 </span><span class="s">	}&#34;</span>
 <span class="p">&gt;</span><span class="nx">跳转</span><span class="o">&lt;</span><span class="err">/router-link&gt;</span>
 </code></pre></div></li>
@@ -1880,20 +1880,20 @@
 	<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;/home&#39;</span><span class="p">,</span>
 	<span class="nx">component</span><span class="o">:</span><span class="nx">Home</span><span class="p">,</span>
 	<span class="nx">children</span><span class="o">:</span><span class="p">[</span>
-     <span class="p">{</span>
-         <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;news&#39;</span><span class="p">,</span>
-         <span class="nx">component</span><span class="o">:</span><span class="nx">News</span>
-     <span class="p">},</span>
-     <span class="p">{</span>
-         <span class="nx">component</span><span class="o">:</span><span class="nx">Message</span><span class="p">,</span>
-         <span class="nx">children</span><span class="o">:</span><span class="p">[</span>
-             <span class="p">{</span>
-                 <span class="nx">name</span><span class="o">:</span><span class="s1">&#39;xiangqing&#39;</span><span class="p">,</span>
-                 <span class="nx">path</span><span class="o">:</span><span class="s1">&#39;detail/:id/:title&#39;</span><span class="p">,</span> <span class="c1">//使用占位符声明接收params参数
-</span><span class="c1"></span>                 <span class="nx">component</span><span class="o">:</span><span class="nx">Detail</span>
-             <span class="p">}</span>
-         <span class="p">]</span>
-     <span class="p">}</span>
+		<span class="p">{</span>
+			<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;news&#39;</span><span class="p">,</span>
+			<span class="nx">component</span><span class="o">:</span><span class="nx">News</span>
+		<span class="p">},</span>
+		<span class="p">{</span>
+			<span class="nx">component</span><span class="o">:</span><span class="nx">Message</span><span class="p">,</span>
+			<span class="nx">children</span><span class="o">:</span><span class="p">[</span>
+				<span class="p">{</span>
+					<span class="nx">name</span><span class="o">:</span><span class="s1">&#39;xiangqing&#39;</span><span class="p">,</span>
+					<span class="nx">path</span><span class="o">:</span><span class="s1">&#39;detail/:id/:title&#39;</span><span class="p">,</span> <span class="c1">//使用占位符声明接收params参数
+</span><span class="c1"></span>					<span class="nx">component</span><span class="o">:</span><span class="nx">Detail</span>
+				<span class="p">}</span>
+			<span class="p">]</span>
+		<span class="p">}</span>
 	<span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div></li>
@@ -1905,11 +1905,11 @@
 <span class="c">&lt;!--</span> <span class="nx">跳转并携带params参数</span><span class="err">，</span><span class="nx">to的对象写法</span> <span class="o">--&gt;</span>
 <span class="p">&lt;</span><span class="nt">router-link</span> 
 	<span class="o">:</span><span class="na">to</span><span class="o">=</span><span class="s">&#34;{
-</span><span class="s">     name:&#39;xiangqing&#39;,
-</span><span class="s">     params:{
-</span><span class="s">        id:666,
+</span><span class="s">		name:&#39;xiangqing&#39;,
+</span><span class="s">		params:{
+</span><span class="s">		   id:666,
 </span><span class="s">            title:&#39;你好&#39;
-</span><span class="s">     }
+</span><span class="s">		}
 </span><span class="s">	}&#34;</span>
 <span class="p">&gt;</span><span class="nx">跳转</span><span class="o">&lt;</span><span class="err">/router-link&gt;</span>
 </code></pre></div><blockquote>
@@ -1959,18 +1959,18 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="c1">//$router的两个API
 </span><span class="c1"></span><span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
 	<span class="nx">name</span><span class="o">:</span><span class="s1">&#39;xiangqing&#39;</span><span class="p">,</span>
-     <span class="nx">params</span><span class="o">:</span><span class="p">{</span>
-         <span class="nx">id</span><span class="o">:</span><span class="nx">xxx</span><span class="p">,</span>
-         <span class="nx">title</span><span class="o">:</span><span class="nx">xxx</span>
-     <span class="p">}</span>
+		<span class="nx">params</span><span class="o">:</span><span class="p">{</span>
+			<span class="nx">id</span><span class="o">:</span><span class="nx">xxx</span><span class="p">,</span>
+			<span class="nx">title</span><span class="o">:</span><span class="nx">xxx</span>
+		<span class="p">}</span>
 <span class="p">})</span>
 
 <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">replace</span><span class="p">({</span>
 	<span class="nx">name</span><span class="o">:</span><span class="s1">&#39;xiangqing&#39;</span><span class="p">,</span>
-     <span class="nx">params</span><span class="o">:</span><span class="p">{</span>
-         <span class="nx">id</span><span class="o">:</span><span class="nx">xxx</span><span class="p">,</span>
-         <span class="nx">title</span><span class="o">:</span><span class="nx">xxx</span>
-     <span class="p">}</span>
+		<span class="nx">params</span><span class="o">:</span><span class="p">{</span>
+			<span class="nx">id</span><span class="o">:</span><span class="nx">xxx</span><span class="p">,</span>
+			<span class="nx">title</span><span class="o">:</span><span class="nx">xxx</span>
+		<span class="p">}</span>
 <span class="p">})</span>
 <span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">forward</span><span class="p">()</span> <span class="c1">//前进
 </span><span class="c1"></span><span class="k">this</span><span class="p">.</span><span class="nx">$router</span><span class="p">.</span><span class="nx">back</span><span class="p">()</span> <span class="c1">//后退
@@ -2013,14 +2013,14 @@
 </span><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">beforeEach</span><span class="p">((</span><span class="nx">to</span><span class="p">,</span><span class="nx">from</span><span class="p">,</span><span class="nx">next</span><span class="p">)=&gt;{</span>
 	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;beforeEach&#39;</span><span class="p">,</span><span class="nx">to</span><span class="p">,</span><span class="nx">from</span><span class="p">)</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">to</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">isAuth</span><span class="p">){</span> <span class="c1">//判断当前路由是否需要进行权限控制
-</span><span class="c1"></span>     <span class="k">if</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;school&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;atguigu&#39;</span><span class="p">){</span> <span class="c1">//权限控制的具体规则
-</span><span class="c1"></span>         <span class="nx">next</span><span class="p">()</span> <span class="c1">//放行
-</span><span class="c1"></span>     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-         <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;暂无权限查看&#39;</span><span class="p">)</span>
-         <span class="c1">// next({name:&#39;guanyu&#39;})
-</span><span class="c1"></span>     <span class="p">}</span>
+</span><span class="c1"></span>		<span class="k">if</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;school&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;atguigu&#39;</span><span class="p">){</span> <span class="c1">//权限控制的具体规则
+</span><span class="c1"></span>			<span class="nx">next</span><span class="p">()</span> <span class="c1">//放行
+</span><span class="c1"></span>		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+			<span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;暂无权限查看&#39;</span><span class="p">)</span>
+			<span class="c1">// next({name:&#39;guanyu&#39;})
+</span><span class="c1"></span>		<span class="p">}</span>
 	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-     <span class="nx">next</span><span class="p">()</span> <span class="c1">//放行
+		<span class="nx">next</span><span class="p">()</span> <span class="c1">//放行
 </span><span class="c1"></span>	<span class="p">}</span>
 <span class="p">})</span>
 
@@ -2028,9 +2028,9 @@
 </span><span class="c1"></span><span class="nx">router</span><span class="p">.</span><span class="nx">afterEach</span><span class="p">((</span><span class="nx">to</span><span class="p">,</span><span class="nx">from</span><span class="p">)=&gt;{</span>
 	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;afterEach&#39;</span><span class="p">,</span><span class="nx">to</span><span class="p">,</span><span class="nx">from</span><span class="p">)</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">to</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span><span class="p">){</span> 
-     <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">to</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span> <span class="c1">//修改网页的title
+		<span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">to</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">title</span> <span class="c1">//修改网页的title
 </span><span class="c1"></span>	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-     <span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;vue_test&#39;</span>
+		<span class="nb">document</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;vue_test&#39;</span>
 	<span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div></li>
@@ -2039,14 +2039,14 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">beforeEnter</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span><span class="nx">from</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
 	<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;beforeEnter&#39;</span><span class="p">,</span><span class="nx">to</span><span class="p">,</span><span class="nx">from</span><span class="p">)</span>
 	<span class="k">if</span><span class="p">(</span><span class="nx">to</span><span class="p">.</span><span class="nx">meta</span><span class="p">.</span><span class="nx">isAuth</span><span class="p">){</span> <span class="c1">//判断当前路由是否需要进行权限控制
-</span><span class="c1"></span>     <span class="k">if</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;school&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;atguigu&#39;</span><span class="p">){</span>
-         <span class="nx">next</span><span class="p">()</span>
-     <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-         <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;暂无权限查看&#39;</span><span class="p">)</span>
-         <span class="c1">// next({name:&#39;guanyu&#39;})
-</span><span class="c1"></span>     <span class="p">}</span>
+</span><span class="c1"></span>		<span class="k">if</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;school&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;atguigu&#39;</span><span class="p">){</span>
+			<span class="nx">next</span><span class="p">()</span>
+		<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+			<span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;暂无权限查看&#39;</span><span class="p">)</span>
+			<span class="c1">// next({name:&#39;guanyu&#39;})
+</span><span class="c1"></span>		<span class="p">}</span>
 	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-     <span class="nx">next</span><span class="p">()</span>
+		<span class="nx">next</span><span class="p">()</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></li>

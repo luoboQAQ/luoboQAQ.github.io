@@ -27,8 +27,9 @@
   iat: jwt的签发时间
   jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重放攻击。
   当然，在载荷中还可以存放自定义的信息，在本项目中使用官方提供的就足以了，故不展开。
-认证流程  用户使用用户名密码来请求服务器 服务器进行验证用户的信息 服务器通过验证发送给用户一个token 客户端存储token，并在每次请求时附送上这个token值 服务端验证token值，并返回数据  具体实现 导入依赖包 第一步当然是导入相关依赖了，使用Maven进行包管理。
-&amp;lt;!-- shiro --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.shiro&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;shiro-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.8.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- jwt --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.auth0&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;java-jwt&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.18.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 封装JWT工具类 这里主要实现JWT的生成、验证、提取用户名三个功能</description>
+认证流程  用户使用用户名密码来请求服务器 服务器进行验证用户的信息 服务器通过验证发送给用户一个token 客户端存储token，并在每次请求时附送上这个token值 服务端验证token值，并返回数据   JWT认证流程图 
+具体实现 导入依赖包 第一步当然是导入相关依赖了，使用Maven进行包管理。
+&amp;lt;!-- shiro --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.shiro&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;shiro-spring&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;1.8.0&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- jwt --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.auth0&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;java-jwt&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;3.</description>
     </item>
     
   </channel>

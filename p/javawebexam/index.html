@@ -3,16 +3,16 @@
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='JavaWeb知识点和代码整理'><title>JavaWeb期末复习</title>
 
-<link rel='canonical' href='https://lbqaq.top/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/'>
+<link rel='canonical' href='https://lbqaq.top/p/javawebexam/'>
 
 <link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='JavaWeb期末复习'>
 <meta property='og:description' content='JavaWeb知识点和代码整理'>
-<meta property='og:url' content='https://lbqaq.top/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/'>
+<meta property='og:url' content='https://lbqaq.top/p/javawebexam/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-01-03T19:52:31&#43;08:00'/><meta property='article:modified_time' content='2022-01-03T23:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/92462192.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-01-03T19:52:31&#43;08:00'/><meta property='article:modified_time' content='2022-01-03T23:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/javawebexam/92462192.webp' />
 <meta name="twitter:title" content="JavaWeb期末复习">
 <meta name="twitter:description" content="JavaWeb知识点和代码整理"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/92462192.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
+    <meta name="twitter:image" content='https://lbqaq.top/p/javawebexam/92462192.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
     </head>
     <body class="
     article-page has-toc
@@ -62,8 +62,8 @@
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">
-                <img src="/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/92462192.webp"
+            <a href="/p/javawebexam/">
+                <img src="/p/javawebexam/92462192.webp"
                         
                         width="1846" 
                         height="943" 
@@ -78,7 +78,7 @@
     
 
     <h2 class="article-title">
-        <a href="/p/javaweb%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">JavaWeb期末复习</a>
+        <a href="/p/javawebexam/">JavaWeb期末复习</a>
     </h2>
 
     
@@ -115,7 +115,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 4 分钟
                 </time>
             </div>
         
@@ -136,7 +136,41 @@
 <h2 id="上机题整理">上机题整理</h2>
 <p>这里只存放核心的代码，完整的程序见<a class="link" href="https://gitee.com/luoboQAQ/web-practice"  target="_blank" rel="noopener"
     >Gitee仓库</a></p>
-<h3 id="servlet生成三角形">Servlet生成三角形</h3>
+<h3 id="maven配置">Maven配置</h3>
+<p>把考试会用的包都导入了，包括Servlet、JSP、JSTL、MySQl驱动，版本都已经调整为最佳，保证开箱即用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!-- servlet 依赖 --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>javax.servlet<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>javax.servlet-api<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>3.1.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="c">&lt;!-- jsp 依赖 --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>javax.servlet.jsp<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>javax.servlet.jsp-api<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>2.3.3<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="c">&lt;!-- jstl --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>javax.servlet.jsp.jstl<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>jstl-api<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="c">&lt;!-- standard标签库 --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>taglibs<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>standard<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.1.2<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="c">&lt;!-- mysql驱动 --&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>8.0.25<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></div><h3 id="servlet生成三角形">Servlet生成三角形</h3>
 <ul>
 <li>
 <p>正三角</p>
@@ -279,19 +313,283 @@
 <p>修改数据时，如何将原数据显示在表单中。特别是select radio</p>
 <p>用会话对象实现购物车的CRUD商品名称，单价，数量购物车列表，总价</p>
 <h2 id="问答题">问答题</h2>
-<p>C/S B/S优缺点
-JSTL EL JDBC VO DAO MVC JSP中英文全称
-多层架构的优点
-Get、POST特点优缺点
-重定向与请求转发的优缺点 实现的核心代码
-JSP Serlet 区别与联系
-JSP内置对象
-JavaBean相关动作标记有哪些，用代码说明之。
-EL与作用城相关的隐含对象有哪些</p>
+<h3 id="cs-bs优缺点">C/S B/S优缺点</h3>
+<p>C/S架构</p>
+<p>全称是Client/Server，即客户端服务器端架构</p>
+<p>优点：</p>
+<ul>
+<li>C/S架构的界面和操作可以很丰富。</li>
+<li>安全性能可以很容易保证，实现多层认证也不难。</li>
+<li>由于只有一层交互，因此响应速度较快。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>适用面窄，通常用于局域网中。</li>
+<li>用户群固定。由于程序需要安装才可使用，因此不适合面向一些不可知的用户。</li>
+<li>维护成本高，发生一次升级，则所有客户端的程序都需要改变。</li>
+</ul>
+<p>B/S架构</p>
+<p>全称为Browser/Server，即浏览器/服务器结构。</p>
+<p>优点：</p>
+<ul>
+<li>客户端无需安装，有Web浏览器即可。</li>
+<li>BS架构可以直接放在广域网上，通过一定的权限控制实现多客户访问的目的，交互性较强。</li>
+<li>BS架构无需升级多个客户端，升级服务器即可。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>在跨浏览器上，BS架构不尽如人意。</li>
+<li>表现要达到CS程序的程度需要花费不少精力。</li>
+<li>在速度和安全性上需要花费巨大的设计成本，这是BS架构的最大问题。</li>
+</ul>
+<h3 id="jstl-el-jdbc-vo-dao-mvc-jsp中英文全称">JSTL EL JDBC VO DAO MVC JSP中英文全称</h3>
+<ul>
+<li>JSTL:Java server pages standarded tag library，JSP标准标签库</li>
+<li>EL:Expression Language,EL表达式</li>
+<li>JDBC:Java Database Connectivity,Java数据库连接</li>
+<li>VO:Value Object,值对象</li>
+<li>DAO:Data Access Object,数据库访问对象</li>
+<li>MVC:Model View Controller,视图 模型 控制器</li>
+<li>JSP:Java Server Pages,JAVA服务器页面</li>
+</ul>
+<h3 id="多层架构的优点">多层架构的优点</h3>
+<ul>
+<li>
+<p>高内聚低耦合，便于团队开发</p>
+<p>内聚：一个模块内各个元素彼此结合的紧密程度；</p>
+<p>耦合：一个软件结构内不同模块之间关联程度的度量。</p>
+<p>在团队开发中，分层可以让软件开发人员专注于自己负责的层，而不必关心其他层的设计，也不必担心自己的设计会影响其它层。如果不分层，根本不可能进行团队开发，只会一团糟。</p>
+</li>
+<li>
+<p>使软件升级和维护更为容易</p>
+<p>分层设计使得程序结构清晰，升级和维护都变得十分容易，更改层的具体实现代码，只要层接口保持稳定，其他层可以不必修改。即使层的接口发生变化，也只影响上层和下层，修改工作量小而且错误可以控制，不会带来意外的风险。</p>
+</li>
+</ul>
+<h3 id="getpost特点和优缺点">GET、POST特点和优缺点</h3>
+<p>GET</p>
+<p>查询字符串（名称/值对）是在GET请求的URL中发送的</p>
+<p>优点：</p>
+<ul>
+<li>GET请求可被缓存</li>
+<li>GET请求速度快</li>
+<li>GET请求可被收藏为书签</li>
+<li>GET请求保留在浏览器历史记录中</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>GET请求不安全</li>
+<li>GET请求有url长度限制</li>
+</ul>
+<p>POST</p>
+<p>查询字符串（名称/值对）是在POST请求的HTTP消息主体中发送的</p>
+<p>优点：</p>
+<ul>
+<li>POST请求对数据长度没有要求</li>
+<li>POST请求相对GET请求更安全</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>POST请求不会被缓存</li>
+<li>POST请求速度慢</li>
+</ul>
+<h3 id="重定向与请求转发的优缺点-实现的核心代码">重定向与请求转发的优缺点 实现的核心代码</h3>
+<p>重定向</p>
+<p>优点：</p>
+<ul>
+<li>不限制应用范围，可以重定向到服务器内部其他资源，也可以是外部的应用</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>重定向解决方案需要在浏览器与服务器之间进行多次往返，大量时间消耗在往返次数上，增加用户等待服务时间</li>
+</ul>
+<p>核心代码：<code>response.sendRedirect(&quot;请求地址&quot;)</code></p>
+<p>请求转发</p>
+<p>优点：</p>
+<ul>
+<li>安全性高，在内部发生跳转，浏览器地址不变</li>
+<li>转发只需要一次请求，就可以访问至少两个servlet或jsp页面。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>只能在同一web应用内使用，不能转发到外部的url地址。</li>
+</ul>
+<p>核心代码：<code>request.getRequestDispatcher(&quot;URL地址&quot;).forward(request, response)</code></p>
+<h3 id="jsp-servlet-区别与联系">JSP Servlet 区别与联系</h3>
+<p>区别：</p>
+<ul>
+<li>jsp更擅长表现于页面显示,servlet更擅长于逻辑控制。</li>
+<li>Servlet中没有内置对象，Jsp中有内置对象。</li>
+<li>Servlet在Java代码中通过HttpServletResponse对象动态输出HTML内容；JSP在静态HTML内容中嵌入Java代码，Java代码被动态执行后生成HTML内容</li>
+</ul>
+<p>联系：</p>
+<ul>
+<li>jsp是对servlet的一种高级封装。本质还是servlet。</li>
+<li>jsp会由TomCat自动编译成“类servlet”。</li>
+</ul>
+<h3 id="jsp内置对象">JSP内置对象</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">request</td>
+<td><strong>HttpServletRequest</strong> 接口的实例</td>
+</tr>
+<tr>
+<td style="text-align:left">response</td>
+<td><strong>HttpServletResponse</strong> 接口的实例</td>
+</tr>
+<tr>
+<td style="text-align:left">out</td>
+<td><strong>JspWriter</strong>类的实例，用于把结果输出至网页上</td>
+</tr>
+<tr>
+<td style="text-align:left">session</td>
+<td><strong>HttpSession</strong>类的实例</td>
+</tr>
+<tr>
+<td style="text-align:left">application</td>
+<td><strong>ServletContext</strong>类的实例，与应用上下文有关</td>
+</tr>
+<tr>
+<td style="text-align:left">config</td>
+<td><strong>ServletConfig</strong>类的实例</td>
+</tr>
+<tr>
+<td style="text-align:left">pageContext</td>
+<td><strong>PageContext</strong>类的实例，提供对JSP页面所有对象以及命名空间的访问</td>
+</tr>
+<tr>
+<td style="text-align:left">page</td>
+<td>类似于Java类中的this关键字</td>
+</tr>
+<tr>
+<td style="text-align:left">Exception</td>
+<td><strong>Exception</strong>类的对象，代表发生错误的JSP页面中对应的异常对象</td>
+</tr>
+</tbody>
+</table>
+<h3 id="javabean相关动作标记有哪些用代码说明之">JavaBean相关动作标记有哪些，用代码说明之。</h3>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jsp:useBean</td>
+<td>寻找或者实例化一个JavaBean。</td>
+</tr>
+<tr>
+<td>jsp:setProperty</td>
+<td>设置JavaBean的属性。</td>
+</tr>
+<tr>
+<td>jsp:getProperty</td>
+<td>输出某个JavaBean的属性。</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;jsp:useBean id = &quot;name&quot; class = &quot;package.class&quot; scope= &quot;page | request | session | application&quot; /&gt;</code></p>
+<p>其中：</p>
+<p>1）id</p>
+<p>表示 Bean 实例化对象的变量名，可以在指定范围内使用该变量名。</p>
+<p>2）class</p>
+<p>表示需要实例化 Bean 的类路径，指定的类必须包含 public 且无参数的构造方法。</p>
+<p>3）scope</p>
+<p>指定 Bean 的作用域，取值为：</p>
+<ul>
+<li>page：只能在当前页面使用该 Bean 对象；</li>
+<li>request：只能在一次请求范围内使用该 Bean 对象；</li>
+<li>session：只能在一次会话范围内使用该 Bean 对象；</li>
+<li>application：可以在整个应用范围内使用该 Bean 对象。</li>
+</ul>
+<p><code>&lt;jsp:setProperty name = &quot;beanName&quot; property = &quot;attributeName&quot; value = &quot;attributeValue&quot;/&gt;</code></p>
+<p><code>&lt;jsp:setProperty&gt; </code>通常和 <code>&lt;jsp:useBean&gt;</code> 一起使用，分为两种情况。</p>
+<ul>
+<li>
+<p>在 <code>&lt;jsp:useBean&gt;</code> 标签外使用<code>&lt;jsp:setProperty&gt;</code></p>
+<p>以上情况，无论 <code>&lt;jsp:useBean&gt; </code>是否实例化了 User 对象，<code>&lt;jsp:setProperty&gt; </code>都会执行。</p>
+</li>
+<li>
+<p>在 <code>&lt;jsp:useBean&gt;</code> 标签里使用 <code>&lt;jsp:setProperty&gt;</code></p>
+<p>只有 <code>&lt;jsp:useBean&gt;</code> 实例化了 User 对象，<code>&lt;jsp:setProperty&gt;</code> 才会执行</p>
+</li>
+</ul>
+<p><code>&lt;jsp:getProperty name = &quot;beanName&quot; property = &quot;attributeName&quot;&gt;</code></p>
+<p>其中，name 指定需要获取属性的 Bean 的名称；property 指定 Bean 的属性，即 Bean 类中的属性。</p>
+<p>当 property 的取值为 <code>*</code> 时，要求 Bean 属性的名称与类型要与 request 请求中参数的名称及类型一致，以便用 Bean 中的属性来接收客户输入的数据，系统会根据名称来自动匹配。</p>
+<blockquote>
+<p>注意：<code>&lt;jsp:setProperty&gt;</code> 和 <code>&lt;jsp:getProperty&gt;</code> 动作都会按照  page、request、session 和 application 的顺序依次查找指定 Bean  的实例对象，直到第一个实例被找到。如果任何范围内都不存在这个 Bean 实例，则会拋出异常。</p>
+</blockquote>
+<h3 id="el与作用城相关的隐含对象有哪些">EL与作用城相关的隐含对象有哪些</h3>
+<table>
+<thead>
+<tr>
+<th>内置对象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pageScope</td>
+<td>获取 page 范围的变量</td>
+</tr>
+<tr>
+<td>requestScope</td>
+<td>获取 request 范围的变量</td>
+</tr>
+<tr>
+<td>sessionScope</td>
+<td>获取 session 范围的变量</td>
+</tr>
+<tr>
+<td>applicationScope</td>
+<td>获取 application 范围的变量</td>
+</tr>
+<tr>
+<td>param</td>
+<td>相当于 request.getParameter(String name)，获取单个参数的值</td>
+</tr>
+<tr>
+<td>paramValues</td>
+<td>相当于 request.getParameterValues(String name)，获取参数集合中的变量值</td>
+</tr>
+<tr>
+<td>header</td>
+<td>相当于 request.getHeader(String name)，获取 HTTP 请求头信息</td>
+</tr>
+<tr>
+<td>headerValues</td>
+<td>相当于 request.getHeaders(String name)，获取 HTTP 请求头数组信息</td>
+</tr>
+<tr>
+<td>initParam</td>
+<td>相当于 application.getInitParameter(String name)，获取 web.xml 文件中的参数值</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td>相当于 request.getCookies()，获取 cookie 中的值</td>
+</tr>
+<tr>
+<td>pageContext</td>
+<td>表示当前 JSP 页面的 pageContext 对象</td>
+</tr>
+</tbody>
+</table>
+<p>EL 表达式可以输出 4 种属性范围的内容。如果在不同的属性范围中设置了同一个属性名称，则按照 page、request、session、application 的顺序依次查找。</p>
 <p>${person.name}
-person存放在request属性中person对象的类yzu.Person，对象的java代码是什么
+person存放在request属性中person对象的类yzu.Person，对象的java代码是什么(JavaBean)
 <code>&lt;%=((yzu.Person)request.getAttribue(&quot;person&quot;)).getName()%&gt;</code></p>
-<p>过滤器与Servlet区别与联系，他有什么作用。</p>
+<h3 id="过滤器与servlet区别与联系他有什么作用">过滤器与Servlet区别与联系，他有什么作用。</h3>
+<p>过滤器（Filter）：对Request请求起到过滤的作用，作用在Servlet之前</p>
+<p>Servlet：处理Request请求和Response响应</p>
 
 </section>
 
@@ -482,6 +780,7 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
     <li><a href="#题目类型">题目类型</a></li>
     <li><a href="#上机题整理">上机题整理</a>
       <ol>
+        <li><a href="#maven配置">Maven配置</a></li>
         <li><a href="#servlet生成三角形">Servlet生成三角形</a></li>
         <li><a href="#jsp生成乘法表">JSP生成乘法表</a></li>
         <li><a href="#登录界面三次禁用">登录界面，三次禁用</a></li>
@@ -495,7 +794,20 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
         <li><a href="#db-crud查询组合查询不需要分页">DB CRUD查询组合查询不需要分页</a></li>
       </ol>
     </li>
-    <li><a href="#问答题">问答题</a></li>
+    <li><a href="#问答题">问答题</a>
+      <ol>
+        <li><a href="#cs-bs优缺点">C/S B/S优缺点</a></li>
+        <li><a href="#jstl-el-jdbc-vo-dao-mvc-jsp中英文全称">JSTL EL JDBC VO DAO MVC JSP中英文全称</a></li>
+        <li><a href="#多层架构的优点">多层架构的优点</a></li>
+        <li><a href="#getpost特点和优缺点">GET、POST特点和优缺点</a></li>
+        <li><a href="#重定向与请求转发的优缺点-实现的核心代码">重定向与请求转发的优缺点 实现的核心代码</a></li>
+        <li><a href="#jsp-servlet-区别与联系">JSP Servlet 区别与联系</a></li>
+        <li><a href="#jsp内置对象">JSP内置对象</a></li>
+        <li><a href="#javabean相关动作标记有哪些用代码说明之">JavaBean相关动作标记有哪些，用代码说明之。</a></li>
+        <li><a href="#el与作用城相关的隐含对象有哪些">EL与作用城相关的隐含对象有哪些</a></li>
+        <li><a href="#过滤器与servlet区别与联系他有什么作用">过滤器与Servlet区别与联系，他有什么作用。</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
                 </div>

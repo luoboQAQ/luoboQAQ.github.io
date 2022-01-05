@@ -272,7 +272,8 @@
 &lt;h3 id=&#34;db-crud查询组合查询不需要分页&#34;&gt;DB CRUD查询组合查询不需要分页&lt;/h3&gt;
 &lt;p&gt;见上面&lt;/p&gt;
 &lt;h3 id=&#34;用会话对象实现购物车的crud商品名称单价数量购物车列表总价&#34;&gt;用会话对象实现购物车的CRUD商品名称，单价，数量购物车列表，总价&lt;/h3&gt;
-&lt;p&gt;具体代码见仓库&lt;code&gt;Servlet6&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;具体代码见仓库&lt;a class=&#34;link&#34; href=&#34;https://gitee.com/luoboQAQ/web-practice/blob/master/exam/src/main/java/top/lbqaq/servlet/Servlet6.java&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Servlet6&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;问答题&#34;&gt;问答题&lt;/h2&gt;
 &lt;h3 id=&#34;cs-bs优缺点&#34;&gt;C/S B/S优缺点&lt;/h3&gt;
 &lt;p&gt;C/S架构&lt;/p&gt;
@@ -325,6 +326,28 @@
 &lt;p&gt;使软件升级和维护更为容易&lt;/p&gt;
 &lt;p&gt;分层设计使得程序结构清晰，升级和维护都变得十分容易，更改层的具体实现代码，只要层接口保持稳定，其他层可以不必修改。即使层的接口发生变化，也只影响上层和下层，修改工作量小而且错误可以控制，不会带来意外的风险。&lt;/p&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;mvc的特点和优点&#34;&gt;MVC的特点和优点&lt;/h3&gt;
+&lt;p&gt;MVC主要分模型、视图、控制器三层。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;模型(model)&lt;/p&gt;
+&lt;p&gt;它是应用程序的主体部分，主要包括业务逻辑模块和数据模块。模型与数据格式无关，这样一个模型能为多个视图提供数据。由于应用于模型的代码只需写一次就可以被多个视图重用，所以减少了代码的重复性&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;视图(view)&lt;/p&gt;
+&lt;p&gt;用户与之交互的界面、在 web 中视图一般由 jsp,html 组成&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;控制器(controller)&lt;/p&gt;
+&lt;p&gt;接收来自界面的请求 并交给模型进行处理 在这个过程中控制器不做任何处理只是起到了一个连接的作用&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;降低代码耦合性。在 MVC 模式中，三个层各施其职，所以如果一旦哪一层的需求发生了变化，就只需要更改相应的层中的代码而不会影响到其他层中的代码。&lt;/li&gt;
+&lt;li&gt;有利于分工合作。在 MVC 模式中，由于按层把系统分开，那么就能更好的实现开发中的分工。网页设计人员可进行开发视图层中的 JSP，而对业务熟悉的人员可开发业务层，而其他开发人员可开发控制层。&lt;/li&gt;
+&lt;li&gt;有利于组件的重用。如控制层可独立成一个能用的组件，表示层也可做成通用的操作界面。可以为一个模型在运行时同时建立和使用多个视图。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;getpost特点和优缺点&#34;&gt;GET、POST特点和优缺点&lt;/h3&gt;
 &lt;p&gt;GET&lt;/p&gt;
@@ -434,7 +457,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id=&#34;javabean相关动作标记有哪些用代码说明之&#34;&gt;JavaBean相关动作标记有哪些，用代码说明之。&lt;/h3&gt;
+&lt;h3 id=&#34;javabean相关动作标记有哪些用代码说明之&#34;&gt;JavaBean相关动作标记有哪些，用代码说明之&lt;/h3&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -548,9 +571,40 @@
 &lt;p&gt;${person.name}
 person存放在request属性中person对象的类yzu.Person，对象的java代码是什么(JavaBean)
 &lt;code&gt;&amp;lt;%=((yzu.Person)request.getAttribue(&amp;quot;person&amp;quot;)).getName()%&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;过滤器与servlet区别与联系他有什么作用&#34;&gt;过滤器与Servlet区别与联系，他有什么作用。&lt;/h3&gt;
+&lt;h3 id=&#34;过滤器与servlet区别与联系他有什么作用&#34;&gt;过滤器与Servlet区别与联系，他有什么作用&lt;/h3&gt;
 &lt;p&gt;过滤器（Filter）：对Request请求起到过滤的作用，作用在Servlet之前&lt;/p&gt;
 &lt;p&gt;Servlet：处理Request请求和Response响应&lt;/p&gt;
+&lt;h3 id=&#34;java和jsp的区别&#34;&gt;Java和JSP的区别&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Java是一种通用的计算机编程语言，它是并发的，基于类的，面向对象的，并且专门设计为具有尽可能少的实现依赖性。而JSP是一种技术，可帮助软件开发人员基于HTML，XML或其他文档类型创建动态生成的Web页面。&lt;/li&gt;
+&lt;li&gt;Java applet是使用Java编程语言编写的。JSP使用“scriptlet元素”（Java代码）和“标记”（通常是HTML或XML）的混合编程，以提供数据驱动（“动态”）网页。&lt;/li&gt;
+&lt;li&gt;Java为面向对象语言，JSP可以理解为一种脚本&lt;/li&gt;
+&lt;li&gt;Java主要负责逻辑，业务处理，而JSP主要负责页面展现&lt;/li&gt;
+&lt;li&gt;JSP的本质是servlet，而servlet的本质是Java类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;jsp开发的优点&#34;&gt;JSP开发的优点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将内容的生成和显示分离&lt;/p&gt;
+&lt;p&gt;借助jsp技术，web页面发开人员可以使用html或者xml标签来设计和格式化最终页面，使用jsp标签或者脚本程序来生成动态web页面的内容（页面的内容是根据请求来变化的，例如，请求账户信息或者特定的一本书的价格）。生成内容的逻辑被封装在标签和javabean组件中，并且捆绑在脚本程序中，所有的脚本程序在服务器端运行。因此，其他人能够方便地编辑和使用jsp页面，而不影响内容的生成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;强调可重用的组件&lt;/p&gt;
+&lt;p&gt;jsp页面可借助可重用的、跨平台的组件来执行应用程序所要求的极为复杂的业务逻辑。开发人员能够共享和交换执行普通操作的组件，或者让这些组件被别的开发人员或开发团队所使用。基于组件的方法加速了总体开发进程，并且使得各种组织在他们现有的技能和优化结果的开发努力中得到平衡。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;采用标签简化页面开发&lt;/p&gt;
+&lt;p&gt;通过使用jsp提供的标准标签库，web页面开发人员能够访问和实例化javabean组件、设置或者检索组件属性、下载applet以及执行用其他方法更难于编码和耗时的功能。此外，web页面开发人员还可以为常用功能创建自己的标签库，这是的web页面开发人员能够使用熟悉的工具盒如同标签一样的执行特定功能的构件来工作。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一次编写、处处运行&lt;/p&gt;
+&lt;p&gt;由于jsp页面的内置脚本是基于java语言的，而且所有的jsp页面都被编译为java  servlet，因此jsp页面就具有java技术的所有好处，包括健壮性和安全性等。作为java平台的一部分，jsp拥有java语言“一次编写，处处运行”的特点。jsp几乎可以运行于所有的平台，如windows nt、linux、unix等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;更高的效率和安全性&lt;/p&gt;
+&lt;p&gt;jsp程序在执行之前先被编译成字节码文件，字节码文件有java虚拟机解释执行，比源代码解释的效率高。此外，服务器端还有字节码的cache机构，能提高字节码的访问效率。第一次调用jsp网页可能稍慢，因为它被编译成cache，以后就快的多了。同时，jsp源程序不大可能被下载，特别是javabean程序，完全可能放到不对外的目录中。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>

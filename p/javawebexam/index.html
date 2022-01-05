@@ -9,7 +9,7 @@
 <meta property='og:description' content='JavaWeb知识点和代码整理'>
 <meta property='og:url' content='https://lbqaq.top/p/javawebexam/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-01-03T19:52:31&#43;08:00'/><meta property='article:modified_time' content='2022-01-03T23:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/javawebexam/92462192.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-01-03T19:52:31&#43;08:00'/><meta property='article:modified_time' content='2022-01-05T11:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/javawebexam/92462192.webp' />
 <meta name="twitter:title" content="JavaWeb期末复习">
 <meta name="twitter:description" content="JavaWeb知识点和代码整理"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/javawebexam/92462192.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
@@ -385,7 +385,8 @@
 <h3 id="db-crud查询组合查询不需要分页">DB CRUD查询组合查询不需要分页</h3>
 <p>见上面</p>
 <h3 id="用会话对象实现购物车的crud商品名称单价数量购物车列表总价">用会话对象实现购物车的CRUD商品名称，单价，数量购物车列表，总价</h3>
-<p>具体代码见仓库<code>Servlet6</code></p>
+<p>具体代码见仓库<a class="link" href="https://gitee.com/luoboQAQ/web-practice/blob/master/exam/src/main/java/top/lbqaq/servlet/Servlet6.java"  target="_blank" rel="noopener"
+    >Servlet6</a></p>
 <h2 id="问答题">问答题</h2>
 <h3 id="cs-bs优缺点">C/S B/S优缺点</h3>
 <p>C/S架构</p>
@@ -438,6 +439,28 @@
 <p>使软件升级和维护更为容易</p>
 <p>分层设计使得程序结构清晰，升级和维护都变得十分容易，更改层的具体实现代码，只要层接口保持稳定，其他层可以不必修改。即使层的接口发生变化，也只影响上层和下层，修改工作量小而且错误可以控制，不会带来意外的风险。</p>
 </li>
+</ul>
+<h3 id="mvc的特点和优点">MVC的特点和优点</h3>
+<p>MVC主要分模型、视图、控制器三层。</p>
+<ul>
+<li>
+<p>模型(model)</p>
+<p>它是应用程序的主体部分，主要包括业务逻辑模块和数据模块。模型与数据格式无关，这样一个模型能为多个视图提供数据。由于应用于模型的代码只需写一次就可以被多个视图重用，所以减少了代码的重复性</p>
+</li>
+<li>
+<p>视图(view)</p>
+<p>用户与之交互的界面、在 web 中视图一般由 jsp,html 组成</p>
+</li>
+<li>
+<p>控制器(controller)</p>
+<p>接收来自界面的请求 并交给模型进行处理 在这个过程中控制器不做任何处理只是起到了一个连接的作用</p>
+</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>降低代码耦合性。在 MVC 模式中，三个层各施其职，所以如果一旦哪一层的需求发生了变化，就只需要更改相应的层中的代码而不会影响到其他层中的代码。</li>
+<li>有利于分工合作。在 MVC 模式中，由于按层把系统分开，那么就能更好的实现开发中的分工。网页设计人员可进行开发视图层中的 JSP，而对业务熟悉的人员可开发业务层，而其他开发人员可开发控制层。</li>
+<li>有利于组件的重用。如控制层可独立成一个能用的组件，表示层也可做成通用的操作界面。可以为一个模型在运行时同时建立和使用多个视图。</li>
 </ul>
 <h3 id="getpost特点和优缺点">GET、POST特点和优缺点</h3>
 <p>GET</p>
@@ -547,7 +570,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="javabean相关动作标记有哪些用代码说明之">JavaBean相关动作标记有哪些，用代码说明之。</h3>
+<h3 id="javabean相关动作标记有哪些用代码说明之">JavaBean相关动作标记有哪些，用代码说明之</h3>
 <table>
 <thead>
 <tr>
@@ -661,9 +684,40 @@
 <p>${person.name}
 person存放在request属性中person对象的类yzu.Person，对象的java代码是什么(JavaBean)
 <code>&lt;%=((yzu.Person)request.getAttribue(&quot;person&quot;)).getName()%&gt;</code></p>
-<h3 id="过滤器与servlet区别与联系他有什么作用">过滤器与Servlet区别与联系，他有什么作用。</h3>
+<h3 id="过滤器与servlet区别与联系他有什么作用">过滤器与Servlet区别与联系，他有什么作用</h3>
 <p>过滤器（Filter）：对Request请求起到过滤的作用，作用在Servlet之前</p>
 <p>Servlet：处理Request请求和Response响应</p>
+<h3 id="java和jsp的区别">Java和JSP的区别</h3>
+<ul>
+<li>Java是一种通用的计算机编程语言，它是并发的，基于类的，面向对象的，并且专门设计为具有尽可能少的实现依赖性。而JSP是一种技术，可帮助软件开发人员基于HTML，XML或其他文档类型创建动态生成的Web页面。</li>
+<li>Java applet是使用Java编程语言编写的。JSP使用“scriptlet元素”（Java代码）和“标记”（通常是HTML或XML）的混合编程，以提供数据驱动（“动态”）网页。</li>
+<li>Java为面向对象语言，JSP可以理解为一种脚本</li>
+<li>Java主要负责逻辑，业务处理，而JSP主要负责页面展现</li>
+<li>JSP的本质是servlet，而servlet的本质是Java类</li>
+</ul>
+<h3 id="jsp开发的优点">JSP开发的优点</h3>
+<ul>
+<li>
+<p>将内容的生成和显示分离</p>
+<p>借助jsp技术，web页面发开人员可以使用html或者xml标签来设计和格式化最终页面，使用jsp标签或者脚本程序来生成动态web页面的内容（页面的内容是根据请求来变化的，例如，请求账户信息或者特定的一本书的价格）。生成内容的逻辑被封装在标签和javabean组件中，并且捆绑在脚本程序中，所有的脚本程序在服务器端运行。因此，其他人能够方便地编辑和使用jsp页面，而不影响内容的生成。</p>
+</li>
+<li>
+<p>强调可重用的组件</p>
+<p>jsp页面可借助可重用的、跨平台的组件来执行应用程序所要求的极为复杂的业务逻辑。开发人员能够共享和交换执行普通操作的组件，或者让这些组件被别的开发人员或开发团队所使用。基于组件的方法加速了总体开发进程，并且使得各种组织在他们现有的技能和优化结果的开发努力中得到平衡。</p>
+</li>
+<li>
+<p>采用标签简化页面开发</p>
+<p>通过使用jsp提供的标准标签库，web页面开发人员能够访问和实例化javabean组件、设置或者检索组件属性、下载applet以及执行用其他方法更难于编码和耗时的功能。此外，web页面开发人员还可以为常用功能创建自己的标签库，这是的web页面开发人员能够使用熟悉的工具盒如同标签一样的执行特定功能的构件来工作。</p>
+</li>
+<li>
+<p>一次编写、处处运行</p>
+<p>由于jsp页面的内置脚本是基于java语言的，而且所有的jsp页面都被编译为java  servlet，因此jsp页面就具有java技术的所有好处，包括健壮性和安全性等。作为java平台的一部分，jsp拥有java语言“一次编写，处处运行”的特点。jsp几乎可以运行于所有的平台，如windows nt、linux、unix等。</p>
+</li>
+<li>
+<p>更高的效率和安全性</p>
+<p>jsp程序在执行之前先被编译成字节码文件，字节码文件有java虚拟机解释执行，比源代码解释的效率高。此外，服务器端还有字节码的cache机构，能提高字节码的访问效率。第一次调用jsp网页可能稍慢，因为它被编译成cache，以后就快的多了。同时，jsp源程序不大可能被下载，特别是javabean程序，完全可能放到不对外的目录中。</p>
+</li>
+</ul>
 
 </section>
 
@@ -699,7 +753,7 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
 
 
         <span>
-            最后更新于 Jan 03, 2022 23:00 &#43;0800
+            最后更新于 Jan 05, 2022 11:30 &#43;0800
         </span>
     </section></footer>
 
@@ -874,13 +928,16 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
         <li><a href="#cs-bs优缺点">C/S B/S优缺点</a></li>
         <li><a href="#jstl-el-jdbc-vo-dao-mvc-jsp中英文全称">JSTL EL JDBC VO DAO MVC JSP中英文全称</a></li>
         <li><a href="#多层架构的优点">多层架构的优点</a></li>
+        <li><a href="#mvc的特点和优点">MVC的特点和优点</a></li>
         <li><a href="#getpost特点和优缺点">GET、POST特点和优缺点</a></li>
         <li><a href="#重定向与请求转发的优缺点-实现的核心代码">重定向与请求转发的优缺点 实现的核心代码</a></li>
         <li><a href="#jsp-servlet-区别与联系">JSP Servlet 区别与联系</a></li>
         <li><a href="#jsp内置对象">JSP内置对象</a></li>
-        <li><a href="#javabean相关动作标记有哪些用代码说明之">JavaBean相关动作标记有哪些，用代码说明之。</a></li>
+        <li><a href="#javabean相关动作标记有哪些用代码说明之">JavaBean相关动作标记有哪些，用代码说明之</a></li>
         <li><a href="#el与作用城相关的隐含对象有哪些">EL与作用城相关的隐含对象有哪些</a></li>
-        <li><a href="#过滤器与servlet区别与联系他有什么作用">过滤器与Servlet区别与联系，他有什么作用。</a></li>
+        <li><a href="#过滤器与servlet区别与联系他有什么作用">过滤器与Servlet区别与联系，他有什么作用</a></li>
+        <li><a href="#java和jsp的区别">Java和JSP的区别</a></li>
+        <li><a href="#jsp开发的优点">JSP开发的优点</a></li>
       </ol>
     </li>
   </ol>

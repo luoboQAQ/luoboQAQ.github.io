@@ -9,7 +9,7 @@
 <meta property='og:description' content='JavaWeb知识点和代码整理'>
 <meta property='og:url' content='https://lbqaq.top/p/javawebexam/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-01-03T19:52:31&#43;08:00'/><meta property='article:modified_time' content='2022-01-05T11:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/javawebexam/92462192.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2022-01-03T19:52:31&#43;08:00'/><meta property='article:modified_time' content='2022-01-06T13:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/javawebexam/92462192.webp' />
 <meta name="twitter:title" content="JavaWeb期末复习">
 <meta name="twitter:description" content="JavaWeb知识点和代码整理"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/javawebexam/92462192.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
@@ -279,7 +279,7 @@
 </code></pre></div></li>
 </ol>
 <p>这样就配置好了，如果你还是觉得麻烦，可以下载我这个配置好的<a class="link" href="https://gitee.com/luoboQAQ/web-practice/raw/master/exam.zip"  target="_blank" rel="noopener"
-    >懒人包</a>，解压即可使用</p>
+    >懒人包</a>，解压即可使用，注意在IDEA打开时要选择“<strong>信任MAVEN项目</strong>”，否则无法生效。</p>
 <h3 id="servlet生成三角形">Servlet生成三角形</h3>
 <ul>
 <li>
@@ -399,15 +399,24 @@
 </code></pre></div></li>
 <li>
 <p>使用Filter</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-    <span class="n">HttpServletRequest</span> <span class="n">req</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">;</span>
-    <span class="n">HttpServletResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">;</span>
-    <span class="n">Object</span> <span class="n">username</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">username</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span> <span class="s">&#34;您没有登陆&#34;</span><span class="o">);</span>
-        <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/4-1.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-        <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//filterName：过滤器名称 urlPatterns：过滤的范围 过滤全部为&#34;/**&#34;
+</span><span class="c1"></span><span class="nd">@WebFilter</span><span class="o">(</span><span class="n">filterName</span> <span class="o">=</span> <span class="s">&#34;Filter4&#34;</span><span class="o">,</span> <span class="n">urlPatterns</span> <span class="o">=</span> <span class="s">&#34;/4-3.jsp&#34;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Filter4</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">FilterConfig</span> <span class="n">config</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">HttpServletRequest</span> <span class="n">req</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">;</span>
+        <span class="n">HttpServletResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">;</span>
+        <span class="n">Object</span> <span class="n">username</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">username</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">req</span><span class="o">.</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span> <span class="s">&#34;您没有登陆&#34;</span><span class="o">);</span>
+            <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/4-1.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></li>
@@ -886,7 +895,7 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
 
 
         <span>
-            最后更新于 Jan 05, 2022 11:30 &#43;0800
+            最后更新于 Jan 06, 2022 13:00 &#43;0800
         </span>
     </section></footer>
 

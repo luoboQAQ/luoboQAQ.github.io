@@ -6,25 +6,22 @@
     <description>Recent content in 算法 on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 13 Mar 2022 20:46:19 +0800</lastBuildDate><atom:link href="https://lbqaq.top/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Mar 2022 20:46:19 +0800</lastBuildDate><atom:link href="https://lbqaq.top/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>初探前缀和及差分</title>
-      <link>https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%89%8D%E7%BC%80%E5%92%8C%E5%8F%8A%E5%B7%AE%E5%88%86/</link>
-      <pubDate>Sun, 13 Mar 2022 20:46:19 +0800</pubDate>
+      <title>初探区间求和问题</title>
+      <link>https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 14 Mar 2022 20:46:19 +0800</pubDate>
       
-      <guid>https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%89%8D%E7%BC%80%E5%92%8C%E5%8F%8A%E5%B7%AE%E5%88%86/</guid>
+      <guid>https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/</guid>
       <description>最近看了很多篇关于如何刷题的文章，其中都不约而同的提到了&amp;quot;总结&amp;quot;这个关键词。仔细想想自己确实是从来没有做过一篇总结，刷过的题目就过去了，导致同样的题目再做一次又不会了。
-这次来看看前缀和、差分这两个算法，前缀和在最近的CCF-CSP中也是热门考点，我的第一篇总结就以这两个算法展开吧。
-前缀和 前缀和的作用就是为了帮助我们快速求某一段的和，是「差分」的逆运算。
+我的第一篇总结就以最近刷到的「区间求和」问题展开吧。首先，先上一般问题的模板（其中加粗的为最佳方案）：
+ 数组不变，区间查询：前缀和、树状数组、线段树； 数组单点修改，区间查询：树状数组、线段树； 数组区间修改，单点查询：差分、线段树； 数组区间修改，区间查询：线段树。  前缀和 前缀和的作用就是为了帮助我们快速求某一段的和，是「差分」的逆运算。
 前缀和数组的每一位记录的是当前位置距离起点位置，这连续一段的和区间和。
 一维前缀和 假设有一个一维数组$x$和该数组的一维前缀和数组$y$，则$x$和$y$满足以下关系：
 $$y_0=x_0、y_1=x_0+x_1、y_2=x_0+x_1+x_2、&amp;hellip;&amp;hellip;、y_n=x_0+x_1+&amp;hellip;+x_n$$
 所以我们可以通过 $y_n=y_{n-1}+x_n$ 这个公式计算出前缀和，代码实现如下：
 for (int i = 0; i &amp;lt; n; i++) { if (i == 0) y[i] = x[i]; else y[i] = y[i - 1] + x[i]; } 但是在实际使用中，常常会遇到左边界溢出的情况，为了避免这种情况，我们可以将前缀和数组整体向后移动一位，下面给出前缀给计算代码：
-int n = x.size(); vector&amp;lt;int&amp;gt; y(n + 1); for (int i = 1; i &amp;lt;= n; i++) y[i] = y[i - 1] + x[i - 1]; 这样当我们想求区间$[a,b]$之和时只需要计算$y[b+1]-y[a]$即可。
-二维前缀和 有一个二维数组$a$和该数组的二维前缀和数组$b$（其同样是个二维数组)
-右侧标注橙色的二维前缀和元素，其值是左侧的原二维数组中标注橙色的所有元素的和。
- 二维前缀和</description>
+int n = x.size(); vector&amp;lt;int&amp;gt; y(n + 1); for (int i = 1; i &amp;lt;= n; i++) y[i] = y[i - 1] + x[i - 1]; 这样当我们想求区间$[a,b]$之和时只需要计算$y[b+1]-y[a]$即可。</description>
     </item>
     
   </channel>

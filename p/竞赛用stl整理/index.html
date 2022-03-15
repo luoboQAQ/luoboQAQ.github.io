@@ -12,7 +12,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:published_time' content='2021-01-31T20:39:29&#43;08:00'/><meta property='article:modified_time' content='2021-02-01T12:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/85526504.webp' />
 <meta name="twitter:title" content="竞赛用STL整理">
 <meta name="twitter:description" content="整理竞赛中可能会用到的STL代码和性质"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/85526504.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/85526504.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
     article-page has-toc
@@ -203,19 +203,19 @@
 </ul>
 <h3 id="流处理">流处理</h3>
 <p>可以通过<code>&lt;sstream&gt;</code>，将string对象作为一个流。例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
-    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
-    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">)){</span>
-        <span class="n">stringstream</span> <span class="n">ss</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">x</span><span class="p">){...}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="set">set</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">line</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">cin</span><span class="p">,</span><span class="n">line</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stringstream</span> <span class="n">ss</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">ss</span><span class="o">&gt;&gt;</span><span class="n">x</span><span class="p">){...}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="set">set</h2>
 <p>set就是数学中的集合，每个元素只能出现一次，set中的元素已经从小到大排好了。</p>
 <h3 id="常用函数-2">常用函数</h3>
 <ul>
@@ -230,14 +230,14 @@
 <ol>
 <li>
 <p>set_union：取两个集合的并集，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#define ALL(x) x.begin(),x.end()
-</span><span class="cp">#define INS(x) inserter(x,x.begin())
-</span><span class="cp"></span><span class="n">set_union</span><span class="p">(</span><span class="n">ALL</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="n">ALL</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="n">INS</span><span class="p">(</span><span class="n">x</span><span class="p">));</span> <span class="c1">//将x1和x2的内容取并集后放入x中
-</span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define ALL(x) x.begin(),x.end()
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define INS(x) inserter(x,x.begin())
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set_union</span><span class="p">(</span><span class="n">ALL</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="n">ALL</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="n">INS</span><span class="p">(</span><span class="n">x</span><span class="p">));</span> <span class="c1">//将x1和x2的内容取并集后放入x中
+</span></span></span></code></pre></div></li>
 <li>
 <p>set_intersection：取两个集合的交集，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">set_intersection</span><span class="p">(</span><span class="n">ALL</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="n">ALL</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="n">INS</span><span class="p">(</span><span class="n">x</span><span class="p">));</span> <span class="c1">//将x1和x2的内容取交集放入x中
-</span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">set_intersection</span><span class="p">(</span><span class="n">ALL</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="n">ALL</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="n">INS</span><span class="p">(</span><span class="n">x</span><span class="p">));</span> <span class="c1">//将x1和x2的内容取交集放入x中
+</span></span></span></code></pre></div></li>
 </ol>
 <h2 id="map">map</h2>
 <p>map是映射，支持[]运算符，还是非常实用的。</p>
@@ -268,15 +268,15 @@
 <h3 id="priority_queue">priority_queue</h3>
 <p>优先队列，将按照优先级来排序，取队首的<code>front()</code>的函数将换为<code>top()</code>。该容器也定义在头文件<code>&lt;queue&gt;</code>里。</p>
 <p>对于自定义数据类型的队列，需要定义<code>&lt;</code>运算。对于已经定义过的数据类型，我们可以通过定义一个结构体，在其中重载<code>()</code>运算符来看起来像一个函数，例如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">struct</span> <span class="nc">cmp</span>
-<span class="p">{</span>
-    <span class="kt">bool</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">abs</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-<span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">cmp</span><span class="o">&gt;</span> <span class="n">p_queue</span><span class="p">;</span>
-</code></pre></div><p>这样就定义了一个绝对值大小优先的队列</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">cmp</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="nf">operator</span><span class="p">()(</span><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">abs</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">cmp</span><span class="o">&gt;</span> <span class="n">p_queue</span><span class="p">;</span>
+</span></span></code></pre></div><p>这样就定义了一个绝对值大小优先的队列</p>
 
 </section>
 
@@ -317,6 +317,29 @@
     </section></footer>
 
 
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
     
 </article>
 

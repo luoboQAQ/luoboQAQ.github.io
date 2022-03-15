@@ -6,7 +6,27 @@
     <description>Recent content in Posts on luoboQAQ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 03 Jan 2022 19:52:31 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 13 Mar 2022 20:46:19 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>初探前缀和及差分</title>
+      <link>https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%89%8D%E7%BC%80%E5%92%8C%E5%8F%8A%E5%B7%AE%E5%88%86/</link>
+      <pubDate>Sun, 13 Mar 2022 20:46:19 +0800</pubDate>
+      
+      <guid>https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%89%8D%E7%BC%80%E5%92%8C%E5%8F%8A%E5%B7%AE%E5%88%86/</guid>
+      <description>最近看了很多篇关于如何刷题的文章，其中都不约而同的提到了&amp;quot;总结&amp;quot;这个关键词。仔细想想自己确实是从来没有做过一篇总结，刷过的题目就过去了，导致同样的题目再做一次又不会了。
+这次来看看前缀和、差分这两个算法，前缀和在最近的CCF-CSP中也是热门考点，我的第一篇总结就以这两个算法展开吧。
+前缀和 前缀和的作用就是为了帮助我们快速求某一段的和，是「差分」的逆运算。
+前缀和数组的每一位记录的是当前位置距离起点位置，这连续一段的和区间和。
+一维前缀和 假设有一个一维数组$x$和该数组的一维前缀和数组$y$，则$x$和$y$满足以下关系：
+$$y_0=x_0、y_1=x_0+x_1、y_2=x_0+x_1+x_2、&amp;hellip;&amp;hellip;、y_n=x_0+x_1+&amp;hellip;+x_n$$
+所以我们可以通过 $y_n=y_{n-1}+x_n$ 这个公式计算出前缀和，代码实现如下：
+for (int i = 0; i &amp;lt; n; i++) { if (i == 0) y[i] = x[i]; else y[i] = y[i - 1] + x[i]; } 但是在实际使用中，常常会遇到左边界溢出的情况，为了避免这种情况，我们可以将前缀和数组整体向后移动一位，下面给出前缀给计算代码：
+int n = x.size(); vector&amp;lt;int&amp;gt; y(n + 1); for (int i = 1; i &amp;lt;= n; i++) y[i] = y[i - 1] + x[i - 1]; 这样当我们想求区间$[a,b]$之和时只需要计算$y[b+1]-y[a]$即可。
+二维前缀和 有一个二维数组$a$和该数组的二维前缀和数组$b$（其同样是个二维数组)
+右侧标注橙色的二维前缀和元素，其值是左侧的原二维数组中标注橙色的所有元素的和。
+ 二维前缀和</description>
+    </item>
+    
     <item>
       <title>JavaWeb期末复习</title>
       <link>https://lbqaq.top/p/javawebexam/</link>
@@ -434,7 +454,7 @@ int a = rand() % 10; //产生0~9的随机数 int a = rand() % 10 + 1; //产生1~
 回退：git reset --hard HEAD^
 HEAD^表示上一个版本，HEAD^^表示前两个版本，HEAD~100表示前100个版本
 恢复：git reflog查看命令历史，确定回到未来的哪个版本
-撤销修改  直接丢弃工作区的修改时，用命令git checkout -- file 已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD &amp;lt;file&amp;gt;，第二步按1操作。  上传 git remote add origin 仓库链接 #将远程仓库和本地仓库绑定 git add . git commit -m &amp;quot;提交信息&amp;quot; git push -u origin 自己当前的分支名 #-u将本地库和远程库的分支关联，之后可以不加 下载 git clone 仓库链接 git clone到当前文件夹
+撤销修改  直接丢弃工作区的修改时，用命令git checkout -- file 已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD &amp;lt;file&amp;gt;，第二步按1操作。  上传 git remote add origin 仓库链接 #将远程仓库和本地仓库绑定 git add . git commit -m &amp;#34;提交信息&amp;#34; git push -u origin 自己当前的分支名 #-u将本地库和远程库的分支关联，之后可以不加 下载 git clone 仓库链接 git clone到当前文件夹
 git clone 仓库链接 . 分支管理 创建与合并分支 查看分支：git branch
 创建分支：git branch &amp;lt;name&amp;gt;
 切换分支：git checkout &amp;lt;name&amp;gt;或者git switch &amp;lt;name&amp;gt;</description>

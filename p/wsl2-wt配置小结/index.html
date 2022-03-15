@@ -12,7 +12,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2021-04-08T13:14:20&#43;08:00'/><meta property='article:modified_time' content='2021-04-29T21:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473.webp' />
 <meta name="twitter:title" content="WSL2&#43;WT配置小结">
 <meta name="twitter:description" content="WSL2&#43;Windows Terminal安装、配置小结"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
+    <meta name="twitter:image" content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
     article-page has-toc
@@ -158,11 +158,11 @@
 </ul>
 <h3 id="1-开启wsl服务">1. 开启WSL服务</h3>
 <p>在Powershell(管理员)中输入下面的命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="nb">Microsoft-Windows</span><span class="n">-Subsystem-Linux</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
-</code></pre></div><h3 id="2-启用虚拟机服务">2. 启用虚拟机服务</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="nb">Microsoft-Windows</span><span class="n">-Subsystem-Linux</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
+</span></span></code></pre></div><h3 id="2-启用虚拟机服务">2. 启用虚拟机服务</h3>
 <p>在Powershell(管理员)中输入下面的命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="n">VirtualMachinePlatform</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
-</code></pre></div><p><strong>重新启动</strong> 计算机，以完成 WSL 安装并更新到 WSL 2。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="n">VirtualMachinePlatform</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
+</span></span></code></pre></div><p><strong>重新启动</strong> 计算机，以完成 WSL 安装并更新到 WSL 2。</p>
 <h3 id="3-下载-linux-内核更新包">3. 下载 Linux 内核更新包</h3>
 <p>下载最新包并安装：</p>
 <ul>
@@ -171,8 +171,8 @@
 </ul>
 <h3 id="4-将-wsl-2-设置为默认版本">4. 将 WSL 2 设置为默认版本</h3>
 <p>在Powershell中输入下面的命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="n">2</span>
-</code></pre></div><h3 id="5安装-linux">5.安装 Linux</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="n">2</span>
+</span></span></code></pre></div><h3 id="5安装-linux">5.安装 Linux</h3>
 <ol>
 <li>打开 <a class="link" href="https://aka.ms/wslstore"  target="_blank" rel="noopener"
     >Microsoft Store</a>，并选择你偏好的 Linux 分发版并点击<code>获取</code>进行安装。</li>
@@ -213,100 +213,100 @@
 	
 </figure></p>
 <p>打开<code>Windows Terminal</code>的设置选项，然后选<code>打开JSON文件</code>，把我配好的配置文件粘贴进去</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;$schema&#34;</span><span class="p">:</span> <span class="s2">&#34;https://aka.ms/terminal-profiles-schema&#34;</span><span class="p">,</span>
-    <span class="c1">// Add custom actions and keybindings to this array.
-</span><span class="c1"></span>    <span class="c1">// To unbind a key combination from your defaults.json, set the command to &#34;unbound&#34;.
-</span><span class="c1"></span>    <span class="c1">// To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
-</span><span class="c1"></span>    <span class="nt">&#34;actions&#34;</span><span class="p">:</span> 
-    <span class="p">[</span>
-        <span class="c1">// Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
-</span><span class="c1"></span>        <span class="c1">// These two lines additionally bind them to Ctrl+C and Ctrl+V.
-</span><span class="c1"></span>        <span class="c1">// To learn more about selection, visit https://aka.ms/terminal-selection
-</span><span class="c1"></span>        <span class="p">{</span>
-            <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
-            <span class="p">{</span>
-                <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;copy&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;singleLine&#34;</span><span class="p">:</span> <span class="kc">false</span>
-            <span class="p">},</span>
-            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+c&#34;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;paste&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+v&#34;</span>
-        <span class="p">},</span>
-        <span class="c1">// Press Ctrl+Shift+F to open the search box
-</span><span class="c1"></span>        <span class="p">{</span>
-            <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;find&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+shift+f&#34;</span>
-        <span class="p">},</span>
-        <span class="c1">// Press Alt+Shift+D to open a new pane.
-</span><span class="c1"></span>        <span class="c1">// - &#34;split&#34;: &#34;auto&#34; makes this pane open in the direction that provides the most surface area.
-</span><span class="c1"></span>        <span class="c1">// - &#34;splitMode&#34;: &#34;duplicate&#34; makes the new pane use the focused pane&#39;s profile.
-</span><span class="c1"></span>        <span class="c1">// To learn more about panes, visit https://aka.ms/terminal-panes
-</span><span class="c1"></span>        <span class="p">{</span>
-            <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
-            <span class="p">{</span>
-                <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;splitPane&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;split&#34;</span><span class="p">:</span> <span class="s2">&#34;auto&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;splitMode&#34;</span><span class="p">:</span> <span class="s2">&#34;duplicate&#34;</span>
-            <span class="p">},</span>
-            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;alt+shift+d&#34;</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;copyFormatting&#34;</span><span class="p">:</span> <span class="s2">&#34;none&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;copyOnSelect&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nt">&#34;defaultProfile&#34;</span><span class="p">:</span> <span class="s2">&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;initialCols&#34;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
-    <span class="nt">&#34;initialRows&#34;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
-    <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> 
-    <span class="p">{</span>
-        <span class="nt">&#34;defaults&#34;</span><span class="p">:</span> 
-        <span class="p">{</span>
-            <span class="nt">&#34;acrylicOpacity&#34;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
-            <span class="nt">&#34;closeOnExit&#34;</span><span class="p">:</span> <span class="s2">&#34;graceful&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;colorScheme&#34;</span><span class="p">:</span> <span class="s2">&#34;Campbell&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;cursorColor&#34;</span><span class="p">:</span> <span class="s2">&#34;#FFFFFF&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;cursorShape&#34;</span><span class="p">:</span> <span class="s2">&#34;bar&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;fontFace&#34;</span><span class="p">:</span> <span class="s2">&#34;Consolas&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;fontSize&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
-            <span class="nt">&#34;historySize&#34;</span><span class="p">:</span> <span class="mi">9001</span><span class="p">,</span>
-            <span class="nt">&#34;padding&#34;</span><span class="p">:</span> <span class="s2">&#34;0, 0, 0, 0&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;snapOnInput&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="nt">&#34;startingDirectory&#34;</span><span class="p">:</span> <span class="s2">&#34;./&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;useAcrylic&#34;</span><span class="p">:</span> <span class="kc">true</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;list&#34;</span><span class="p">:</span> 
-        <span class="p">[</span>
-            <span class="p">{</span>
-                <span class="nt">&#34;commandline&#34;</span><span class="p">:</span> <span class="s2">&#34;powershell.exe -NoLogo&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows PowerShell&#34;</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="nt">&#34;commandline&#34;</span><span class="p">:</span> <span class="s2">&#34;cmd.exe&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{0caa0dad-35be-5f56-a8ff-afceeeaa6101}&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Command Prompt&#34;</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{b453ae62-4e3d-5e58-b989-0a998ec441b8}&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Azure Cloud Shell&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows.Terminal.Azure&#34;</span>
-            <span class="p">},</span>
-            <span class="p">{</span>
-                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Ubuntu&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows.Terminal.Wsl&#34;</span><span class="p">,</span>
-                <span class="nt">&#34;startingDirectory&#34;</span><span class="p">:</span> <span class="s2">&#34;//wsl$/Ubuntu/home/luobo&#34;</span>
-            <span class="p">}</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>一般要修改这几项：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;$schema&#34;</span><span class="p">:</span> <span class="s2">&#34;https://aka.ms/terminal-profiles-schema&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Add custom actions and keybindings to this array.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// To unbind a key combination from your defaults.json, set the command to &#34;unbound&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// To learn more about actions and keybindings, visit https://aka.ms/terminal-keybindings
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nt">&#34;actions&#34;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Copy and paste are bound to Ctrl+Shift+C and Ctrl+Shift+V in your defaults.json.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// These two lines additionally bind them to Ctrl+C and Ctrl+V.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// To learn more about selection, visit https://aka.ms/terminal-selection
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;copy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;singleLine&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+c&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;paste&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+v&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Press Ctrl+Shift+F to open the search box
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;command&#34;</span><span class="p">:</span> <span class="s2">&#34;find&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;ctrl+shift+f&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Press Alt+Shift+D to open a new pane.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// - &#34;split&#34;: &#34;auto&#34; makes this pane open in the direction that provides the most surface area.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// - &#34;splitMode&#34;: &#34;duplicate&#34; makes the new pane use the focused pane&#39;s profile.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// To learn more about panes, visit https://aka.ms/terminal-panes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;command&#34;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;action&#34;</span><span class="p">:</span> <span class="s2">&#34;splitPane&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;split&#34;</span><span class="p">:</span> <span class="s2">&#34;auto&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;splitMode&#34;</span><span class="p">:</span> <span class="s2">&#34;duplicate&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keys&#34;</span><span class="p">:</span> <span class="s2">&#34;alt+shift+d&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;copyFormatting&#34;</span><span class="p">:</span> <span class="s2">&#34;none&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;copyOnSelect&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;defaultProfile&#34;</span><span class="p">:</span> <span class="s2">&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;initialCols&#34;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;initialRows&#34;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;profiles&#34;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;defaults&#34;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;acrylicOpacity&#34;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;closeOnExit&#34;</span><span class="p">:</span> <span class="s2">&#34;graceful&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;colorScheme&#34;</span><span class="p">:</span> <span class="s2">&#34;Campbell&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;cursorColor&#34;</span><span class="p">:</span> <span class="s2">&#34;#FFFFFF&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;cursorShape&#34;</span><span class="p">:</span> <span class="s2">&#34;bar&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;fontFace&#34;</span><span class="p">:</span> <span class="s2">&#34;Consolas&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;fontSize&#34;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;historySize&#34;</span><span class="p">:</span> <span class="mi">9001</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;padding&#34;</span><span class="p">:</span> <span class="s2">&#34;0, 0, 0, 0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;snapOnInput&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;startingDirectory&#34;</span><span class="p">:</span> <span class="s2">&#34;./&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;useAcrylic&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;list&#34;</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;commandline&#34;</span><span class="p">:</span> <span class="s2">&#34;powershell.exe -NoLogo&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{61c54bbd-c2c6-5271-96e7-009a87ff44bf}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows PowerShell&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;commandline&#34;</span><span class="p">:</span> <span class="s2">&#34;cmd.exe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{0caa0dad-35be-5f56-a8ff-afceeeaa6101}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Command Prompt&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{b453ae62-4e3d-5e58-b989-0a998ec441b8}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Azure Cloud Shell&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows.Terminal.Azure&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;guid&#34;</span><span class="p">:</span> <span class="s2">&#34;{2c4de342-38b7-51cf-b940-2309a097f518}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Ubuntu&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;Windows.Terminal.Wsl&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;startingDirectory&#34;</span><span class="p">:</span> <span class="s2">&#34;//wsl$/Ubuntu/home/luobo&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>一般要修改这几项：</p>
 <ul>
 <li><code>fontFace</code> - 字体，我的字体为<code>Consolas</code>，适合1080P的屏幕。高分辩率屏建议用<code>monaco</code>或者<code>fira code</code></li>
 <li><code>fontSize</code> - 字体大小，因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
@@ -369,6 +369,29 @@
     </section></footer>
 
 
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
     
 </article>
 

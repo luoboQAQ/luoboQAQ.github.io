@@ -12,7 +12,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Waline' /><meta property='article:published_time' content='2021-08-21T15:37:44&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T11:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/waline/78502982.webp' />
 <meta name="twitter:title" content="为博客添加评论系统">
 <meta name="twitter:description" content="记录Waline的部署过程和踩坑"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/waline/78502982.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
+    <meta name="twitter:image" content='https://lbqaq.top/p/waline/78502982.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
     article-page has-toc
@@ -137,43 +137,43 @@
 </li>
 <li>
 <p>连接服务器，选择nodejs的安装目录，这里我安装在<code>/usr/local/bin/</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /usr/local/bin/
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/bin/
+</span></span></code></pre></div></li>
 <li>
 <p>下载安装包到本地</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">wget https://npm.taobao.org/mirrors/node/v14.17.5/node-v14.17.5-linux-x64.tar.gz
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">wget https://npm.taobao.org/mirrors/node/v14.17.5/node-v14.17.5-linux-x64.tar.gz
+</span></span></code></pre></div></li>
 <li>
 <p>解压</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">tar -xvf node-v14.17.5-linux-x64.tar.gz
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tar -xvf node-v14.17.5-linux-x64.tar.gz
+</span></span></code></pre></div></li>
 <li>
 <p>重命名目录</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">mv node-v14.17.5-linux-x64 nodejs
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">mv node-v14.17.5-linux-x64 nodejs
+</span></span></code></pre></div></li>
 <li>
 <p>添加目录到系统变量</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/profile.d
-vim custom.sh
-</code></pre></div><p>在文件末尾添加<code>export PATH=$PATH:/usr/local/bin/nodejs/bin</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> /etc/profile.d
+</span></span><span class="line"><span class="cl">vim custom.sh
+</span></span></code></pre></div><p>在文件末尾添加<code>export PATH=$PATH:/usr/local/bin/nodejs/bin</code></p>
 </li>
 <li>
 <p>测试，输入下面3条命令，如果不报错则安装成功。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">node -v
-npm version
-npx -v
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">node -v
+</span></span><span class="line"><span class="cl">npm version
+</span></span><span class="line"><span class="cl">npx -v
+</span></span></code></pre></div></li>
 <li>
 <p>（可选）安装cnpm</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">npm install -g cnpm --registry<span class="o">=</span>https://registry.npm.taobao.org
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">npm install -g cnpm --registry<span class="o">=</span>https://registry.npm.taobao.org
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="安装waline服务端">安装Waline服务端</h3>
 <ol>
 <li>
 <p>安装waline的服务端</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">npm install -g @waline/vercel
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">npm install -g @waline/vercel
+</span></span></code></pre></div></li>
 <li>
 <p>配置数据库。这里我采用的是SQLite，只需要下载 <a class="link" href="https://github.com/walinejs/waline/blob/main/assets/waline.sqlite"  target="_blank" rel="noopener"
     >waline.sqlite</a> 文件至合适的位置。</p>
@@ -183,54 +183,54 @@ npx -v
 <li>
 <p>配置环境变量。</p>
 <p>这里我选择新建<code>waline.sh</code>，方便日后维护。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/profile.d
-vim waline.sh
-<span class="nb">export</span> <span class="nv">SQLITE_PATH</span><span class="o">=</span>/home/luobo
-<span class="nb">export</span> <span class="nv">JWT_TOKEN</span><span class="o">=</span>eqdVMaEwd
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> /etc/profile.d
+</span></span><span class="line"><span class="cl">vim waline.sh
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SQLITE_PATH</span><span class="o">=</span>/home/luobo
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">JWT_TOKEN</span><span class="o">=</span>eqdVMaEwd
+</span></span></code></pre></div><ul>
 <li>SQLITE_PATH：表示SQLite文件的位置。</li>
 <li>JWT_TOKEN：随机一串字符串就行。</li>
 </ul>
 </li>
 <li>
 <p>启动模块</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /usr/local/bin/nodejs/lib
-node node_modules/@waline/vercel/vanilla.js
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/bin/nodejs/lib
+</span></span><span class="line"><span class="cl">node node_modules/@waline/vercel/vanilla.js
+</span></span></code></pre></div></li>
 </ol>
 <h3 id="配置nginx反代">配置nginx反代</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1">#waline
-</span><span class="c1"></span><span class="k">server</span> <span class="p">{</span>
-    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
-    <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span> <span class="s">http2</span><span class="p">;</span>
-
-    <span class="kn">server_name</span> <span class="s">waline.lbqaq.top</span><span class="p">;</span>
-
-    <span class="kn">if</span> <span class="s">(</span><span class="nv">$server_port</span> <span class="s">!~</span> <span class="mi">443</span><span class="s">)</span><span class="p">{</span>
-        <span class="kn">rewrite</span> <span class="s">^(/.*)</span>$ <span class="s">https://</span><span class="nv">$host$1</span> <span class="s">permanent</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kn">ssl_certificate</span> <span class="s">cert/waline.lbqaq.top.pem</span><span class="p">;</span>
-    <span class="kn">ssl_certificate_key</span> <span class="s">cert/waline.lbqaq.top.key</span><span class="p">;</span>
-    <span class="kn">ssl_session_timeout</span> <span class="mi">5m</span><span class="p">;</span>
-    <span class="kn">ssl_ciphers</span> <span class="s">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span><span class="p">;</span>
-    <span class="kn">ssl_protocols</span> <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
-    <span class="kn">ssl_prefer_server_ciphers</span> <span class="no">on</span><span class="p">;</span>
-
-    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
-        <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8360</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
-        <span class="kn">proxy_set_header</span> <span class="s">REMOTE-HOST</span> <span class="nv">$remote_addr</span><span class="p">;</span>
-        <span class="kn">add_header</span> <span class="s">X-Cache</span> <span class="nv">$upstream_cache_status</span><span class="p">;</span>
-        <span class="c1"># cache
-</span><span class="c1"></span>        <span class="kn">add_header</span> <span class="s">Cache-Control</span> <span class="s">no-cache</span><span class="p">;</span>
-        <span class="kn">expires</span> <span class="s">12h</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="在hugo中启用waline">在hugo中启用Waline</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="c1">#waline
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span> <span class="s">http2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">server_name</span> <span class="s">waline.lbqaq.top</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">if</span> <span class="s">(</span><span class="nv">$server_port</span> <span class="s">!~</span> <span class="mi">443</span><span class="s">)</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">rewrite</span> <span class="s">^(/.*)</span>$ <span class="s">https://</span><span class="nv">$host$1</span> <span class="s">permanent</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">ssl_certificate</span> <span class="s">cert/waline.lbqaq.top.pem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">ssl_certificate_key</span> <span class="s">cert/waline.lbqaq.top.key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">ssl_session_timeout</span> <span class="mi">5m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">ssl_ciphers</span> <span class="s">ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">ssl_protocols</span> <span class="s">TLSv1</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">ssl_prefer_server_ciphers</span> <span class="no">on</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8360</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_set_header</span> <span class="s">X-Real-IP</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-Proto</span> <span class="nv">$scheme</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">proxy_set_header</span> <span class="s">REMOTE-HOST</span> <span class="nv">$remote_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">add_header</span> <span class="s">X-Cache</span> <span class="nv">$upstream_cache_status</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># cache
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kn">add_header</span> <span class="s">Cache-Control</span> <span class="s">no-cache</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">expires</span> <span class="s">12h</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="在hugo中启用waline">在hugo中启用Waline</h3>
 <p>由于我用的主题已经支持Waline评论，所以只需要填入<code>serverURL</code>就行了。</p>
 <h3 id="添加qq推送可选">添加QQ推送（可选）</h3>
 <p>官方提供了四种通知方法，分别为邮箱、微信、QQ、Telegram。</p>
@@ -238,14 +238,14 @@ node node_modules/@waline/vercel/vanilla.js
 <p>最终还是决定采用<a class="link" href="https://qmsg.zendee.cn"  target="_blank" rel="noopener"
     >Qmsg 酱</a>。</p>
 <p>注册就不在这展开了，具体写一下环境变量的配置。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> /etc/profile.d
-vim waline.sh
-<span class="nb">export</span> <span class="nv">QMSG_KEY</span><span class="o">=</span>xxxxxx
-<span class="nb">export</span> <span class="nv">QQ_ID</span><span class="o">=</span>xxxxxx
-<span class="nb">export</span> <span class="nv">AUTHOR_EMAIL</span><span class="o">=</span>xxxxxxx
-<span class="nb">export</span> <span class="nv">SITE_NAME</span><span class="o">=</span>Blog
-<span class="nb">export</span> <span class="nv">SITE_URL</span><span class="o">=</span>lbqaq.top
-</code></pre></div><h2 id="踩坑">踩坑</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">cd</span> /etc/profile.d
+</span></span><span class="line"><span class="cl">vim waline.sh
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">QMSG_KEY</span><span class="o">=</span>xxxxxx
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">QQ_ID</span><span class="o">=</span>xxxxxx
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">AUTHOR_EMAIL</span><span class="o">=</span>xxxxxxx
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SITE_NAME</span><span class="o">=</span>Blog
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SITE_URL</span><span class="o">=</span>lbqaq.top
+</span></span></code></pre></div><h2 id="踩坑">踩坑</h2>
 <p>本以为启用评论是一件很简单的事，结果花了整个下午加晚上，踩了好多好多坑。在这里就把我踩的坑记录下来，避免之后出现一样的问题。</p>
 <ul>
 <li>
@@ -253,19 +253,19 @@ vim waline.sh
 <p>使用<code>cnpm</code>进行安装</p>
 <p><strong>2021/10/21更新：</strong></p>
 <p>更新系统后再尝试安装无论是<code>npm</code>还是<code>cnpm</code>都无法安装，故使用Docker进行安装和运行</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">docker run -d <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">SQLITE_PATH</span><span class="o">=</span>/data <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">JWT_TOKEN</span><span class="o">=</span>xxx <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">QMSG_KEY</span><span class="o">=</span>xxxx <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">QQ_ID</span><span class="o">=</span><span class="m">123</span> <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">AUTHOR_EMAIL</span><span class="o">=</span>xxx@xx.com <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">SITE_NAME</span><span class="o">=</span>Blog <span class="se">\
-</span><span class="se"></span>  -e <span class="nv">SITE_URL</span><span class="o">=</span>lbqaq.top <span class="se">\
-</span><span class="se"></span>  -p 8360:8360 <span class="se">\
-</span><span class="se"></span>  -v /home/admin/waline:/data <span class="se">\
-</span><span class="se"></span>  --name<span class="o">=</span>waline <span class="se">\
-</span><span class="se"></span>  lizheming/waline
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">SQLITE_PATH</span><span class="o">=</span>/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">JWT_TOKEN</span><span class="o">=</span>xxx <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">QMSG_KEY</span><span class="o">=</span>xxxx <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">QQ_ID</span><span class="o">=</span><span class="m">123</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">AUTHOR_EMAIL</span><span class="o">=</span>xxx@xx.com <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">SITE_NAME</span><span class="o">=</span>Blog <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -e <span class="nv">SITE_URL</span><span class="o">=</span>lbqaq.top <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -p 8360:8360 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  -v /home/admin/waline:/data <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --name<span class="o">=</span>waline <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  lizheming/waline
+</span></span></code></pre></div></li>
 <li>
 <p>想使用<code>lbqaq.top/waline/</code>这样的链接来设置服务端</p>
 <p>直接报404错误，还是选择上文中的子域名方法</p>
@@ -277,12 +277,12 @@ vim waline.sh
 <li>
 <p>设置了<code>server_name waline.lbqaq.top</code>还是跳转首页</p>
 <p>增加一个默认的server，将所有不匹配的链接阻止</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server</span> <span class="p">{</span>
-    <span class="kn">listen</span> <span class="mi">80</span> <span class="s">default_server</span><span class="p">;</span>
-    <span class="kn">server_name</span> <span class="s">_</span><span class="p">;</span>
-    <span class="kn">return</span> <span class="mi">444</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">server</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">listen</span> <span class="mi">80</span> <span class="s">default_server</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">server_name</span> <span class="s">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">return</span> <span class="mi">444</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
 <li>
 <p>nginx配置不生效</p>
 <p>如果配置没有问题，除了<code>nginx -s reload</code>还可以尝试重启nginx</p>
@@ -335,6 +335,29 @@ vim waline.sh
     </section></footer>
 
 
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
     
 </article>
 

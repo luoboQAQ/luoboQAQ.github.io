@@ -12,7 +12,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2021-08-23T15:44:59&#43;08:00'/><meta property='article:modified_time' content='2021-08-27T10:20:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307.webp' />
 <meta name="twitter:title" content="使用Webhooks实现自动部署">
 <meta name="twitter:description" content="使用Github Webhooks来实现自动部署"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/90550307.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
     article-page has-toc
@@ -152,93 +152,93 @@
 <h2 id="步骤">步骤</h2>
 <h3 id="设置脚本">设置脚本</h3>
 <p>首先要写一个shell脚本，功能很简单就是自动拉取代码。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="cp">#!/bin/bash
-</span><span class="cp"></span><span class="nb">cd</span> /home/luobo/Blog
-git pull
-</code></pre></div><h3 id="创建webhook服务后端">创建webhook服务后端</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">cd</span> /home/luobo/Blog
+</span></span><span class="line"><span class="cl">git pull
+</span></span></code></pre></div><h3 id="创建webhook服务后端">创建webhook服务后端</h3>
 <p>这里就直接使用NodeJS来创建，使用的原因很简单，因为已经有现成的插件可以使用了。</p>
 <p>首先安装依赖</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">npm i -S github-webhook-handler
-npm i -g pm2
-</code></pre></div><p>然后创建<code>webhook.js</code>作为后端</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">spawn</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">createHandler</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;github-webhook-handler&#39;</span><span class="p">);</span>
-<span class="c1">//注意要将 secret 修改你自己的
-</span><span class="c1"></span><span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">createHandler</span><span class="p">({</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/webhook&#39;</span><span class="p">,</span> <span class="nx">secret</span><span class="o">:</span> <span class="s1">&#39;xxxxx&#39;</span> <span class="p">});</span>
-
-<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;no such location&#39;</span><span class="p">);</span>
-  <span class="p">})</span>
-<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">6666</span><span class="p">);</span>
-
-<span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
-<span class="p">});</span>
-
-<span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Received a push event for %s to %s&#39;</span><span class="p">,</span>
-    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
-    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">ref</span><span class="p">);</span>
-
-  <span class="nx">runCommand</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;./deploy.sh&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">txt</span> <span class="p">){</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-
-<span class="kd">function</span> <span class="nx">runCommand</span><span class="p">(</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">){</span>
-    <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">spawn</span><span class="p">(</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="s1">&#39;Deploy OK&#39;</span><span class="p">;</span>
-    <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">buffer</span> <span class="p">){</span> <span class="nx">resp</span> <span class="o">+=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span> <span class="p">});</span>
-    <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">callback</span><span class="p">(</span> <span class="nx">resp</span> <span class="p">)</span> <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div><p>最后启动服务即可</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">pm2 start webhook.js
-</code></pre></div><h3 id="nginx设置反代">Nginx设置反代</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="s">/webhook</span> <span class="p">{</span>
-    <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:6666</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="配置github-webhook">配置Github Webhook</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">npm i -S github-webhook-handler
+</span></span><span class="line"><span class="cl">npm i -g pm2
+</span></span></code></pre></div><p>然后创建<code>webhook.js</code>作为后端</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">spawn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">createHandler</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;github-webhook-handler&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//注意要将 secret 修改你自己的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">createHandler</span><span class="p">({</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;/webhook&#39;</span><span class="p">,</span> <span class="nx">secret</span><span class="o">:</span> <span class="s1">&#39;xxxxx&#39;</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;no such location&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">6666</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Error:&#39;</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;push&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Received a push event for %s to %s&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">ref</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">runCommand</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;./deploy.sh&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">txt</span> <span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">runCommand</span><span class="p">(</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">spawn</span><span class="p">(</span> <span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="s1">&#39;Deploy OK&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">buffer</span> <span class="p">){</span> <span class="nx">resp</span> <span class="o">+=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nx">callback</span><span class="p">(</span> <span class="nx">resp</span> <span class="p">)</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>最后启动服务即可</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pm2 start webhook.js
+</span></span></code></pre></div><h3 id="nginx设置反代">Nginx设置反代</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx" data-lang="nginx"><span class="line"><span class="cl"><span class="k">location</span> <span class="s">/webhook</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:6666</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="配置github-webhook">配置Github Webhook</h3>
 <p>在 html仓库的 <code>Settings</code> - <code>webhooks</code> 设置中创建一个新的 webhook。</p>
 <p>将Content Type 设置为 <code>application/json</code>，secret 设置成与 <code>webhook.js</code> 中的相同。</p>
 <p>trigeer选择<code>Just the push event. </code>。</p>
 <p>完成后Github会自动发起一个测试请求，如果返回为<code>200</code>说明配置完成，</p>
 <h3 id="配置自动编译">配置自动编译</h3>
 <p>在源代码仓库的<code>.github/workflows</code>目录下创建<code>deploy.yml</code>，并填入以下内容。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build and Deploy</span><span class="w">
-</span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># 任务</span><span class="w">
-</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">build-and-deploy</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="c"># 服务器环境：最新版 Ubuntu</span><span class="w">
-</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="c"># 拉取代码</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># 安装Hugo</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w">
-</span><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build </span><span class="w">
-</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># 部署到 GitHub Pages</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to GitHub Pages</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">JamesIves/github-pages-deploy-action@4.1.4</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">BRANCH</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
-</span><span class="w">          </span><span class="nt">FOLDER</span><span class="p">:</span><span class="w"> </span><span class="l">public</span><span class="w">
-</span><span class="w">          </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GP_TOKEN }}</span><span class="w">
-</span><span class="w">          </span><span class="nt">repository-name</span><span class="p">:</span><span class="w"> </span><span class="l">luoboQAQ/luoboQAQ.github.io</span><span class="w">
-</span></code></pre></div><p>注意要将最后的<code>repository-name</code>换为你自己的仓库，同时需要申请和配置Github Token，这里我就不展开了。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build and Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 任务</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">build-and-deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 服务器环境：最新版 Ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 拉取代码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 安装Hugo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Setup Hugo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-hugo@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">hugo-version</span><span class="p">:</span><span class="w"> </span><span class="l">latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">extended</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">hugo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 部署到 GitHub Pages</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to GitHub Pages</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">JamesIves/github-pages-deploy-action@4.1.4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">BRANCH</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">FOLDER</span><span class="p">:</span><span class="w"> </span><span class="l">public</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GP_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">repository-name</span><span class="p">:</span><span class="w"> </span><span class="l">luoboQAQ/luoboQAQ.github.io</span><span class="w">
+</span></span></span></code></pre></div><p>注意要将最后的<code>repository-name</code>换为你自己的仓库，同时需要申请和配置Github Token，这里我就不展开了。</p>
 <h2 id="参考">参考</h2>
 <ul>
 <li><a class="link" href="https://jimmysong.io/blog/github-webhook-website-auto-deploy/"  target="_blank" rel="noopener"
@@ -284,6 +284,29 @@ npm i -g pm2
     </section></footer>
 
 
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
     
 </article>
 

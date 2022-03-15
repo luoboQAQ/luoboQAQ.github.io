@@ -12,7 +12,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSS' /><meta property='article:published_time' content='2021-02-01T13:55:05&#43;08:00'/><meta property='article:modified_time' content='2021-02-01T13:55:05&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/86589864.webp' />
 <meta name="twitter:title" content="给Blog增加动画">
 <meta name="twitter:description" content="利用CSS给Blog增加动画"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/86589864.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/umami.js"></script>
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/86589864.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
     article-page has-toc
@@ -137,48 +137,48 @@
 <h2 id="相关代码">相关代码</h2>
 <h3 id="1头像转动">1.头像转动</h3>
 <p>在<code>themes/hugo-theme-stack/assets/scss/partials/sidebar.scss</code>中增加以下代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="nc">.site-logo</span> <span class="p">{</span>      
-	<span class="na">transition</span><span class="o">:</span> <span class="ni">all</span> <span class="mi">1</span><span class="mf">.75</span><span class="kt">s</span> <span class="ni">ease-out</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nc">.site-logo</span><span class="nd">:hover</span> <span class="p">{</span>
-	<span class="na">transform</span><span class="o">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="mi">360</span><span class="kt">deg</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="2文章头图缩放">2.文章头图缩放</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.site-logo</span> <span class="p">{</span>      
+</span></span><span class="line"><span class="cl">	<span class="na">transition</span><span class="o">:</span> <span class="ni">all</span> <span class="mi">1</span><span class="mf">.75</span><span class="kt">s</span> <span class="ni">ease-out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nc">.site-logo</span><span class="nd">:hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="na">transform</span><span class="o">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="mi">360</span><span class="kt">deg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="2文章头图缩放">2.文章头图缩放</h3>
 <p>在<code>themes/hugo-theme-stack/assets/scss/partials/article.scss</code>中增加以下代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="nc">.article-image</span> <span class="p">{</span>
-    <span class="na">overflow</span><span class="o">:</span><span class="ni">hidden</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nc">.article-image</span> <span class="p">{</span>
-    <span class="nt">img</span> <span class="p">{</span>
-        <span class="na">transition</span><span class="o">:</span><span class="ni">all</span> <span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">&amp;</span><span class="nd">:hover</span><span class="p">{</span>
-        <span class="na">transform</span><span class="o">:</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.2</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div><h3 id="3archives页面缩放">3.Archives页面缩放</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nc">.article-image</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">overflow</span><span class="o">:</span><span class="ni">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nc">.article-image</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">transition</span><span class="o">:</span><span class="ni">all</span> <span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">:hover</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">transform</span><span class="o">:</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><h3 id="3archives页面缩放">3.Archives页面缩放</h3>
 <p>在<code>themes/hugo-theme-stack/assets/scss/partials/article.scss</code>中增加以下代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="nt">article</span><span class="p">{</span>
-	<span class="na">transition</span><span class="o">:</span><span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">article</span> <span class="p">{</span>
-    <span class="k">&amp;</span><span class="nd">:hover</span><span class="p">{</span>
-		<span class="na">transform</span><span class="o">:</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.05</span><span class="o">,</span><span class="mi">1</span><span class="mf">.05</span><span class="p">);</span>
-		<span class="na">background</span><span class="o">:</span><span class="mh">#f0f8ff</span><span class="p">;</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="4菜单缩放">4.菜单缩放</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nt">article</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="na">transition</span><span class="o">:</span><span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nt">article</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">:hover</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="na">transform</span><span class="o">:</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.05</span><span class="o">,</span><span class="mi">1</span><span class="mf">.05</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="na">background</span><span class="o">:</span><span class="mh">#f0f8ff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="4菜单缩放">4.菜单缩放</h3>
 <p>在<code>themes/hugo-theme-stack/assets/scss/partials/menu.scss</code>中增加以下代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="na">overflow-y</span><span class="o">:</span> <span class="ni">visible</span><span class="p">;</span>    <span class="c1">//把auto改为visible，为了图标放大溢出时不显示滚动条
-</span><span class="c1"></span><span class="nt">li</span> <span class="p">{</span>
-	<span class="na">transition</span><span class="o">:</span><span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">li</span><span class="p">{</span>
-    <span class="k">&amp;</span><span class="nd">:hover</span><span class="p">{</span>
-        <span class="na">transform</span><span class="o">:</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.1</span><span class="o">,</span><span class="mi">1</span><span class="mf">.1</span><span class="p">);</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>有了动画后，感觉整个博客都变得高级起来了ヾ(•ω•`)o</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="na">overflow-y</span><span class="o">:</span> <span class="ni">visible</span><span class="p">;</span>    <span class="c1">//把auto改为visible，为了图标放大溢出时不显示滚动条
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nt">li</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="na">transition</span><span class="o">:</span><span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nt">li</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">:hover</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">transform</span><span class="o">:</span><span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.1</span><span class="o">,</span><span class="mi">1</span><span class="mf">.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>有了动画后，感觉整个博客都变得高级起来了ヾ(•ω•`)o</p>
 <p>在这感谢zsnmwy大佬，上面有些动画懒得自己写了，就直接从他的css中复制了ヾ(￣▽￣)</p>
 
 </section>
@@ -208,6 +208,29 @@
     </footer>
 
 
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
     
 </article>
 

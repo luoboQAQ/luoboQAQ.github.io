@@ -9,7 +9,7 @@
 <meta property='og:description' content='记录我对前缀和、差分、树状数组的认识'>
 <meta property='og:url' content='https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='前缀和' /><meta property='article:tag' content='差分' /><meta property='article:tag' content='树状数组' /><meta property='article:published_time' content='2022-03-14T20:46:19&#43;08:00'/><meta property='article:modified_time' content='2022-03-15T22:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/95680357.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='前缀和' /><meta property='article:tag' content='差分' /><meta property='article:tag' content='树状数组' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:published_time' content='2022-03-14T20:46:19&#43;08:00'/><meta property='article:modified_time' content='2022-03-16T21:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/95680357.webp' />
 <meta name="twitter:title" content="初探区间求和问题">
 <meta name="twitter:description" content="记录我对前缀和、差分、树状数组的认识"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/95680357.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
@@ -224,6 +224,7 @@
 <p>在计算$a[][]$时，我们可以不新开一个数组，而是以用过的$D[][]$作为$a[][]$，以此来节约空间。使用的话只需要将上面式子中的$a$全部换为$D$</p>
 <h2 id="树状数组">树状数组</h2>
 <p>树状数组的优点在于查询和修改的时间复杂度都为$\Omicron(logn)$，且比线段树好写。</p>
+<h3 id="单点修改区间查询">单点修改、区间查询</h3>
 <p>树状数组的原理由于时间有限，这里就不展开说了（之后有空再补上😇），先上模板：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>	<span class="c1">//树状数组(下标从1开始)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">n</span><span class="p">;</span>			<span class="c1">//数组的长度
@@ -310,6 +311,8 @@
         
             <a href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>
         
+            <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
+        
     </section>
 
 
@@ -335,7 +338,7 @@
 
 
         <span>
-            最后更新于 Mar 15, 2022 22:30 &#43;0800
+            最后更新于 Mar 16, 2022 21:30 &#43;0800
         </span>
     </section></footer>
 
@@ -525,6 +528,7 @@
     </li>
     <li><a href="#树状数组">树状数组</a>
       <ol>
+        <li><a href="#单点修改区间查询">单点修改、区间查询</a></li>
         <li><a href="#区间修改单点查询">区间修改、单点查询</a></li>
       </ol>
     </li>

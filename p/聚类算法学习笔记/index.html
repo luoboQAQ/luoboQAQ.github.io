@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中聚类算法的学习笔记'><title>聚类算法学习笔记</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='聚类算法学习笔记'>
+<meta property='og:description' content='数据挖掘中聚类算法的学习笔记'>
+<meta property='og:url' content='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据挖掘' /><meta property='article:tag' content='Kmeans' /><meta property='article:tag' content='谱聚类' /><meta property='article:published_time' content='2022-05-10T08:23:41&#43;08:00'/><meta property='article:modified_time' content='2022-05-10T08:23:41&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.webp' />
+<meta name="twitter:title" content="聚类算法学习笔记">
+<meta name="twitter:description" content="数据挖掘中聚类算法的学习笔记"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://lbqaq.top" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.webp"
+                        
+                        width="1883" 
+                        height="1257" 
+                        loading="lazy"
+                        alt="Featured image of post 聚类算法学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" >
+                数据挖掘
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">聚类算法学习笔记</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        数据挖掘中聚类算法的学习笔记
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 10, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="kmeans">Kmeans</h2>
+<h3 id="算法步骤">算法步骤</h3>
+<ol>
+<li>从样本中选择 K 个点作为初始质心（完全随机）</li>
+<li>计算每个样本到各个质心的距离，将样本划分到距离最近的质心所对应的簇中</li>
+<li>计算每个簇内所有样本的均值，并使用该均值更新簇的质心</li>
+<li>重复步骤 2 与 3 ，直到达到以下条件之一：
+<ul>
+<li>质心的位置变化小于指定的阈值（默认为 0.0001）</li>
+<li>达到最大迭代次数</li>
+</ul>
+</li>
+</ol>
+<h3 id="欧氏距离">欧氏距离</h3>
+<blockquote>
+<p>衡量的是多维空间中两个点之间的绝对距离</p>
+</blockquote>
+<p>在二维和三维空间中的欧氏距离就是两点之间的实际距离</p>
+<p>计算方法：对应坐标值相减的平方和再开方</p>
+<p>$$
+dist(X,Y)=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}
+$$</p>
+<p>对于二维来说，就是</p>
+<p>$$
+dist(X,Y)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2}
+$$</p>
+<p>注意理解输入？输出？类别中心？迭代过程中做什么？</p>
+<h3 id="编程实现">编程实现</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="c">%% 生成测试数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">clear</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="p">=</span><span class="mi">100</span><span class="p">;</span>                  <span class="c">% 每簇的样本数</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigma</span> <span class="p">=</span> <span class="p">[</span><span class="mf">0.1</span> <span class="mi">0</span><span class="p">;</span><span class="mi">0</span> <span class="mf">0.1</span><span class="p">];</span>  <span class="c">% 协方差矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">R</span> <span class="p">=</span> <span class="n">chol</span><span class="p">(</span><span class="n">sigma</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">% 生成测试数据集</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span><span class="p">=[</span><span class="c">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">randn</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">,</span><span class="mi">1</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">0</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nb">randn</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">2</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">randn</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">,</span><span class="mi">3</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">2</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nb">randn</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">R</span><span class="p">,</span><span class="mi">4</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="c">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 绘制样本散点图</span>
+</span></span><span class="line"><span class="cl"><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">data</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="s">&#39;r.&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">title</span><span class="p">(</span>&#34;无样式样本散点图&#34;<span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span><span class="p">=</span><span class="n">data</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">g</span><span class="p">=</span><span class="n">data</span><span class="p">(:,</span><span class="k">end</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span><span class="p">=</span><span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% K-means实现</span>
+</span></span><span class="line"><span class="cl"><span class="n">k</span><span class="p">=</span><span class="mi">4</span><span class="p">;</span>    <span class="c">% 指定分成的簇数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">%从n个数据样本中不重复地随机选择k个样本作为质</span>
+</span></span><span class="line"><span class="cl"><span class="n">centerIndex</span> <span class="p">=</span> <span class="n">randperm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">C</span> <span class="p">=</span> <span class="n">X</span><span class="p">(</span><span class="n">centerIndex</span><span class="p">,</span> <span class="p">:);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">result</span> <span class="p">=</span> <span class="n">struct</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">,[],</span><span class="s">&#39;C&#39;</span><span class="p">,[],</span><span class="s">&#39;objectives&#39;</span><span class="p">,[]);</span>
+</span></span><span class="line"><span class="cl"><span class="n">iter</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">maxIter</span> <span class="p">=</span> <span class="mi">10</span><span class="p">;</span>   <span class="c">% 指定最大迭代的次数</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="p">(</span><span class="n">iter</span> <span class="o">&lt;</span> <span class="n">maxIter</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iter</span> <span class="p">=</span> <span class="n">iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">% 求出每个样本到中心点的距离，按照距离自身最近的中心点进行聚类</span>
+</span></span><span class="line"><span class="cl">    <span class="n">D</span> <span class="p">=</span> <span class="n">pdist2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="n">ypred</span><span class="p">]</span> <span class="p">=</span> <span class="n">min</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="p">[],</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">% 保存结果</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">(</span><span class="n">iter</span><span class="p">).</span><span class="n">y</span> <span class="p">=</span> <span class="n">ypred</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">(</span><span class="n">iter</span><span class="p">).</span><span class="n">C</span> <span class="p">=</span> <span class="n">C</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="p">(</span><span class="n">iter</span><span class="p">).</span><span class="n">objectives</span> <span class="p">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">d</span><span class="o">.*</span><span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">% 当距离没变时结束迭代</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">iter</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">result</span><span class="p">(</span><span class="n">iter</span><span class="p">).</span><span class="n">objectives</span> <span class="o">==</span> <span class="n">result</span><span class="p">(</span><span class="n">iter</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="n">objectives</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c">% 依据上次聚类结果，求出新的中心点</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">cid</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span> <span class="nb">size</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">C</span><span class="p">(</span><span class="n">cid</span><span class="p">,</span> <span class="p">:)</span> <span class="p">=</span> <span class="n">mean</span> <span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">ypred</span> <span class="o">==</span> <span class="n">cid</span><span class="p">,</span> <span class="p">:));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 绘制结果散点图</span>
+</span></span><span class="line"><span class="cl"><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">t</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span> <span class="nb">numel</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clf</span>
+</span></span><span class="line"><span class="cl">    <span class="c">% 绘制聚类结果</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gscatter</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span> <span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span> <span class="n">result</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;rgbm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">hold</span> <span class="n">on</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Ct</span> <span class="p">=</span> <span class="n">result</span><span class="p">(</span><span class="n">t</span><span class="p">).</span><span class="n">C</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">% 绘制聚类中心</span>
+</span></span><span class="line"><span class="cl">    <span class="n">h</span><span class="p">=</span><span class="n">gscatter</span><span class="p">(</span><span class="n">Ct</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span> <span class="n">Ct</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">:</span> <span class="nb">size</span><span class="p">(</span><span class="n">Ct</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="s">&#39;kkkk&#39;</span><span class="p">,</span> <span class="s">&#39;x+od&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span><span class="p">(</span>&#34;第&#34;<span class="o">+</span><span class="n">t</span><span class="o">+</span>&#34;次迭代后散点图&#34;<span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">waitforbuttonpress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c">%pause(1);</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 计算误差</span>
+</span></span><span class="line"><span class="cl"><span class="c">% 输出混淆矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">confusionmat</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">ypred</span><span class="p">)</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 320px"
+	>
+	<a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png" data-size="384x288">
+		<img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
+			width="384"
+			height="288"
+			srcset="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hubadcea77f04e8a03636d76ea41954981_54947_480x0_resize_box_3.png 480w, /p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hubadcea77f04e8a03636d76ea41954981_54947_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="第一次迭代后结果">
+	</a>
+	
+	<figcaption>第一次迭代后结果</figcaption>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 132; 
+			flex-basis: 318px"
+	>
+	<a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2.png" data-size="380x286">
+		<img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2.png"
+			width="380"
+			height="286"
+			srcset="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2_hu25dba9e13b0a70b756fa6cfacfacdca8_52881_480x0_resize_box_3.png 480w, /p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2_hu25dba9e13b0a70b756fa6cfacfacdca8_52881_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="迭代完成结果">
+	</a>
+	
+	<figcaption>迭代完成结果</figcaption>
+	
+</figure></p>
+<h3 id="缺点">缺点</h3>
+<p>容易受初始质心的影响；算法聚类时，容易产生空簇；算法可能收敛到局部最小值。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 127; 
+			flex-basis: 306px"
+	>
+	<a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3.png" data-size="438x343">
+		<img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3.png"
+			width="438"
+			height="343"
+			srcset="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3_hu2d0a0e794ba2b840d89f1e7ab5902cb1_39967_480x0_resize_box_3.png 480w, /p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3_hu2d0a0e794ba2b840d89f1e7ab5902cb1_39967_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="第一次迭代结果">
+	</a>
+	
+	<figcaption>第一次迭代结果</figcaption>
+	
+</figure></p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 127; 
+			flex-basis: 306px"
+	>
+	<a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4.png" data-size="402x315">
+		<img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4.png"
+			width="402"
+			height="315"
+			srcset="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4_huecd44f34eaf1c478548449c67f76480d_35097_480x0_resize_box_3.png 480w, /p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4_huecd44f34eaf1c478548449c67f76480d_35097_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="迭代完成结果">
+	</a>
+	
+	<figcaption>迭代完成结果</figcaption>
+	
+</figure></p>
+<p>解决办法：重新执行K-means算法，重新分配质心</p>
+<h2 id="谱聚类spectral-clustering">谱聚类(Spectral Clustering)</h2>
+<h3 id="算法思想">算法思想</h3>
+<p>把所有的数据看做空间中的点，这些点之间可以用边连接起来。距离较远的两个点之间的边权重值较低，而距离较近的两个点之间的边权重值较高，通过对所有数据点组成的图进行切图，让切图后不同的子图间边权重和尽可能的低，而子图内的边权重和尽可能的高，从而达到聚类的目的。</p>
+<h3 id="度矩阵d">度矩阵D</h3>
+<p>对于一个图$G$，我们一般用点的集合$V$和边的集合$E$来描述。即为$G(V,E)$。其中$V$即为我们数据集里面所有的点$(v_1, v_2,&hellip;v_n)$。对于$V$中的任意两个点，可以有边连接，也可以没有边连接。我们定义权重$w_{ij}$为点$v_i$和点$v_j$之间的权重。由于我们是无向图，所以$w_{ij} = w_{ji}$。</p>
+<p>对于有边连接的两个点$v_i$和$v_j$，$w_{ij} &gt; 0$,对于没有边连接的两个点$v_i$和$v_j$，$w_{ij} = 0$。对于图中的任意一个点$v_i$，它的度$d_i$定义为和它相连的所有边的权重之和，即</p>
+<p>$$
+d_i = \sum\limits_{j=1}^{n}w_{ij}
+$$</p>
+<p>利用每个点度的定义，我们可以得到一个nxn的度矩阵$D$,它是一个对角矩阵，只有主对角线有值，对应第i行的第i个点的度数，定义如下：</p>
+<p>$$
+\mathbf{D} =
+\left( \begin{array}{ccc}
+d_1 &amp; \ldots &amp; \ldots \
+\ldots &amp; d_2 &amp; \ldots \
+\vdots &amp; \vdots &amp; \ddots \
+\ldots &amp; \ldots &amp; d_n \end{array} \right)
+$$</p>
+<p>利用所有点之间的权重值，我们可以得到图的邻接矩阵$W$，它也是一个nxn的矩阵，第i行的第j个值对应我们的权重$w_{ij}$。</p>
+<p>除此之外，对于点集$V$的的一个子集$A \subset V$，我们定义：</p>
+<p>$$
+|A|: = 子集A中点的个数
+$$</p>
+<p>$$
+vol(A): = \sum\limits_{i \in A}d_i
+$$</p>
+<h3 id="相似矩阵">相似矩阵</h3>
+<p>构建邻接矩阵$W$的方法有三类：</p>
+<ul>
+<li>
+<p>$\epsilon$-邻近法</p>
+<p>它设置了一个距离阈值$\epsilon$，然后用欧式距离$s_{ij}$度量任意两点$x_i$和$x_j$的距离。 然后根据$s_{ij}$和$\epsilon$的大小关系，来定义邻接矩阵$W$。距离小于$\epsilon$为$\epsilon$，距离大于$\epsilon$为0</p>
+</li>
+<li>
+<p>K邻近法</p>
+<p>利用KNN算法遍历所有的样本点，取每个样本最近的k个点作为近邻，只有和样本距离最近的k个点之间的$w_{ij} &gt; 0$。但是这种方法会造成重构之后的邻接矩阵W非对称。</p>
+</li>
+<li>
+<p>全连接法（最常用）</p>
+<p>相比前两种方法，第三种方法所有的点之间的权重值都大于0，因此称之为全连接法。可以选择不同的核函数来定义边权重，常用的有多项式核函数，高斯核函数和Sigmoid核函数，最常用的是高斯核函数RBF。</p>
+</li>
+</ul>
+<p>$$
+w_{ij}=s_{ij}=exp(-\frac{||x_i-x_j||_2^2}{2\sigma^2})
+$$</p>
+<blockquote>
+<p>💡 exp(x)表示$e^x$</p>
+</blockquote>
+<h3 id="拉普拉斯矩阵">拉普拉斯矩阵</h3>
+<p>拉普拉斯矩阵$L= D-W$</p>
+<p>$D$即为度矩阵，它是一个对角矩阵。$W$为邻接矩阵。</p>
+<h3 id="无向图切图">无向图切图</h3>
+<p>对于无向图$G$的切图，我们的目标是将图$G(V,E)$切成相互没有连接的k个子图，每个子图点的集合为：$A_1,A_2,..A_k$，它们满足$A_i \cap A_j = \emptyset$,且$A_1 \cup A_2 \cup &hellip; \cup A_k = V$.</p>
+<p>对于任意两个子图点的集合$A, B \subset V$, $A \cap B = \emptyset$, 我们定义A和B之间的切图权重为：</p>
+<p>$$
+W(A, B) = \sum\limits_{i \in A, j \in B}w_{ij}
+$$</p>
+<ul>
+<li>
+<p>最小化切图</p>
+<p>$$
+\min cut(A,B)=\sum\limits_{i \in A, j \in B}w_{ij}
+$$</p>
+</li>
+<li>
+<p>RatioCut切图</p>
+<p>$$
+RatioCut(A,B)=cut(A,B)(\frac{1}{|A|}+\frac{1}{|B|})
+$$</p>
+</li>
+<li>
+<p>Ncut切图</p>
+<p>$$
+Ncut(A,B)=cut(A,B)(\frac{1}{vol(A)}+\frac{1}{vol(B)})
+$$</p>
+</li>
+</ul>
+<h3 id="算法流程">算法流程</h3>
+<p>最常用的相似矩阵的生成方式是基于高斯核距离的全连接方式，最常用的切图方式是Ncut。而到最后常用的聚类方法为K-Means。</p>
+<p>输入：样本集D=$(x_1,x_2,&hellip;,x_n)$，相似矩阵的生成方式, 降维后的维度$k_1$, 聚类方法，聚类后的维度$k_2$</p>
+<p>输出： 簇划分$C(c_1,c_2,&hellip;c_{k_2})$.</p>
+<ol>
+<li>根据输入的相似矩阵的生成方式构建样本的相似矩阵S</li>
+<li>根据相似矩阵S构建邻接矩阵W，构建度矩阵D</li>
+<li>计算出拉普拉斯矩阵L</li>
+<li>构建标准化后的拉普拉斯矩阵$D^{-1/2}LD^{-1/2}$</li>
+<li>计算$D^{-1/2}LD^{-1/2}$最小的$k_1$个特征值所各自对应的特征向量$f$</li>
+<li>将各自对应的特征向量$f$组成的矩阵按行标准化，最终组成$n \times k_1$维的特征矩阵F</li>
+<li>对F中的每一行作为一个$k_1$维的样本，共n个样本，用输入的聚类方法进行聚类，聚类维数为$k_2$</li>
+<li>得到簇划分$C(c_1,c_2,&hellip;c_{k_2})$</li>
+</ol>
+<h3 id="编程实现-1">编程实现</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="n">rng</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 生成测试数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span><span class="p">=</span> <span class="mi">200</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">theta</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span><span class="n">p</span><span class="p">)</span><span class="o">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="p">=[</span><span class="c">...</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="o">*</span><span class="p">[</span><span class="nb">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="nb">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)]</span><span class="o">+</span> <span class="nb">rand</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">4</span><span class="o">*</span><span class="p">[</span><span class="nb">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="nb">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)]</span><span class="o">+</span> <span class="nb">rand</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">2</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="p">=</span> <span class="n">data</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="p">=</span> <span class="n">data</span><span class="p">(:,</span><span class="k">end</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">gscatter</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">y</span><span class="p">,</span><span class="s">&#39;rg&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 距离矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q</span> <span class="p">=</span> <span class="n">pdist2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">imagesc</span><span class="p">(</span><span class="n">Q</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">colorbar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 构造图的相似度矩阵A</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigma</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Q</span><span class="o">.*</span><span class="n">Q</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="o">*</span><span class="n">sigma</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">imagesc</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">colorbar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 构造图的拉普拉斯矩阵L</span>
+</span></span><span class="line"><span class="cl"><span class="n">D</span> <span class="p">=</span> <span class="nb">diag</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">L</span> <span class="p">=</span> <span class="n">D</span> <span class="o">-</span> <span class="n">A</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">imagesc</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">colorbar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 对拉普拉斯矩阵进行特征值分解</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="n">S</span><span class="p">]</span> <span class="p">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="p">=</span> <span class="nb">diag</span><span class="p">(</span><span class="n">S</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 取最小的k个特征值对应的特征向量</span>
+</span></span><span class="line"><span class="cl"><span class="n">k</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Vr</span> <span class="p">=</span> <span class="n">V</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">Vr</span><span class="p">([</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="k">end</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="k">end</span><span class="p">],:)</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 对映射后的特征矩阵Vr进行kmeans聚类</span>
+</span></span><span class="line"><span class="cl"><span class="n">idx</span> <span class="p">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">Vr</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">gscatter</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">idx</span><span class="p">,</span><span class="s">&#39;rg&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">title</span><span class="p">([</span><span class="s">&#39;谱聚类 \sigma = &#39;</span><span class="p">,</span><span class="n">num2str</span><span class="p">(</span><span class="n">sigma</span><span class="p">)])</span>
+</span></span></code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 133; 
+			flex-basis: 321px"
+	>
+	<a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5.png" data-size="700x523">
+		<img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5.png"
+			width="700"
+			height="523"
+			srcset="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5_hu7fd0fa977212be72b6abe075593ccb43_40043_480x0_resize_box_3.png 480w, /p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5_hu7fd0fa977212be72b6abe075593ccb43_40043_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="谱聚类结果">
+	</a>
+	
+	<figcaption>谱聚类结果</figcaption>
+	
+</figure></p>
+<h3 id="简化考试专用代码">简化考试专用代码</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="c">% 数据为X,y</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 距离矩阵</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q</span> <span class="p">=</span> <span class="n">pdist2</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 构造图的相似度矩阵A</span>
+</span></span><span class="line"><span class="cl"><span class="n">sigma</span> <span class="p">=</span> <span class="mf">0.1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">Q</span><span class="o">.*</span><span class="n">Q</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="o">*</span><span class="n">sigma</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 构造图的拉普拉斯矩阵L</span>
+</span></span><span class="line"><span class="cl"><span class="n">D</span> <span class="p">=</span> <span class="nb">diag</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">L</span> <span class="p">=</span> <span class="n">D</span> <span class="o">-</span> <span class="n">A</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 对拉普拉斯矩阵进行特征值分解</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="n">S</span><span class="p">]</span> <span class="p">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 取最小的k个特征值对应的特征向量</span>
+</span></span><span class="line"><span class="cl"><span class="n">k</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Vr</span> <span class="p">=</span> <span class="n">V</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c">%% 对映射后的特征矩阵Vr进行kmeans聚类</span>
+</span></span><span class="line"><span class="cl"><span class="n">idx</span> <span class="p">=</span> <span class="n">kmeans</span><span class="p">(</span><span class="n">Vr</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gscatter</span><span class="p">(</span><span class="n">X</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span><span class="n">X</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span><span class="n">idx</span><span class="p">,</span><span class="s">&#39;rg&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">title</span><span class="p">([</span><span class="s">&#39;谱聚类 \sigma = &#39;</span><span class="p">,</span><span class="n">num2str</span><span class="p">(</span><span class="n">sigma</span><span class="p">)])</span>
+</span></span></code></pre></div><h2 id="参考文档">参考文档</h2>
+<ul>
+<li><a class="link" href="https://zhuanlan.zhihu.com/p/136842949"  target="_blank" rel="noopener"
+    >K-Means(K均值聚类算法) - 知乎</a></li>
+<li><a class="link" href="https://www.cnblogs.com/pinard/p/6221564.html"  target="_blank" rel="noopener"
+    >谱聚类（spectral clustering）原理总结 - 刘建平Pinard - 博客园</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>
+        
+            <a href="/tags/kmeans/">Kmeans</a>
+        
+            <a href="/tags/%E8%B0%B1%E8%81%9A%E7%B1%BB/">谱聚类</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+</aside>
+
+     
+     
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#kmeans">Kmeans</a>
+      <ol>
+        <li><a href="#算法步骤">算法步骤</a></li>
+        <li><a href="#欧氏距离">欧氏距离</a></li>
+        <li><a href="#编程实现">编程实现</a></li>
+        <li><a href="#缺点">缺点</a></li>
+      </ol>
+    </li>
+    <li><a href="#谱聚类spectral-clustering">谱聚类(Spectral Clustering)</a>
+      <ol>
+        <li><a href="#算法思想">算法思想</a></li>
+        <li><a href="#度矩阵d">度矩阵D</a></li>
+        <li><a href="#相似矩阵">相似矩阵</a></li>
+        <li><a href="#拉普拉斯矩阵">拉普拉斯矩阵</a></li>
+        <li><a href="#无向图切图">无向图切图</a></li>
+        <li><a href="#算法流程">算法流程</a></li>
+        <li><a href="#编程实现-1">编程实现</a></li>
+        <li><a href="#简化考试专用代码">简化考试专用代码</a></li>
+      </ol>
+    </li>
+    <li><a href="#参考文档">参考文档</a></li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

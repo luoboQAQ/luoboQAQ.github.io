@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='WSL2&#43;Windows Terminal安装、配置小结'><title>WSL2&#43;WT配置小结</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='WSL2&#43;WT配置小结'>
+<link rel="stylesheet" href="/scss/style.min.077dff097e490c8f706df9f909bf07e86cc070306970826dfe7912c98bbdab76.css"><meta property='og:title' content='WSL2&#43;WT配置小结'>
 <meta property='og:description' content='WSL2&#43;Windows Terminal安装、配置小结'>
 <meta property='og:url' content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -15,8 +15,8 @@
     <meta name="twitter:image" content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/43493473.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
-    article-page has-toc
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -39,25 +39,192 @@
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        extended
-    
-">
-    
-        <div id="article-toolbar">
-            <a href="https://lbqaq.top" class="back-home">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="15 6 9 12 15 18" />
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
 </svg>
 
 
 
-                <span>返回</span>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
             </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
         </div>
-    
+    </ol>
+</aside>
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -77,15 +244,17 @@
     <div class="article-details">
     
 
-    <h2 class="article-title">
-        <a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/">WSL2&#43;WT配置小结</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/">WSL2&#43;WT配置小结</a>
+        </h2>
     
-    <h3 class="article-subtitle">
-        WSL2&#43;Windows Terminal安装、配置小结
-    </h3>
-    
+        
+        <h3 class="article-subtitle">
+            WSL2&#43;Windows Terminal安装、配置小结
+        </h3>
+        
+    </div>
 
     
     <footer class="article-time">
@@ -115,39 +284,38 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
     </footer>
     
+
+    
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>1202年了，是时候抛弃老旧的cmd窗口和臃肿的VM虚拟机了，来试试巨硬推出的WSL2+Windows Terminal(～￣▽￣)～。</p>
 <h2 id="起因">起因</h2>
 <p>在知乎上刷到了一篇<a class="link" href="https://www.zhihu.com/question/324218869/answer/1019888224"  target="_blank" rel="noopener"
     >回答</a>，是关于Windows编程的体验的。在这篇文章中提到了WSL2和Windows Terminal，我一下就被那精美的界面吸引了（<del>管他好不好用，好看就完事了</del>）。正好现在在上操作系统这门课，需要使用Linux进行实验，这还说什么，直接开冲。</p>
-<p><figure 
+<p><img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png"
+	width="1461"
+	height="855"
+	srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_480x0_resize_box_3.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="精美的界面"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 170; 
-			flex-basis: 410px"
-	>
-	<a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png" data-size="1461x855">
-		<img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png"
-			width="1461"
-			height="855"
-			srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_480x0_resize_box_3.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="精美的界面">
-	</a>
+		data-flex-grow="170"
+		data-flex-basis="410px"
 	
-	<figcaption>精美的界面</figcaption>
-	
-</figure></p>
+></p>
 <h2 id="wsl2安装">WSL2安装</h2>
 <p>安装其实很简单，按照微软的教程一步一步做就完事了。</p>
 <h3 id="0前置条件">0.前置条件</h3>
@@ -158,11 +326,25 @@
 </ul>
 <h3 id="1-开启wsl服务">1. 开启WSL服务</h3>
 <p>在Powershell(管理员)中输入下面的命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="nb">Microsoft-Windows</span><span class="n">-Subsystem-Linux</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
-</span></span></code></pre></div><h3 id="2-启用虚拟机服务">2. 启用虚拟机服务</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="nb">Microsoft-Windows</span><span class="n">-Subsystem-Linux</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-启用虚拟机服务">2. 启用虚拟机服务</h3>
 <p>在Powershell(管理员)中输入下面的命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="n">VirtualMachinePlatform</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
-</span></span></code></pre></div><p><strong>重新启动</strong> 计算机，以完成 WSL 安装并更新到 WSL 2。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="n">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="n">VirtualMachinePlatform</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>重新启动</strong> 计算机，以完成 WSL 安装并更新到 WSL 2。</p>
 <h3 id="3-下载-linux-内核更新包">3. 下载 Linux 内核更新包</h3>
 <p>下载最新包并安装：</p>
 <ul>
@@ -171,8 +353,15 @@
 </ul>
 <h3 id="4-将-wsl-2-设置为默认版本">4. 将 WSL 2 设置为默认版本</h3>
 <p>在Powershell中输入下面的命令：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="n">2</span>
-</span></span></code></pre></div><h3 id="5安装-linux">5.安装 Linux</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="n">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5安装-linux">5.安装 Linux</h3>
 <ol>
 <li>打开 <a class="link" href="https://aka.ms/wslstore"  target="_blank" rel="noopener"
     >Microsoft Store</a>，并选择你偏好的 Linux 分发版并点击<code>获取</code>进行安装。</li>
@@ -193,27 +382,119 @@
 </ul>
 <h3 id="2-配置">2. 配置</h3>
 <p>为了让<code>Windows Terminal</code>看起来更好看一些，我们还要对其进行一些配置。</p>
-<p><figure 
+<p><img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png"
+	width="837"
+	height="794"
+	srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_480x0_resize_box_3.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="设置"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 105; 
-			flex-basis: 252px"
-	>
-	<a href="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png" data-size="837x794">
-		<img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png"
-			width="837"
-			height="794"
-			srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_480x0_resize_box_3.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="设置">
-	</a>
+		data-flex-grow="105"
+		data-flex-basis="252px"
 	
-	<figcaption>设置</figcaption>
-	
-</figure></p>
+></p>
 <p>打开<code>Windows Terminal</code>的设置选项，然后选<code>打开JSON文件</code>，把我配好的配置文件粘贴进去</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;$schema&#34;</span><span class="p">:</span> <span class="s2">&#34;https://aka.ms/terminal-profiles-schema&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Add custom actions and keybindings to this array.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// To unbind a key combination from your defaults.json, set the command to &#34;unbound&#34;.
@@ -306,7 +587,9 @@
 </span></span><span class="line"><span class="cl">        <span class="p">]</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>一般要修改这几项：</p>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一般要修改这几项：</p>
 <ul>
 <li><code>fontFace</code> - 字体，我的字体为<code>Consolas</code>，适合1080P的屏幕。高分辩率屏建议用<code>monaco</code>或者<code>fira code</code></li>
 <li><code>fontSize</code> - 字体大小，因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
@@ -375,11 +658,11 @@
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -395,13 +678,12 @@
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-</aside>
 
      
-     
+    
         
     <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
 <div id="waline" class="waline-container"></div>
@@ -435,7 +717,7 @@
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -504,11 +786,11 @@
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -519,11 +801,13 @@
             >
 
             </main>
-    
-        <aside class="sidebar right-sidebar sticky">
-            <section class="widget archives">
-                <div class="widget-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -533,11 +817,11 @@
 
 
 
-                </div>
-                <h2 class="widget-title section-title">目录</h2>
-                
-                <div class="widget--toc">
-                    <nav id="TableOfContents">
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
   <ol>
     <li><a href="#起因">起因</a></li>
     <li><a href="#wsl2安装">WSL2安装</a>
@@ -561,15 +845,18 @@
     <li><a href="#参考链接">参考链接</a></li>
   </ol>
 </nav>
-                </div>
-            </section>
-        </aside>
-    
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
 <script>

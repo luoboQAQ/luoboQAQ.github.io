@@ -1,46 +1,131 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Qt on luoboQAQ</title>
-    <link>https://lbqaq.top/tags/qt/</link>
-    <description>Recent content in Qt on luoboQAQ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Thu, 03 Jun 2021 15:44:17 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/qt/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Qt构建qsqlmysql.dll</title>
-      <link>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</link>
-      <pubDate>Thu, 03 Jun 2021 15:44:17 +0800</pubDate>
-      
-      <guid>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
-      <description>这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。（你用ODBC？那没事了）
-我在网上也查了很多资料，但根据步骤来总是会报错，提示没有mysql.h这个头文件。下面就记录一下我成功编译的过程。
-基于cmake的步骤 在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。
-注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。
-1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开MaintenanceTool.exe启动Qt组件管理，在里面勾选Src把源码下载下来。
-2.打开cmake-gui，选择目标文件夹为D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers，并设置生成文件夹为D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build
- 配置文件夹 
-3.点击左下角的Configure，会提示生成的目录不存在是否创建，直接点是就可以了。
-4.编译器这里选择MinGW Makefiles,然后点击Finish
- 选择编译器 
-5.等待生成完成后，把FEATURE_sql_mysql后面的勾勾上，然后把其余的FEATURE_sql后面的勾取消。
- 选择生成模块 
-6.再次点击左下角的Configure，可以发现上面的红框已经消失了，说明配置成功了。然后点击Generate，生成Makefiles。
- 配置成功 
-7.这时配置文件已经构建完成了，接下来就是生成dll了，打开PowerShell切换目录至D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build，输入mingw32-make开始编译生成dll。
- 编译成功 
-没有报错，说明生成成功。
-8.最后打开目录D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers，就可以看到生成好的qsqlmysql.dll了。
-基于qmake的步骤 注意： 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。
-1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开MaintenanceTool.exe启动Qt组件管理，在里面勾选Src把源码下载下来。
-2.进入D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers目录下，打开sqldrivers.pro这个文件。
-3.在左侧文件树中打开mysql文件夹，选择mysql.pro打开。
-4.修改里面的内容：
-  注释掉QMAKE_USE += mysql这一句
-  增加下面三行代码(注意把D:/MySQL/改为你MySQL的安装路径)：
-LIBS +=-LD:/MySQL/lib -llibmysql INCLUDEPATH += D:/MySQL/include DEPENDPATH += D:/MySQL/include   5.点击Qt左下角的小锤子进行构建，不出意外的话就可以在D:\Qt\6.0.3\Src\qtbase\src\plugins这个路径下看到build开头的文件夹，在.\plugins\sqldrivers目录下就能看到编译好的dll了。
-6.最后将qsqlmysql.dll放入D:\Qt\6.0.3\mingw81_64\plugins\sqldrivers\里就行了。如果链接数据库时还报错，就把libmysql.dll复制到Qt的编译器的D:\Qt\6.0.3\mingw81_64\bin\目录。</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Qt on luoboQAQ</title>
+        <link>https://lbqaq.top/tags/qt/</link>
+        <description>Recent content in Qt on luoboQAQ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Thu, 03 Jun 2021 15:44:17 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/qt/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Qt构建qsqlmysql.dll</title>
+        <link>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</link>
+        <pubDate>Thu, 03 Jun 2021 15:44:17 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963.webp" alt="Featured image of post Qt构建qsqlmysql.dll" /&gt;&lt;p&gt;这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。&lt;del&gt;（你用ODBC？那没事了）&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;我在网上也查了很多资料，但根据步骤来总是会报错，提示没有&lt;code&gt;mysql.h&lt;/code&gt;这个头文件。下面就记录一下我成功编译的过程。&lt;/p&gt;
+&lt;h2 id=&#34;基于cmake的步骤&#34;&gt;基于cmake的步骤&lt;/h2&gt;
+&lt;p&gt;在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
+&lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
+&lt;p&gt;2.打开&lt;code&gt;cmake-gui&lt;/code&gt;，选择目标文件夹为&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;，并设置生成文件夹为&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34;
+	width=&#34;922&#34;
+	height=&#34;928&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;配置文件夹&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;99&#34;
+		data-flex-basis=&#34;238px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;3.点击左下角的&lt;code&gt;Configure&lt;/code&gt;，会提示生成的目录不存在是否创建，直接点是就可以了。&lt;/p&gt;
+&lt;p&gt;4.编译器这里选择&lt;code&gt;MinGW Makefiles&lt;/code&gt;,然后点击&lt;code&gt;Finish&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34;
+	width=&#34;500&#34;
+	height=&#34;360&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;选择编译器&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;138&#34;
+		data-flex-basis=&#34;333px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;5.等待生成完成后，把&lt;code&gt;FEATURE_sql_mysql&lt;/code&gt;后面的勾勾上，然后把其余的&lt;code&gt;FEATURE_sql&lt;/code&gt;后面的勾取消。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34;
+	width=&#34;920&#34;
+	height=&#34;889&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;选择生成模块&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;103&#34;
+		data-flex-basis=&#34;248px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;6.再次点击左下角的&lt;code&gt;Configure&lt;/code&gt;，可以发现上面的红框已经消失了，说明配置成功了。然后点击&lt;code&gt;Generate&lt;/code&gt;，生成&lt;code&gt;Makefiles&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34;
+	width=&#34;922&#34;
+	height=&#34;928&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;配置成功&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;99&#34;
+		data-flex-basis=&#34;238px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;7.这时配置文件已经构建完成了，接下来就是生成dll了，打开&lt;code&gt;PowerShell&lt;/code&gt;切换目录至&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;，输入&lt;code&gt;mingw32-make&lt;/code&gt;开始编译生成dll。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34;
+	width=&#34;1461&#34;
+	height=&#34;855&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;编译成功&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;170&#34;
+		data-flex-basis=&#34;410px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;没有报错，说明生成成功。&lt;/p&gt;
+&lt;p&gt;8.最后打开目录&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers&lt;/code&gt;，就可以看到生成好的&lt;code&gt;qsqlmysql.dll&lt;/code&gt;了。&lt;/p&gt;
+&lt;h2 id=&#34;基于qmake的步骤&#34;&gt;基于qmake的步骤&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
+&lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
+&lt;p&gt;2.进入&lt;code&gt;D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;目录下，打开&lt;code&gt;sqldrivers.pro&lt;/code&gt;这个文件。&lt;/p&gt;
+&lt;p&gt;3.在左侧文件树中打开&lt;code&gt;mysql&lt;/code&gt;文件夹，选择&lt;code&gt;mysql.pro&lt;/code&gt;打开。&lt;/p&gt;
+&lt;p&gt;4.修改里面的内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;注释掉&lt;code&gt;QMAKE_USE += mysql&lt;/code&gt;这一句&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增加下面三行代码(注意把&lt;code&gt;D:/MySQL/&lt;/code&gt;改为你MySQL的安装路径)：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;LIBS +=-LD:/MySQL/lib -llibmysql
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;INCLUDEPATH += D:/MySQL/include
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;DEPENDPATH += D:/MySQL/include
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;5.点击Qt左下角的小锤子进行构建，不出意外的话就可以在&lt;code&gt;D:\Qt\6.0.3\Src\qtbase\src\plugins&lt;/code&gt;这个路径下看到&lt;code&gt;build&lt;/code&gt;开头的文件夹，在&lt;code&gt;.\plugins\sqldrivers&lt;/code&gt;目录下就能看到编译好的dll了。&lt;/p&gt;
+&lt;p&gt;6.最后将&lt;code&gt;qsqlmysql.dll&lt;/code&gt;放入&lt;code&gt;D:\Qt\6.0.3\mingw81_64\plugins\sqldrivers\&lt;/code&gt;里就行了。如果链接数据库时还报错，就把&lt;code&gt;libmysql.dll&lt;/code&gt;复制到Qt的编译器的&lt;code&gt;D:\Qt\6.0.3\mingw81_64\bin\&lt;/code&gt;目录。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

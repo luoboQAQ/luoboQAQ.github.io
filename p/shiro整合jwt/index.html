@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录项目中JWT身份认证'><title>shiro整合JWT</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='shiro整合JWT'>
+<link rel="stylesheet" href="/scss/style.min.077dff097e490c8f706df9f909bf07e86cc070306970826dfe7912c98bbdab76.css"><meta property='og:title' content='shiro整合JWT'>
 <meta property='og:description' content='记录项目中JWT身份认证'>
 <meta property='og:url' content='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -15,8 +15,8 @@
     <meta name="twitter:image" content='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/92388693.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
     </head>
     <body class="
-    article-page has-toc
-">
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -39,25 +39,192 @@
         }
     })();
 </script>
-<div class="container main-container flex 
-    
-        extended
-    
-">
-    
-        <div id="article-toolbar">
-            <a href="https://lbqaq.top" class="back-home">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="15 6 9 12 15 18" />
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
 </svg>
 
 
 
-                <span>返回</span>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
             </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
         </div>
-    
+    </ol>
+</aside>
 <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
@@ -77,15 +244,17 @@
     <div class="article-details">
     
 
-    <h2 class="article-title">
-        <a href="/p/shiro%E6%95%B4%E5%90%88jwt/">shiro整合JWT</a>
-    </h2>
-
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/shiro%E6%95%B4%E5%90%88jwt/">shiro整合JWT</a>
+        </h2>
     
-    <h3 class="article-subtitle">
-        记录项目中JWT身份认证
-    </h3>
-    
+        
+        <h3 class="article-subtitle">
+            记录项目中JWT身份认证
+        </h3>
+        
+    </div>
 
     
     <footer class="article-time">
@@ -115,16 +284,20 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 9 分钟
                 </time>
             </div>
         
     </footer>
     
+
+    
 </div>
 </header>
 
     <section class="article-content">
+    
+    
     <p>在我现在在做的项目中需要进行身份和权限认证，在网上找了些教程，推荐都是使用JWT来进行身份认证，于是便决定使用此方法来实现。<del>（然而用完了才发现JWT也有缺点）</del></p>
 <h2 id="何为jwt">何为JWT</h2>
 <p>所谓JWT，全称是JSON Web Token。下面是从<a class="link" href="https://jwt.io"  target="_blank" rel="noopener"
@@ -167,29 +340,40 @@
 <li>客户端存储token，并在每次请求时附送上这个token值</li>
 <li>服务端验证token值，并返回数据</li>
 </ul>
-<p><figure 
+<p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1.jpeg"
+	width="640"
+	height="352"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu4a7f62568c2abe2cbc1d9c5db1cc0d44_18129_480x0_resize_q75_box.jpeg 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu4a7f62568c2abe2cbc1d9c5db1cc0d44_18129_1024x0_resize_q75_box.jpeg 1024w"
+	loading="lazy"
+	
+		alt="JWT认证流程图"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 181; 
-			flex-basis: 436px"
-	>
-	<a href="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1.jpeg" data-size="640x352">
-		<img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1.jpeg"
-			width="640"
-			height="352"
-			srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu4a7f62568c2abe2cbc1d9c5db1cc0d44_18129_480x0_resize_q75_box.jpeg 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu4a7f62568c2abe2cbc1d9c5db1cc0d44_18129_1024x0_resize_q75_box.jpeg 1024w"
-			loading="lazy"
-			alt="JWT认证流程图">
-	</a>
+		data-flex-grow="181"
+		data-flex-basis="436px"
 	
-	<figcaption>JWT认证流程图</figcaption>
-	
-</figure></p>
+></p>
 <h2 id="具体实现">具体实现</h2>
 <h3 id="导入依赖包">导入依赖包</h3>
 <p>第一步当然是导入相关依赖了，使用Maven进行包管理。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- shiro --&gt;</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- shiro --&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.apache.shiro<span class="nt">&lt;/groupId&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>shiro-spring<span class="nt">&lt;/artifactId&gt;</span>
@@ -201,9 +385,102 @@
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;artifactId&gt;</span>java-jwt<span class="nt">&lt;/artifactId&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&lt;version&gt;</span>3.18.1<span class="nt">&lt;/version&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
-</span></span></code></pre></div><h3 id="封装jwt工具类">封装JWT工具类</h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="封装jwt工具类">封装JWT工具类</h3>
 <p>这里主要实现JWT的生成、验证、提取用户名三个功能</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtUtil</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * 服务器私钥
@@ -290,14 +567,84 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><h3 id="配置shiro">配置Shiro</h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置shiro">配置Shiro</h3>
 <p>这里的<code>ShiroConfig.java</code>与一般Shiro项目的配置有以下几点不同：</p>
 <ul>
 <li>禁用Session</li>
 <li>使用自定义的jwtFilter过滤器，用来拦截并处理携带JWT token的请求</li>
 <li>使用自定义的Realm认证器，用于验证用户是否存在及查询用户权限</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShiroConfig</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
@@ -361,9 +708,32 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">sessionStorageEvaluator</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><h3 id="自定义token">自定义Token</h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自定义token">自定义Token</h3>
 <p>由于使用了JWT当token，自然要写自定义的Token</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtToken</span> <span class="kd">implements</span> <span class="n">AuthenticationToken</span> <span class="o">{</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtToken</span> <span class="kd">implements</span> <span class="n">AuthenticationToken</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">token</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="nf">JwtToken</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
@@ -380,9 +750,77 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><h3 id="自定义过滤器">自定义过滤器</h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自定义过滤器">自定义过滤器</h3>
 <p>由于使用了JWT，所以不能使用shiro中自带的过滤器，而是自定义自己的过滤器 <code>JWTFilter</code>，<code>JWTFilter</code> 继承了 <code>BasicHttpAuthenticationFilter</code>，并部分原方法进行了重写</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Slf4j</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtFilter</span> <span class="kd">extends</span> <span class="n">BasicHttpAuthenticationFilter</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">boolean</span> <span class="nf">isAccessAllowed</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Object</span> <span class="n">mappedValue</span><span class="o">)</span> <span class="o">{</span>
@@ -444,7 +882,9 @@
 </span></span><span class="line"><span class="cl">        <span class="o">}</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><p>该过滤器有这几大步骤：</p>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该过滤器有这几大步骤：</p>
 <ol>
 <li>检验请求头是否带有Token</li>
 <li>如果带有 token，执行 shiro 的 login() 方法，将 token 提交到 Realm 中进行检验；如果没有 token，说明当前状态为游客状态（或者其他一些不需要进行认证的接口）</li>
@@ -452,7 +892,67 @@
 </ol>
 <h3 id="自定义realm">自定义Realm</h3>
 <p>这里主要是进行身份认证和权限认证</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyRealm</span> <span class="kd">extends</span> <span class="n">AuthorizingRealm</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
 </span></span><span class="line"><span class="cl">    <span class="n">UserService</span> <span class="n">userService</span><span class="o">;</span>
@@ -508,18 +1008,55 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">SimpleAuthenticationInfo</span><span class="o">(</span><span class="n">userName</span><span class="o">,</span> <span class="n">jwtTokenPrincipal</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getUserId</span><span class="o">());</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><p>这里有个细节，在Controller中要求进行身份认证时，Shiro会自动把上面<code>doGetAuthenticationInfo</code>方法中返回的Info存起来。这样我们就可以在Controller中调用这里面的值了。</p>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里有个细节，在Controller中要求进行身份认证时，Shiro会自动把上面<code>doGetAuthenticationInfo</code>方法中返回的Info存起来。这样我们就可以在Controller中调用这里面的值了。</p>
 <p><code>userName</code>可以通过<code>(String) SecurityUtils.getSubject().getPrincipal()</code>取出来</p>
 <p><code>userId</code>可以通过<code>SecurityUtils.getSubject().getPrincipals().getRealmNames().iterator().next()</code>取出来。当然，这里根据Shiro的设计，<code>SimpleAuthenticationInfo</code>的第三个构造参数应该填入<code>RealmName</code>，用来区分用户该使用哪一个Realm进行验证的。但我这个项目就只有一个Realm，所以在这里就偷了个懒，就没按官方标准来了。</p>
 <h3 id="异常处理">异常处理</h3>
 <p>第一个是专门处理身份认证时的异常</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiOperation</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;接收未授权错误&#34;</span><span class="o">,</span> <span class="n">notes</span> <span class="o">=</span> <span class="s">&#34;返回错误信息&#34;</span><span class="o">)</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiOperation</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;接收未授权错误&#34;</span><span class="o">,</span> <span class="n">notes</span> <span class="o">=</span> <span class="s">&#34;返回错误信息&#34;</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/unauthorized/{message}&#34;</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Result</span> <span class="nf">unauthorized</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">Result</span><span class="o">().</span><span class="na">setCode</span><span class="o">(</span><span class="n">233</span><span class="o">).</span><span class="na">setMessage</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><p>第二个则是全局接管Shiro的异常，在其中进行处理</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第二个则是全局接管Shiro的异常，在其中进行处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionController</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * 捕捉shiro的异常
@@ -539,10 +1076,29 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><h3 id="解决中文报错">解决中文报错</h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="解决中文报错">解决中文报错</h3>
 <p>在Shiro1.7版本之后增加了url校验，如果有中文字符就不通过。然而我们项目里返回错误信息就是通过url来实现的。参考<a class="link" href="https://blog.csdn.net/qq_35598240/article/details/110310638"  target="_blank" rel="noopener"
     >这篇文章</a>知道，需要自己重写<code>ShiroFilterFactoryBean</code>来实现关闭url校验</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomShiroFilterFactoryBean</span> <span class="kd">extends</span> <span class="n">ShiroFilterFactoryBean</span> <span class="o">{</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomShiroFilterFactoryBean</span> <span class="kd">extends</span> <span class="n">ShiroFilterFactoryBean</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="n">FilterChainManager</span> <span class="nf">createFilterChainManager</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">FilterChainManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="kd">super</span><span class="o">.</span><span class="na">createFilterChainManager</span><span class="o">();</span>
@@ -555,7 +1111,9 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">manager</span><span class="o">;</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><h3 id="开始使用">开始使用</h3>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="开始使用">开始使用</h3>
 <ul>
 <li>身份认证在Controller上添加<code>@RequiresAuthentication</code></li>
 <li>角色认证在Controller上添加<code>@RequiresRoles(&quot;xxx&quot;)</code></li>
@@ -563,7 +1121,30 @@
 </ul>
 <h2 id="测试">测试</h2>
 <p>测试接口的代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test&#34;</span><span class="o">)</span>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/test&#34;</span><span class="o">)</span>
 </span></span><span class="line"><span class="cl"><span class="nd">@ResponseBody</span>
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Result</span> <span class="nf">test</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">Result</span><span class="o">().</span><span class="na">setCode</span><span class="o">(</span><span class="n">200</span><span class="o">).</span><span class="na">setMessage</span><span class="o">(</span><span class="s">&#34;当你看到这段话时，说明服务成功运行了&#34;</span><span class="o">);</span>
@@ -582,101 +1163,78 @@
 </span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Result</span> <span class="nf">test3</span><span class="o">()</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">Result</span><span class="o">().</span><span class="na">setCode</span><span class="o">(</span><span class="n">200</span><span class="o">).</span><span class="na">setMessage</span><span class="o">(</span><span class="s">&#34;当你看到这段话时，说明认证系统出现了问题&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><p><figure 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223.png"
+	width="423"
+	height="338"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu2e6972bb45cced2d2c48b321e1bd5119_23141_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu2e6972bb45cced2d2c48b321e1bd5119_23141_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="游客访问，不带Token"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 125; 
-			flex-basis: 300px"
-	>
-	<a href="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223.png" data-size="423x338">
-		<img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223.png"
-			width="423"
-			height="338"
-			srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu2e6972bb45cced2d2c48b321e1bd5119_23141_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu2e6972bb45cced2d2c48b321e1bd5119_23141_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="游客访问，不带Token">
-	</a>
+		data-flex-grow="125"
+		data-flex-basis="300px"
 	
-	<figcaption>游客访问，不带Token</figcaption>
+></p>
+<p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855.png"
+	width="412"
+	height="350"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hue95c7edd6c8f227bd7a2307daccfac46_22741_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hue95c7edd6c8f227bd7a2307daccfac46_22741_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
 	
-</figure></p>
-<p><figure 
+		alt="不带token访问"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 117; 
-			flex-basis: 282px"
-	>
-	<a href="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855.png" data-size="412x350">
-		<img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855.png"
-			width="412"
-			height="350"
-			srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hue95c7edd6c8f227bd7a2307daccfac46_22741_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hue95c7edd6c8f227bd7a2307daccfac46_22741_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="不带token访问">
-	</a>
+		data-flex-grow="117"
+		data-flex-basis="282px"
 	
-	<figcaption>不带token访问</figcaption>
+></p>
+<p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761.png"
+	width="471"
+	height="345"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu622c0b772e30d3302e556b3d840cdcfb_24337_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu622c0b772e30d3302e556b3d840cdcfb_24337_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
 	
-</figure></p>
-<p><figure 
+		alt="带上token"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 136; 
-			flex-basis: 327px"
-	>
-	<a href="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761.png" data-size="471x345">
-		<img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761.png"
-			width="471"
-			height="345"
-			srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu622c0b772e30d3302e556b3d840cdcfb_24337_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu622c0b772e30d3302e556b3d840cdcfb_24337_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="带上token">
-	</a>
+		data-flex-grow="136"
+		data-flex-basis="327px"
 	
-	<figcaption>带上token</figcaption>
+></p>
+<p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784.png"
+	width="421"
+	height="329"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_huaff16ef37207e07efb49e3844b19d782_24155_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_huaff16ef37207e07efb49e3844b19d782_24155_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
 	
-</figure></p>
-<p><figure 
+		alt="带上错误的token"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 127; 
-			flex-basis: 307px"
-	>
-	<a href="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784.png" data-size="421x329">
-		<img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784.png"
-			width="421"
-			height="329"
-			srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_huaff16ef37207e07efb49e3844b19d782_24155_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_huaff16ef37207e07efb49e3844b19d782_24155_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="带上错误的token">
-	</a>
+		data-flex-grow="127"
+		data-flex-basis="307px"
 	
-	<figcaption>带上错误的token</figcaption>
+></p>
+<p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544.png"
+	width="427"
+	height="337"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu0da4768b5bb638d8c7548b036fc86b2d_24210_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu0da4768b5bb638d8c7548b036fc86b2d_24210_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
 	
-</figure></p>
-<p><figure 
+		alt="访问无权限的接口"
+	
 	
 		class="gallery-image" 
-		style="
-			flex-grow: 126; 
-			flex-basis: 304px"
-	>
-	<a href="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544.png" data-size="427x337">
-		<img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544.png"
-			width="427"
-			height="337"
-			srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu0da4768b5bb638d8c7548b036fc86b2d_24210_480x0_resize_box_3.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu0da4768b5bb638d8c7548b036fc86b2d_24210_1024x0_resize_box_3.png 1024w"
-			loading="lazy"
-			alt="访问无权限的接口">
-	</a>
+		data-flex-grow="126"
+		data-flex-basis="304px"
 	
-	<figcaption>访问无权限的接口</figcaption>
-	
-</figure></p>
+></p>
 <h2 id="参考文章">参考文章</h2>
 <ul>
 <li><a class="link" href="https://www.jianshu.com/p/3c51832f1051"  target="_blank" rel="noopener"
@@ -740,11 +1298,11 @@
                 href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
             ><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
@@ -760,13 +1318,12 @@
     
 </article>
 
-    <aside class="related-contents--wrapper">
     
+
     
-</aside>
 
      
-     
+    
         
     <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
 <div id="waline" class="waline-container"></div>
@@ -800,7 +1357,7 @@
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -869,11 +1426,11 @@
 
 </div><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><script 
                 src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer="true"
+                defer
                 >
             </script><link 
                 rel="stylesheet" 
@@ -884,11 +1441,13 @@
             >
 
             </main>
-    
-        <aside class="sidebar right-sidebar sticky">
-            <section class="widget archives">
-                <div class="widget-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -898,11 +1457,11 @@
 
 
 
-                </div>
-                <h2 class="widget-title section-title">目录</h2>
-                
-                <div class="widget--toc">
-                    <nav id="TableOfContents">
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
   <ol>
     <li><a href="#何为jwt">何为JWT</a></li>
     <li><a href="#认证流程">认证流程</a></li>
@@ -924,15 +1483,18 @@
     <li><a href="#更新日志">更新日志</a></li>
   </ol>
 </nav>
-                </div>
-            </section>
-        </aside>
-    
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
-                defer="false"
+                
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
 <script>

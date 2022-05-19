@@ -1,30 +1,138 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Git on luoboQAQ</title>
-    <link>https://lbqaq.top/tags/git/</link>
-    <description>Recent content in Git on luoboQAQ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Wed, 16 Dec 2020 13:16:45 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/git/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Git的常用命令</title>
-      <link>https://lbqaq.top/p/git/</link>
-      <pubDate>Wed, 16 Dec 2020 13:16:45 +0800</pubDate>
-      
-      <guid>https://lbqaq.top/p/git/</guid>
-      <description>基本操作 建立版本库：git init
-查看结果：git status
-查看不同：git diff
-版本回退 查看提交日记：git log
-回退：git reset --hard HEAD^
-HEAD^表示上一个版本，HEAD^^表示前两个版本，HEAD~100表示前100个版本
-恢复：git reflog查看命令历史，确定回到未来的哪个版本
-撤销修改  直接丢弃工作区的修改时，用命令git checkout -- file 已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD &amp;lt;file&amp;gt;，第二步按1操作。  上传 git remote add origin 仓库链接 #将远程仓库和本地仓库绑定 git add . git commit -m &amp;#34;提交信息&amp;#34; git push -u origin 自己当前的分支名 #-u将本地库和远程库的分支关联，之后可以不加 下载 git clone 仓库链接 git clone到当前文件夹
-git clone 仓库链接 . 分支管理 创建与合并分支 查看分支：git branch
-创建分支：git branch &amp;lt;name&amp;gt;
-切换分支：git checkout &amp;lt;name&amp;gt;或者git switch &amp;lt;name&amp;gt;</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>Git on luoboQAQ</title>
+        <link>https://lbqaq.top/tags/git/</link>
+        <description>Recent content in Git on luoboQAQ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Wed, 16 Dec 2020 13:16:45 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/git/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Git的常用命令</title>
+        <link>https://lbqaq.top/p/git/</link>
+        <pubDate>Wed, 16 Dec 2020 13:16:45 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/git/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/git/79008828.webp" alt="Featured image of post Git的常用命令" /&gt;&lt;h2 id=&#34;基本操作&#34;&gt;基本操作&lt;/h2&gt;
+&lt;p&gt;建立版本库：&lt;code&gt;git init&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看结果：&lt;code&gt;git status&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看不同：&lt;code&gt;git diff&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;版本回退&#34;&gt;版本回退&lt;/h3&gt;
+&lt;p&gt;查看提交日记：&lt;code&gt;git log&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;回退：&lt;code&gt;git reset --hard HEAD^&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;HEAD^&lt;/code&gt;表示上一个版本，&lt;code&gt;HEAD^^&lt;/code&gt;表示前两个版本，&lt;code&gt;HEAD~100&lt;/code&gt;表示前100个版本&lt;/p&gt;
+&lt;p&gt;恢复：&lt;code&gt;git reflog&lt;/code&gt;查看命令历史，确定回到未来的哪个版本&lt;/p&gt;
+&lt;h3 id=&#34;撤销修改&#34;&gt;撤销修改&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;直接丢弃工作区的修改时，用命令&lt;code&gt;git checkout -- file&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;已经添加到了暂存区时，想丢弃修改，分两步，第一步用命令&lt;code&gt;git reset HEAD &amp;lt;file&amp;gt;&lt;/code&gt;，第二步按1操作。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;上传&#34;&gt;上传&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git remote add origin 仓库链接     #将远程仓库和本地仓库绑定
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git commit  -m  &amp;#34;提交信息&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git push -u origin 自己当前的分支名   #-u将本地库和远程库的分支关联，之后可以不加
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;下载&#34;&gt;下载&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone 仓库链接
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;git clone到当前文件夹&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone 仓库链接 .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;分支管理&#34;&gt;分支管理&lt;/h2&gt;
+&lt;h3 id=&#34;创建与合并分支&#34;&gt;创建与合并分支&lt;/h3&gt;
+&lt;p&gt;查看分支：&lt;code&gt;git branch&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建分支：&lt;code&gt;git branch &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;切换分支：&lt;code&gt;git checkout &amp;lt;name&amp;gt;&lt;/code&gt;或者&lt;code&gt;git switch &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建+切换分支：&lt;code&gt;git checkout -b &amp;lt;name&amp;gt;&lt;/code&gt;或者&lt;code&gt;git switch -c &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;删除分支：&lt;code&gt;git branch -d &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;合并某分支到当前分支：&lt;code&gt;git merge &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当Git无法自动合并分支时，就必须首先解决冲突，自己手动修改冲突文件再合并即可。&lt;/li&gt;
+&lt;li&gt;查看分支合并图：&lt;code&gt;git log --graph&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;使用非快速模式合并，有commit：&lt;code&gt;git merge --no-ff -m &amp;quot;merge with no-ff&amp;quot; dev&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;bug分支&#34;&gt;Bug分支&lt;/h3&gt;
+&lt;p&gt;需要紧急处理Bug时，可以使用&lt;code&gt;git stash&lt;/code&gt;将现在的工作区暂存&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;恢复原来的工作区&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;恢复但不删除stash内容：&lt;code&gt;git stash apply&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;手动删除stash内容：&lt;code&gt;git stash drop&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;恢复且删除stash内容：&lt;code&gt;git stash pop&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;可以多次stash，恢复的时候，先用&lt;code&gt;git stash list&lt;/code&gt;查看，然后恢复指定的stash，如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git stash apply stash@{0}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;在master分支上修复的bug，想要合并到当前dev分支，可以用&lt;code&gt;git cherry-pick &amp;lt;commit&amp;gt;&lt;/code&gt;命令，把bug提交的修改“复制”到当前分支，避免重复劳动。&lt;/p&gt;
+&lt;h3 id=&#34;多人协作&#34;&gt;多人协作&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;查看远程库信息，使用&lt;code&gt;git remote -v&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从本地推送分支，使用&lt;code&gt;git push origin branch-name&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果冲突，先&lt;code&gt;git pull&lt;/code&gt;抓取远程的新提交，处理好后再&lt;code&gt;push&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在本地创建和远程分支对应的分支：&lt;code&gt;git checkout -b branch-name origin/branch-name&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;建立本地分支和远程分支的关联：&lt;code&gt;git branch --set-upstream branch-name origin/branch-name&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;将非直线的提交日记变为直线：&lt;code&gt;git rebase&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;标签管理&#34;&gt;标签管理&lt;/h2&gt;
+&lt;h3 id=&#34;创建标签&#34;&gt;创建标签&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;新建一个标签：&lt;code&gt;git tag &amp;lt;name&amp;gt;&lt;/code&gt;,默认为&lt;code&gt;HEAD&lt;/code&gt;，也可以指定一个commit id&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;指定标签信息：&lt;code&gt;git tag -a &amp;lt;tagname&amp;gt; -m &amp;quot;blablabla...&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看所有标签：&lt;code&gt;git tag&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;标签管理-1&#34;&gt;标签管理&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;推送一个本地标签：&lt;code&gt;git push origin &amp;lt;tagname&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;推送全部未推送过的本地标签：&lt;code&gt;git push origin --tags&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;删除一个本地标签：&lt;code&gt;git tag -d &amp;lt;tagname&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;删除一个远程标签：&lt;code&gt;git push origin :refs/tags/&amp;lt;tagname&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

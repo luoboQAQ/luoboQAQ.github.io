@@ -1,30 +1,150 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>位运算 on luoboQAQ</title>
-    <link>https://lbqaq.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
-    <description>Recent content in 位运算 on luoboQAQ</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Sun, 03 Apr 2022 09:45:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>进制转换和位运算</title>
-      <link>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
-      <pubDate>Sun, 03 Apr 2022 09:45:04 +0800</pubDate>
-      
-      <guid>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
-      <description>进制转换 在数学中，不止只有我们常见的10进制，最近刷了几道关于进制转换的题目，在这里做个总结和记录吧。
-基本概念 首先我们要先了解进制的基本概念，这里我直接从LeetCode官方这里引用了。
- 任何一种进位计数制都有一个基数，基数为 X 的进位计数制称为 X 进制，表示每一个数位上的数运算时都是逢 X 进一。
-  对于一个 X 进制的数，其具体数值由其中的每个数码和数码所在的数位决定。整数部分从右往左的第 m 个数位表示的权重是 $X^m$，其中 m 最小为 0；小数部分从左往右的第 n 个数位表示的权重是$X^{-n}$，其中 n 最小为 1。
- 八进制的 $720.5$ 可以写成如下形式：
-$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1}$
-用我自己的话来说，就是数值*权重
-进制转换的一般思路 一般来说，我们习惯将进制转换成十进制，这样便于理解和手算。当然，我们也可以不通过十进制作为中间态过度，比如我们熟悉的二进制和十六进制的转换。
-非十进制转十进制 将非十进制数转成十进制数，只要将每个数位的加权和即可。
-例如，将八进制数 $720.5_{(8)}$ 转成十进制：
-$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1} = 464.</description>
-    </item>
-    
-  </channel>
+    <channel>
+        <title>位运算 on luoboQAQ</title>
+        <link>https://lbqaq.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+        <description>Recent content in 位运算 on luoboQAQ</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Sun, 03 Apr 2022 09:45:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>进制转换和位运算</title>
+        <link>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+        <pubDate>Sun, 03 Apr 2022 09:45:04 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/95490521.webp" alt="Featured image of post 进制转换和位运算" /&gt;&lt;h2 id=&#34;进制转换&#34;&gt;进制转换&lt;/h2&gt;
+&lt;p&gt;在数学中，不止只有我们常见的10进制，最近刷了几道关于进制转换的题目，在这里做个总结和记录吧。&lt;/p&gt;
+&lt;h3 id=&#34;基本概念&#34;&gt;基本概念&lt;/h3&gt;
+&lt;p&gt;首先我们要先了解进制的基本概念，这里我直接从LeetCode官方这里引用了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;任何一种进位计数制都有一个基数，基数为 X 的进位计数制称为 X 进制，表示每一个数位上的数运算时都是逢 X 进一。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于一个 X 进制的数，其具体数值由其中的每个数码和数码所在的数位决定。整数部分从右往左的第 m 个数位表示的权重是 $X^m$，其中 m 最小为 0；小数部分从左往右的第 n 个数位表示的权重是$X^{-n}$，其中 n 最小为 1。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;八进制的 $720.5$ 可以写成如下形式：&lt;/p&gt;
+&lt;p&gt;$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1}$&lt;/p&gt;
+&lt;p&gt;用我自己的话来说，就是&lt;code&gt;数值*权重&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;进制转换的一般思路&#34;&gt;进制转换的一般思路&lt;/h3&gt;
+&lt;p&gt;一般来说，我们习惯将进制转换成十进制，这样便于理解和手算。当然，我们也可以不通过十进制作为中间态过度，比如我们熟悉的二进制和十六进制的转换。&lt;/p&gt;
+&lt;h4 id=&#34;非十进制转十进制&#34;&gt;非十进制转十进制&lt;/h4&gt;
+&lt;p&gt;将非十进制数转成十进制数，只要将每个数位的加权和即可。&lt;/p&gt;
+&lt;p&gt;例如，将八进制数 $720.5_{(8)}$ 转成十进制：&lt;/p&gt;
+&lt;p&gt;$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1} = 464.625$&lt;/p&gt;
+&lt;p&gt;下面是程序的实现(只考虑整数)，我们可以从高位到低位进行读取，按照下面的方式读入,其中&lt;code&gt;n&lt;/code&gt;表示是几进制数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;isint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;isint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;isint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;getchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;十进制转非十进制&#34;&gt;十进制转非十进制&lt;/h4&gt;
+&lt;p&gt;首先我们先来看手算，将十进制数转成 X 进制数，需要对整数部分和小数部分分别转换。&lt;/p&gt;
+&lt;p&gt;对于整数部分，转换方式是将十进制数的整数部分每次除以 X 直到变成 0，并记录每次的余数，&lt;strong&gt;反向&lt;/strong&gt;遍历每次的余数即可得到 X 进制表示。&lt;/p&gt;
+&lt;p&gt;对于小数部分，转换方式是将十进制数的小数部分每次乘以 X 直到变成 0，并记录每次的整数部分，正序遍历每次的整数部分即可得到 X 进制表示。&lt;/p&gt;
+&lt;p&gt;下面是整数转换的过程，这里要注意的是转换时是从低位到高位，如果要输出的话要进行倒序，体现在程序中就是先递归再输出。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;putchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;itc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;负进制&#34;&gt;负进制&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P1017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[NOIP2000 提高组] 进制转换&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在洛谷的这道题中，我们遇到了一个新的概念：负进制&lt;/p&gt;
+&lt;p&gt;在负进制数中是用 $-R$ 作为基数，例如 $−15$（十进制）相当于 $110001$ （$-2$进制），并且它可以被表示为 $2$  的幂级数的和数：&lt;/p&gt;
+&lt;p&gt;$110001=1\times (-2)^5+1\times (-2)^4+0\times (-2)^3+0\times (-2)^2+0\times (-2)^1 +1\times (-2)^0$&lt;/p&gt;
+&lt;p&gt;如果按照上面所写的转换过程，就会出现一个问题，比如在C++里对$-15$进行取模和相除的结果是：&lt;/p&gt;
+&lt;p&gt;$-15%-2=-1$ ； $-15\div-2=7$ ； $7\times-2+(-1)=-15$&lt;/p&gt;
+&lt;p&gt;虽然式子是成立的，但我们得到的余数是负数，这肯定是不行的，所以我们要想办法进行转换。&lt;/p&gt;
+&lt;p&gt;所以我们可以将余数减去一个除数，同时将商+1。由于除数（绝对值）肯定是大于余数的，此时余数就会转换成正数。&lt;/p&gt;
+&lt;p&gt;下面是具体实现的代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;slove&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// m为余数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;// 如果余数小于0，转化为正数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//商+1 =&amp;gt; 被除数+除数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;A&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;slove&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;putchar&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;位运算&#34;&gt;位运算&lt;/h2&gt;
+&lt;p&gt;位运算的基本概念在组成原理这些课上已经讲过不知道多少遍了，这里就只提一下我觉得重要的点。&lt;/p&gt;
+&lt;p&gt;位运算共有6种，分别是：与(&lt;code&gt;&amp;amp;&lt;/code&gt;)、或(&lt;code&gt;|&lt;/code&gt;)、异或(&lt;code&gt;^&lt;/code&gt;)、取反(&lt;code&gt;~&lt;/code&gt;)、左移(&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;)和右移(&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;)。&lt;/p&gt;
+&lt;p&gt;这里要特别注意一下右移运算，它分为逻辑右移和算术右移：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算术右移时，高位补最高位&lt;/li&gt;
+&lt;li&gt;逻辑右移时，高位补0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在C++中，数据类型包含有符号类型和无符号类型，其中有符号类型使用关键字 &lt;code&gt;signed&lt;/code&gt; 声明，无符号类型使用关键字 &lt;code&gt;unsigned&lt;/code&gt; 声明，两个关键字都不使用时，默认是有符号类型。对于有符号类型，右移运算为算术右移；对于无符号类型，右移运算为逻辑右移。&lt;/p&gt;
+&lt;p&gt;在学习和刷题时，我们容易发现，左移运算对应乘法运算。将一个数左移 $k$ 位，等价于将这个数乘以 $2^k$。例如，$29$ 左移 $2$ 位的结果是 $116$，等价于 $29 \times 4$。&lt;/p&gt;
+&lt;p&gt;算术右移运算对应除法运算。将一个数右移 $k$ 位，相当于将这个数除以 $2^k$。例如，$50$ 右移 $2$ 位的结果是 $12$，等价于 $50 / 4$，结果向下取整。&lt;/p&gt;
+&lt;p&gt;这里要注意，对于负数，整数除法是向 $0$ 取整，右移运算是向下取整，两者就不相同了。例如，$(-50)&amp;raquo;2$的结果是 $−13$，而 $(-50) / 4$ 的结果是$-12$，两者是不相等的。&lt;/p&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/leetbook/read/bit-manipulation-and-math/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;位运算和数学 - LeetBook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
 </rss>

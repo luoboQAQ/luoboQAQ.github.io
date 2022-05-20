@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中回归分析的学习笔记'><title>回归分析学习笔记</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.077dff097e490c8f706df9f909bf07e86cc070306970826dfe7912c98bbdab76.css"><meta property='og:title' content='回归分析学习笔记'>
+<meta property='og:description' content='数据挖掘中回归分析的学习笔记'>
+<meta property='og:url' content='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据挖掘' /><meta property='article:tag' content='线性回归' /><meta property='article:tag' content='梯度下降' /><meta property='article:published_time' content='2022-05-20T12:50:16&#43;08:00'/><meta property='article:modified_time' content='2022-05-20T12:50:16&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp' />
+<meta name="twitter:title" content="回归分析学习笔记">
+<meta name="twitter:description" content="数据挖掘中回归分析的学习笔记"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp"
+                        
+                        width="1882" 
+                        height="1217" 
+                        loading="lazy"
+                        alt="Featured image of post 回归分析学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" >
+                数据挖掘
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">回归分析学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            数据挖掘中回归分析的学习笔记
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2022-05-20</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="线性回归">线性回归</h2>
+<p>线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：</p>
+<p>$$
+(x_1^{(0)}, x_2^{(0)}, &hellip;x_n^{(0)}, y_0), (x_1^{(1)}, x_2^{(1)}, &hellip;x_n^{(1)},y_1), &hellip; (x_1^{(m)}, x_2^{(m)}, &hellip;x_n^{(m)}, y_m)
+$$</p>
+<p>我们的问题是，对于一个新的$(x_1^{(x)}, x_2^{(x)}, &hellip;x_n^{(x)})$, 他所对应的$y_x$是多少呢？ 如果这个问题里面的y是连续的，则是一个回归问题，否则是一个分类问题。</p>
+<p>对于n维特征的样本数据，如果我们决定使用线性回归，那么对应的模型是这样的：</p>
+<p>$h_\theta(x_1, x_2, &hellip;x_n) = \theta_0 + \theta_{1}x_1 + &hellip; + \theta_{n}x_{n}$, 其中$\theta_i$ (i = 0,1,2&hellip; n)为模型参数，$x_i$ (i = 0,1,2&hellip; n)为每个样本的n个特征值。这个表示可以简化，我们增加一个特征$x_0 = 1$，这样$h_\theta(x_0, x_1, &hellip;x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}$。</p>
+<blockquote>
+<p>💡 <strong>均方误差(MSE)</strong></p>
+<p>$$
+MSE=\frac{1}{n}\sum_{i=1}^{m}w_i(y_i-\widehat{y_i})^2
+$$</p>
+</blockquote>
+<p>其中$y_i$是真实数据，$\widehat{y_i}$是拟合的数据，$w_i&gt;0$</p>
+<p>得到了模型，我们需要求出需要的损失函数，一般线性回归我们用 <strong>均方误差(MSE)</strong> 作为损失函数。损失函数的代数法表示如下：</p>
+<p>$$
+J(\theta_0, \theta_1&hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, &hellip;x_n^{(i)}) - y_i)^2
+$$</p>
+<p>由于矩阵形式不好理解，这里就不列出了。</p>
+<p>如何求损失函数最小化时候的$\mathbf{\theta}$参数，这时就需要使用梯度下降法了。</p>
+<h2 id="梯度下降法">梯度下降法</h2>
+<h3 id="梯度">梯度</h3>
+<p>在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。</p>
+<h3 id="梯度下降的直观解释">梯度下降的直观解释</h3>
+<p>首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。</p>
+<p>从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。</p>
+<p><img src="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
+	width="692"
+	height="343"
+	srcset="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hucc5bef089378b28f8f59a5fe0ac6329f_148627_480x0_resize_box_3.png 480w, /p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hucc5bef089378b28f8f59a5fe0ac6329f_148627_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="梯度下降"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="484px"
+	
+></p>
+<h3 id="梯度下降法的代数方式描述">梯度下降法的代数方式描述</h3>
+<p>在上面的内容中，我们知道了线性回归的函数为：</p>
+<p>$$
+h_\theta(x_0, x_1, &hellip;x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}
+$$</p>
+<p>损失函数为：</p>
+<p>$$
+J(\theta_0, \theta_1&hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, &hellip;x_n^{(i)}) - y_i)^2
+$$</p>
+<p>算法相关参数初始化：主要是初始化$\theta_0, \theta_1&hellip;, \theta_n$ ,算法终止距离$\varepsilon$ 以及步长$\alpha$ 。在没有任何先验知识的时候，我喜欢将所有的$\theta$ 初始化为0， 将步长初始化为1，在调优的时候再优化。</p>
+<p>算法过程：</p>
+<ol>
+<li>
+<p>确定当前位置的损失函数的梯度，对于$\theta_i$ ,其梯度表达式如下：</p>
+<p>$$
+\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1&hellip;, \theta_n)= \frac{1}{m}\sum\limits_{j=0}^{m}(h_\theta(x_0^{(j)}, x_1^{(j)}, &hellip;x_n^{(j)}) - y_j)x_i^{(j)}
+$$</p>
+</li>
+<li>
+<p>用步长乘以损失函数的梯度，得到当前位置下降的距离，即 $\alpha\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1&hellip;, \theta_n)$ 对应于前面登山例子中的某一步。</p>
+</li>
+<li>
+<p>确定是否所有的 $\theta_i$ ,梯度下降的距离都小于 $\varepsilon$ ，如果小于 $\varepsilon$ 则算法终止，当前所有的 $\theta_i$ (i=0,1,&hellip;n)即为最终结果。否则进入步骤4.</p>
+</li>
+<li>
+<p>更新所有的$\theta$ ，对于 $\theta_i$ ，其更新表达式如下。更新完毕后继续转入步骤1.</p>
+<p>$$
+\theta_i = \theta_i - \alpha\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1&hellip;, \theta_n) = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, &hellip;x_n^{(j)}) - y_j)x_i^{(j)}
+$$</p>
+</li>
+</ol>
+<p>从这个例子可以看出当前点的梯度方向是由所有的样本决定的，加 $\frac{1}{m}$  是为了好理解。由于步长也为常数，他们的乘机也为常数，所以这里 $\alpha\frac{1}{m}$ 可以用一个常数表示。</p>
+<p>在下面第4节会详细讲到的梯度下降法的变种，他们主要的区别就是对样本的采用方法不同。这里我们采用的是用所有样本。</p>
+<h3 id="随机梯度下降法sgd">随机梯度下降法(SGD)</h3>
+<p>随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是</p>
+<p>$$
+\theta_i = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, &hellip;x_n^{(j)}) - y_j)x_i^{(j)}
+$$</p>
+<p>随机梯度下降法，和批量梯度下降法是两个极端，一个采用所有数据来梯度下降，一个用一个样本来梯度下降。自然各自的优缺点都非常突出。对于训练速度来说，随机梯度下降法由于每次仅仅采用一个样本来迭代，训练速度很快，而批量梯度下降法在样本量很大的时候，训练速度不能让人满意。对于准确度来说，随机梯度下降法用于仅仅用一个样本决定梯度方向，导致解很有可能不是最优。对于收敛速度来说，由于随机梯度下降法一次迭代一个样本，导致迭代方向变化很大，不能很快的收敛到局部最优解。</p>
+<h3 id="编程实现">编程实现</h3>
+<p>网上找的代码，没验证，看个思路就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="k">function</span><span class="w"> </span>[ theta,J_history ] <span class="p">=</span><span class="w"> </span><span class="nf">StochasticGD</span><span class="p">(</span> X, y, theta, alpha, num_iter <span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">m</span> <span class="p">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">J_history</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">temp</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">iter</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">num_iter</span>
+</span></span><span class="line"><span class="cl">     <span class="n">temp</span> <span class="p">=</span> <span class="n">temp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="n">index</span> <span class="p">=</span> <span class="n">randi</span><span class="p">(</span><span class="n">m</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">theta</span> <span class="p">=</span> <span class="n">theta</span> <span class="o">-</span><span class="n">alpha</span> <span class="o">*</span>  <span class="p">(</span><span class="n">X</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">:)</span> <span class="o">*</span> <span class="n">theta</span> <span class="o">-</span> <span class="n">y</span><span class="p">(</span><span class="n">index</span><span class="p">))</span> <span class="o">*</span> <span class="n">X</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">:)</span><span class="o">&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="k">if</span> <span class="n">temp</span><span class="o">&gt;</span><span class="p">=</span><span class="mi">100</span>
+</span></span><span class="line"><span class="cl">         <span class="n">temp</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="n">n</span> <span class="p">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">         <span class="n">J_history</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">=</span> <span class="n">ComputeCost</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">theta</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="小批量梯度下降法mini-batch-sgd">小批量梯度下降法(Mini-Batch SGD)</h3>
+<p>也就是对于m个样本，我们采用x个样子来迭代，1&lt;x&lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。</p>
+<h2 id="岭回归">岭回归</h2>
+<p><del>助教妹说就是不考</del> 反转了，居然要考</p>
+<p>在原先的线性回归的代价函数上加入了一个L2正则项，就是岭回归</p>
+<p>$$
+J(\theta_0, \theta_1&hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, &hellip;x_n^{(i)}) - y_i)^2+\lambda \sum_{i=1}^m\theta_i^2
+$$</p>
+<h2 id="非线性形式">非线性形式</h2>
+<p>助教妹说就是不考</p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li><a class="link" href="https://www.cnblogs.com/pinard/p/5970503.html"  target="_blank" rel="noopener"
+    >梯度下降（Gradient Descent）小结 - 刘建平Pinard - 博客园</a></li>
+<li><a class="link" href="https://www.cnblogs.com/pinard/p/6004041.html"  target="_blank" rel="noopener"
+    >线性回归原理小结 - 刘建平Pinard - 博客园</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a>
+        
+            <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">线性回归</a>
+        
+            <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/">梯度下降</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-contents--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-contents">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/98259515.80d66336683193280f34d36beb46fd91_hu1f05759499c83f2643bded9010b2a8ee_89522_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 特征工程学习笔记"
+                        
+                        data-hash="md5-gNZjNmgxkygPNNNr60b9kQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">特征工程学习笔记</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/86368113.9c11189c2428cb1eed0c920f0292a1f8_hu2b30aee3204e8dfd4fc0aad99328a471_1033762_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 分类算法学习笔记"
+                        
+                        data-hash="md5-nBEYnCQoyx7tDJIPApKh&#43;A==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">分类算法学习笔记</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.d2f9ff1606e3b06124ed2ee081a6ad2a_hu76772b3a61383a7ec522f47cd6254a1d_253038_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 聚类算法学习笔记"
+                        
+                        data-hash="md5-0vn/FgbjsGEk7S7ggaatKg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">聚类算法学习笔记</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.1081b8580023261482a7b4e7156e1bc9_hu3ed30328339307a39372eeb055b7cdb3_181584_250x150_fill_q75_h2_box_smart1_2.webp" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 数据可视化笔记"
+                        
+                        data-hash="md5-EIG4WAAjJhSCp7TnFW4byQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数据可视化笔记</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js'></script>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+    .waline-container .vcount {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    new Waline({"avatar":"mp","dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#线性回归">线性回归</a></li>
+    <li><a href="#梯度下降法">梯度下降法</a>
+      <ol>
+        <li><a href="#梯度">梯度</a></li>
+        <li><a href="#梯度下降的直观解释">梯度下降的直观解释</a></li>
+        <li><a href="#梯度下降法的代数方式描述">梯度下降法的代数方式描述</a></li>
+        <li><a href="#随机梯度下降法sgd">随机梯度下降法(SGD)</a></li>
+        <li><a href="#编程实现">编程实现</a></li>
+        <li><a href="#小批量梯度下降法mini-batch-sgd">小批量梯度下降法(Mini-Batch SGD)</a></li>
+      </ol>
+    </li>
+    <li><a href="#岭回归">岭回归</a></li>
+    <li><a href="#非线性形式">非线性形式</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

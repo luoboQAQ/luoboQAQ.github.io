@@ -284,7 +284,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 16 分钟
+                    阅读时长: 18 分钟
                 </time>
             </div>
         
@@ -382,7 +382,7 @@
 <h2 id="rdd的创建">RDD的创建</h2>
 <p>使用<code>makeRDD</code>即可，例如<code>val rdd = sc.makeRDD(List(1, 2, 3, 4))</code> 。在使用<code>makeRDD</code>时我们也可以指定分区数量，如<code>val rdd: RDD[Int] = sc.makeRDD(List(1, 2, 3, 4), 3)</code>，这里我们就创建了3个分区。</p>
 <p>当然，除了从程序中创建，我们也可以从文件中读取数据，使用<code>sc.textFile(&quot;input&quot;)</code>函数来按行读取文件里的数据。如<code>val lineRDD: RDD[String] = sc.textFile(&quot;E:\\datas&quot;)</code></p>
-<h2 id="value-类型转换算子">Value 类型转换算子</h2>
+<h2 id="value类型转换算子">Value类型转换算子</h2>
 <h3 id="map">map</h3>
 <blockquote>
 <p>def map[U: ClassTag](f: <strong>T =&gt; U</strong> ): RDD[U]</p>
@@ -718,7 +718,53 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>在上面的代码中，按奇偶数进行分组</p>
-<h2 id="集合类型算子操作">集合类型算子操作</h2>
+<h3 id="sortby">sortBy</h3>
+<blockquote>
+<p>def sortBy[K] ( f: (T) =&gt; K,   ascending: Boolean =  true,   numPartitions: Int = this.partitions.length) (implicit ord: Ordering[K], ctag: ClassTag[K]): RDD[T]</p>
+</blockquote>
+<p>该操作用于排序数据。在排序之前，可以将数据通过 f 函数进行处理，之后按照 f 函数处理的结果进行排序，默认为升序排列。排序后新产生的 RDD 的分区数与原RDD 的分区数一致。中间存在 shuffle 的过程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;11&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">sortRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">sortBy</span><span class="o">(</span><span class="n">t</span> <span class="k">=&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">_1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sortRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(1,1)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(11,2)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(2,3)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面是字符串排序，按字典序。下面转换成数字，注意两者区别</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;11&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;1&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;2&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">sortRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">sortBy</span><span class="o">(</span><span class="n">t</span> <span class="k">=&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">_1</span><span class="o">.</span><span class="n">toInt</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">sortRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(1,1)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(2,3)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(11,2)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="集合类型算子操作">集合类型算子操作</h2>
 <h3 id="intersection">intersection</h3>
 <blockquote>
 <p>def intersection(other: RDD[T]): RDD[T]</p>
@@ -853,7 +899,7 @@
 </div><p>在上面的代码中，根据参数_+_，即表示将两个value进行相加。</p>
 <h3 id="groupbykey">groupByKey</h3>
 <blockquote>
-<p>def groupByKey(): RDD[(K, Iterable[V])]</p>
+<p>def groupByKey(): <strong>RDD[(K, Iterable[V])]</strong></p>
 </blockquote>
 <p>将数据源的数据根据 key， 对 value 进行分组，将数据源中相同key的数据分在一个组中，行成一个对偶元祖，元组中的第一个元素就是key，元组中的第二个元素就行相同key的value的集合。</p>
 <div class="highlight"><div class="chroma">
@@ -1095,7 +1141,7 @@
 </div>
 </div><h3 id="leftouterjoin">leftOuterJoin</h3>
 <blockquote>
-<p>def leftOuterJoin[W](other: RDD[(K, W)]): RDD[(K, (V, Option[W]))]</p>
+<p>def leftOuterJoin[W](other: RDD[(K, W)]): <strong>RDD[(K, (V, Option[W]))]</strong></p>
 </blockquote>
 <p>类似于 SQL 语句的左外连接，根据左边第一个元素将两个RDD连接起来，和join算子类似，但这个可以支持key不匹配的情况。</p>
 <div class="highlight"><div class="chroma">
@@ -1536,7 +1582,127 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
 <li>aggregateByKey的初始值不会参与分区间计算；对key进行操作，需要键值对</li>
 <li>aggregate的初始值会参与分区间计算，会触发程序运行，进行读数据</li>
 </ul>
-
+<h2 id="算子补充">算子补充</h2>
+<h3 id="glom">glom</h3>
+<blockquote>
+<p>def glom(): RDD[Array[T]]</p>
+</blockquote>
+<p>将<strong>同一个分区的数据</strong>直接转换为一个<strong>相同类型的内存数组</strong>进行处理，分区不变</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">glomRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="n">lineRdd</span><span class="o">.</span><span class="n">glom</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">glomRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">data</span> <span class="k">=&gt;</span> <span class="n">println</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="n">mkString</span><span class="o">(</span><span class="s">&#34;,&#34;</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1,2
+</span></span></span><span class="line"><span class="cl"><span class="c1">//3,4
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sample">sample</h3>
+<blockquote>
+<p>def sample( withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]</p>
+</blockquote>
+<p>根据指定的规则从数据集中抽取数据</p>
+<ul>
+<li>第1个参数withReplacement表示：抽取后是否将数据返回，true（放回），false（丢弃）</li>
+<li>第2个参数fraction表示： 当第一参数为true，第二个参数表示：抽取不放回的概率；基准值的概念（每个数有一个0~1随机值，用随即值与基准值进行比较）； 当第一个参数为false，第二个参数表示，可能抽取的次数。</li>
+<li>第3个参数seed表示：抽取数据时，随机算法的种子；如果不传第三个参数，那么使用的当前系统时间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">dataRDD</span> <span class="k">=</span> <span class="n">sparkContext</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span> <span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">),</span><span class="mi">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 抽取数据不放回（伯努利算法）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 伯努利算法：又叫 0、1 分布。例如扔硬币，要么正面，要么反面。
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 具体实现：根据种子和随机算法算出一个数和第二个参数设置几率比较，小于第二个参数要，大于不要
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 第一个参数：抽取的数据是否放回，false：不放回
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 第二个参数：抽取的几率，范围在[0,1]之间,0：全不取；1：全取；
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 第三个参数：随机数种子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">dataRDD1</span> <span class="k">=</span> <span class="n">dataRDD</span><span class="o">.</span><span class="n">sample</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mf">0.5</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 抽取数据放回（泊松算法）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 第一个参数：抽取的数据是否放回，true：放回；false：不放回
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 第二个参数：重复数据的几率，范围大于等于 0.表示每一个元素被期望抽取到的次数
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 第三个参数：随机数种子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">dataRDD2</span> <span class="k">=</span> <span class="n">dataRDD</span><span class="o">.</span><span class="n">sample</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="mi">2</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="partitionby">partitionBy</h3>
+<blockquote>
+<p>def partitionBy(partitioner: Partitioner): RDD[(K, V)]</p>
+</blockquote>
+<p>将数据按照指定的Partitioner规则 重新进行重新分区。Spark 默认的分区器是HashPartitioner</p>
+<p>太冷门了，应该不考，就不放代码了</p>
+<h3 id="cogroup">cogroup</h3>
+<blockquote>
+<p>def cogroup[W](other: RDD[(K, W)]): RDD[(K, (Iterable[V], Iterable[W]))]</p>
+</blockquote>
+<p>在类型为(K,V)和(K,W)的RDD 上调用，返回一个(K,(Iterable<!-- raw HTML omitted -->,Iterable<!-- raw HTML omitted -->))类型的 RDD</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;x&#34;</span><span class="o">,</span> <span class="mi">44</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span><span class="mi">4</span><span class="o">),(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">99</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">cgRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Iterable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>, <span class="kt">Iterable</span><span class="o">[</span><span class="kt">Int</span><span class="o">]))]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">cogroup</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cgRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(x,(CompactBuffer(44),CompactBuffer()))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(b,(CompactBuffer(2),CompactBuffer(4)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,(CompactBuffer(1),CompactBuffer(5)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(c,(CompactBuffer(),CompactBuffer(3, 99)))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>下面都是行动算子</p>
+<h3 id="count">count</h3>
+<blockquote>
+<p>def count(): Long</p>
+</blockquote>
+<p>返回RDD 中元素的个数</p>
+<h3 id="saveastextfile">saveAsTextFile</h3>
+<blockquote>
+<p>def saveAsTextFile(path: String): Unit</p>
+</blockquote>
+<p>保存成 Text 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="n">rdd</span><span class="o">.</span><span class="n">saveAsTextFile</span><span class="o">(</span><span class="s">&#34;output&#34;</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -1752,7 +1918,7 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
       </ol>
     </li>
     <li><a href="#rdd的创建">RDD的创建</a></li>
-    <li><a href="#value-类型转换算子">Value 类型转换算子</a>
+    <li><a href="#value类型转换算子">Value类型转换算子</a>
       <ol>
         <li><a href="#map">map</a></li>
         <li><a href="#mappartiotions">mapPartiotions</a></li>
@@ -1767,6 +1933,7 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
         <li><a href="#distinct">distinct</a></li>
         <li><a href="#filter">filter</a></li>
         <li><a href="#groupby">groupBy</a></li>
+        <li><a href="#sortby">sortBy</a></li>
       </ol>
     </li>
     <li><a href="#集合类型算子操作">集合类型算子操作</a>
@@ -1824,6 +1991,16 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
       <ol>
         <li><a href="#相同点-1">相同点</a></li>
         <li><a href="#不同点-1">不同点</a></li>
+      </ol>
+    </li>
+    <li><a href="#算子补充">算子补充</a>
+      <ol>
+        <li><a href="#glom">glom</a></li>
+        <li><a href="#sample">sample</a></li>
+        <li><a href="#partitionby">partitionBy</a></li>
+        <li><a href="#cogroup">cogroup</a></li>
+        <li><a href="#count">count</a></li>
+        <li><a href="#saveastextfile">saveAsTextFile</a></li>
       </ol>
     </li>
   </ol>

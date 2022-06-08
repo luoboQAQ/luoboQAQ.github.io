@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='云计算学习笔记，用于考前复习'><title>云计算学习笔记</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.077dff097e490c8f706df9f909bf07e86cc070306970826dfe7912c98bbdab76.css"><meta property='og:title' content='云计算学习笔记'>
+<meta property='og:description' content='云计算学习笔记，用于考前复习'>
+<meta property='og:url' content='https://lbqaq.top/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='云计算' /><meta property='article:tag' content='Scala' /><meta property='article:tag' content='Spark' /><meta property='article:published_time' content='2022-06-08T09:33:43&#43;08:00'/><meta property='article:modified_time' content='2022-06-08T09:33:43&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97475626.webp' />
+<meta name="twitter:title" content="云计算学习笔记">
+<meta name="twitter:description" content="云计算学习笔记，用于考前复习"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97475626.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" src="https://umami.lbqaq.top/bpnwxrgz.js"></script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97475626.webp"
+                        
+                        width="1344" 
+                        height="800" 
+                        loading="lazy"
+                        alt="Featured image of post 云计算学习笔记" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">云计算学习笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            云计算学习笔记，用于考前复习
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2022-06-08</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 15 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="云计算的三个特点">云计算的三个特点</h2>
+<ul>
+<li>
+<p><strong>资源池化</strong></p>
+<p>大部分云计算资源，都是池化了的资源。什么叫池化？池化就是物理资源的基础上，通过软件平台，封装成虚拟的计算资源，也就是我们常说的虚拟化。</p>
+</li>
+<li>
+<p><strong>弹性伸缩</strong></p>
+<p>云计算的计算资源，可以按需付费。你想要用多少，就租多少，想什么时候要就什么时候要，配置是支持自定义的。</p>
+</li>
+<li>
+<p><strong>安全可靠</strong></p>
+<p>而云计算，从物理角度来说，所有的计算资源都汇集在大型互联网数据中心（IDC），那里有严格的安保、抗震的建筑、安全的供电，有非常全面的容灾设计和应急方案，能够更好地保护计算资源，不会轻易地中断服务。</p>
+<p>从软件上来说，云计算服务提供商有更专业的技术团队，更成熟的技术储备，能够更好地保护计算资源不被入侵或破坏。</p>
+</li>
+</ul>
+<h2 id="云计算服务">云计算服务</h2>
+<p>应该不考，为了完备性还是放进来吧</p>
+<ul>
+<li>Infrastructure as a Service (IaaS)：基础设施即服务</li>
+<li>Platform as a Service (PaaS) ：平台即服务</li>
+<li>Software as a Service (SaaS) ：软件即服务</li>
+</ul>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
+	width="711"
+	height="413"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hu1df652f93f102798b18f45f2571934f0_323509_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hu1df652f93f102798b18f45f2571934f0_323509_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="云计算服务"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="413px"
+	
+></p>
+<h2 id="云计算类型">云计算类型</h2>
+<h3 id="公有云">公有云</h3>
+<p>公有云通常指第三方提供商用户能够使使用的云，公有云一般可通过 Internet 使用，可能是免费或成本低廉的。公有云的最大意义是能够以低廉的价格，提供有吸引力的服务给最终用户，创造新的业务价值，公有云作为一个支撑平台，还能够整合上游的服务（如增值业务，广告）提供者和下游最终用户，打造新的价值链和生态系统。它使客户能够访问和共享基本的计算机基础设施，其中包括硬件、存储和带宽等资源。</p>
+<p>公有云是为大众建的，所有入驻用户都称租户，不仅同时有很多租户，而且一个租户离开，其资源可以马上释放给下一个租户。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>成本低</li>
+<li>方便</li>
+<li>易扩展</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>安全顾虑</li>
+<li>性能超卖问题</li>
+<li>管理要复杂</li>
+</ul>
+<h3 id="私有云">私有云</h3>
+<p>是为一个客户单独使用而构建的，因而提供对数据、安全性和服务质量的最有效控制。该公司拥有基础设施，并可以控制在此基础设施上部署应用程序的方式。私有云可部署在企业数据中心的防火墙内(<strong>本地私有云</strong>)，也可以将它们部署在一个安全的主机托管场所（<strong>托管私有云</strong>）。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>安全</li>
+<li>自主可控</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>成本高</li>
+<li>远程访问困难</li>
+</ul>
+<h3 id="社区云">社区云</h3>
+<p>社区云的核心特征是云端资源只给两个或者两个以上的特定单位组织内的员工使用，除此之外的人和机构都无权租赁和使用云端计算资源。与私有云类似，社区云的云端也有两种部署方法，即本地部署和托管部署。</p>
+<h3 id="混合云">混合云</h3>
+<p>是两个或两个以上不同类型的云（私有云、社区云、公共云）服务的结合，这种结合可以是计算的、存储的，也可以两者兼而有之。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>操作灵活</li>
+<li>弹性</li>
+<li>成本效益。混合云模式具有成本效益，因为企业可以根据需要决定使用成本更昂贵的云计算资源。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>安全性不强</li>
+<li>费用高。 公有云+私有云管理费用高昂</li>
+<li>兼容性问题</li>
+</ul>
+<h2 id="rdd的创建">RDD的创建</h2>
+<p>使用<code>makeRDD</code>即可，例如<code>val rdd = sc.makeRDD(List(1, 2, 3, 4))</code> 。在使用<code>makeRDD</code>时我们也可以指定分区数量，如<code>val rdd: RDD[Int] = sc.makeRDD(List(1, 2, 3, 4), 3)</code>，这里我们就创建了3个分区。</p>
+<h2 id="value-类型转换算子">Value 类型转换算子</h2>
+<h3 id="map">map</h3>
+<blockquote>
+<p>def map[U: ClassTag](f: <strong>T =&gt; U</strong> ): RDD[U]</p>
+</blockquote>
+<p>将处理的数据逐条进行映射转换，这里的转换可以是类型的转换，也可以是值的转换。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">mapFunction</span><span class="o">(</span><span class="n">num</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span><span class="n">num</span> <span class="o">*</span> <span class="mi">2</span><span class="o">}</span> <span class="c1">//转换函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">mapRDD1</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">mapFunction</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">mapRDD2</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="o">((</span><span class="n">num</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span><span class="n">num</span> <span class="o">*</span> <span class="mi">2</span><span class="o">})</span> <span class="c1">//匿名函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">mapRDD3</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="o">((</span><span class="n">num</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span> <span class="c1">//函数的代码逻辑只有一行的时候，{}可省略
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">mapRDD4</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="o">((</span><span class="n">num</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span> <span class="c1">//参数类型可以推断出来，参数类型可以省略
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">mapRDD5</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">num</span> <span class="k">=&gt;</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span> <span class="c1">//参数列表中的参数只有一个，()可以省略
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">mapRDD6</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span> <span class="c1">//参数在逻辑中只出现一次，且顺序出现，参数可用_代替
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意要认识最后的简写形式。</p>
+<h3 id="mappartiotions">mapPartiotions</h3>
+<blockquote>
+<p>def mapPartitions[U: ClassTag]( f: <strong>Iterator[T] =&gt; Iterator[U]</strong>,preservesPartitioning: Boolean = false): RDD[U]</p>
+</blockquote>
+<p><strong>以分区为单位</strong>进行数据转换操作，但是会将整个分区的数据加载到内存进行引用，由于存在对象的引用，因此处理完的数据不会被释放掉。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">lineRdd</span><span class="o">.</span><span class="n">mapPartitions</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iter</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">println</span><span class="o">(</span><span class="s">&#34;+++++++++++++++&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iter</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rdd2</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">+++++++++++++++
+</span></span><span class="line"><span class="cl">+++++++++++++++
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">4
+</span></span><span class="line"><span class="cl">6
+</span></span><span class="line"><span class="cl">8
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的意思是将每个数据乘以2，并在每次计算时输出+++++，从输出两条+++++可知，mapPartiotions算子确实是按分区进行操作。</p>
+<p><strong>map 和 mapPartitions 的区别？</strong></p>
+<ul>
+<li>Map 算子是分区内一个数据一个数据的执行，类似于串行操作。而 mapPartitions 算子是以分区为单位进行批处理操作。</li>
+<li>Map 算子主要目的将数据源中的数据进行转换和改变。但是不会减少或增多数据。MapPartitions 算子需要<strong>传入一个迭代器，返回一个迭代器</strong>，没有要求的元素的个数保持不变， 所以可以增加或减少数据。</li>
+<li>Map 算子因为类似于串行操作，所以性能比较低，而是 mapPartitions 算子类似于批处理，所以性能较高。但是mapPartitions 算子会长时间占用内存，那么这样会导致内存可能不够用，出现内存溢出的错误。</li>
+</ul>
+<h3 id="mappartitionwithindex">mapPartitionWithIndex</h3>
+<blockquote>
+<p>def mapPartitionsWithIndex[U: ClassTag]( f: (<strong>Int, Iterator[T]) =&gt; Iterator[U]</strong> ,preservesPartitioning: Boolean = false): RDD[U]</p>
+</blockquote>
+<p>将待处理的数据以分区为单位发送到计算节点进行处理，这里的处理是指可以进行任意的处理，哪怕是过滤数据，在处理时同时可以获取当前分区索引。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">lineRdd</span><span class="o">.</span><span class="n">mapPartitionsWithIndex</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">index</span><span class="o">,</span> <span class="n">iter</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">iter</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nc">Nil</span><span class="o">.</span><span class="n">iterator</span>  <span class="c1">//Nil是空List
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rdd2</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的程序中，我们对第0个分区进行抛弃，对第1个分区进行保留。如所示，程序仅输出了第1分区里的内容。</p>
+<h3 id="flatmap">flatMap</h3>
+<blockquote>
+<p>def flatMap[U: ClassTag](f: <strong>T =&gt; TraversableOnce[U]</strong>): RDD[U]</p>
+</blockquote>
+<p>将处理的数据进行扁平化后再进行映射处理，所以算子也称之为扁平映射</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">groupRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Iterable</span><span class="o">[</span><span class="kt">Int</span><span class="o">])]</span> <span class="k">=</span> <span class="n">lineRdd</span><span class="o">.</span><span class="n">groupBy</span><span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">groupRDD</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">groupRDD</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span> <span class="k">_</span><span class="o">.</span><span class="n">_2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="s">&#34;Iterable[Int]的flatMap：&#34;</span> <span class="o">+</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">mkString</span><span class="o">(</span><span class="s">&#34;,&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">data2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]]</span> <span class="k">=</span> <span class="n">groupRDD</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">_2</span><span class="o">.</span><span class="n">toList</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">data2</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">t</span> <span class="k">=&gt;</span> <span class="n">t</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="s">&#34;List[Int]的flatMap：&#34;</span> <span class="o">+</span> <span class="n">rdd2</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">mkString</span><span class="o">(</span><span class="s">&#34;,&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="mi">3</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="mi">5</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd22</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Any</span><span class="o">]</span> <span class="k">=</span> <span class="n">lineRdd2</span><span class="o">.</span><span class="n">flatMap</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="n">list</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="k">_</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="n">list</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="n">num</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="n">num</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">rdd22</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(0,CompactBuffer(2, 4))
+</span></span><span class="line"><span class="cl">(1,CompactBuffer(1, 3, 5))
+</span></span><span class="line"><span class="cl">Iterable[Int]的flatMap：2,4,1,3,5
+</span></span><span class="line"><span class="cl">List[Int]的flatMap：2,4,1,3,5
+</span></span><span class="line"><span class="cl">1
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">3
+</span></span><span class="line"><span class="cl">4
+</span></span><span class="line"><span class="cl">5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在第一段程序中，我们看出RDD[List]和RDD[iterable]都可以被flaMap算子进行扁平化。在第二段程序中，我们将将 List(List(1,2),3,List(4,5))进行扁平化操作。</p>
+<h2 id="重新分区与数据筛选">重新分区与数据筛选</h2>
+<h3 id="coalesce">coalesce</h3>
+<blockquote>
+<p>def coalesce(numPartitions: Int, shuffle: Boolean = false, partitionCoalescer: Option[PartitionCoalescer] = Option.empty) (implicit ord: Ordering[T] = null): RDD[T]</p>
+</blockquote>
+<p>根据数据量缩减分区，用于大数据集过滤后，提高小数据集的执行效率。</p>
+<p>当 spark 程序中，存在过多的小任务的时候，可以通过 coalesce 方法，收缩合并分区，减少分区的个数，减小任务调度成本。</p>
+<p>coalesce方法默认情况下不会将分区的数据打乱重新组合，只是将多个分区合并为1一个分区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">),</span><span class="mi">3</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">coalesce</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//1:1 2
+</span></span></span><span class="line"><span class="cl"><span class="c1">//2:3 4 5 6
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面代码的含义是将3个分区缩减成2个，可见成功执行，一个分区里有2个数，而另一个分区里有4个数。</p>
+<h3 id="repartition">repartition</h3>
+<blockquote>
+<p>def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]</p>
+</blockquote>
+<p>该操作内部其实执行的是 coalesce 操作，参数 shuffle 的默认值为 true。无论是将分区数多的RDD 转换为分区数少的RDD，还是将分区数少的 RDD 转换为分区数多的RDD，repartition 操作都可以完成，因为无论如何都会经 shuffle 过程。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">),</span><span class="mi">3</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">repartition</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//1:1 4 5
+</span></span></span><span class="line"><span class="cl"><span class="c1">//2:2 3 6
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于参数 shuffle 的值为 true，将分区的数据打乱重新组合以保证不会出现数据倾斜</p>
+<h3 id="distinct">distinct</h3>
+<blockquote>
+<p>def distinct()(implicit ord: Ordering[T] = null): RDD[T]</p>
+</blockquote>
+<p>将数据集中重复的数据去重</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">disRDD</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">distinct</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">disRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//4 1 3 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="filter">filter</h3>
+<blockquote>
+<p>def filter(f: T =&gt; Boolean): RDD[T]</p>
+</blockquote>
+<p>将数据根据指定的规则进行筛选过滤，符合规则的数据保留，不符合规则的数据丢弃。当数据进行筛选过滤后，分区不变，但是分区内的数据可能不均衡</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">filterRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">lineRdd</span><span class="o">.</span><span class="n">filter</span><span class="o">((</span><span class="n">num</span> <span class="k">=&gt;</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">filterRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//2  4
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的程序中，我们过滤掉所有的奇数，仅仅保留偶数</p>
+<h3 id="groupby">groupBy</h3>
+<p>将数据根据指定的规则进行分组, 分区默认不变，但是数据会被打乱重新组合，我们将这样的操作称之为shuffle。极限情况下，数据可能被分在同一个分区中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">lineRdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="n">groupFunction</span><span class="o">(</span><span class="n">num</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//val groupRDD: RDD[(Int, Iterable[Int])] = lineRdd.groupBy(_ % 2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">groupRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Iterable</span><span class="o">[</span><span class="kt">Int</span><span class="o">])]</span> <span class="k">=</span> <span class="n">lineRdd</span><span class="o">.</span><span class="n">groupBy</span><span class="o">(</span><span class="n">groupFunction</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">groupRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(0,CompactBuffer(2, 4))
+</span></span><span class="line"><span class="cl">(1,CompactBuffer(1, 3))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的代码中，按奇偶数进行分组</p>
+<h2 id="集合类型算子操作">集合类型算子操作</h2>
+<h3 id="intersection">intersection</h3>
+<blockquote>
+<p>def intersection(other: RDD[T]): RDD[T]</p>
+</blockquote>
+<p>对源RDD 和参数RDD 求交集后返回一个新的RDD</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">),</span><span class="mi">3</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span><span class="mi">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd3</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">intersection</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdd3</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//3 1 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="union">union</h3>
+<blockquote>
+<p>def union(other: RDD[T]): RDD[T]</p>
+</blockquote>
+<p>对源RDD 和参数RDD 求并集后返回一个新的RDD</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd3</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">union</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdd3</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1 2 3 4 5 6
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="subtract">subtract</h3>
+<blockquote>
+<p>def subtract(other: RDD[T]): RDD[T]</p>
+</blockquote>
+<p>以一个 RDD 元素为主，去除两个 RDD 中重复元素，将其他元素保留下来。求差集</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd3</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">subtract</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdd3</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1 2 3
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="zip">zip</h3>
+<blockquote>
+<p>def zip[U: ClassTag](other: RDD[U]): RDD[(T, U)]</p>
+</blockquote>
+<p>将两个 RDD 中的元素，以键值对的形式进行合并。其中，键值对中的Key 为第 1 个 RDD中的元素，Value 为第 2 个 RDD 中的相同位置的元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">zipRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">zip</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">zipRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">mkString</span><span class="o">(</span><span class="s">&#34;,&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(1,3),(2,4),(3,5),(4,6)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果两个RDD 数据类型不一致 ，对于交集，并集，差集，两个RDD的数据类型必须相同。对于拉链操作，两个RDD的数据类型可以不同。</li>
+<li>如果两个RDD的分区中数据量不一致，对于交集，并集，差集，两个RDD的分区中数据量不需要相同；对于拉链操作分区中数据量必须相同。</li>
+</ul>
+<h2 id="key-value类型算子">Key-Value类型算子</h2>
+<h3 id="reducebykey">reduceByKey</h3>
+<blockquote>
+<p>def reduceByKey(func: (V, V) =&gt; V): RDD[(K, V)]</p>
+</blockquote>
+<p>可以将数据按照相同的Key 对Value 进行聚合，聚合操作是两两进行聚合的。reduceByKey中如果key的数据只有一个，是不会参与运算的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="s">&#34;Hello Scala&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spark&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spark&#34;</span><span class="o">,</span> <span class="s">&#34;Hello 123&#34;</span><span class="o">),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">wordRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">wordOneRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">wordRDD</span><span class="o">.</span><span class="n">map</span><span class="o">((</span><span class="k">_</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">wordOneRDD</span><span class="o">.</span><span class="n">reduceByKey</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(Hello,4)
+</span></span><span class="line"><span class="cl">(123,1)
+</span></span><span class="line"><span class="cl">(Scala,1)
+</span></span><span class="line"><span class="cl">(Spark,2)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的代码中，根据参数_+_，即表示将两个value进行相加。</p>
+<h3 id="groupbykey">groupByKey</h3>
+<blockquote>
+<p>def groupByKey(): RDD[(K, Iterable[V])]</p>
+</blockquote>
+<p>将数据源的数据根据 key， 对 value 进行分组，将数据源中相同key的数据分在一个组中，行成一个对偶元祖，元组中的第一个元素就是key，元组中的第二个元素就行相同key的value的集合。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">groupRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Iterable</span><span class="o">[</span><span class="kt">Int</span><span class="o">])]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">groupByKey</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">groupRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,CompactBuffer(1, 1, 1, 1))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,CompactBuffer(1, 1, 1, 1))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2.png"
+	width="517"
+	height="247"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2_hu76b0ab2b43e90a5fabc30e79432e3f39_79814_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2_hu76b0ab2b43e90a5fabc30e79432e3f39_79814_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="groupByKey具体流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="502px"
+	
+></p>
+<h3 id="aggregatebykey">aggregateByKey</h3>
+<blockquote>
+<p>def aggregateByKey[U: ClassTag](zeroValue: U)(seqOp: (U, V) =&gt; U, combOp: (U, U) =&gt; U): RDD[(K, U)]</p>
+</blockquote>
+<p>将数据根据不同的规则进行分区内计算和分区间计算。</p>
+<p>aggregateByKey存在函数柯里化，有两个参数列表。</p>
+<p>第一个参数列表，需要传递一个参数，表示初始值。主要用于当碰见第一个key的时候，和value进行分区内计算。</p>
+<p>第二个参数列表需要传递两个参数</p>
+<ul>
+<li>参数2.1：分区内的计算规则</li>
+<li>参数2.2：分区间的计算规则</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">6</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//同分区获取最大值，不同分区相加求和
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">aggregateByKey</span><span class="o">(</span><span class="mi">0</span><span class="o">)(</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">max</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdd2</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,8)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,8)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3.png"
+	width="883"
+	height="170"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3_hu0ec7257536c90f6c836fea821cea5925_60831_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3_hu0ec7257536c90f6c836fea821cea5925_60831_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="aggregateByKey具体流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="519"
+		data-flex-basis="1246px"
+	
+></p>
+<h3 id="foldbykey">foldByKey</h3>
+<blockquote>
+<p>def foldByKey(zeroValue: V)(func: (V, V) =&gt; V): RDD[(K, V)]</p>
+</blockquote>
+<p>当分区内计算规则和分区间计算规则相同时，aggregateByKey 就可以简化为foldByKey</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">6</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//同分区相加求和，不同分区相加求和
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">foldByKey</span><span class="o">(</span><span class="mi">0</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdd2</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,12)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,9)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="combinebykey">combineByKey</h3>
+<blockquote>
+<p>def combineByKey[C]( createCombiner: V =&gt; C, mergeValue: (C, V) =&gt; C, mergeCombiners: (C, C) =&gt; C): RDD[(K, C)]</p>
+</blockquote>
+<p>对key-value 型 rdd 进行聚集操作的聚集函数（aggregation function）。类似于aggregate()，combineByKey()允许用户返回值的类型与输入不一致。</p>
+<p>combineByKey方法需要三个参数</p>
+<ul>
+<li>第一个参数：表示将相同key的第一个数据进行结构的转换，实现操作</li>
+<li>第二个参数：表示分区内的计算规则</li>
+<li>第三个参数：表示分区间的计算规则</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">6</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">))]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">combineByKey</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">t</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">t</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">t</span><span class="k">:</span> <span class="o">(</span><span class="kt">Int</span><span class="o">,</span> <span class="kt">Int</span><span class="o">),</span> <span class="n">v</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="n">_1</span> <span class="o">+</span> <span class="n">v</span><span class="o">,</span> <span class="n">t</span><span class="o">.</span><span class="n">_2</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">},</span>
+</span></span><span class="line"><span class="cl">  <span class="o">(</span><span class="n">t1</span><span class="k">:</span> <span class="o">(</span><span class="kt">Int</span><span class="o">,</span> <span class="kt">Int</span><span class="o">),</span> <span class="n">t2</span><span class="k">:</span> <span class="o">(</span><span class="kt">Int</span><span class="o">,</span> <span class="kt">Int</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="n">t1</span><span class="o">.</span><span class="n">_1</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="n">_1</span><span class="o">,</span> <span class="n">t1</span><span class="o">.</span><span class="n">_2</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="n">_2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd3</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">rdd2</span><span class="o">.</span><span class="n">map</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="o">(</span><span class="n">str</span><span class="o">,</span> <span class="o">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">t2</span><span class="o">))</span> <span class="k">=&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">(</span><span class="n">str</span><span class="o">,</span> <span class="n">t1</span> <span class="o">/</span> <span class="n">t2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rdd3</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,4)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,3)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的例子中，首先将相同key的格式转为(t,1)，分区内计算对于第一个数据进行相加，第二个数据+1，分区间将第一和第二个数据对应相加。</p>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4.png"
+	width="1464"
+	height="222"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4_huf81ad329a761d898e716e57d3ff757a9_116073_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/4_huf81ad329a761d898e716e57d3ff757a9_116073_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="combineByKey具体操作"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="659"
+		data-flex-basis="1582px"
+	
+></p>
+<h3 id="join">join</h3>
+<blockquote>
+<p>def join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]</p>
+</blockquote>
+<p>在类型为(K,V)和(K,W)的RDD 上调用，返回一个相同 key 对应的所有元素连接在一起的(K,(V,W))的RDD</p>
+<p>两个RDD中的元素对进行笛卡尔乘积性质的匹配，但只会打印出匹配成功的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">6</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">joinRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">))]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">join</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">joinRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,5))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,(1,4))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(c,(3,6))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的例子里，成功将a,b,c后面的值合在一起了</p>
+<p>如果两个数据源中有多个相同的key，那么数据源a中的key会与数据源b中相同的key多次匹配成功，因此会数据量会几何性质增长</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;d&#34;</span><span class="o">,</span><span class="mi">4</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">6</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">var</span> <span class="n">joinRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">))]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">join</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">joinRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,5))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,6))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="leftouterjoin">leftOuterJoin</h3>
+<blockquote>
+<p>def leftOuterJoin[W](other: RDD[(K, W)]): RDD[(K, (V, Option[W]))]</p>
+</blockquote>
+<p>类似于 SQL 语句的左外连接，根据左边第一个元素将两个RDD连接起来，和join算子类似，但这个可以支持key不匹配的情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">4</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">leftJoinRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Int</span>, <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]))]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">leftOuterJoin</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">leftJoinRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,Some(4)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,(1,Some(5)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(c,(3,None))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">6</span><span class="o">)),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">leftJoinRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Int</span>, <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]))]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">leftOuterJoin</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">leftJoinRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,Some(4)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,Some(5)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(b,(2,Some(6)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,(1,Some(5)))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(c,(3,None))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rightouterjoin">rightOuterJoin</h3>
+<p>类似于左外连接，两者区别在于左连接是以左边的RDD为主，右连接以右边的RDD为主。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd1</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="mi">2</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd2</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="o">(</span><span class="s">&#34;b&#34;</span><span class="o">,</span><span class="mi">4</span><span class="o">),(</span><span class="s">&#34;c&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">)),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rightJoinRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="o">(</span><span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span>, <span class="kt">Int</span><span class="o">))]</span> <span class="k">=</span> <span class="n">rdd1</span><span class="o">.</span><span class="n">rightOuterJoin</span><span class="o">(</span><span class="n">rdd2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">rightJoinRDD</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//(b,(Some(2),4))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(a,(Some(1),5))
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(c,(None,3))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="行动算子">行动算子</h2>
+<h3 id="reduce">reduce</h3>
+<blockquote>
+<p>def reduce(f: (T, T) =&gt; T): T</p>
+</blockquote>
+<p>聚集RDD 中的所有元素，先聚合分区内数据，再聚合分区间数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 聚合数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">reduceResult</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">reduce</span><span class="o">(</span><span class="k">_</span><span class="o">+</span><span class="k">_</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">reduceResult</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//10
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的例子中，10=1+2+3+4</p>
+<h3 id="collect">collect</h3>
+<blockquote>
+<p>def collect(): Array[T]</p>
+</blockquote>
+<p>在驱动程序中，方法会将不同分区的数据按照分区顺序采集到Driver端内存中，形成数组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//收集数据到Driver
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">rdd</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1 2 3 4
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="first">first</h3>
+<blockquote>
+<p>def first(): T</p>
+</blockquote>
+<p>返回RDD 中的第一个元素</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">firstResult</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">first</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">firstResult</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="take">take</h3>
+<blockquote>
+<p>def take(num: Int): Array[T]</p>
+</blockquote>
+<p>返回一个由RDD 的前 n 个元素组成的数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">takeResult</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">takeResult</span><span class="o">.</span><span class="n">mkString</span><span class="o">(</span><span class="s">&#34;,&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1,2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="takeordered">takeOrdered</h3>
+<blockquote>
+<p>def takeOrdered(num: Int)(implicit ord: Ordering[T]): Array[T]</p>
+</blockquote>
+<p>返回该 RDD 排序后的前 n 个元素组成的数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">takeOrdered</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">result</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//1 2
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="aggregate">aggregate</h3>
+<blockquote>
+<p>def aggregate[U: ClassTag](zeroValue: U)(seqOp: (U, T) =&gt; U, combOp: (U, U) =&gt; U): U</p>
+</blockquote>
+<p>分区的数据通过初始值和分区内的数据进行聚合，然后再和初始值进行分区间的数据聚合；即，初始值不仅参与分区内计算，同时也参与分区间计算。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="mi">8</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 组内：
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区1(1)，组内结果11
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区2(2)，组内结果12
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区3(3)，组内结果13
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区4(4)，组内结果14
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区5(0)，组内结果10
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区6(0)，组内结果10
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区7(0)，组内结果10
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区8(0)，组内结果10
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 组间：
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * 初值10,分区(11,12,13,14,10,10,10,10)，结果100
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">aggregate</span><span class="o">(</span><span class="mi">10</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">,</span> <span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//100
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="fold">fold</h3>
+<blockquote>
+<p>def fold(zeroValue: T)(op: (T, T) =&gt; T): T</p>
+</blockquote>
+<p>折叠操作，aggregate的简化版操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">val</span> <span class="n">foldResult</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">fold</span><span class="o">(</span><span class="mi">0</span><span class="o">)(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">foldResult</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//10
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="countbykey">countByKey</h3>
+<blockquote>
+<p>def countByKey(): Map[K, Long]</p>
+</blockquote>
+<p>统计每种 key 的个数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">((</span><span class="mi">1</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">),</span> <span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">),</span> <span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">&#34;a&#34;</span><span class="o">),</span> <span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">&#34;b&#34;</span><span class="o">),</span> <span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">&#34;c&#34;</span><span class="o">),</span> <span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="s">&#34;c&#34;</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 统计每种 key 的个数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">collection.Map</span><span class="o">[</span><span class="kt">Int</span>, <span class="kt">Long</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">countByKey</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">println</span><span class="o">(</span><span class="n">result</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//Map(1 -&gt; 3, 2 -&gt; 1, 3 -&gt; 2)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="rdd-依赖关系">RDD 依赖关系</h2>
+<h3 id="窄依赖">窄依赖</h3>
+<p>窄依赖表示每一个父(上游)RDD 的 Partition 最多被子（下游）RDD 的一个 Partition 使用， 窄依赖我们形象的比喻为独生子女。</p>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5.png"
+	width="597"
+	height="362"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5_hud1a4c891d44dae7ba7809a901889b2fc_71260_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/5_hud1a4c891d44dae7ba7809a901889b2fc_71260_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="窄依赖"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="395px"
+	
+></p>
+<h3 id="宽依赖">宽依赖</h3>
+<p>宽依赖表示同一个父（上游）RDD 的 Partition 被多个子（下游）RDD 的 Partition 依赖，会引起 Shuffle，总结：宽依赖我们形象的比喻为多生。</p>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/6.png"
+	width="518"
+	height="293"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/6_hu8f27a169b646215a08e833923743a573_62598_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/6_hu8f27a169b646215a08e833923743a573_62598_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="宽依赖"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="424px"
+	
+></p>
+<h2 id="wordcount">WordCount</h2>
+<p>典中典程序，必考</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scala" data-lang="scala"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">org.apache.spark.rdd.RDD</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">org.apache.spark.</span><span class="o">{</span><span class="nc">SparkConf</span><span class="o">,</span> <span class="nc">SparkContext</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">object</span> <span class="nc">WordCount</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">def</span> <span class="n">main</span><span class="o">(</span><span class="n">args</span><span class="k">:</span> <span class="kt">Array</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="n">sparkConf</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">SparkConf</span><span class="o">().</span><span class="n">setMaster</span><span class="o">(</span><span class="s">&#34;local&#34;</span><span class="o">).</span><span class="n">setAppName</span><span class="o">(</span><span class="s">&#34;WordCount&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="n">sc</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">SparkContext</span><span class="o">(</span><span class="n">sparkConf</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="n">rdd</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span><span class="o">)]</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">makeRDD</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="s">&#34;Hello Scala&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spark&#34;</span><span class="o">,</span> <span class="s">&#34;Hello Spark&#34;</span><span class="o">,</span> <span class="s">&#34;Hello test&#34;</span><span class="o">),</span><span class="mi">2</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="n">wordRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="n">rdd</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&#34; &#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="n">wordOneRDD</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">wordRDD</span><span class="o">.</span><span class="n">map</span><span class="o">((</span><span class="k">_</span><span class="o">,</span> <span class="mi">1</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="n">result</span><span class="k">:</span> <span class="kt">RDD</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">wordOneRDD</span><span class="o">.</span><span class="n">reduceByKey</span><span class="o">(</span><span class="k">_</span> <span class="o">+</span> <span class="k">_</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span><span class="o">.</span><span class="n">collect</span><span class="o">().</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//关闭连接
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">sc</span><span class="o">.</span><span class="n">stop</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="有向无环图">有向无环图</h3>
+<p>DAG(Directed Acyclic Graph)叫做有向无环图，原始的RDD通过一系列的转换就形成了DAG。</p>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/7.png"
+	width="615"
+	height="776"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/7_huea917c2aec3cee89af3c95449ee60e36_47987_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/7_huea917c2aec3cee89af3c95449ee60e36_47987_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="DAG"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="79"
+		data-flex-basis="190px"
+	
+></p>
+<h3 id="stage的划分">stage的划分</h3>
+<p>一个Job会被拆分为多组Task，每组任务被称为一个stage。stage表示不同的调度阶段，一个spark job会对应产生很多个stage。</p>
+<p>根据RDD之间依赖关系的不同将DAG划分成不同的Stage(调度阶段)</p>
+<ul>
+<li>对于窄依赖，partition的转换处理在一个Stage中完成计算</li>
+<li>对于宽依赖，由于有Shuffle的存在，只能在parent RDD处理完成后，才能开始接下来的计算</li>
+</ul>
+<p><strong>划分stage的依据就是宽依赖</strong></p>
+<ol>
+<li>首先根据rdd的算子操作顺序生成DAG有向无环图，接下里从最后一个rdd往前推，创建一个新的stage，把该rdd加入到该stage中，它是最后一个stage。</li>
+<li>在往前推的过程中运行遇到了窄依赖就把该rdd加入到本stage中，如果遇到了宽依赖，就从宽依赖切开，那么最后一个stage也就结束了。</li>
+<li>重新创建一个新的stage，按照第二个步骤继续往前推，一直到最开始的rdd，整个划分stage也就结束了</li>
+</ol>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/8.png"
+	width="1362"
+	height="1097"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/8_hub207eb19135741e18af6574cd3ca17e5_160208_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/8_hub207eb19135741e18af6574cd3ca17e5_160208_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="划分stage"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="124"
+		data-flex-basis="297px"
+	
+></p>
+<p>划分完stage之后，每一个stage中有很多可以并行运行的task，后期把每一个stage中的task封装在一个taskSet集合中，最后把一个一个的taskSet集合提交到worker节点上的executor进程中运行。</p>
+<p>rdd与rdd之间存在依赖关系，stage与stage之前也存在依赖关系，前面stage中的task先运行，运行完成了再运行后面stage中的task，也就是说后面stage中的task输入数据是前面stage中task的输出结果数据。</p>
+<p><img src="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9.png"
+	width="1873"
+	height="383"
+	srcset="/p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9_hu470fd74ac0a8fad0e4f78d52838dbc8c_55100_480x0_resize_box_3.png 480w, /p/%E4%BA%91%E8%AE%A1%E7%AE%97%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9_hu470fd74ac0a8fad0e4f78d52838dbc8c_55100_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="stage与stage之间的关系"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="489"
+		data-flex-basis="1173px"
+	
+></p>
+<h2 id="缓存和检查点区别">缓存和检查点区别</h2>
+<p>必考，也是非常重要</p>
+<ul>
+<li><strong>Cache</strong> 缓存只是将数据<strong>临时</strong>保存起来。Cache 缓存的数据通常存储在内存，可靠性低。<strong>不切断血缘依赖</strong>，只会在血缘关系中添加新的依赖，一旦出现问题，可以重头读取数据。</li>
+<li><strong>persisit</strong>：将数据<strong>临时</strong>存储在磁盘文件中进行数据重用，涉及到磁盘IO，性能较低，但是数据安全。如果作业执行完毕，临时保存的数据文件就会丢失。</li>
+<li><strong>CheckPoint</strong>：将数据长久地保存在磁盘文件中进行数据重用，涉及到磁盘IO，性能较低，但是数据安全。为了包装数据安全，所以一般情况下，会独立执行作业，就是把当前需要持久化的RDD重新创建并保存。为了能够提高效率，通常和cache联合使用。</li>
+<li>Checkpoint 检查点会<strong>切断血缘依赖</strong>，重新建立新的血缘关系。</li>
+<li>cache 机制是每计算出一个要 cache 的 partition 就直接将其 cache 到内存了。但 checkpoint 没有使用这种第一次计算得到就存储的方法，而是等到 job 结束后另外启动专门的 job 去完成 checkpoint 。 也就是说需要 checkpoint 的 RDD 会被计算两次。因此，在使用checkpoint() 的时候，建议加上 rdd.cache()， 这样第二次运行的 job 就不用再去计算该 rdd 了，直接读取 cache 写磁盘。建议对checkpoint()的RDD 使用Cache 缓存，这样 checkpoint 的 job 只需从 Cache 缓存中读取数据即可，否则需要再从头计算一次RDD。Checkpoint 检查点切断血缘依赖。</li>
+</ul>
+<h2 id="combinebykey和aggregatebykey的异同">combineByKey和aggregateByKey的异同</h2>
+<h3 id="相同点">相同点</h3>
+<ul>
+<li>都有三个参数</li>
+<li>第二个和第三个参数都是分区内操作和分区间操作</li>
+<li>都属于聚合操作，使数据量减少</li>
+<li>都是转换算子，不触发程序执行</li>
+</ul>
+<h3 id="不同点">不同点</h3>
+<ul>
+<li>对于第一个参数，aggregateByKey是设置初始值，combineByKey是进行转换</li>
+<li>combineByKey组内计算和组间计算数据格式不一样；
+aggregateByKey组内计算和组间计算数据格式一样</li>
+</ul>
+<h2 id="aggregate和aggregatebykey的异同">aggregate和aggregateByKey的异同</h2>
+<h3 id="相同点-1">相同点</h3>
+<ul>
+<li>都是具有分区内操作和分区间操作</li>
+<li>都是聚合类型的算子</li>
+</ul>
+<h3 id="不同点-1">不同点</h3>
+<ul>
+<li>aggregateByKey的初始值不会参与分区间计算；对key进行操作，需要键值对</li>
+<li>aggregate的初始值会参与分区间计算，会触发程序运行，进行读数据</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">云计算</a>
+        
+            <a href="/tags/scala/">Scala</a>
+        
+            <a href="/tags/spark/">Spark</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.13.13/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin"},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#云计算的三个特点">云计算的三个特点</a></li>
+    <li><a href="#云计算服务">云计算服务</a></li>
+    <li><a href="#云计算类型">云计算类型</a>
+      <ol>
+        <li><a href="#公有云">公有云</a></li>
+        <li><a href="#私有云">私有云</a></li>
+        <li><a href="#社区云">社区云</a></li>
+        <li><a href="#混合云">混合云</a></li>
+      </ol>
+    </li>
+    <li><a href="#rdd的创建">RDD的创建</a></li>
+    <li><a href="#value-类型转换算子">Value 类型转换算子</a>
+      <ol>
+        <li><a href="#map">map</a></li>
+        <li><a href="#mappartiotions">mapPartiotions</a></li>
+        <li><a href="#mappartitionwithindex">mapPartitionWithIndex</a></li>
+        <li><a href="#flatmap">flatMap</a></li>
+      </ol>
+    </li>
+    <li><a href="#重新分区与数据筛选">重新分区与数据筛选</a>
+      <ol>
+        <li><a href="#coalesce">coalesce</a></li>
+        <li><a href="#repartition">repartition</a></li>
+        <li><a href="#distinct">distinct</a></li>
+        <li><a href="#filter">filter</a></li>
+        <li><a href="#groupby">groupBy</a></li>
+      </ol>
+    </li>
+    <li><a href="#集合类型算子操作">集合类型算子操作</a>
+      <ol>
+        <li><a href="#intersection">intersection</a></li>
+        <li><a href="#union">union</a></li>
+        <li><a href="#subtract">subtract</a></li>
+        <li><a href="#zip">zip</a></li>
+      </ol>
+    </li>
+    <li><a href="#key-value类型算子">Key-Value类型算子</a>
+      <ol>
+        <li><a href="#reducebykey">reduceByKey</a></li>
+        <li><a href="#groupbykey">groupByKey</a></li>
+        <li><a href="#aggregatebykey">aggregateByKey</a></li>
+        <li><a href="#foldbykey">foldByKey</a></li>
+        <li><a href="#combinebykey">combineByKey</a></li>
+        <li><a href="#join">join</a></li>
+        <li><a href="#leftouterjoin">leftOuterJoin</a></li>
+        <li><a href="#rightouterjoin">rightOuterJoin</a></li>
+      </ol>
+    </li>
+    <li><a href="#行动算子">行动算子</a>
+      <ol>
+        <li><a href="#reduce">reduce</a></li>
+        <li><a href="#collect">collect</a></li>
+        <li><a href="#first">first</a></li>
+        <li><a href="#take">take</a></li>
+        <li><a href="#takeordered">takeOrdered</a></li>
+        <li><a href="#aggregate">aggregate</a></li>
+        <li><a href="#fold">fold</a></li>
+        <li><a href="#countbykey">countByKey</a></li>
+      </ol>
+    </li>
+    <li><a href="#rdd-依赖关系">RDD 依赖关系</a>
+      <ol>
+        <li><a href="#窄依赖">窄依赖</a></li>
+        <li><a href="#宽依赖">宽依赖</a></li>
+      </ol>
+    </li>
+    <li><a href="#wordcount">WordCount</a>
+      <ol>
+        <li><a href="#有向无环图">有向无环图</a></li>
+        <li><a href="#stage的划分">stage的划分</a></li>
+      </ol>
+    </li>
+    <li><a href="#缓存和检查点区别">缓存和检查点区别</a></li>
+    <li><a href="#combinebykey和aggregatebykey的异同">combineByKey和aggregateByKey的异同</a>
+      <ol>
+        <li><a href="#相同点">相同点</a></li>
+        <li><a href="#不同点">不同点</a></li>
+      </ol>
+    </li>
+    <li><a href="#aggregate和aggregatebykey的异同">aggregate和aggregateByKey的异同</a>
+      <ol>
+        <li><a href="#相同点-1">相同点</a></li>
+        <li><a href="#不同点-1">不同点</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://unpkg.com/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

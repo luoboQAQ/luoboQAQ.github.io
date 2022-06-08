@@ -284,7 +284,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 15 分钟
+                    阅读时长: 16 分钟
                 </time>
             </div>
         
@@ -381,6 +381,7 @@
 </ul>
 <h2 id="rdd的创建">RDD的创建</h2>
 <p>使用<code>makeRDD</code>即可，例如<code>val rdd = sc.makeRDD(List(1, 2, 3, 4))</code> 。在使用<code>makeRDD</code>时我们也可以指定分区数量，如<code>val rdd: RDD[Int] = sc.makeRDD(List(1, 2, 3, 4), 3)</code>，这里我们就创建了3个分区。</p>
+<p>当然，除了从程序中创建，我们也可以从文件中读取数据，使用<code>sc.textFile(&quot;input&quot;)</code>函数来按行读取文件里的数据。如<code>val lineRDD: RDD[String] = sc.textFile(&quot;E:\\datas&quot;)</code></p>
 <h2 id="value-类型转换算子">Value 类型转换算子</h2>
 <h3 id="map">map</h3>
 <blockquote>

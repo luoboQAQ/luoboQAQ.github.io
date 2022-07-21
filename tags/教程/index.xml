@@ -6,7 +6,128 @@
         <description>Recent content in 教程 on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 23 Aug 2021 15:44:59 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 21 Jul 2022 19:05:52 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>一步到位，自动申请SSL证书</title>
+        <link>https://lbqaq.top/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/</link>
+        <pubDate>Thu, 21 Jul 2022 19:05:52 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/99528942.webp" alt="Featured image of post 一步到位，自动申请SSL证书" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;阿里云最近发短信给我，提示我之前免费申请的SSL证书要到期了。借此机会，正好将acme.sh配置到服务器上，一劳永逸的解决证书问题。相较于在阿里云上申请证书，使用acme.sh的优势在于可以申请泛域名证书及可以自动续期。&lt;/p&gt;
+&lt;p&gt;下面我就记录一下我使用的步骤吧。我这里采用的是使用阿里云的API自动进行DNS方式的申请，不同的服务商命令有稍许不同，可以参考&lt;a class=&#34;link&#34; href=&#34;%28https://github.com/acmesh-official/acme.sh/wiki/dnsapi%29&#34; &gt;官方文档&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;步骤&#34;&gt;步骤&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;在阿里云控制台申请api &lt;a class=&#34;link&#34; href=&#34;https://ram.console.aliyun.com/users&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://ram.console.aliyun.com/users&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在阿里云的角色控制里赋予刚刚申请的用户控制DNS的权限&lt;code&gt;AliyunDNSFullAccess&lt;/code&gt; &lt;a class=&#34;link&#34; href=&#34;https://ram.console.aliyun.com/permissions&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://ram.console.aliyun.com/permissions&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安装acme.sh&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;curl  https://get.acme.sh &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh -s &lt;span class=&#34;nv&#34;&gt;email&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;my@example.com
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;配置API环境&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;Ali_Key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;xxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;Ali_Secret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;xxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里是配置API环境，填入刚刚申请的密钥。这步只需要做一次，acme.sh会将其保存下来。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;生成证书，这里填入刚刚申请API得到的密钥&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;acme.sh --issue --dns dns_ali -d lbqaq.top -d &lt;span class=&#34;s2&#34;&gt;&amp;#34;*.lbqaq.top&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;通过上面命令，可以申请到包含&lt;code&gt;lbqaq.top&lt;/code&gt;和&lt;code&gt;*.lbqaq.top&lt;/code&gt;这两个DNS记录的证书。这里如果有&lt;code&gt;*&lt;/code&gt;，是需要加双引号的，我之前没加就报错了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;复制证书到nginx目录&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;acme.sh --install-cert -d lbqaq.top &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;--key-file       /usr/local/nginx/conf/cert/lbqaq.top.key  &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;--fullchain-file /usr/local/nginx/conf/cert/lbqaq.top.pem &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;--reloadcmd     &lt;span class=&#34;s2&#34;&gt;&amp;#34;nginx -s reload&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里&lt;code&gt;key-file&lt;/code&gt;对应的是Nginx配置里的&lt;code&gt;ssl_certificate_key&lt;/code&gt;，&lt;code&gt;fullchain-file&lt;/code&gt;对应的是&lt;code&gt;ssl_certificate&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接下来修改Nginx配置文件即可&lt;/p&gt;
+&lt;p&gt;附上我的模板&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-nginx&#34; data-lang=&#34;nginx&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#如果不是https就跳转至https
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$server_port&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;!~&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;443&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kn&#34;&gt;rewrite&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;^(/.*)&lt;/span&gt;$ &lt;span class=&#34;s&#34;&gt;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$host$1&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;permanent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ssl_certificate&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;./cert/lbqaq.top.pem&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ssl_certificate_key&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;./cert/lbqaq.top.key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ssl_session_timeout&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#表示使用的加密套件的类型。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ssl_ciphers&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#表示使用的TLS协议的类型。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ssl_protocols&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;TLSv1&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;TLSv1.1&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;TLSv1.2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class=&#34;no&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;add_header&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;Strict-Transport-Security&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;max-age=31536000&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;常用命令&#34;&gt;常用命令&lt;/h2&gt;
+&lt;p&gt;在附上一些我用到的一些acme.sh相关的命令。&lt;del&gt;才不是水字数呢&lt;/del&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;acme.sh --list&lt;/code&gt;查看已申请的证书&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acme.sh --remove -d example.com&lt;/code&gt;删除指定的证书&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>使用Webhooks实现自动部署</title>
         <link>https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/</link>
         <pubDate>Mon, 23 Aug 2021 15:44:59 +0800</pubDate>

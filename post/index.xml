@@ -6,7 +6,71 @@
         <description>Recent content in Posts on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 21 Aug 2022 21:20:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 23 Aug 2022 09:58:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>在Linux下安装SVP4</title>
+        <link>https://lbqaq.top/p/svp4inlinux/</link>
+        <pubDate>Tue, 23 Aug 2022 09:58:00 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/svp4inlinux/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/svp4inlinux/100213137.webp" alt="Featured image of post 在Linux下安装SVP4" /&gt;&lt;p&gt;之前在《&lt;a class=&#34;link&#34; href=&#34;https://lbqaq.top/p/%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E7%9C%8B%E7%95%AA/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;如何优雅的看番&lt;/a&gt;》这篇文章中我提到了补帧的3款软件，在Windows系统上我使用的是dmitriRender这款软件，而其并没有提供Linux版本的程序。与之相反的是，SVP不但提供了Linux版本，而且还是免费的。&lt;/p&gt;
+&lt;p&gt;由于官方文档是英文且有些地方没有表述清楚，这里我就将我安装和配置的方式记录下来供大家参考。&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;对于Arch用户非常简单，直接&lt;code&gt;yay -S svp-bin&lt;/code&gt;即可完成安装。&lt;/p&gt;
+&lt;p&gt;对于其他发行版，可以选择在&lt;a class=&#34;link&#34; href=&#34;https://www.svp-team.com/zh/get/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官网&lt;/a&gt;上下载并安装。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;安装播放器，这里我推荐安装VLC，因为其安装简便，并且后面配置SVP也很容易。&lt;/p&gt;
+&lt;p&gt;安装直接输入&lt;code&gt;sudo pacman -S vlc&lt;/code&gt;即可&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如果需要GPU加速，还需要安装相应的插件&lt;code&gt;sudo pacman -S ocl-icd&lt;/code&gt;。我之前就是没有安装，导致一直无法读取到我的显卡。&lt;/p&gt;
+&lt;p&gt;安装好后就可以在SVP菜单——应用程序设置——GPU加速里看到你的显卡了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;配置&#34;&gt;配置&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;修改VLC插件目录权限，以便SVP写入插件。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;777&lt;/span&gt; /usr/lib/vlc/plugins/video_filter
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在SVP的菜单里选择“工具”——“VLC的SVP插件”，将其选中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;检查&lt;code&gt;/usr/lib/vlc/plugins/video_filter&lt;/code&gt;目录下的&lt;code&gt;libsvpcontrol_plugin.so&lt;/code&gt;和&lt;code&gt;libvapoursynth_plugin.so&lt;/code&gt;是否有可执行权限，我之前就是因为没有给执行权限，导致VLC一直不会调用SVP&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x /usr/lib/vlc/plugins/video_filter/libsvpcontrol_plugin.so
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x /usr/lib/vlc/plugins/video_filter/libvapoursynth_plugin.so
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;官网表示需要开启“反交错”才会启用，但实测好像不开启也可以运行。&lt;/p&gt;
+&lt;p&gt;如果VLC偏好设置——显示设置——全部——控制界面有&lt;code&gt;SVP control interface&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;以及滤镜里有&lt;code&gt;Vapoursynth filter&lt;/code&gt;即表明安装成功了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;小结&#34;&gt;小结&lt;/h2&gt;
+&lt;p&gt;官网上的安装文档写了很长，但实际上对于VLC使用SVP并不复杂，复杂的是MPV使用SVP。本来打算配几张图的，但实际写下来也没有发现需要图片辅助说明的，那就算了，相信聪明的你一定能看懂 _(:з)∠)_&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>我的智慧物流之旅</title>
         <link>https://lbqaq.top/p/roslogistic/</link>
         <pubDate>Sun, 21 Aug 2022 21:20:00 +0800</pubDate>

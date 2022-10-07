@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='从零开始尝试自制Magisk模块'><title>简易Magisk模块的制作</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/'>
+
+<link rel="stylesheet" href="/scss/style.min.63a7f45317f7be7576ae827ce2439c48c60217c1ae2e561b4120508459eb2c75.css"><meta property='og:title' content='简易Magisk模块的制作'>
+<meta property='og:description' content='从零开始尝试自制Magisk模块'>
+<meta property='og:url' content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Magisk' /><meta property='article:published_time' content='2022-10-07T11:30:17&#43;08:00'/><meta property='article:modified_time' content='2022-10-07T11:30:17&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp' />
+<meta name="twitter:title" content="简易Magisk模块的制作">
+<meta name="twitter:description" content="从零开始尝试自制Magisk模块"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp' /><script async defer
+    data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55"
+    data-cache="true"
+    src="https://umami.lbqaq.top/bpnwxrgz.js">
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/">
+                <img src="/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp"
+                        
+                        width="2263" 
+                        height="1273" 
+                        loading="lazy"
+                        alt="Featured image of post 简易Magisk模块的制作" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/">简易Magisk模块的制作</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            从零开始尝试自制Magisk模块
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2022-10-07</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言">前言</h2>
+<p>说到搞机，那肯定绕不开大名鼎鼎的<a class="link" href="https://github.com/topjohnwu/Magisk"  target="_blank" rel="noopener"
+    >Magisk</a>。就我来说，<code>root</code>完后做的第一件事，就是安装各种各样的模块，但是，我却从来没有研究过Magisk的内容。同时，现在也有许多心怀不轨的人制作锁机模块骗人刷入。所以，了解Magisk模块的一些基本内容就显得比较重要了。</p>
+<h2 id="认识magisk模块">认识Magisk模块</h2>
+<p>根据官方的文档，一个典型的Magisk模块的目录应该如下所示：<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">module.zip
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── META-INF
+</span></span><span class="line"><span class="cl">│   └── com
+</span></span><span class="line"><span class="cl">│       └── google
+</span></span><span class="line"><span class="cl">│           └── android
+</span></span><span class="line"><span class="cl">│               ├── update-binary      &lt;--- 从官方仓库上下载的module_installer.sh
+</span></span><span class="line"><span class="cl">│               └── updater-script     &lt;--- 只有一行文字为 &#34;#MAGISK&#34;
+</span></span><span class="line"><span class="cl">│
+</span></span><span class="line"><span class="cl">├── module.prop                        &lt;--- 模块的标识信息
+</span></span><span class="line"><span class="cl">├── customize.sh                       &lt;--- (可选)用于自定义模块安装过程
+</span></span><span class="line"><span class="cl">├── ...
+</span></span><span class="line"><span class="cl">├── ...  /* 模块的其余文件 */
+</span></span><span class="line"><span class="cl">│
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看出来，<code>META-INF</code>目录是由官方提供，并不需要我们进行修改。</p>
+<h3 id="moduleprop">module.prop</h3>
+<p>这个文件是模块的标识信息，模块的基本信息就存放在这里，文件的格式如下。<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">id=&lt;string&gt;
+</span></span><span class="line"><span class="cl">name=&lt;string&gt;
+</span></span><span class="line"><span class="cl">version=&lt;string&gt;
+</span></span><span class="line"><span class="cl">versionCode=&lt;int&gt;
+</span></span><span class="line"><span class="cl">author=&lt;string&gt;
+</span></span><span class="line"><span class="cl">description=&lt;string&gt;
+</span></span><span class="line"><span class="cl">updateJson=&lt;url&gt; (optional)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>各键值的作用说明如下：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>模块的唯一标识符，需符合该正则表达式<code>^[a-zA-Z][a-zA-Z0-9._-]+$</code></td>
+</tr>
+<tr>
+<td>name</td>
+<td>模块名称</td>
+</tr>
+<tr>
+<td>version</td>
+<td>模块版本号</td>
+</tr>
+<tr>
+<td>versionCode</td>
+<td>模块版本标识，必须为整数，用于更新</td>
+</tr>
+<tr>
+<td>author</td>
+<td>作者信息</td>
+</tr>
+<tr>
+<td>description</td>
+<td>模块描述</td>
+</tr>
+<tr>
+<td>updateJson</td>
+<td>更新信息链接，现在Magisk移除了内部的更新功能，这个属性应该是无用了</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="system文件夹">system文件夹</h3>
+<p>Magisk的一个主要作用就是对系统文件进行注入或替换，只要将文件按顺序放入此目录中即可。例如我想修改hosts文件，只需要将修改好的hosts文件放入<code>system/etc</code>这个目录下，Magisk就会自动将其替换了。</p>
+<p>如果要替换<code>/vendor</code>、<code>/product</code>或<code>/system_ext</code>中的文件，只需将它们分别放在<code>system/vendor</code>、<code>system/product</code>和<code>system/system_ext</code>下。Magisk就会自动替换完成。</p>
+<h3 id="customizesh">customize.sh</h3>
+<p>这是自定义模块安装过程，如果只是简单的替换文件就不需要用到它。但是，很多时候我们并不是仅需替换文件，还需要执行一些脚本，这里就需要使用到它了。</p>
+<p>根据官方文档，这里支持以下的环境变量：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAGISK_VER (string)</td>
+<td>当前安装的Magisk的版本字符串（例如v20.0）</td>
+</tr>
+<tr>
+<td>MAGISK_VER_CODE (int)</td>
+<td>当前安装的Magisk的版本代码（例如20000）</td>
+</tr>
+<tr>
+<td>BOOTMODE (bool)</td>
+<td>如果模块正在Magisk应用程序中安装，则为true</td>
+</tr>
+<tr>
+<td>MODPATH (path)</td>
+<td>安装模块文件的路径</td>
+</tr>
+<tr>
+<td>TMPDIR (path)</td>
+<td>可以临时存储文件的位置</td>
+</tr>
+<tr>
+<td>ZIPFILE (path)</td>
+<td>您的模块的安装zip</td>
+</tr>
+<tr>
+<td>ARCH (string)</td>
+<td>设备的CPU架构，值可以是<code>arm</code>、<code>arm 64</code>、<code>x86</code>或<code>x64</code></td>
+</tr>
+<tr>
+<td>IS64BIT (bool)</td>
+<td>如果<code>$ARCH</code>为<code>arm 64</code>或<code>x64</code>，则为true</td>
+</tr>
+<tr>
+<td>API (int)</td>
+<td>设备的API级别（Android版本）（例如，Android 5.0为21）</td>
+</tr>
+</tbody>
+</table></div>
+<p>以及以下的命令：</p>
+<ul>
+<li><code>ui_print &lt;msg&gt;</code>：在页面上显示信息</li>
+<li><code>abort &lt;msg&gt;</code>：将错误消息打印到控制台并终止安装</li>
+<li><code>set_perm</code>和<code>set_perm_recursive</code>：修改文件权限</li>
+</ul>
+<h2 id="实践">实践</h2>
+<h3 id="修改系统hosts">修改系统Hosts</h3>
+<p>我一开始想研究Magisk的契机，就是想要修改我手机的Hosts文件。一开始按百度的教程做，但没有效果，后来就尝试了一下Magisk模块，直接就成功了。</p>
+<p>有了前面知识的铺垫，想要实现这个功能就非常简单了，下面列出我们程序的目录树。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ChangeHosts.zip
+</span></span><span class="line"><span class="cl">├── META-INF
+</span></span><span class="line"><span class="cl">│   └── com
+</span></span><span class="line"><span class="cl">│       └── google
+</span></span><span class="line"><span class="cl">│           └── android
+</span></span><span class="line"><span class="cl">│               └── update-binary
+</span></span><span class="line"><span class="cl">│               └── updater-script
+</span></span><span class="line"><span class="cl">├── module.prop
+</span></span><span class="line"><span class="cl">├── system
+</span></span><span class="line"><span class="cl">    └── etc
+</span></span><span class="line"><span class="cl">        └── hosts
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实际我们需要修改的部分只有<code>module.prop</code>和<code>hosts</code>，<code>hosts</code>是我们需要修改的文件，所以我们就只要关注<code>module.prop</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-properties" data-lang="properties"><span class="line"><span class="cl"><span class="na">id</span><span class="o">=</span><span class="s">ChangeHosts</span>
+</span></span><span class="line"><span class="cl"><span class="na">name</span><span class="o">=</span><span class="s">ChangeHosts</span>
+</span></span><span class="line"><span class="cl"><span class="na">version</span><span class="o">=</span><span class="s">v1.0.0</span>
+</span></span><span class="line"><span class="cl"><span class="na">versionCode</span><span class="o">=</span><span class="s">100</span>
+</span></span><span class="line"><span class="cl"><span class="na">author</span><span class="o">=</span><span class="s">luoboQAQ</span>
+</span></span><span class="line"><span class="cl"><span class="na">description</span><span class="o">=</span><span class="s">修改hosts文件来屏蔽广告</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如此看来，如果只要替换文件，基本没有任何难度。</p>
+<h3 id="使用dnscrypt-proxy实现doh">使用dnscrypt-proxy实现DoH</h3>
+<p>这部分我正在研究，等研究明白了就补上🕊️。</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a class="link" href="https://topjohnwu.github.io/Magisk/guides.html"  target="_blank" rel="noopener"
+    >Magisk官方开发指导</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        
+            <a href="/tags/magisk/">Magisk</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.15.6/katex.min.css"integrity="sha256-J&#43;iAE0sgH8QSz9hpcDxXIftnj65JEZgNhGcgReTTK9s="crossorigin="anonymous"
+            ><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.15.6/katex.min.js"integrity="sha256-InsNdER1b2xUewP&#43;pKCUJpkhiqwHgqiPXDlIk7GzBu4="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.15.6/contrib/auto-render.min.js"integrity="sha256-y39Mpg7V3D4lhBX4x6O0bUqTV4pSrfgwEfGKfxkOdgI="crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#认识magisk模块">认识Magisk模块</a>
+      <ol>
+        <li><a href="#moduleprop">module.prop</a></li>
+        <li><a href="#system文件夹">system文件夹</a></li>
+        <li><a href="#customizesh">customize.sh</a></li>
+      </ol>
+    </li>
+    <li><a href="#实践">实践</a>
+      <ol>
+        <li><a href="#修改系统hosts">修改系统Hosts</a></li>
+        <li><a href="#使用dnscrypt-proxy实现doh">使用dnscrypt-proxy实现DoH</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

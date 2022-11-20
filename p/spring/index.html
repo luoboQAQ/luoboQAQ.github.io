@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='用来记录Spring的学习心得'><title>Spring学习笔记</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='用来记录Spring的学习心得'>
+<title>Spring学习笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/spring/'>
 
-<link rel="stylesheet" href="/scss/style.min.63a7f45317f7be7576ae827ce2439c48c60217c1ae2e561b4120508459eb2c75.css"><meta property='og:title' content='Spring学习笔记'>
+<link rel="stylesheet" href="/scss/style.min.6cf257b3c26eb14e009e01abefb16fab8e9ea124a0ff59e52a8403bbf98513e6.css"><meta property='og:title' content='Spring学习笔记'>
 <meta property='og:description' content='用来记录Spring的学习心得'>
 <meta property='og:url' content='https://lbqaq.top/p/spring/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -83,6 +84,7 @@
                         href='https://github.com/luoboQAQ'
                         target="_blank"
                         title="GitHub"
+                        rel="me"
                     >
                         
                         
@@ -93,6 +95,23 @@
 
 
 
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://pan.lbqaq.top'
+                        target="_blank"
+                        title="我的个人云盘"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
+</svg>
                         
                     </a>
                 </li>
@@ -229,7 +248,138 @@
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#spring">Spring</a>
+      <ol>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#优点">优点</a></li>
+        <li><a href="#拓展">拓展</a></li>
+      </ol>
+    </li>
+    <li><a href="#ioc理论推导">IOC理论推导</a>
+      <ol>
+        <li><a href="#ioc本质">IOC本质</a></li>
+      </ol>
+    </li>
+    <li><a href="#第一个spring程序">第一个Spring程序</a></li>
+    <li><a href="#ioc创建对象方式">IOC创建对象方式</a></li>
+    <li><a href="#spring配置">Spring配置</a>
+      <ol>
+        <li><a href="#别名alias">别名（alias）</a></li>
+        <li><a href="#bean的配置">Bean的配置</a></li>
+        <li><a href="#import">import</a></li>
+      </ol>
+    </li>
+    <li><a href="#依赖注入">依赖注入</a>
+      <ol>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#构造器注入">构造器注入</a></li>
+        <li><a href="#set注入重点">set注入【重点】</a>
+          <ol>
+            <li><a href="#测试环境">测试环境</a></li>
+            <li><a href="#xml编写">xml编写</a></li>
+          </ol>
+        </li>
+        <li><a href="#扩展方式注入">扩展方式注入</a>
+          <ol>
+            <li><a href="#p命名空间">p命名空间</a></li>
+            <li><a href="#c命名空间">c命名空间</a></li>
+          </ol>
+        </li>
+        <li><a href="#bean的作用域">Bean的作用域</a></li>
+      </ol>
+    </li>
+    <li><a href="#bean的自动装配">Bean的自动装配</a>
+      <ol>
+        <li><a href="#环境搭建">环境搭建</a></li>
+        <li><a href="#byname自动装配">ByName自动装配</a></li>
+        <li><a href="#bytype自动装配">ByType自动装配</a></li>
+        <li><a href="#使用注解自动装配">使用注解自动装配</a>
+          <ol>
+            <li><a href="#准备工作">准备工作</a></li>
+            <li><a href="#autowired">@Autowired</a></li>
+            <li><a href="#qualifier">@Qualifier</a></li>
+            <li><a href="#resource">@Resource</a></li>
+            <li><a href="#小结">小结</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#使用注解开发">使用注解开发</a>
+      <ol>
+        <li><a href="#bean的实现">Bean的实现</a></li>
+        <li><a href="#属性注入">属性注入</a></li>
+        <li><a href="#衍生注解">衍生注解</a></li>
+        <li><a href="#自动装配注解">自动装配注解</a></li>
+        <li><a href="#作用域">作用域</a></li>
+        <li><a href="#小结-1">小结</a></li>
+      </ol>
+    </li>
+    <li><a href="#使用java类进行配置">使用Java类进行配置</a></li>
+    <li><a href="#代理模式">代理模式</a>
+      <ol>
+        <li><a href="#静态代理">静态代理</a></li>
+        <li><a href="#动态代理">动态代理</a></li>
+      </ol>
+    </li>
+    <li><a href="#aop">AOP</a>
+      <ol>
+        <li><a href="#什么是aop">什么是AOP</a></li>
+        <li><a href="#aop在spring中">AOP在Spring中</a></li>
+        <li><a href="#使用spring实现aop">使用Spring实现AOP</a>
+          <ol>
+            <li><a href="#方式一使用spring的方法">方式一：使用Spring的方法</a></li>
+            <li><a href="#方法二使用自定义类来实现">方法二：使用自定义类来实现</a></li>
+            <li><a href="#方式三使用注解来实现aop">方式三：使用注解来实现AOP</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#整合mybatis">整合MyBatis</a>
+      <ol>
+        <li><a href="#回顾mybatis">回顾MyBatis</a></li>
+        <li><a href="#mybatis-spring">MyBatis-Spring</a>
+          <ol>
+            <li><a href="#整合实现一">整合实现一</a></li>
+            <li><a href="#整合方式二">整合方式二</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#声明式事务">声明式事务</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
@@ -260,6 +410,9 @@
         
     </div>
 
+    
+    
+    
     
     <footer class="article-time">
         
@@ -297,6 +450,7 @@
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -3338,7 +3492,7 @@
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -3422,136 +3576,6 @@
             >
 
             </main>
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#spring">Spring</a>
-      <ol>
-        <li><a href="#简介">简介</a></li>
-        <li><a href="#优点">优点</a></li>
-        <li><a href="#拓展">拓展</a></li>
-      </ol>
-    </li>
-    <li><a href="#ioc理论推导">IOC理论推导</a>
-      <ol>
-        <li><a href="#ioc本质">IOC本质</a></li>
-      </ol>
-    </li>
-    <li><a href="#第一个spring程序">第一个Spring程序</a></li>
-    <li><a href="#ioc创建对象方式">IOC创建对象方式</a></li>
-    <li><a href="#spring配置">Spring配置</a>
-      <ol>
-        <li><a href="#别名alias">别名（alias）</a></li>
-        <li><a href="#bean的配置">Bean的配置</a></li>
-        <li><a href="#import">import</a></li>
-      </ol>
-    </li>
-    <li><a href="#依赖注入">依赖注入</a>
-      <ol>
-        <li><a href="#概念">概念</a></li>
-        <li><a href="#构造器注入">构造器注入</a></li>
-        <li><a href="#set注入重点">set注入【重点】</a>
-          <ol>
-            <li><a href="#测试环境">测试环境</a></li>
-            <li><a href="#xml编写">xml编写</a></li>
-          </ol>
-        </li>
-        <li><a href="#扩展方式注入">扩展方式注入</a>
-          <ol>
-            <li><a href="#p命名空间">p命名空间</a></li>
-            <li><a href="#c命名空间">c命名空间</a></li>
-          </ol>
-        </li>
-        <li><a href="#bean的作用域">Bean的作用域</a></li>
-      </ol>
-    </li>
-    <li><a href="#bean的自动装配">Bean的自动装配</a>
-      <ol>
-        <li><a href="#环境搭建">环境搭建</a></li>
-        <li><a href="#byname自动装配">ByName自动装配</a></li>
-        <li><a href="#bytype自动装配">ByType自动装配</a></li>
-        <li><a href="#使用注解自动装配">使用注解自动装配</a>
-          <ol>
-            <li><a href="#准备工作">准备工作</a></li>
-            <li><a href="#autowired">@Autowired</a></li>
-            <li><a href="#qualifier">@Qualifier</a></li>
-            <li><a href="#resource">@Resource</a></li>
-            <li><a href="#小结">小结</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#使用注解开发">使用注解开发</a>
-      <ol>
-        <li><a href="#bean的实现">Bean的实现</a></li>
-        <li><a href="#属性注入">属性注入</a></li>
-        <li><a href="#衍生注解">衍生注解</a></li>
-        <li><a href="#自动装配注解">自动装配注解</a></li>
-        <li><a href="#作用域">作用域</a></li>
-        <li><a href="#小结-1">小结</a></li>
-      </ol>
-    </li>
-    <li><a href="#使用java类进行配置">使用Java类进行配置</a></li>
-    <li><a href="#代理模式">代理模式</a>
-      <ol>
-        <li><a href="#静态代理">静态代理</a></li>
-        <li><a href="#动态代理">动态代理</a></li>
-      </ol>
-    </li>
-    <li><a href="#aop">AOP</a>
-      <ol>
-        <li><a href="#什么是aop">什么是AOP</a></li>
-        <li><a href="#aop在spring中">AOP在Spring中</a></li>
-        <li><a href="#使用spring实现aop">使用Spring实现AOP</a>
-          <ol>
-            <li><a href="#方式一使用spring的方法">方式一：使用Spring的方法</a></li>
-            <li><a href="#方法二使用自定义类来实现">方法二：使用自定义类来实现</a></li>
-            <li><a href="#方式三使用注解来实现aop">方式三：使用注解来实现AOP</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#整合mybatis">整合MyBatis</a>
-      <ol>
-        <li><a href="#回顾mybatis">回顾MyBatis</a></li>
-        <li><a href="#mybatis-spring">MyBatis-Spring</a>
-          <ol>
-            <li><a href="#整合实现一">整合实现一</a></li>
-            <li><a href="#整合方式二">整合方式二</a></li>
-          </ol>
-        </li>
-      </ol>
-    </li>
-    <li><a href="#声明式事务">声明式事务</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
         </div>
         <script 
                 src="https://unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"

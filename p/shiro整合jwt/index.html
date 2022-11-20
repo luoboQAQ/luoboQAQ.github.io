@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录项目中JWT身份认证'><title>shiro整合JWT</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录项目中JWT身份认证'>
+<title>shiro整合JWT</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/'>
 
-<link rel="stylesheet" href="/scss/style.min.63a7f45317f7be7576ae827ce2439c48c60217c1ae2e561b4120508459eb2c75.css"><meta property='og:title' content='shiro整合JWT'>
+<link rel="stylesheet" href="/scss/style.min.6cf257b3c26eb14e009e01abefb16fab8e9ea124a0ff59e52a8403bbf98513e6.css"><meta property='og:title' content='shiro整合JWT'>
 <meta property='og:description' content='记录项目中JWT身份认证'>
 <meta property='og:url' content='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -83,6 +84,7 @@
                         href='https://github.com/luoboQAQ'
                         target="_blank"
                         title="GitHub"
+                        rel="me"
                     >
                         
                         
@@ -93,6 +95,23 @@
 
 
 
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://pan.lbqaq.top'
+                        target="_blank"
+                        title="我的个人云盘"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
+</svg>
                         
                     </a>
                 </li>
@@ -229,7 +248,58 @@
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#何为jwt">何为JWT</a></li>
+    <li><a href="#认证流程">认证流程</a></li>
+    <li><a href="#具体实现">具体实现</a>
+      <ol>
+        <li><a href="#导入依赖包">导入依赖包</a></li>
+        <li><a href="#封装jwt工具类">封装JWT工具类</a></li>
+        <li><a href="#配置shiro">配置Shiro</a></li>
+        <li><a href="#自定义token">自定义Token</a></li>
+        <li><a href="#自定义过滤器">自定义过滤器</a></li>
+        <li><a href="#自定义realm">自定义Realm</a></li>
+        <li><a href="#异常处理">异常处理</a></li>
+        <li><a href="#解决中文报错">解决中文报错</a></li>
+        <li><a href="#开始使用">开始使用</a></li>
+      </ol>
+    </li>
+    <li><a href="#测试">测试</a></li>
+    <li><a href="#参考文章">参考文章</a></li>
+    <li><a href="#更新日志">更新日志</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
@@ -260,6 +330,9 @@
         
     </div>
 
+    
+    
+    
     
     <footer class="article-time">
         
@@ -297,6 +370,7 @@
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -1363,7 +1437,7 @@
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1447,56 +1521,6 @@
             >
 
             </main>
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#何为jwt">何为JWT</a></li>
-    <li><a href="#认证流程">认证流程</a></li>
-    <li><a href="#具体实现">具体实现</a>
-      <ol>
-        <li><a href="#导入依赖包">导入依赖包</a></li>
-        <li><a href="#封装jwt工具类">封装JWT工具类</a></li>
-        <li><a href="#配置shiro">配置Shiro</a></li>
-        <li><a href="#自定义token">自定义Token</a></li>
-        <li><a href="#自定义过滤器">自定义过滤器</a></li>
-        <li><a href="#自定义realm">自定义Realm</a></li>
-        <li><a href="#异常处理">异常处理</a></li>
-        <li><a href="#解决中文报错">解决中文报错</a></li>
-        <li><a href="#开始使用">开始使用</a></li>
-      </ol>
-    </li>
-    <li><a href="#测试">测试</a></li>
-    <li><a href="#参考文章">参考文章</a></li>
-    <li><a href="#更新日志">更新日志</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
         </div>
         <script 
                 src="https://unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"

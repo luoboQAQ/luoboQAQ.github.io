@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='WSL2&#43;Windows Terminal安装、配置小结'><title>WSL2&#43;WT配置小结</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='WSL2&#43;Windows Terminal安装、配置小结'>
+<title>WSL2&#43;WT配置小结</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
 
-<link rel="stylesheet" href="/scss/style.min.63a7f45317f7be7576ae827ce2439c48c60217c1ae2e561b4120508459eb2c75.css"><meta property='og:title' content='WSL2&#43;WT配置小结'>
+<link rel="stylesheet" href="/scss/style.min.6cf257b3c26eb14e009e01abefb16fab8e9ea124a0ff59e52a8403bbf98513e6.css"><meta property='og:title' content='WSL2&#43;WT配置小结'>
 <meta property='og:description' content='WSL2&#43;Windows Terminal安装、配置小结'>
 <meta property='og:url' content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -83,6 +84,7 @@
                         href='https://github.com/luoboQAQ'
                         target="_blank"
                         title="GitHub"
+                        rel="me"
                     >
                         
                         
@@ -93,6 +95,23 @@
 
 
 
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://pan.lbqaq.top'
+                        target="_blank"
+                        title="我的个人云盘"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
+</svg>
                         
                     </a>
                 </li>
@@ -229,7 +248,60 @@
         </div>
     </ol>
 </aside>
-<main class="main full-width">
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#起因">起因</a></li>
+    <li><a href="#wsl2安装">WSL2安装</a>
+      <ol>
+        <li><a href="#0前置条件">0.前置条件</a></li>
+        <li><a href="#1-开启wsl服务">1. 开启WSL服务</a></li>
+        <li><a href="#2-启用虚拟机服务">2. 启用虚拟机服务</a></li>
+        <li><a href="#3-下载-linux-内核更新包">3. 下载 Linux 内核更新包</a></li>
+        <li><a href="#4-将-wsl-2-设置为默认版本">4. 将 WSL 2 设置为默认版本</a></li>
+        <li><a href="#5安装-linux">5.安装 Linux</a></li>
+      </ol>
+    </li>
+    <li><a href="#windows-terminal安装">Windows Terminal安装</a>
+      <ol>
+        <li><a href="#1-下载和安装">1. 下载和安装</a></li>
+        <li><a href="#2-配置">2. 配置</a></li>
+      </ol>
+    </li>
+    <li><a href="#wslvscode">WSL+VSCode</a></li>
+    <li><a href="#小结">小结</a></li>
+    <li><a href="#参考链接">参考链接</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
@@ -260,6 +332,9 @@
         
     </div>
 
+    
+    
+    
     
     <footer class="article-time">
         
@@ -297,6 +372,7 @@
 
     
 </div>
+
 </header>
 
     <section class="article-content">
@@ -723,7 +799,7 @@
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.14.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.16.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -807,58 +883,6 @@
             >
 
             </main>
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#起因">起因</a></li>
-    <li><a href="#wsl2安装">WSL2安装</a>
-      <ol>
-        <li><a href="#0前置条件">0.前置条件</a></li>
-        <li><a href="#1-开启wsl服务">1. 开启WSL服务</a></li>
-        <li><a href="#2-启用虚拟机服务">2. 启用虚拟机服务</a></li>
-        <li><a href="#3-下载-linux-内核更新包">3. 下载 Linux 内核更新包</a></li>
-        <li><a href="#4-将-wsl-2-设置为默认版本">4. 将 WSL 2 设置为默认版本</a></li>
-        <li><a href="#5安装-linux">5.安装 Linux</a></li>
-      </ol>
-    </li>
-    <li><a href="#windows-terminal安装">Windows Terminal安装</a>
-      <ol>
-        <li><a href="#1-下载和安装">1. 下载和安装</a></li>
-        <li><a href="#2-配置">2. 配置</a></li>
-      </ol>
-    </li>
-    <li><a href="#wslvscode">WSL+VSCode</a></li>
-    <li><a href="#小结">小结</a></li>
-    <li><a href="#参考链接">参考链接</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
         </div>
         <script 
                 src="https://unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"

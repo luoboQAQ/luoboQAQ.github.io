@@ -10,7 +10,7 @@
 <meta property='og:description' content='使用mosdns&#43;AdGuardHome自建加密DNS'>
 <meta property='og:url' content='https://lbqaq.top/p/mydns/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='DoH' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2022-11-30T11:05:31&#43;08:00'/><meta property='article:modified_time' content='2022-11-30T11:05:31&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/mydns/100669875.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='DoH' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2022-11-30T11:05:31&#43;08:00'/><meta property='article:modified_time' content='2023-02-08T12:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/mydns/100669875.webp' />
 <meta name="twitter:title" content="自建DNS实现分流及广告过滤">
 <meta name="twitter:description" content="使用mosdns&#43;AdGuardHome自建加密DNS"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/mydns/100669875.webp' /><script async defer
@@ -293,6 +293,7 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
+    <li><a href="#2328新方案">23.2.8新方案</a></li>
     <li><a href="#方案设计">方案设计</a></li>
     <li><a href="#系统搭建">系统搭建</a>
       <ol>
@@ -380,7 +381,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 5 分钟
+                    阅读时长: 6 分钟
                 </time>
             </div>
         
@@ -412,6 +413,220 @@
 ></p>
 <p>一开始使用的是AdGuardHome，然而在我看到了<a class="link" href="https://github.com/XIU2/CloudflareSpeedTest"  target="_blank" rel="noopener"
     >CloudflareSpeedTest</a>这个项目后，就萌生了ip重定向这个需求，为此我又套了一层mosdns（经典为醋包饺子）。既然上了mosdns，就干脆做配上分流吧，于是现在的这套方案就形成了。虽然我的这些需求一个mosdns就可以解决，但AdGuardHome的前端ui、更方便的广告过滤、数据统计这些功能是mosdns所没有的。</p>
+<h2 id="2328新方案">23.2.8新方案</h2>
+<p>由于CloudFlare的优选IP在不同设备上速度都不同，所以在设备本地搭建更优。于是，我现在将mosdns从服务器上移到了本地。当然，在路由器上部署要更好，但我家的路由器性能太弱了，就算了。同时，去广告就交给mosdns，这样就无需使用两个软件进行套娃了。</p>
+<p>mosdns在这段时间也更新了V5版本，原先的配置文件也无法使用了，正好做出V5可用的配置。</p>
+<p>在该配置文件中，需要用上以下项目提供的域名/IP文件：</p>
+<ul>
+<li><a class="link" href="https://github.com/Loyalsoldier/v2ray-rules-dat#%e8%a7%84%e5%88%99%e6%96%87%e4%bb%b6%e4%b8%8b%e8%bd%bd%e5%8f%8a%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f"  target="_blank" rel="noopener"
+    >reject-list.txt 和 direct-list.txt</a></li>
+<li><a class="link" href="https://github.com/Hackl0us/GeoIP2-CN#-%e4%b8%8b%e8%bd%bd%e9%93%be%e6%8e%a5"  target="_blank" rel="noopener"
+    >CN-ip-cidr.txt</a></li>
+<li><a class="link" href="https://github.com/XIU2/CloudflareSpeedTest"  target="_blank" rel="noopener"
+    >cloudflare.txt</a>：由<code>ip.txt</code>和<code>ipv6.txt</code>合并而来</li>
+<li><a class="link" href="https://anti-ad.net/"  target="_blank" rel="noopener"
+    >ad-domains.txt</a>：下载<code>domains.txt</code>并改名</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Powered by luoboQAQ</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">log</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l">info</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 缓存插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">10240</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">lazy_cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">86400</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 将缓存保存在磁盘</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dump_file</span><span class="p">:</span><span class="w"> </span><span class="l">./cache.dump</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 转发至本地服务器的插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">forward_local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">forward</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">upstreams</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">alidns_doh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://223.5.5.5/dns-query&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">dnspod_doh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://120.53.53.53/dns-query&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 转发至远程服务器的插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">forward_remote</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">forward</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">upstreams</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">easymosdns</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://doh.apad.pro/dns-query&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">bootstrap</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;223.5.5.5&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">dns_sb</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://45.11.45.11/dns-query&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback 用本地服务器 sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 返回不包含本地 ip 则 reject</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">local_ip_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">resp_ip &amp;./data/CN-ip-cidr.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">accept</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback 用远程服务器 sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">remote_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_remote</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># CloudFlare劫持到优选IP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">resp_ip &amp;./data/cloudflare.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">black_hole 172.67.210.33</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">accept</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">fallback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">fallback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">primary</span><span class="p">:</span><span class="w"> </span><span class="l">local_ip_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">secondary</span><span class="p">:</span><span class="w"> </span><span class="l">remote_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">always_standby</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 主要运行逻辑插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qtype 65</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 去广告</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname &amp;./data/reject-list.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname &amp;./data/ad-domains.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3       </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">prefer_ipv4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">has_resp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">accept</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname &amp;./data/direct-list.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">has_resp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">accept</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$fallback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 启动 udp服务器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">udp_server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">listen</span><span class="p">:</span><span class="w"> </span><span class="m">127.0.0.1</span><span class="p">:</span><span class="m">53</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此配置文件参考了<a class="link" href="https://github.com/IrineSistiana/mosdns/discussions/562#discussioncomment-4676699"  target="_blank" rel="noopener"
+    >该回答</a></p>
 <h2 id="方案设计">方案设计</h2>
 <p>首先由AdGuardHome接受请求，判断是否为广告域名:</p>
 <ul>
@@ -867,7 +1082,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2023-02-08 12:30:00
+        </span>
+    </section></footer>
 
 
     

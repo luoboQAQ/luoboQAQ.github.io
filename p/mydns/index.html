@@ -10,7 +10,7 @@
 <meta property='og:description' content='使用mosdns&#43;AdGuardHome自建加密DNS'>
 <meta property='og:url' content='https://lbqaq.top/p/mydns/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='DoH' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2022-11-30T11:05:31&#43;08:00'/><meta property='article:modified_time' content='2023-02-08T12:30:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/mydns/100669875.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='DoH' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2022-11-30T11:05:31&#43;08:00'/><meta property='article:modified_time' content='2023-03-27T15:23:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/mydns/100669875.webp' />
 <meta name="twitter:title" content="自建DNS实现分流及广告过滤">
 <meta name="twitter:description" content="使用mosdns&#43;AdGuardHome自建加密DNS"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/mydns/100669875.webp' /><script async defer
@@ -570,7 +570,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_local</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">resp_ip &amp;./data/CN-ip-cidr.txt</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">accept</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">drop_resp</span><span class="w"> </span><span class="c"># v5.1.2 以后不能用 reject</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback 用远程服务器 sequence</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">remote_sequence</span><span class="w">
@@ -1092,7 +1092,7 @@
 
 
         <span>
-            最后更新于 2023-02-08 12:30:00
+            最后更新于 2023-03-27 15:23:00
         </span>
     </section></footer>
 

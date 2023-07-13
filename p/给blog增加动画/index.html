@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/'>
 
-<link rel="stylesheet" href="/scss/style.min.e1189d61e6bc5984cd9c8229a965c3a517d1277a54ff8f543cc482cb8a6bd4cf.css"><meta property='og:title' content='给Blog增加动画'>
+<link rel="stylesheet" href="/scss/style.min.3ee3a0025b7d6e3e76465f8e62fa8c088d0a9c85dddf4412e5c3b79f279dbcf7.css"><meta property='og:title' content='给Blog增加动画'>
 <meta property='og:description' content='利用CSS给Blog增加动画'>
 <meta property='og:url' content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSS' /><meta property='article:published_time' content='2021-02-01T13:55:05&#43;08:00'/><meta property='article:modified_time' content='2021-02-01T13:55:05&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/86589864.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='CSS' /><meta property='article:published_time' content='2021-02-01T13:55:05&#43;08:00'/><meta property='article:modified_time' content='2023-07-13T17:05:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/86589864.webp' />
 <meta name="twitter:title" content="给Blog增加动画">
 <meta name="twitter:description" content="利用CSS给Blog增加动画"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/%E7%BB%99blog%E5%A2%9E%E5%8A%A0%E5%8A%A8%E7%94%BB/86589864.webp' /><script async defer
@@ -294,6 +294,7 @@
             <nav id="TableOfContents">
   <ol>
     <li><a href="#准备工具">准备工具</a></li>
+    <li><a href="#23713更新">23.7.13更新</a></li>
     <li><a href="#相关代码">相关代码</a>
       <ol>
         <li><a href="#1头像转动">1.头像转动</a></li>
@@ -374,7 +375,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -398,6 +399,210 @@
 <p>这里一定要下扩展版，因为我使用的主题都是利用scss来生成css的，如果用普通版是无法利用scss生成对应的css的。之前不知道下的是普通版，结果怎么改scss都没有效果，浪费了很多时间😥。</p>
 </li>
 </ul>
+<h2 id="23713更新">23.7.13更新</h2>
+<p>现在优化了主题的编写方式，不需要修改原始的主题文件，降低了代码耦合😉。</p>
+<p>只需要在<code>HUGO_SITE_FOLDER/assets/scss/custom.scss</code>文件里填写下面的内容就好了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-scss" data-lang="scss"><span class="line"><span class="cl"><span class="nd">:root</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="na">--article-background</span><span class="o">:</span> <span class="mh">#f0f8ff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="o">[</span><span class="nt">data-scheme</span><span class="o">=</span><span class="s2">&#34;dark&#34;</span><span class="o">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">--article-background</span><span class="o">:</span> <span class="mh">#292d30</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 文章列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nc">.article-list--compact</span> <span class="nt">article</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//增加动画
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="na">transition</span><span class="o">:</span> <span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">transform</span><span class="o">:</span> <span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.02</span><span class="o">,</span> <span class="mi">1</span><span class="mf">.02</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="na">background</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">article-background</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nc">.article-image</span> <span class="nt">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 变成长方形
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="na">width</span><span class="o">:</span> <span class="nf">calc</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="ni">image</span><span class="o">-</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">/</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 增加圆角
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="na">border-radius</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">card-border-radius</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//头像
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nc">.sidebar</span> <span class="nt">header</span> <span class="nc">.site-avatar</span> <span class="nc">.site-logo</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="na">transition</span><span class="o">:</span> <span class="ni">all</span> <span class="mi">1</span><span class="mf">.75</span><span class="kt">s</span> <span class="ni">ease-out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">transform</span><span class="o">:</span> <span class="nf">rotate</span><span class="p">(</span><span class="mi">360</span><span class="kt">deg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//菜单栏
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nc">.menu</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//把auto改为visible，为了图标放大溢出时不显示滚动条
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="na">overflow-y</span><span class="o">:</span> <span class="ni">visible</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">li</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">transition</span><span class="o">:</span> <span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="na">transform</span><span class="o">:</span> <span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.1</span><span class="o">,</span> <span class="mi">1</span><span class="mf">.1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//文章头图
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nc">.article-list</span> <span class="nt">article</span> <span class="nc">.article-image</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//避免出现滚动条
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="na">overflow</span><span class="o">:</span> <span class="ni">hidden</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//设置图片缩放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="na">transition</span><span class="o">:</span> <span class="ni">all</span> <span class="mf">.5</span><span class="kt">s</span> <span class="ni">ease</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">&amp;</span><span class="nd">:hover</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="na">transform</span><span class="o">:</span> <span class="nf">scale</span><span class="p">(</span><span class="mi">1</span><span class="mf">.2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">@include</span><span class="nd"> respond</span><span class="p">(</span><span class="n">xl</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//加大图片高度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="na">height</span><span class="o">:</span> <span class="mi">385</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//友情链接三栏 (From https://blog.linsnow.cn/p/join-hugo-and-stack/)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">@media</span> <span class="p">(</span><span class="na">min-width</span><span class="o">:</span> <span class="mi">1024</span><span class="kt">px</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">.article-list--compact.links</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="na">display</span><span class="o">:</span> <span class="ni">grid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">grid-template-columns</span><span class="o">:</span> <span class="mi">1</span><span class="kt">fr</span> <span class="mi">1</span><span class="kt">fr</span> <span class="mi">1</span><span class="kt">fr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">background</span><span class="o">:</span> <span class="ni">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">box-shadow</span><span class="o">:</span> <span class="ni">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">gap</span><span class="o">:</span> <span class="mi">1</span><span class="kt">rem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nt">article</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="na">background</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">card-background</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="na">border</span><span class="o">:</span> <span class="ni">none</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">box-shadow</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">shadow-l2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="na">margin-bottom</span><span class="o">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="na">border-radius</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">card-border-radius</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">&amp;</span><span class="nd">:nth-child</span><span class="o">(</span><span class="nt">odd</span><span class="o">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="na">margin-right</span><span class="o">:</span> <span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nc">.article-image</span> <span class="nt">img</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// 恢复成正方形
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="na">width</span><span class="o">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="ni">image</span><span class="o">-</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同时增加了一些特效，这里就不展开说了🕊️</p>
 <h2 id="相关代码">相关代码</h2>
 <h3 id="1头像转动">1.头像转动</h3>
 <p>在<code>themes/hugo-theme-stack/assets/scss/partials/sidebar.scss</code>中增加以下代码：</p>
@@ -528,7 +733,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2023-07-13 17:05:00
+        </span>
+    </section></footer>
 
 
     

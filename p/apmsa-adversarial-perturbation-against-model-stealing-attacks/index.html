@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记'>
+<title>APMSA: Adversarial Perturbation Against Model Stealing Attacks</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/'>
+
+<link rel="stylesheet" href="/scss/style.min.0bafc143832d98f67b2084d1ba78526974288d7a01fd644af47ee0cbb0c301c2.css"><meta property='og:title' content='APMSA: Adversarial Perturbation Against Model Stealing Attacks'>
+<meta property='og:description' content='《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记'>
+<meta property='og:url' content='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='模型提取攻击' /><meta property='article:tag' content='对抗性防御' /><meta property='article:tag' content='论文笔记' /><meta property='article:published_time' content='2023-07-20T14:57:05&#43;08:00'/><meta property='article:modified_time' content='2023-07-20T14:57:05&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp' />
+<meta name="twitter:title" content="APMSA: Adversarial Perturbation Against Model Stealing Attacks">
+<meta name="twitter:description" content="《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp' /><script async defer
+    data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55"
+    data-cache="true"
+    src="https://umami.lbqaq.top/bpnwxrgz.js">
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lbqaq.top/index.xml'
+                        target="_blank"
+                        title="RSS订阅"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://pan.lbqaq.top'
+                        target="_blank"
+                        title="我的个人云盘"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#介绍">介绍</a>
+      <ol>
+        <li><a href="#mlaas">MLaaS</a></li>
+        <li><a href="#相关研究">相关研究</a></li>
+        <li><a href="#贡献">贡献</a></li>
+      </ol>
+    </li>
+    <li><a href="#问题构造">问题构造</a>
+      <ol>
+        <li><a href="#威胁模型">威胁模型</a></li>
+        <li><a href="#apmsa的概述">APMSA的概述</a></li>
+        <li><a href="#apmsa的实现">APMSA的实现</a></li>
+      </ol>
+    </li>
+    <li><a href="#实验评价">实验评价</a>
+      <ol>
+        <li><a href="#模型提取攻击评估">模型提取攻击评估</a></li>
+        <li><a href="#防御验证">防御验证</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/">
+                <img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp"
+                        
+                        width="1778" 
+                        height="1000" 
+                        loading="lazy"
+                        alt="Featured image of post APMSA: Adversarial Perturbation Against Model Stealing Attacks" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/">APMSA: Adversarial Perturbation Against Model Stealing Attacks</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2023-07-20</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 9 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="介绍">介绍</h2>
+<p>在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。</p>
+<h3 id="mlaas">MLaaS</h3>
+<p>顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。</p>
+<p>然而，MLaaS却容易受到模型提取攻击的影响。如下图所示，虽然模型托管在安全的云服务中，客户通过基于云的API进行查询。但是，攻击者可以基于预测输出来训练具有目标私有模型类似功能的替代模型。用户可以通过访问替代模型而无需向模型提供者付费，从而破坏了其商业价值。此外，攻击者还可以利用替代模型来制作优秀的可转移对抗性示例，从而有效地欺骗原始模型做出错误的预测，构成严重的安全威胁。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260.png"
+	width="1032"
+	height="497"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu0362751c4d302e9fcca3346a929f7abe_61747_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu0362751c4d302e9fcca3346a929f7abe_61747_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="模型提取攻击流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<p>作者提出了APMSA来防御模型提取攻击。当攻击者窃取服务器中部署的 &ldquo;model under attack&rdquo; (MUA) 时，通过发散给定特定类别的特征空间中查询样本的置信向量距离，就会泄露足够的MUA内部信息，有利于替代模型的训练。对此，作者在MUA 之前将微妙的噪声注入每个传入的输入查询中，以限制其置信向量的多样性。</p>
+<h3 id="相关研究">相关研究</h3>
+<p>目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270.png"
+	width="2143"
+	height="1005"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu8fc7fab5d797b2dfb602fabf89436b30_206036_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu8fc7fab5d797b2dfb602fabf89436b30_206036_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="相关文章"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="511px"
+	
+></p>
+<ul>
+<li>Model extraction warning in MLaaS paradigm</li>
+<li>PRADA: Protecting against DNN model stealing attacks</li>
+<li>Defending against model stealing attacks with adaptive misinformation</li>
+<li>Defending against neural network model stealing attacks using deceptive perturbations</li>
+<li>BODAME: Bilevel optimization for defense against model extraction</li>
+<li>Prediction poisoning: Towards defenses against DNN model stealing attacks</li>
+<li>Model stealing defense with hybrid fuzzy models: Work-in-progress</li>
+</ul>
+<p>与现有的直接置信扰动技术相比，APMSA不仅保留了MUA的可用性，还保留了MUA的实用性。与其他主动防御相比，APMSA可以简单地在MUA之前插入，而无需对MUA本身进行任何修改，因此它是通用的，易于部署的。</p>
+<h3 id="贡献">贡献</h3>
+<ul>
+<li>通过建设性地最小化对训练替代模型至关重要的发散置信度信息来禁用被盗模型的可用功能。</li>
+<li>通过形式化的优化实现了置信向量对 MUA 决策边界的限制。</li>
+<li>APMSA不会对具有硬标签推理的普通用户造成效用损失</li>
+</ul>
+<h2 id="问题构造">问题构造</h2>
+<h3 id="威胁模型">威胁模型</h3>
+<p>假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990.png"
+	width="1035"
+	height="940"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_huf0d9651fdb80f5ea3ff6c957e9147bf0_134413_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_huf0d9651fdb80f5ea3ff6c957e9147bf0_134413_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="基于迁移学习的模型提取攻击"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="264px"
+	
+></p>
+<p>攻击者只能通过 API 与模型交互，查询次数受预算限制。但是，他们可以自由选择任何样本进行查询（即未标记的公共数据集$X_{pub}$）。因此，攻击者完全了解输入（即样本类型）和输出（即标签集）的特征。但是，攻击者只能观察返回的预测置信向量，而不能观察模型架构和梯度信息。</p>
+<p>攻击者旨在获得与私有模型$f$具有相似功能的替代模型$f&rsquo;$。替代模型$f&rsquo;$在公共数据集 $\mathbf{S}\subseteq\mathbf{X}_{pub}$ 的子集上进行训练：</p>
+<p>$$f^{\prime}\approx\arg\min\mathcal{L}\left(\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in\mathbf{S}\},f^{\prime}(\mathbf{x})\right)$$</p>
+<p>防御者旨在将噪声注入每个查询的输入中，以间接干扰模型返回的预测。APMSA有两个主要目标。一方面，保留了模型的精度，即不使用APMSA时的精度应与原始精度相同。另一方面，被盗模型的准确性在很大程度上被破坏，使攻击者的免费私人查询不再有效。作者将使用 APMSA 前后模型准确性的下降程度作为指标。</p>
+<h3 id="apmsa的概述">APMSA的概述</h3>
+<p>APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552.png"
+	width="1036"
+	height="381"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu7c73f3650b2b99bcea0c0e6f0f28678f_62375_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu7c73f3650b2b99bcea0c0e6f0f28678f_62375_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="APMSA的流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="652px"
+	
+></p>
+<p>上图是APMSA的流程。当向API查询输入时，APMSA不直接将该输入馈送到模型并返回置信向量。 相反，APMSA通过将对抗性噪声扰动注入到输入中来将该输入转换为对抗性输入。模型最终返回的是变换后的对抗性输入相对应的置信度向量。从攻击者的角度来看，其输入与返回的置信向量之间的关系映射已经被混淆。并且将给定类别样本的置信度向量约束在一个小的区域内，从而大大减少了泄漏信息，便于其替代模型的训练。同时，由于APMSA不会修改输入的硬标签，所以对于普通用户来说性能几乎没有损失。值得注意的是，APMSA是作为插件使用，不需要修改模型。</p>
+<h3 id="apmsa的实现">APMSA的实现</h3>
+<p>作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）</p>
+<p>也就是说如果输出都堆在一起，就可以混淆输入和输出之间的关系，并且可以更好地保护模型的隐私。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739.png"
+	width="1036"
+	height="384"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hueb2fe60bce377c09caa04537c86e6f22_23232_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hueb2fe60bce377c09caa04537c86e6f22_23232_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="举例"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="647px"
+	
+></p>
+<p>作者随后介绍了APMSA的详细原理。同样是以二分类的模型为例，$f$是原模型，$f&rsquo;$是攻击者得到的替代模型。其中，攻击者利用查询$x$来获得预测$y=f(x)$，其中$y=\{y_1,y_2\}$，攻击者使用$(x,y)$来训练替代模型。APMSA则是通过将向输入空间中的$x$添加对抗性噪声来将样本$x$变为混淆样本$x_c$。这里应用了制作对抗性样本$x&rsquo;$的技术。与$x&rsquo;$不同的是，$x_c$的硬标签与APMSA中的$x$的硬标签相同。这样，攻击者通过$\{x,y_c=f(x_c)\}$训练出来的模型$f&rsquo;$决策边界就会导致$x_t$被误分类，从而防止模型窃取攻击。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663.png"
+	width="994"
+	height="474"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_huae6a3b84964344733eea882e554a5119_42505_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_huae6a3b84964344733eea882e554a5119_42505_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="APMSA工作流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="503px"
+	
+></p>
+<p>与传入的查询输入$x$相比，经变换的对抗输入$x_c$接近决策边界。作者将其转化成了一个优化问题：</p>
+<ul>
+<li>混淆的输入$x&rsquo;$与其对应的对抗示例$x_c$在特征空间中相似，但$x_c$的硬标签与原始输入$x$的类别相同</li>
+<li>混淆输入$x_c$和原始输入$x$的置信向量之间的间隙应尽可能小</li>
+</ul>
+<p>将其公式化表示为：</p>
+<p>$$\begin{aligned}\mathcal{L}_1&amp;=J\left(\mathbf{x}_c\right)=J(\mathbf{x}+\delta)\\&amp;=\min_\delta\max\left(Z(\mathbf{x}+\delta)_s-Z(\mathbf{x}+\delta)_t,0\right)\end{aligned}$$</p>
+<p>其中$Z(x_c)_t$表示目标类别$t$的对数值，$Z(x_c)_s$表示原类别$s$。</p>
+<p>如果使$Z(x_c)_s-Z(x_c)_t$变小，就表明指定类别的对数值和源类别之间的差距越来越大，则混淆输入$x_t$更接近目标类别的对抗样本。作者提出了新的约束来提高优化速度。</p>
+<p>$$\begin{cases}\mathcal{L}_2=Clip_{(0,\infty)}\left(\max\left\{Z(\mathbf{x}+\delta)_i:i\neq t,o\right\}-Z(\mathbf{x}+\delta)_t\right)\\
+\mathcal{L}_3=Clip_{(0,\infty)}\left(\max\left\{Z(\mathbf{x}+\delta)_i:i\neq t,s\right\}-Z(\mathbf{x}+\delta)_s\right)\end{cases}$$</p>
+<p>其中$Clip(·)$表示范围约束。</p>
+<p>为了确保 APMSA 不会影响模型的性能（即标签不会更改），优化目标是：</p>
+<p>$$\begin{aligned}
+\mathcal{L}_{4}&amp; =\text{distance }(\mathbf{y},\mathbf{y}_c)=\min_\delta|\mathbf{y}-\mathbf{y}_c|  \\
+&amp;=\min_\delta|f(\mathbf{x})-f(\mathbf{x}+\delta)|
+\end{aligned}$$</p>
+<p>这是为了测量扰动输入前后的置信差，以减轻APMSA对模型效用对普通用户的影响。综上，可以得到优化函数：</p>
+<p>$$\begin{aligned}\mathcal{L}&amp;=\mathcal{L}_1+c_1\cdot\mathcal{L}_2+\mathcal{L}_3+c_2\cdot\mathcal{L}_4\\&amp;=\min_\delta J(\mathbf{x}+\delta)+c_1\cdot\mathcal{L}_2+\mathcal{L}_3+c_2\cdot|f\left(\mathbf{x}\right)-f\left(\mathbf{x}+\delta\right)|\end{aligned}$$</p>
+<p>其中超参数$c_1$和$c_2$用于正则化损失函数，在实验中根据经验分别设置为2和0.01。 优化过程不是要找到对抗性样例，而是要识别以正确保存类别为条件的接近其对应对抗性样例的混淆输入$x_c$。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558.png"
+	width="1032"
+	height="409"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_huf8681d4f3861ab147276e7729f245f68_120535_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_huf8681d4f3861ab147276e7729f245f68_120535_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="输入混淆机制"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="605px"
+	
+></p>
+<p>APMSA的具体过程如下：</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502.png"
+	width="1051"
+	height="1354"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu2d236e86f00164f41f9beaf187419437_170528_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu2d236e86f00164f41f9beaf187419437_170528_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="APMSA算法流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="77"
+		data-flex-basis="186px"
+	
+></p>
+<h2 id="实验评价">实验评价</h2>
+<p><strong>数据集：</strong></p>
+<ul>
+<li>CIFAR10</li>
+<li>GTSRB</li>
+</ul>
+<p><strong>评估指标：</strong></p>
+<ul>
+<li>Top-1 精度</li>
+</ul>
+<h3 id="模型提取攻击评估">模型提取攻击评估</h3>
+<p>选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587.png"
+	width="1055"
+	height="319"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu634dca672990e48255c51a03366bdf8d_49113_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu634dca672990e48255c51a03366bdf8d_49113_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="STL10数据集"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="330"
+		data-flex-basis="793px"
+	
+></p>
+<p>使用CIFAR-10数据集训练了一个基于ResNet-18的模型，准确率为91.94%，并在不应用防御的情况下部署。 对于初始替代模型，作者选择了在ImageNet上预训练的VGG 16模型，并使用STL 10数据集作为公共查询样本。</p>
+<p>放宽限制，将查询样本设置为 CIFAR10 测试集的一小部分进行查询。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726.png"
+	width="1040"
+	height="320"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu207d7bb9ad3cd33d86951a3fd0594179_49494_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu207d7bb9ad3cd33d86951a3fd0594179_49494_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="CIFAR-10数据集"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="325"
+		data-flex-basis="780px"
+	
+></p>
+<p>使用GTSRB数据集训练了一个基于ResNet-18的MUA模型，准确率为95.40%，并在不应用防御的情况下部署。 对于初始替代模型，选择了在ImageNet上预训练的VGG 16模型。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827.png"
+	width="1021"
+	height="319"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_huffff6f4afce68464d59e65aa6195868d_49051_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_huffff6f4afce68464d59e65aa6195868d_49051_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="GTSRB数据集"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="768px"
+	
+></p>
+<p>上述案例表明：</p>
+<ul>
+<li>查询样本的选择会影响模型窃取攻击的效率。具体来说，更接近目标域数据分布的查询样本始终有利于攻击。</li>
+<li>基于决策边界的样本合成技术（即通过PGD、CW）可以提供比随机查询更有用的信息。</li>
+<li>随着查询预算的增加，基于决策边界的样本生成并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集过于接近，基于决策边界的样本结构提供的信息量相对有限。</li>
+<li>当样本数量较少时，基于迁移学习的模型窃取攻击可提高攻击效果。原因是样本越少，冗余信息越少。然而，由于获得的信息相似，更多的查询样本可能会导致信息冗余，这不会为促进攻击提供更多有用的信息。</li>
+</ul>
+<p>作者进一步评估攻击者选择的不同替代模型架构对攻击效果的影响。替代模型的性能受所选模型架构的影响。如图所示，VGG16始终表现出优于CIFAR10其他模型的攻击性能。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459.png"
+	width="999"
+	height="759"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu747c08fad7a2520aa451668446a58cb7_77081_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu747c08fad7a2520aa451668446a58cb7_77081_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="CIFAR10实验结果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="131"
+		data-flex-basis="315px"
+	
+></p>
+<p>同样，在在GTSRB数据集上评估时，ResNet50表现出最好的攻击效果，略好于VGG16，使用AlexNet的性能最差。这表明选择合适的替代模型可以降低攻击成本。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767.png"
+	width="991"
+	height="395"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu77230aa17bc78e64fd983faf5e7b9166_60461_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu77230aa17bc78e64fd983faf5e7b9166_60461_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="GTSRB数据集结果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="250"
+		data-flex-basis="602px"
+	
+></p>
+<p>综上，查询样本的选择会影响模型窃取攻击的效率和替代模型的准确性。具体来说，攻击最好选择类似于目标域的数据分布的公共查询样本。</p>
+<p>此外，基于决策边界的样本合成技术（PGD、CW等）可以提供比随机查询更有用的信息。但是，随着查询次数的增加，基于决策边界的样本并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集太接近。</p>
+<h3 id="防御验证">防御验证</h3>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png"
+	width="968"
+	height="758"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu2c45c11a6ef1b2e31c5f24fda6657642_75676_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu2c45c11a6ef1b2e31c5f24fda6657642_75676_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="验证APMSA"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="306px"
+	
+></p>
+<p>使用APMSA后，替代模型的准确率甚至低于基准，表明防御减少了模型预测引起的模型内部信息泄露。</p>
+<p>APMSA的关键见解是，通过将输入映射到特征空间的小尺度区域，可以尽可能减少输入输出对携带的信息泄漏，甚至在很大程度上产生误导性信息。为了可视化这一关键见解，作者使用 t-SNE 和归一化操作来减少用于可视化的混淆输入的维度。</p>
+<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175.png"
+	width="984"
+	height="721"
+	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu0fb14b340dd978ef4804e94f1f5217d4_348947_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu0fb14b340dd978ef4804e94f1f5217d4_348947_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="t-SNE结果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="327px"
+	
+></p>
+<p>CIFAR10 数据集上的混淆输入和查询样本之间存在明显的分离——每个混淆输入都是从传入的查询样本中找到的。在将原始查询样本与混淆输出相关联时，通过干扰模型预测中泄露的信息，以减少模型窃取攻击的影响。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%A8%A1%E5%9E%8B%E6%8F%90%E5%8F%96%E6%94%BB%E5%87%BB/">模型提取攻击</a>
+        
+            <a href="/tags/%E5%AF%B9%E6%8A%97%E6%80%A7%E9%98%B2%E5%BE%A1/">对抗性防御</a>
+        
+            <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/">论文笔记</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

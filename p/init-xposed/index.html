@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录第一次编写Xposed模块的步骤'>
+<title>从零开始编写Xposed模块</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/init-xposed/'>
+
+<link rel="stylesheet" href="/scss/style.min.9f94a05ab1f5b78da423420e3248a57a2a71aa86140966662267bc0d04c4931f.css"><meta property='og:title' content='从零开始编写Xposed模块'>
+<meta property='og:description' content='记录第一次编写Xposed模块的步骤'>
+<meta property='og:url' content='https://lbqaq.top/p/init-xposed/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Xposed' /><meta property='article:tag' content='安卓' /><meta property='article:published_time' content='2023-07-21T14:22:44&#43;08:00'/><meta property='article:modified_time' content='2023-07-21T14:22:44&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/init-xposed/109457609.webp' />
+<meta name="twitter:title" content="从零开始编写Xposed模块">
+<meta name="twitter:description" content="记录第一次编写Xposed模块的步骤"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/init-xposed/109457609.webp' /><script async defer
+    data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55"
+    data-cache="true"
+    src="https://umami.lbqaq.top/bpnwxrgz.js">
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lbqaq.top/index.xml'
+                        target="_blank"
+                        title="RSS订阅"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://pan.lbqaq.top'
+                        target="_blank"
+                        title="我的个人云盘"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#xposed的基本概念">Xposed的基本概念</a></li>
+    <li><a href="#环境准备">环境准备</a></li>
+    <li><a href="#准备工作">准备工作</a>
+      <ol>
+        <li><a href="#创建项目引入依赖">创建项目&amp;引入依赖</a></li>
+        <li><a href="#声明模块">声明模块</a></li>
+      </ol>
+    </li>
+    <li><a href="#模块编写">模块编写</a>
+      <ol>
+        <li><a href="#mainhook">MainHook</a></li>
+        <li><a href="#阻止应用启动">阻止应用启动</a></li>
+        <li><a href="#遍历所有类下的所有方法">遍历所有类下的所有方法</a></li>
+        <li><a href="#hook-activity">Hook activity</a></li>
+        <li><a href="#修改内部参数">修改内部参数</a></li>
+      </ol>
+    </li>
+    <li><a href="#结语">结语</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/init-xposed/">
+                <img src="/p/init-xposed/109457609.webp"
+                        
+                        width="1920" 
+                        height="1280" 
+                        loading="lazy"
+                        alt="Featured image of post 从零开始编写Xposed模块" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/init-xposed/">从零开始编写Xposed模块</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            记录第一次编写Xposed模块的步骤
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2023-07-21</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 11 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>之前写过一篇关于<a class="link" href="https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/"  target="_blank" rel="noopener"
+    >Magisk模块</a>的编写的文章，不过Magisk修改的都是比较偏系统的，一般情况下用的并不是很多。于是我便把目光转向Xposed，毕竟会Hook真的太酷辣😎</p>
+<h2 id="xposed的基本概念">Xposed的基本概念</h2>
+<p>提到Xposed，爱玩机的用户都应该听过他的大名，作为一款可以在不修改APK的情况下影响程序运行的框架，可以基于它可以制作出许多功能强大的模块，且在功能不冲突的情况下同时运作。微信防撤回、步数修改、去广告、美化&hellip;&hellip;.他能实现许许多多的功能，可以说没有它玩机的世界将会少很多的乐趣。</p>
+<p>它的原理就是通过替换系统原本的<code>app_process</code>，加载一个额外的jar包，从而实现对zygote进程及其创建的Dalvik/ART虚拟机的劫持。</p>
+<p>没听懂？没关系，<del>我也不懂</del>。目前我们只要关注如何使用即可了，至于原理可以先放一放。</p>
+<h2 id="环境准备">环境准备</h2>
+<p>在开始之前，我们需要：</p>
+<ul>
+<li>一台可以安装Xposed框架的手机（推荐LSPosed、Android 10+）</li>
+<li>一台可以编写代码并且装有jdk的电脑</li>
+<li>一个名叫<a class="link" href="https://developer.android.com/studio"  target="_blank" rel="noopener"
+    >Android Studio</a>的软件（我主打一个叛逆，用<a class="link" href="https://www.jetbrains.com/zh-cn/idea/download/"  target="_blank" rel="noopener"
+    >IDEA</a>同样可以）</li>
+<li>一个反编译软件，如：<a class="link" href="https://github.com/skylot/jadx"  target="_blank" rel="noopener"
+    >JADX</a></li>
+<li>一个可以查看布局的App，如：开发者助手</li>
+</ul>
+<p>这次我打算从一个实例出发：小明手机上装了一些恶意软件，我们需要通过Xposed进行Hook，不让小明启动这些软件。</p>
+<h2 id="准备工作">准备工作</h2>
+<h3 id="创建项目引入依赖">创建项目&amp;引入依赖</h3>
+<p>首先在IDEA选择新建项目，可以看到生成器下有Android这项，我们选择它。</p>
+<p>第一次选择时可能会要求你下载安卓的SDK，按照指示一步一步进行就好。</p>
+<p>我们选择创建一个<code>No Activity</code>，语言选择<code>Java</code>，SDK选默认的<code>API 24</code>就可。</p>
+<p>然后，我们需要引入Xposed的库，不过它并没有上传到MavenCentral上，所以我们需要在<code>settings.gradle</code>里修改一下(gradle 7.0+)</p>
+<p>打开<code>settings.gradle</code>，添加一行代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gradle" data-lang="gradle"><span class="line"><span class="cl"><span class="n">dependencyResolutionManagement</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">repositoriesMode</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">RepositoriesMode</span><span class="o">.</span><span class="na">FAIL_ON_PROJECT_REPOS</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">google</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mavenCentral</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s1">&#39;https://api.xposed.info/&#39;</span> <span class="o">}</span>  <span class="c1">// 添加这一行即可
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之后，进入我们app目录下的build.gradle，引入xposed的依赖</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gradle" data-lang="gradle"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compileOnly</span> <span class="s1">&#39;de.robv.android.xposed:api:82&#39;</span> <span class="c1">//添加我
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// compileOnly &#39;de.robv.android.xposed:api:82:sources&#39; // 不要导入源码，这会导致idea无法索引文件，从而让语法提示失效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们还要在<code>./app/src/main/res/values</code>目录下创建<code>arrays.xml</code>，填入下面的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;resources&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;string-array</span> <span class="na">name=</span><span class="s">&#34;xposedscope&#34;</span> <span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 这里填写模块的作用域应用的包名，可以填多个。 --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;item&gt;</span>ceui.lisa.pixiv<span class="nt">&lt;/item&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;item&gt;</span>com.xjs.ehviewer<span class="nt">&lt;/item&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;item&gt;</span>com.picacomic.fregata<span class="nt">&lt;/item&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/string-array&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/resources&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这一步主要是指定模块的作用域包名，效果就是在Lsposed中勾选作用域时会在应用下提示推荐应用。</p>
+<p><img src="/p/init-xposed/IMAGE/1.jpg"
+	width="864"
+	height="956"
+	srcset="/p/init-xposed/IMAGE/1_hu826d12cb66fdd7982acd54417450cd18_68922_480x0_resize_q75_box.jpg 480w, /p/init-xposed/IMAGE/1_hu826d12cb66fdd7982acd54417450cd18_68922_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="推荐应用效果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="90"
+		data-flex-basis="216px"
+	
+></p>
+<p>最后，我们在Run那里编辑一下启动配置，勾选<code>Always install with package manager</code>并且将<code>Launch Options</code>改成<code>Nothing</code></p>
+<h3 id="声明模块">声明模块</h3>
+<p>接下来就是要声明我们是一个Xposed模块，方便框架发现。</p>
+<p>在<code>./app/src/main/AndroidManifest.xml</code>里，我们将<code>&lt;application ... /&gt;</code>改成以下形式（注意，是改成！就是把结尾的<code>/&gt;</code>换成<code>&gt; &lt;/application&gt;</code>）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;application</span> <span class="err">...</span> <span class="nt">&gt;</span> 
+</span></span><span class="line"><span class="cl">		<span class="c">&lt;!-- 是否是xposed模块，xposed根据这个来判断是否是模块 --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta-data</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:name=</span><span class="s">&#34;xposedmodule&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:value=</span><span class="s">&#34;true&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 模块描述，显示在xposed模块列表那里第二行 --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta-data</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:name=</span><span class="s">&#34;xposeddescription&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:value=</span><span class="s">&#34;不可以涩涩&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 最低xposed版本号(lib文件名可知,一般填54即可) --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta-data</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:name=</span><span class="s">&#34;xposedminversion&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:value=</span><span class="s">&#34;54&#34;</span> <span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c">&lt;!-- 模块作用域 --&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta-data</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:name=</span><span class="s">&#34;xposedscope&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="na">android:resource=</span><span class="s">&#34;@array/xposedscope&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/application&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后在<code>src/main</code>目录下创建一个文件夹名叫<code>assets</code>，并且创建一个文件叫<code>xposed_init</code>，<strong>注意，它没有后缀名！！</strong>。</p>
+<p>接着我们需要创建一个入口类，名叫<code>MainHook</code>（或者随便你想取什么名字都行），创建好后回到我们的<code>xposed_init</code>里并用文本文件的方式打开它，输入我们刚刚创建的类的完整路径。如：<code>top.lbqaq.nosese.MainHook</code>，同时<strong>注意大小写</strong>。</p>
+<p>完成以上步骤后，我们就可以正式开始编写Xposed模块了。</p>
+<h2 id="模块编写">模块编写</h2>
+<h3 id="mainhook">MainHook</h3>
+<p>在<code>MainHook</code>里，我们需要实现Xposed的IXposedHookLoadPackage接口，以便执行Hook操作。将以下内容替换原来的类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">de.robv.android.xposed.IXposedHookLoadPackage</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">de.robv.android.xposed.callbacks.XC_LoadPackage</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainHook</span> <span class="kd">implements</span> <span class="n">IXposedHookLoadPackage</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleLoadPackage</span><span class="o">(</span><span class="n">XC_LoadPackage</span><span class="o">.</span><span class="na">LoadPackageParam</span> <span class="n">lpparam</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 过滤不必要的应用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="o">(!</span><span class="n">lpparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;ceui.lisa.pixiv&#34;</span><span class="o">))</span> <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 执行Hook
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">hook</span><span class="o">(</span><span class="n">lpparam</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">hook</span><span class="o">(</span><span class="n">XC_LoadPackage</span><span class="o">.</span><span class="na">LoadPackageParam</span> <span class="n">lpparam</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 具体流程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>到这里，我们的准备工作已经完成，安装模块并在框架中激活它！</p>
+<h3 id="阻止应用启动">阻止应用启动</h3>
+<p>接下来，我们需要反编译程序来找到需要Hook的点。根据实例的要求，我们需要阻止小明启动某些应用。那么，我们只需要Hook启动函数，让其无法运行即可。</p>
+<p>在此之前，我们要先了解Android的四大组件之一——&ldquo;Activity(活动)&rdquo;</p>
+<blockquote>
+<p>在应用中的一个Activity可以用来表示一个界面，意思可以理解为“活动”，即一个活动开始，代表  Activity组件启动，活动结束，代表一个Activity的生命周期结束。一个Android应用必须通过Activity来运行和启动，Activity的生命周期交给系统统一管理。</p>
+</blockquote>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onCreate()</td>
+<td>一个Activity启动后第一个被调用的函数，常用来在此方法中进行Activity的一些初始化操作。例如创建View，绑定数据，注册监听，加载参数等。</td>
+</tr>
+<tr>
+<td>onStart()</td>
+<td>当Activity显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
+</tr>
+<tr>
+<td>onResume()</td>
+<td>这个方法在onStart()之后调用，也就是在Activity准备好与用户进行交互的时候调用，此时的Activity一定位于Activity栈顶，处于运行状态。</td>
+</tr>
+<tr>
+<td>onPause()</td>
+<td>这个方法是在系统准备去启动或者恢复另外一个Activity的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
+</tr>
+<tr>
+<td>onStop()</td>
+<td>这个方法是在Activity完全不可见的时候调用的。</td>
+</tr>
+<tr>
+<td>onDestroy()</td>
+<td>这个方法在Activity销毁之前调用，之后Activity的状态为销毁状态。</td>
+</tr>
+<tr>
+<td>onRestart()</td>
+<td>当Activity从停止stop状态恢进入start状态时调用状态。</td>
+</tr>
+</tbody>
+</table></div>
+<p>当 Activity 进入新状态时，系统会调用其中每个回调。</p>
+<p><img src="/p/init-xposed/IMAGE/activity_lifecycle.png"
+	width="513"
+	height="663"
+	srcset="/p/init-xposed/IMAGE/activity_lifecycle_hubaedecba2d19bfc07f2ccbd3037d2abc_45666_480x0_resize_box_3.png 480w, /p/init-xposed/IMAGE/activity_lifecycle_hubaedecba2d19bfc07f2ccbd3037d2abc_45666_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="Activity生命周期"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="77"
+		data-flex-basis="185px"
+	
+></p>
+<p>那么，我们的思路就很明确了：只要找到这些程序的起始Activity，并Hook它的<code>onCreate()</code>函数，在其启动时就将其杀死，这样能实现无法启动该程序。</p>
+<p>我们使用开发者助手，选择布局查看，然后打开目标应用。可以看到，它显示了当前的包名和当前Activity。</p>
+<p><img src="/p/init-xposed/IMAGE/2.jpg"
+	width="432"
+	height="960"
+	srcset="/p/init-xposed/IMAGE/2_hu24671cd304f55338e50d6c23b390339b_16068_480x0_resize_q75_box.jpg 480w, /p/init-xposed/IMAGE/2_hu24671cd304f55338e50d6c23b390339b_16068_1024x0_resize_q75_box.jpg 1024w"
+	loading="lazy"
+	
+		alt="布局查看"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="45"
+		data-flex-basis="108px"
+	
+></p>
+<p>接下来，我们使用jadx-gui，反编译该应用，找到该Activity(<code>ceui.lisa.activities.MainActivity</code>)，并寻找是否有<code>onCreate()</code>函数，如果存在直接Hook即可。</p>
+<p><img src="/p/init-xposed/IMAGE/image-20230721100655336.png"
+	width="1790"
+	height="1004"
+	srcset="/p/init-xposed/IMAGE/image-20230721100655336_huda747ad6cc053689c5a693c015cbb452_273707_480x0_resize_box_3.png 480w, /p/init-xposed/IMAGE/image-20230721100655336_huda747ad6cc053689c5a693c015cbb452_273707_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="jadx-gui反编译"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="427px"
+	
+></p>
+<p>然而，这个程序居然没有😥，说明它没有重写该方法，那该如何做呢？这时就可以用第二种方法了。</p>
+<h3 id="遍历所有类下的所有方法">遍历所有类下的所有方法</h3>
+<p>从标题就能看出来，我直接把你所有能Hook的方法全部读出来，那不就随便我挑了嘛。</p>
+<p>我们知道，Java程序都运行在jvm虚拟机中，jvm虚拟机通过ClassLoader动态装载所需的class。那么，我们直接Hook ClassLoader ，不就知道你有哪些方法被加载进来了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">hook</span><span class="o">(</span><span class="n">XC_LoadPackage</span><span class="o">.</span><span class="na">LoadPackageParam</span> <span class="n">lpparam</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="n">ClassLoader</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&#34;loadClass&#34;</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kd">super</span><span class="o">.</span><span class="na">afterHookedMethod</span><span class="o">(</span><span class="n">param</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">String</span> <span class="n">clazzName</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//排除非包名的类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">clazzName</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">&#34;ceui.lisa&#34;</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Method</span><span class="o">[]</span> <span class="n">mds</span> <span class="o">=</span> <span class="n">clazz</span><span class="o">.</span><span class="na">getDeclaredMethods</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="o">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">mds</span><span class="o">.</span><span class="na">length</span><span class="o">;</span><span class="n">i</span><span class="o">++){</span>
+</span></span><span class="line"><span class="cl">                    <span class="kd">final</span> <span class="n">Method</span> <span class="n">md</span> <span class="o">=</span> <span class="n">mds</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">                    <span class="kt">int</span> <span class="n">mod</span> <span class="o">=</span> <span class="n">mds</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getModifiers</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">//去除抽象、native、接口方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="k">if</span><span class="o">(!</span><span class="n">Modifier</span><span class="o">.</span><span class="na">isAbstract</span><span class="o">(</span><span class="n">mod</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">Modifier</span><span class="o">.</span><span class="na">isNative</span><span class="o">(</span><span class="n">mod</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="o">&amp;&amp;!</span><span class="n">Modifier</span><span class="o">.</span><span class="na">isAbstract</span><span class="o">(</span><span class="n">mod</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">XposedBridge</span><span class="o">.</span><span class="na">hookMethod</span><span class="o">(</span><span class="n">mds</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                            <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">                            <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">beforeHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                                <span class="kd">super</span><span class="o">.</span><span class="na">beforeHookedMethod</span><span class="o">(</span><span class="n">param</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&#34;lbqaq&#34;</span><span class="o">,</span><span class="n">md</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">                            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">});</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>（PS：这个程序很奇怪，包名有pixiv，但类名没有，所以用<code>ceui.lisa.pixiv</code>会报空指针异常）</p>
+<p>将上面这段代码复制到之前写好的<code>MainHook</code>中去，编译推送到手机。</p>
+<p>在终端执行<code>adb logcat &quot;lbqaq:D *:S&quot;</code>开启logcat并进行过滤。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">❯ adb logcat &#34;lbqaq:D *:S&#34;
+</span></span><span class="line"><span class="cl">--------- beginning of main
+</span></span><span class="line"><span class="cl">07-21 10:49:48.185  5050  5050 D lbqaq   : public void ceui.lisa.activities.Shaft.onCreate()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.194  5050  5050 D lbqaq   : private void ceui.lisa.activities.Shaft.updateTheme()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.216  5050  5050 D lbqaq   : public static android.content.Context ceui.lisa.activities.Shaft.getContext()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.238  5050  5050 D lbqaq   : protected int ceui.lisa.activities.MainActivity.initLayout()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.238  5050  5050 D lbqaq   : public boolean ceui.lisa.activities.MainActivity.hideStatusBar()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.276  5050  5050 D lbqaq   : protected void ceui.lisa.activities.MainActivity.initView()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.276  5050  5050 D lbqaq   : public static com.tencent.mmkv.MMKV ceui.lisa.activities.Shaft.getMMKV()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.276  5050  5050 D lbqaq   : private void ceui.lisa.activities.MainActivity.initDrawerHeader()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.278  5050  5050 D lbqaq   : public androidx.drawerlayout.widget.DrawerLayout ceui.lisa.activities.MainActivity.getDrawer()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.279  5050  5050 D lbqaq   : protected void ceui.lisa.activities.MainActivity.initData()
+</span></span><span class="line"><span class="cl">07-21 10:49:48.279  5050  5050 D lbqaq   : private void ceui.lisa.activities.MainActivity.initFragment()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到该程序的调用方法。这里，我们选择靠后的<code>ceui.lisa.activities.MainActivity.initFragment()</code>作为我们的Hook目标。</p>
+
+<div class="notice notice-info" >
+    <div class="notice-title"><svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(30, 80%, 70%)"><path d="M256 8a248 248 0 100 496 248 248 0 000-496zm0 110a42 42 0 110 84 42 42 0 010-84zm56 254c0 7-5 12-12 12h-88c-7 0-12-5-12-12v-24c0-7 5-12 12-12h12v-64h-12c-7 0-12-5-12-12v-24c0-7 5-12 12-12h64c7 0 12 5 12 12v100h12c7 0 12 5 12 12v24z"/></svg></div><p>为什么要选择靠后的方法作为我们的Hook目标呢？</p>
+<p>这是由于如果选择较前的方法，有些变量还没初始化完成，这时调用<code>finish()</code>可能会报错。</p></div>
+
+
+<h3 id="hook-activity">Hook activity</h3>
+<p>我们使用最基础的hook方式，即Xposed自带的<code>XposedHelpers.findAndHookMethod</code>，使用方法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">hook</span><span class="o">(</span><span class="n">XC_LoadPackage</span><span class="o">.</span><span class="na">LoadPackageParam</span> <span class="n">lpparam</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 它有两个重载，区别是一个是填Class，一个是填ClassName以及ClassLoader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 第一种 填ClassName
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">XC_MethodHook</span><span class="o">.</span><span class="na">Unhook</span> <span class="n">unhook</span> <span class="o">=</span> <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">&#34;me.kyuubiran.xposedapp.MainActivity&#34;</span><span class="o">,</span>    <span class="c1">// className
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span>    <span class="c1">// classLoader 使用lpparam.classLoader
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s">&#34;onCreate&#34;</span><span class="o">,</span>             <span class="c1">// 要hook的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">Bundle</span><span class="o">.</span><span class="na">class</span><span class="o">,</span>           <span class="c1">// 要hook的方法的参数表，如果有多个就用逗号隔开 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>   <span class="c1">// 最后一个填hook的回调
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">beforeHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="o">{}</span> <span class="c1">// Hook方法执行前  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">                <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="o">{}</span> <span class="c1">// Hook方法执行后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">});</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 它返回一个unhook 在你不需要继续hook的时候可以调用它来取消Hook
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">unhook</span><span class="o">.</span><span class="na">unhook</span><span class="o">();</span>    <span class="c1">// 取消空的Hook 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 第二种方式 填Class
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 首先你得加载它的类 我们使用XposedHelpers.findClass即可 参数有两个 一个是类名 一个是类加载器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findClass</span><span class="o">(</span><span class="s">&#34;me.kyuubiran.xposedapp.MainActivity&#34;</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="s">&#34;onCreate&#34;</span><span class="o">,</span> <span class="n">Bundle</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 由于我们需要在Activity创建之后再弹出Toast，所以我们Hook方法执行之后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">,</span> <span class="s">&#34;模块加载成功！&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>根据上面的示例，我们就可以写出对应的方法了。那么，我们该如何结束这个程序呢？在前面我们介绍了Activity的生存周期，通过查询可知Activity存在一个关闭的方法<code>finish()</code>。所以我们只要手动调用即可，具体的代码如下。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">lpparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;ceui.lisa.pixiv&#34;</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">&#34;ceui.lisa.activities.MainActivity&#34;</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span> <span class="s">&#34;initFragment&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">,</span> <span class="s">&#34;不许涩涩！&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">).</span><span class="na">finish</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同样，另外两个应用也可以通过这种方式实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span><span class="n">lpparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;com.xjs.ehviewer&#34;</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">&#34;com.hippo.ehviewer.ui.MainActivity&#34;</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span> <span class="s">&#34;initUserImage&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">,</span> <span class="s">&#34;不许涩涩！&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">).</span><span class="na">finish</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span><span class="o">(</span><span class="n">lpparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;com.picacomic.fregata&#34;</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">&#34;com.picacomic.fregata.activities.SplashActivity&#34;</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span> <span class="s">&#34;onCreate&#34;</span><span class="o">,</span> <span class="n">Bundle</span><span class="o">.</span><span class="na">class</span> <span class="o">,</span><span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">,</span> <span class="s">&#34;不许涩涩！&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">).</span><span class="na">finish</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里要注意，使用<code>findAndHookMethod</code>时要hook的方法的参数表一定要填对。如果没有填对就会报<code>java.lang.NoSuchMethodError</code>错误。我之前被这个问题折磨了很久😭（仔细想想也是这样，Java里有重载机制，参数不同就不是同一个方法了）</p>
+<h3 id="修改内部参数">修改内部参数</h3>
+<p>虽然一股脑关闭程序非常简单，但小明不乐意了。对于<code>ceui.lisa.pixiv</code>来说，只有长按头像才会触发，直接一刀切实在是太粗暴了。没问题，直接安排上。</p>
+<p>首先我们要定位到这个切换的方法究竟在哪？仔细观察，每次切换都会弹出一个颜文字的Toast，我们就从此处切入。这两个颜文字分别为<code>ԅ(♡﹃♡ԅ)</code>和<code>X﹏X</code>。</p>
+<p>我们使用jadx-gui反编译程序，全局搜索，直接就找到了所在位置。</p>
+<p><img src="/p/init-xposed/IMAGE/image-20230721141436862.png"
+	width="793"
+	height="493"
+	srcset="/p/init-xposed/IMAGE/image-20230721141436862_hu9daeabb5bc39d1e3f9c5898bd62a21f3_49879_480x0_resize_box_3.png 480w, /p/init-xposed/IMAGE/image-20230721141436862_hu9daeabb5bc39d1e3f9c5898bd62a21f3_49879_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="全局搜索"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="386px"
+	
+></p>
+<p>双击查看此处的代码，坏起来了，这是一个匿名函数，根据上面的方法，我们没有这个函数名，自然也就无法对其进行Hook。</p>
+<p><img src="/p/init-xposed/IMAGE/image-20230721141535571.png"
+	width="1788"
+	height="996"
+	srcset="/p/init-xposed/IMAGE/image-20230721141535571_hu58419bdd11bba9b3df43704953622e7a_320745_480x0_resize_box_3.png 480w, /p/init-xposed/IMAGE/image-20230721141535571_hu58419bdd11bba9b3df43704953622e7a_320745_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="具体代码"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="179"
+		data-flex-basis="430px"
+	
+></p>
+<p>难道就要卡在这里了吗？<del>如果真是这样我就不会写这篇文章了</del></p>
+<p>仔细分析这段代码，这里对<code>this.userHead</code>设置了一个<code>OnLongClickListener</code>。一个控件只能绑定一个侦听器，所以我们可以进行一个替换，不就实现对其的Hook了吗😎</p>
+<p>直接Hook <code>initView</code>这个方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">lpparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;ceui.lisa.pixiv&#34;</span><span class="o">)){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">&#34;ceui.lisa.activities.MainActivity&#34;</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span> <span class="s">&#34;initView&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="n">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Field</span> <span class="n">f</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">&#34;userHead&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">f</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ImageView</span> <span class="n">v</span> <span class="o">=</span> <span class="o">(</span><span class="n">ImageView</span><span class="o">)</span> <span class="n">f</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//          v.setLongClickable(false);    //设置其无法响应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">v</span><span class="o">.</span><span class="na">setOnLongClickListener</span><span class="o">(</span><span class="n">v1</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">((</span><span class="n">Activity</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">,</span> <span class="s">&#34;不许涩涩！&#34;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_SHORT</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">            <span class="o">});</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们这里使用了Java的反射机制，拿到了它内部的变量<code>userHead</code>，然后通过<code>setAccessible</code>将其设置为可访问。这样我们就能对其私有变量进行修改了。</p>
+<p>我们可以简单的将其可点击关闭，但是这样一点也不酷。我直接使用自己的函数将其进行替换，这样每次点击都会出现一个<code>Toast</code>。</p>
+<p>至此，一个简单的Xposed模块就写好了。</p>
+<h2 id="结语">结语</h2>
+<p>完整的项目代码可以在<a class="link" href="https://github.com/luoboQAQ/nosese"  target="_blank" rel="noopener"
+    >Github仓库</a>中查看，通过这次的编写，我发现Xposed实际上还是一个工具，想要实现去广告等功能，都是通过反编译来找到突破口，有了Hook的目标后才需要Xposed。</p>
+<p>所以，之后的学习还是要以安卓逆向为主，只有打好基本功，才能写出优秀的代码。</p>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>
+<p><a class="link" href="https://www.52pojie.cn/thread-1740944-1-1.html"  target="_blank" rel="noopener"
+    >《安卓逆向这档事》七、Sorry，会Hook真的可以为所欲为-Xposed快速上手(上)模块编.. - 吾爱破解</a></p>
+</li>
+<li>
+<p><a class="link" href="https://blog.ketal.icu/cn/Xposed%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8%E4%BF%9D%E5%A7%86%E7%BA%A7%E6%95%99%E7%A8%8B/"  target="_blank" rel="noopener"
+    >Xposed模块开发入门保姆级教程 - 狐言狐语和仙贝的魔法学习记录</a></p>
+</li>
+<li>
+<p><a class="link" href="https://www.52pojie.cn/thread-1706691-1-1.html"  target="_blank" rel="noopener"
+    >《安卓逆向这档事》四、恭喜你获得广告&amp;弹窗静默卡 - 吾爱破解</a></p>
+</li>
+<li>
+<p><a class="link" href="https://www.52pojie.cn/thread-1748081-1-1.html"  target="_blank" rel="noopener"
+    >《安卓逆向这档事》八、Sorry，会Hook真的可以为所欲为-Xposed快速上手(下)模块编.. - 吾爱破解</a></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+        
+            <a href="/tags/xposed/">Xposed</a>
+        
+            <a href="/tags/%E5%AE%89%E5%8D%93/">安卓</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.5ab073f75c099d6f82657fcc5f4733a0.webp" 
+                        width="2263" 
+                        height="1273" 
+                        loading="lazy"
+                        alt="Featured image of post 简易Magisk模块的制作"
+                        
+                        data-hash="md5-WrBz91wJnW&#43;CZX/MX0czoA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">简易Magisk模块的制作</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://unpkg.com/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

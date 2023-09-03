@@ -6,7 +6,280 @@
         <description>Recent content in 教程 on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Fri, 21 Jul 2023 14:22:44 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 03 Sep 2023 14:10:14 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>浪潮人工智能平台使用心得</title>
+        <link>https://lbqaq.top/p/langchao/</link>
+        <pubDate>Sun, 03 Sep 2023 14:10:14 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/langchao/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/langchao/102879503.webp" alt="Featured image of post 浪潮人工智能平台使用心得" /&gt;&lt;p&gt;随着学习的深入，对算力的要求越来越高。但我实验室的电脑并没有配置显卡，所以便需要使用学院的服务器。成功拿到账号后，却发现这个平台并没有我想象的那么好用😇为了达到最舒适的使用体验，开搞！&lt;/p&gt;
+&lt;h2 id=&#34;省流版&#34;&gt;省流版&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;使用我提供的镜像创建开发环境&lt;/li&gt;
+&lt;li&gt;按照&lt;a class=&#34;link&#34; href=&#34;#%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%bf%9e%e6%8e%a5%e4%ba%92%e8%81%94%e7%bd%91&#34; &gt;服务器连接互联网&lt;/a&gt;一节配置网络&lt;/li&gt;
+&lt;li&gt;开始使用吧&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;配置开发镜像&#34;&gt;配置开发镜像&lt;/h2&gt;
+&lt;p&gt;平台里虽然预置了一些开发环境，但仍然缺少一些需要的软件，每次连入后再重新安装实在是不优雅。那么最好的方案就是配置好一套环境，直接拉取就能使用。在我之前，已经有位大佬构建了一套开发环境并进行了分享，可是镜像大小达到了惊人的18.4G😯（容量大说明功能多，此处并没有贬低的意思）。我个人比较喜欢Arch的哲学，即Keep It Simple, Stupid（对应中文为“保持简单，且一目了然”）。为此，我决定构建一个最小化的开发环境且可以开箱即用。&lt;/p&gt;
+&lt;p&gt;通过探究发现，这个平台上所有的开发环境都是一个Docker容器。所以，我们只要构建好镜像并上传就OK了。构建镜像有两种方式，一种是进入容器手动配置然后使用&lt;code&gt;docker commit ...&lt;/code&gt;保存修改；另一种则是使用&lt;code&gt;Dockerfile&lt;/code&gt;。为了便于维护和修改，我选择了第二种。&lt;/p&gt;
+&lt;p&gt;接下来就是明确需求了，我对其的要求有几点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装好显卡驱动，可以直接使用cuda&lt;/li&gt;
+&lt;li&gt;安装好conda，可以便捷的管理python开发环境&lt;/li&gt;
+&lt;li&gt;有一个易用的终端，方便调试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;cuda很好解决，直接在nvidia官方的镜像上进行修改就行了&lt;/p&gt;
+&lt;p&gt;对于conda，原版的Anaconda过于臃肿，不符合KISS原则。同时，当环境复杂(&lt;code&gt;conda&lt;/code&gt;和&lt;code&gt;pip&lt;/code&gt;混用)时，&lt;code&gt;solving environment&lt;/code&gt;这一步可以卡到你怀疑人生，于是我选择了使用C++重构的&lt;a class=&#34;link&#34; href=&#34;https://github.com/mamba-org/mamba&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;mamba&lt;/a&gt;，并选择&lt;code&gt;micromamba&lt;/code&gt;进一步压缩体积。&lt;/p&gt;
+&lt;p&gt;对于终端，那就无脑使用&lt;code&gt;zsh&lt;/code&gt;并加载&lt;code&gt;oh-my-zsh&lt;/code&gt;并安装我日常使用的插件。&lt;/p&gt;
+&lt;p&gt;如此一来，就可以开写Dockerfile了。&lt;/p&gt;
+&lt;details&gt;
+    &lt;summary&gt;📃展开代码&lt;/summary&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;42
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;43
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;44
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;45
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;46
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;47
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;48
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;49
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;50
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;51
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;52
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;53
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;54
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;55
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;56
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;57
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;58
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;59
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;60
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;61
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;62
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;63
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;64
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;65
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;66
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-dockerfile&#34; data-lang=&#34;dockerfile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# base image&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;FROM&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;MAINTAINER&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; luoboQAQ&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 设置国内镜像源并安装软件&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sed -i &lt;span class=&#34;s1&#34;&gt;&amp;#39;s@/archive.ubuntu.com/@/mirrors.bfsu.edu.cn/@g&amp;#39;&lt;/span&gt; /etc/apt/sources.list &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get clean &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get update &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y --no-install-recommends openssh-client openssh-server git zsh curl vim &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rm -rf /var/lib/apt/lists/*	&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 配置openssh[https://github.com/wjyzzu/inpsur-dockerfile/blob/main/base/ubuntu/Dockerfile]&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mkdir -p /var/run/sshd &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; /usr/bin/ssh-keygen -A &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cat /etc/ssh/ssh_config &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v StrictHostKeyChecking &amp;gt; /etc/ssh/ssh_config.new &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;    StrictHostKeyChecking no&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/ssh/ssh_config.new &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cat /etc/ssh/sshd_config &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v  PermitRootLogin&amp;gt; /etc/ssh/sshd_config.new &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;PermitRootLogin yes&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/ssh/sshd_config.new &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 配置oh-my-zsh&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git clone https://gitee.com/mirrors/oh-my-zsh ~/.oh-my-zsh &lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt; &lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git clone https://gitee.com/lightnear/zsh-syntax-highlighting.git &lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ZSH_CUSTOM&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;:-&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;~/.oh-my-zsh/custom&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/plugins/zsh-syntax-highlighting &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sed -i &lt;span class=&#34;s2&#34;&gt;&amp;#34;s/plugins=(git.*)&lt;/span&gt;$&lt;span class=&#34;s2&#34;&gt;/plugins=(git zsh-syntax-highlighting)/&amp;#34;&lt;/span&gt; ~/.zshrc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; chsh -s /bin/zsh &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; rm -rf /var/lib/apt/lists/*&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 安装micromamba并配置国内源&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; tar -xvj bin/micromamba &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; ./bin/micromamba shell init -s zsh -p ~/micromamba &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\nalias conda=&amp;#39;micromamba&amp;#39;&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zshrc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;channels: \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  - defaults \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;show_channel_urls: true \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;default_channels: \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  - https://mirrors.bfsu.edu.cn/anaconda/pkgs/main \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  - https://mirrors.bfsu.edu.cn/anaconda/pkgs/r \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  - https://mirrors.bfsu.edu.cn/anaconda/pkgs/msys2 \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;custom_channels: \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  conda-forge: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  msys2: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  bioconda: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  menpo: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  pytorch: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  pytorch-lts: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  simpleitk: https://mirrors.bfsu.edu.cn/anaconda/cloud \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;  deepmodeling: https://mirrors.bfsu.edu.cn/anaconda/cloud/&amp;#34;&lt;/span&gt; &amp;gt; ~/.condarc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;[global] \n\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;index-url = https://mirrors.bfsu.edu.cn/pypi/web/simple&amp;#34;&lt;/span&gt; &amp;gt; /etc/pip.conf&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 配置网络代理&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;RUN&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\nexport HTTP_PROXY=&amp;#39;http://127.0.0.1:3128&amp;#39;&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zshrc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;export HTTPS_PROXY=&amp;#39;http://127.0.0.1:3128&amp;#39;&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zshrc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;se&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;export ALL_PROXY=&amp;#39;http://127.0.0.1:3128&amp;#39;&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zshrc&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;EXPOSE&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; 22&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;WORKDIR&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; /root&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;err&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ENTRYPOINT&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/bin/zsh&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;p&gt;除了上面提到的几点，我还增加了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;镜像已配置好国内镜像源，方便构建以及使用时安装新的包&lt;/li&gt;
+&lt;li&gt;配置openssh，使其可以被浪潮平台接入并提供SSH服务&lt;/li&gt;
+&lt;li&gt;预先安装好vim，便于配置文件的修改&lt;/li&gt;
+&lt;li&gt;提前设置好网络代理，便于连接互联网&lt;/li&gt;
+&lt;li&gt;设置别名：&lt;code&gt;conda&lt;/code&gt;-&amp;gt;&lt;code&gt;micromamba&lt;/code&gt;，方便日常使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;由于服务器没有网络，需要我们手动上传镜像，使用命令&lt;code&gt;docker save -o [TAGS]&lt;/code&gt;打包成tar包并上传至系统中。&lt;/p&gt;
+&lt;h2 id=&#34;服务器连接互联网&#34;&gt;服务器连接互联网&lt;/h2&gt;
+&lt;p&gt;学院的服务器默认是没有互联网访问的权限，如果想要安装包就会非常麻烦。对此，我们可以使用端口转发的方式来实现对互联网的访问。&lt;/p&gt;
+&lt;h3 id=&#34;思路&#34;&gt;思路&lt;/h3&gt;
+&lt;p&gt;已知我们的机器是可以连接外网的，同时服务器提供了SSH可以连接。故我们可通过端口转发实现服务器的上网，具体来说，就是将我们本机作为中转，让服务器的网络流量都通过本机转发到外网。&lt;/p&gt;
+&lt;h3 id=&#34;配置代理&#34;&gt;配置代理&lt;/h3&gt;
+&lt;p&gt;有很多软件都能实现代理的功能。如果你正在使用一款图标是小猫或者图标是一个V的软件，那么恭喜你，只需要在设置里打开&lt;code&gt;允许局域网连接&lt;/code&gt;并记下&lt;code&gt;http&lt;/code&gt;的端口即可。&lt;/p&gt;
+&lt;p&gt;如果你不知道上面所述的软件是什么也没有关系，&lt;a class=&#34;link&#34; href=&#34;https://luoboquq.lanzouk.com/ibIAO15iprjg&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;点我下载&lt;/a&gt;一个小工具，双击打开运行就OK了。&lt;/p&gt;
+&lt;p&gt;小工具默认的端口为&lt;code&gt;10086&lt;/code&gt;，下面的步骤中我们以此端口作为示例，如果你使用的是自己的软件记得进行替换。&lt;/p&gt;
+&lt;h3 id=&#34;设置端口转发&#34;&gt;设置端口转发&lt;/h3&gt;
+&lt;p&gt;这里需要我们配置一下SSH的端口转发功能，将远程（服务器）的请求转发到本地。这里我列举几个常见的客户端配置方法。&lt;/p&gt;
+&lt;p&gt;我的镜像远程（服务器）的端口设置为&lt;code&gt;3128&lt;/code&gt;，下面的步骤中同样以此端口作为示例。&lt;/p&gt;
+&lt;h4 id=&#34;xshell&#34;&gt;XShell&lt;/h4&gt;
+&lt;p&gt;如图所示配置即可&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/langchao/IMAGE/1.png&#34;
+	width=&#34;667&#34;
+	height=&#34;701&#34;
+	srcset=&#34;https://lbqaq.top/p/langchao/IMAGE/1_hu30453e05e6273de25423501542d0f600_45853_480x0_resize_box_3.png 480w, https://lbqaq.top/p/langchao/IMAGE/1_hu30453e05e6273de25423501542d0f600_45853_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;XShell设置&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;95&#34;
+		data-flex-basis=&#34;228px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/langchao/IMAGE/2.png&#34;
+	width=&#34;447&#34;
+	height=&#34;361&#34;
+	srcset=&#34;https://lbqaq.top/p/langchao/IMAGE/2_hu8265d0823964ed2c685968715106455d_16697_480x0_resize_box_3.png 480w, https://lbqaq.top/p/langchao/IMAGE/2_hu8265d0823964ed2c685968715106455d_16697_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;XShell设置&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;123&#34;
+		data-flex-basis=&#34;297px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;命令行&#34;&gt;命令行&lt;/h4&gt;
+&lt;p&gt;输入以下命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ssh -R 3128:localhost:10086 root@192.168.101.56 -p &lt;span class=&#34;m&#34;&gt;30027&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;服务器配置&#34;&gt;服务器配置&lt;/h3&gt;
+&lt;p&gt;如果你使用了我的镜像，则无需执行此步。&lt;/p&gt;
+&lt;p&gt;首先通过SSH连上服务器，输入下面的指令查看当前使用的shell&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果结果为&lt;code&gt;bash&lt;/code&gt;，我们要编辑&lt;code&gt;.bashrc&lt;/code&gt;；如果结果为&lt;code&gt;zsh&lt;/code&gt;，我们要编辑&lt;code&gt;.zshrc&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;我们需要在文件的最末尾添加下面的三句话&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;HTTP_PROXY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http://127.0.0.1:3128&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;HTTPS_PROXY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http://127.0.0.1:3128&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;ALL_PROXY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;http://127.0.0.1:3128&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;输入&lt;code&gt;source .zshrc&lt;/code&gt; 或重启终端来应用变更&lt;/p&gt;
+&lt;h3 id=&#34;测试&#34;&gt;测试&lt;/h3&gt;
+&lt;p&gt;想要测试有没有网络，只需要输入&lt;code&gt;curl www.baidu.com&lt;/code&gt;，当出现像下面这一大坨内容就说明网络连接成功了&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;!--STATUS OK--&amp;gt;&amp;lt;html&amp;gt; &amp;lt;head&amp;gt;&amp;lt;meta http-equiv=content-type content=text/html;charset=utf-8&amp;gt;&amp;lt;meta http-equiv=X-UA-Compatible content=IE=Edge&amp;gt;&amp;lt;meta content=always name=referrer&amp;gt;&amp;lt;link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css&amp;gt;&amp;lt;title&amp;gt;百度一下，你就知道&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt; &amp;lt;body link=#0000cc&amp;gt; &amp;lt;div id=wrapper&amp;gt; &amp;lt;div id=head&amp;gt; &amp;lt;div class=head_wrapper&amp;gt; &amp;lt;div class=s_form&amp;gt; &amp;lt;div class=s_form_wrapper&amp;gt; &amp;lt;div id=lg&amp;gt; &amp;lt;img hidefocus=true src=//www.baidu.com/img/bd_logo1.png width=270 height=129&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;form id=form name=f action=//www.baidu.com/s class=fm&amp;gt; &amp;lt;input type=hidden name=bdorz_come value=1&amp;gt; &amp;lt;input type=hidden name=ie value=utf-8&amp;gt; &amp;lt;input type=hidden name=f value=8&amp;gt; &amp;lt;input type=hidden name=rsv_bp value=1&amp;gt; &amp;lt;input type=hidden name=rsv_idx value=1&amp;gt; &amp;lt;input type=hidden name=tn value=baidu&amp;gt;&amp;lt;span class=&amp;#34;bg s_ipt_wr&amp;#34;&amp;gt;&amp;lt;input id=kw name=wd class=s_ipt value maxlength=255 autocomplete=off autofocus&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;#34;bg s_btn_wr&amp;#34;&amp;gt;&amp;lt;input type=submit id=su value=百度一下 class=&amp;#34;bg s_btn&amp;#34;&amp;gt;&amp;lt;/span&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div id=u1&amp;gt; &amp;lt;a href=http://news.baidu.com name=tj_trnews class=mnav&amp;gt;新闻&amp;lt;/a&amp;gt; &amp;lt;a href=http://www.hao123.com name=tj_trhao123 class=mnav&amp;gt;hao123&amp;lt;/a&amp;gt; &amp;lt;a href=http://map.baidu.com name=tj_trmap class=mnav&amp;gt;地图&amp;lt;/a&amp;gt; &amp;lt;a href=http://v.baidu.com name=tj_trvideo class=mnav&amp;gt;视频&amp;lt;/a&amp;gt; &amp;lt;a href=http://tieba.baidu.com name=tj_trtieba class=mnav&amp;gt;贴吧&amp;lt;/a&amp;gt; &amp;lt;noscript&amp;gt; &amp;lt;a href=http://www.baidu.com/bdorz/login.gif?login&amp;amp;amp;tpl=mn&amp;amp;amp;u=http%3A%2F%2Fwww.baidu.com%2f%3fbdorz_come%3d1 name=tj_login class=lb&amp;gt;登录&amp;lt;/a&amp;gt; &amp;lt;/noscript&amp;gt; &amp;lt;script&amp;gt;document.write(&amp;#39;&amp;lt;a href=&amp;#34;&amp;lt;http://www.baidu.com/bdorz/login.gif?login&amp;amp;tpl=mn&amp;amp;u=&amp;#39;+&amp;gt; encodeURIComponent(window.location.href+ (window.location.search === &amp;#34;&amp;#34; ? &amp;#34;?&amp;#34; : &amp;#34;&amp;amp;&amp;#34;)+ &amp;#34;bdorz_come=1&amp;#34;)+ &amp;#39;&amp;#34; name=&amp;#34;tj_login&amp;#34; class=&amp;#34;lb&amp;#34;&amp;gt;登录&amp;lt;/a&amp;gt;&amp;#39;);&amp;lt;/script&amp;gt; &amp;lt;a href=//www.baidu.com/more/ name=tj_briicon class=bri style=&amp;#34;display: block;&amp;#34;&amp;gt;更多产品&amp;lt;/a&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div id=ftCon&amp;gt; &amp;lt;div id=ftConw&amp;gt; &amp;lt;p id=lh&amp;gt; &amp;lt;a href=http://home.baidu.com&amp;gt;关于百度&amp;lt;/a&amp;gt; &amp;lt;a href=http://ir.baidu.com&amp;gt;About Baidu&amp;lt;/a&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;p id=cp&amp;gt;&amp;amp;copy;2017&amp;amp;nbsp;Baidu&amp;amp;nbsp;&amp;lt;a href=http://www.baidu.com/duty/&amp;gt;使用百度前必读&amp;lt;/a&amp;gt;&amp;amp;nbsp; &amp;lt;a href=http://jianyi.baidu.com/ class=cp-feedback&amp;gt;意见反馈&amp;lt;/a&amp;gt;&amp;amp;nbsp;京ICP证030173号&amp;amp;nbsp; &amp;lt;img src=//www.baidu.com/img/gs.gif&amp;gt; &amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/body&amp;gt; &amp;lt;/html&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;每次使用时，只需打开之前下载的软件即可&lt;/p&gt;
+&lt;h2 id=&#34;小结&#34;&gt;小结&lt;/h2&gt;
+&lt;p&gt;其实本来只是想写使用Dockerfile配置开发环境的文章，结果就是为这盘醋包了饺子，把之前写的服务器联网也整合进来了。希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>从零开始编写Xposed模块</title>
         <link>https://lbqaq.top/p/init-xposed/</link>
         <pubDate>Fri, 21 Jul 2023 14:22:44 +0800</pubDate>

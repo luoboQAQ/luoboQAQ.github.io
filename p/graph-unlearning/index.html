@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='《图遗忘学习》阅读笔记'>
+<title>Graph Unlearning</title>
+
+<link rel='canonical' href='https://lbqaq.top/p/graph-unlearning/'>
+
+<link rel="stylesheet" href="/scss/style.min.9f94a05ab1f5b78da423420e3248a57a2a71aa86140966662267bc0d04c4931f.css"><meta property='og:title' content='Graph Unlearning'>
+<meta property='og:description' content='《图遗忘学习》阅读笔记'>
+<meta property='og:url' content='https://lbqaq.top/p/graph-unlearning/'>
+<meta property='og:site_name' content='luoboQAQ'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GNN' /><meta property='article:tag' content='后门攻击' /><meta property='article:published_time' content='2023-09-13T16:38:20&#43;08:00'/><meta property='article:modified_time' content='2023-09-13T16:38:20&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/graph-unlearning/110091745.webp' />
+<meta name="twitter:title" content="Graph Unlearning">
+<meta name="twitter:description" content="《图遗忘学习》阅读笔记"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lbqaq.top/p/graph-unlearning/110091745.webp' /><script async defer
+    data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55"
+    data-cache="true"
+    src="https://umami.lbqaq.top/bpnwxrgz.js">
+</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/Mint_hu79c009750f90956bc1a07b730ca28b2c_570517_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌞</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
+            <h2 class="site-description">快乐学习每一天</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/luoboQAQ'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://lbqaq.top/index.xml'
+                        target="_blank"
+                        title="RSS订阅"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://pan.lbqaq.top'
+                        target="_blank"
+                        title="我的个人云盘"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>文章</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>暗色模式</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#介绍">介绍</a>
+      <ol>
+        <li><a href="#贡献">贡献</a></li>
+      </ol>
+    </li>
+    <li><a href="#问题构造">问题构造</a>
+      <ol>
+        <li><a href="#问题定义">问题定义</a></li>
+        <li><a href="#评估指标">评估指标</a></li>
+        <li><a href="#grapheraser框架构造">GraphEraser框架构造</a></li>
+      </ol>
+    </li>
+    <li><a href="#平衡图分割">平衡图分割</a>
+      <ol>
+        <li><a href="#社区发现算法">社区发现算法</a></li>
+        <li><a href="#嵌入式聚类算法">嵌入式聚类算法</a></li>
+      </ol>
+    </li>
+    <li><a href="#基于学习的聚合">基于学习的聚合</a></li>
+    <li><a href="#grapheraser">GraphEraser</a></li>
+    <li><a href="#评估">评估</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/graph-unlearning/">
+                <img src="/p/graph-unlearning/110091745.webp"
+                        
+                        width="1787" 
+                        height="1200" 
+                        loading="lazy"
+                        alt="Featured image of post Graph Unlearning" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%AE%BA%E6%96%87/" >
+                论文
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/graph-unlearning/">Graph Unlearning</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            《图遗忘学习》阅读笔记
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2023-09-13</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="介绍">介绍</h2>
+<p>数据保护最近引起了越来越多的关注，并且已经提出了一些法规来保护个人用户的隐私。在这些法规中，提到了「被遗忘权」，它赋予数据主体从存储数据的实体中删除其数据的权利。这也意味着在机器学习中，模型提供者有义务消除其所有者要求被遗忘的数据的任何影响，即遗忘学习。</p>
+<p>最简单和有效的遗忘学习方法就是移除对应的样本后重新训练模型，然而当底层数据集很大时，这种方法在计算上可能令人望而却步。目前通用的遗忘学习方法是SISA (Sharded, Isolated, Sliced, and Aggregated) ——将训练集分为shards, shards中分为slices, 对于每个slice训练之后记录model parameters,  每个数据点被划分到不同的shards和slices中, unlearn时就是排除掉对应数据点然后retrain对应的shard和slices,  以空间开销换取训练的时间开销。</p>
+<p>对于图像和文本数据，分割数据没有什么问题。然而，对于图来说，GNN依赖于图结构信息，像在SISA中那样将节点随机划分为子图可能会严重损坏生成的模型。对此，作者提出了GraphEraser，以实现GNN中的遗忘学习。</p>
+<p>作者将图遗忘学习分为node unlearning「节点遗忘学习」和edge unlearning「边遗忘学习」，提出了两种图分割策略。第一种侧重于graph structural information「图结构信息」，另一种则是同时考虑graph structural and node feature information「图结构和节点特征信息」。</p>
+<p>为了同时考虑图结构和节点特征信息，作者将节点特征和图结构转化为嵌入向量，然后将其聚类为不同的shards。但是由于现实世界图的结构特性，传统的群落检测和聚类方法划分会导致分片大小不平衡，而大部分需要被撤销的数据都在最大的分区，从而导致效率低下。作者提出了两种分割算法和一种聚合算法以解决此问题。</p>
+<h3 id="贡献">贡献</h3>
+<ul>
+<li>第一次提出了在GNN模型上的遗忘学习方法</li>
+<li>提出了两种算法以平衡图分割块大小</li>
+<li>提出了一种基于学习的聚合方法</li>
+</ul>
+<h2 id="问题构造">问题构造</h2>
+<h3 id="问题定义">问题定义</h3>
+<p><strong>节点遗忘学习</strong></p>
+<p>对于GNN模型$F_o$，每个数据主体的数据对应于GNN训练图$G_o$中的一个节点。数据主体$u$要删除其所有数据，则意味着从GNN的训练图中遗忘学习$u$的节点特征以及其于其他节点的链接。以社交网络为例，节点遗忘学习意味着需要从目标GNN的训练图中删除用户的个人资料信息和社交关系。</p>
+<p><strong>边遗忘学习</strong></p>
+<p>数据主体$u$要删除其节点于另一个节点$v$之间的一条边缘。仍然以社交网络为例，边缘遗忘意味着社交网络用户想要隐藏他们与另一个人的关系。</p>
+<h3 id="评估指标">评估指标</h3>
+<ul>
+<li>unlearning efficiency「遗忘学习效率」：与在训练的时间有关，时间要尽可能短。</li>
+<li>model utility「模型效用」：与准确性有关，越高越好。</li>
+</ul>
+<p>在之前提过，图分割存在分片大小不均匀的问题。为此，作者提出了两种分片目标：</p>
+<ul>
+<li>G1: Balanced Shards「均衡分片」：每个分片中的节点数量相似。这样，每个分片的再训练时间是相似的，从而提高了整个图遗忘学习过程的效率。</li>
+<li>G2: Comparable Model Utility「可比模型效用」：图结构信息是决定GNN性能的主要因素，每个分片都应保留图的结构属性。</li>
+</ul>
+<h3 id="grapheraser框架构造">GraphEraser框架构造</h3>
+<p>作者将GraphEraser框架分为三个阶段：</p>
+<ul>
+<li>Balanced Graph Partition「平衡图分区」：将训练图划分为不相交的分片</li>
+<li>Shard Model Training「分片训练模型」：对每个分片进行训练一个模型，称之为shard model「分片模型」$F_i$</li>
+<li>Shard Model Aggregation「分片模型聚合」：为了得到预测节点$w$的标签，将对应的数据（$w$的特征、其邻居的特征以及其中的图结构）同时发送到所有分片模型，并通过聚合所有分片模型的预测来获得最终预测。</li>
+</ul>
+<p>GraphEraser框架的结构图如下所示：</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230910155749458.png"
+	width="1609"
+	height="546"
+	srcset="/p/graph-unlearning/IMAGE/image-20230910155749458_hud39e8982ef73543d3f849bdec9eb1737_175291_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230910155749458_hud39e8982ef73543d3f849bdec9eb1737_175291_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="GraphEraser框架图"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="294"
+		data-flex-basis="707px"
+	
+></p>
+<h2 id="平衡图分割">平衡图分割</h2>
+<p>作者提出了三种图分区策略：</p>
+<ul>
+<li>
+<p><strong>策略0</strong>：仅考虑节点特征信息，并随机对节点进行分区</p>
+<p>该策略可以满足G1「均衡分片」要求，但不满足G2「可比模型效用」要求</p>
+</li>
+<li>
+<p><strong>策略1</strong>：依靠community detection「社区发现」，仅考虑结构信息，并尽可能保留它</p>
+</li>
+<li>
+<p><strong>策略2</strong>：同时考虑结构信息和节点特征。将节点特征和图结构表示为低维向量，即节点嵌入，然后将节点嵌入聚类到不同的分片中。</p>
+<p>直接这样划分会导致划分区域不平衡，如下图所示：</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230911095231520.png"
+	width="970"
+	height="376"
+	srcset="/p/graph-unlearning/IMAGE/image-20230911095231520_hu5712cd4b4913b0734a11331a3243a00e_32481_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230911095231520_hu5712cd4b4913b0734a11331a3243a00e_32481_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="在Cora数据集上使用传统划分区域的大小"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="257"
+		data-flex-basis="619px"
+	
+></p>
+</li>
+</ul>
+<p>接下来，作者便介绍了对应的平衡图分区算法。</p>
+<h3 id="社区发现算法">社区发现算法</h3>
+<p>对于策略1，主要依赖的就是此算法。作者基于Label Propagation Algorithm (LPA)「标签传播算法」来设计图分区算法。在本文中，shard就是community。</p>
+<p><strong>标签传播算法</strong></p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230911105605800.png"
+	width="898"
+	height="358"
+	srcset="/p/graph-unlearning/IMAGE/image-20230911105605800_hu3935ab8e67fb5b75cf4b990ba093b12e_53628_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230911105605800_hu3935ab8e67fb5b75cf4b990ba093b12e_53628_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="LPA工作流程"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="250"
+		data-flex-basis="602px"
+	
+></p>
+<p>在初始阶段（图a），每个节点都随机分配一个分片标签。</p>
+<p>在标签传播阶段（图b → 图 c），每个节点都会发送自己的标签，将自己更新成收到最多的那个标签</p>
+<p>标签传播过程会对所有节点进行多次迭代，直到收敛（没有节点更改标签）</p>
+<p>就如之前提到的，传统的LPA会导致高度不平衡的图形分区，严重影响了遗忘学习的效率。</p>
+<p>对此，作者提出了一个实现平衡图分区的<strong>一般方法</strong>。给定所需的分片大小$k$和最大分片大小$\delta$，为每个节点-分片定义一个可能被分配到此分片的preference「偏好值」，代表该节点被分配给了分片（这被称为destination shard「目标分片」），从而产生$k \times n$个偏好值。对这些值进行排序，如果目标分片中的节点数不超过$\delta$，就将该节点分配给此分片。</p>
+<p>具体而言，作者提出了Balanced LPA (BLPA)「平衡标签传播算法」，将偏好值定义为节点分片对的neighbor counts「邻居计数」（属于目标分片的邻居数量），并且具有较大邻居计数的节点分片对具有更高的优先级分配。</p>
+<p>算法的步骤如下：</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230911142423655.png"
+	width="1005"
+	height="1271"
+	srcset="/p/graph-unlearning/IMAGE/image-20230911142423655_hu24faa5cb662afb2dcb93b62ad6b0e1c4_179576_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230911142423655_hu24faa5cb662afb2dcb93b62ad6b0e1c4_179576_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="BLPA算法"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="79"
+		data-flex-basis="189px"
+	
+></p>
+<ol>
+<li>初始化：将每个节点随机分配给k个分片之一</li>
+<li>重新分配配置文件计算：对于每个节点$u$，使用元组$\left\langle u, \mathbb{C}_{s r c}, \mathbb{C}_{d s t}, \xi\right\rangle$表示其重新分配的配置文件，其中$\mathbb{C}_{s r c}$和$\mathbb{C}_{d s t}$是节点$u$的当前分片和目标分片，$\xi$是目标分片$\mathbb{C}_{d s t}$的邻居计数，并将其存入$\mathbb{F}$</li>
+<li>排序：邻居数量越多的重新分配配置文件应具有越高的优先级，所以按$\xi$对$\mathbb{F}$进行降序排序</li>
+<li>传播标签：枚举$\mathbb{F}$里的所有元素，如果$\mathbb{C}_{d s t}$的大小不超过给定的阈值$\delta$，就将其添加到目标分片并从当前分片中删除。之后在$\mathbb{F}$中删除所有剩余的包含节点$u$的元组。</li>
+</ol>
+<p>之后不断迭代，直到分片不更改或达到最大迭代$T$</p>
+<p>算法的时间复杂度为$O(n·d_{ave})$，$n$为节点数，$d_{ave}$为训练图的平均节点数。</p>
+<p>作者无法从理论上证明其收敛性，不过通过实验表示$T=30$时几乎是收敛的。</p>
+<h3 id="嵌入式聚类算法">嵌入式聚类算法</h3>
+<p>对于策略2，作者使用预训练的GNN模型来获取所有节点嵌入，然后对生成的节点嵌入执行聚类。</p>
+<p>思路是将GNN模型的所有节点投影到空间中，再使用K-Means进行聚类。同样也会导致分块的不平均这个问题。</p>
+<p>对此，作者提出了Balanced Embedding k-means (BEKM)。定义preference「偏好值」为节点嵌入和所有节点分片对的分片质心之间的欧氏距离。</p>
+<p>具体的算法如下：</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230912153952657.png"
+	width="998"
+	height="1447"
+	srcset="/p/graph-unlearning/IMAGE/image-20230912153952657_hudb2407a56f2f4bb52207cf59dc47330a_197080_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230912153952657_hudb2407a56f2f4bb52207cf59dc47330a_197080_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="BEKM算法"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="68"
+		data-flex-basis="165px"
+	
+></p>
+<ol>
+<li>初始化：随机选择$k$个质心$C^0=\{C^0_1,C^0_2,\dots,C^0_k\}$</li>
+<li>计算嵌入质心距离：计算节点嵌入和质心之间的所有成对距离，从而得到$n\times k$个嵌入质心对。这些对存储在$\mathbb{F}$中。</li>
+<li>排序质心距离：距离较近的嵌入质心对具有更高的优先级，所以按照升序对$\mathbb{F}$进行排序</li>
+<li>重新分配节点和更新质心：枚举$\mathbb{F}$里的所有元素，如果$\mathbb{C}_{j}$的大小不超过给定的阈值$\delta$，就将其添加到目标分片。之后在$\mathbb{F}$中删除所有剩余的包含节点$i$的元组。最后，将新质心计算为其相应分片中所有节点的平均值。</li>
+</ol>
+<p>同样，不断重复直到分片不更改或达到最大迭代$T$</p>
+<p>算法的时间复杂度为$O(k·n)$，$n$个节点,$k$个分片。</p>
+<h2 id="基于学习的聚合">基于学习的聚合</h2>
+<p>目前常见的聚合方式有两种：</p>
+<ul>
+<li>MajAggr：每个分片模型预测一个标签，取最多预测的标签</li>
+<li>MeanAggr：收集所有分片模型的后验向量，然后求平均值，得到聚合后验，选取最高后验值。</li>
+</ul>
+<p>作者提出了一种基于学习的聚合方法LBAggr，为每个分片模型分配一个重要性分数，通过以下损失函数进行学习：</p>
+<p>$$\min _{\alpha} \underset{w \in \mathcal{G}_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum_{i=0}^{m} \alpha_{i} \cdot \mathcal{F}_{i}\left(X_{w}, \mathcal{N}_{w}\right), y\right)\right]+\lambda \sum_{i=0}^{m}\left|\alpha_{i}\right|$$</p>
+<p>其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。</p>
+<p>作者通过梯度下降来找到最优的$\alpha$，从而解决最优化问题。然而，直接梯度下降会导致$\alpha$为负数。为了解决此问题，作者使用softmax 函数在每次迭代中进行归一化处理。</p>
+<p>为了提升运行速度，作者指出可以使用训练图中 10% 的节点进行重新训练。</p>
+<h2 id="grapheraser">GraphEraser</h2>
+<p>将上面提到的方法集合在一起，就得到了此算法。当某些节点或边缘被数据所有者撤销时，只需要重新训练相应的分片模型即可。</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230912202314840.png"
+	width="1029"
+	height="1020"
+	srcset="/p/graph-unlearning/IMAGE/image-20230912202314840_huf90398ba628bfbb987f17970ca93841e_168537_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230912202314840_huf90398ba628bfbb987f17970ca93841e_168537_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="GraphEraser"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="242px"
+	
+></p>
+<h2 id="评估">评估</h2>
+<p>🕊️鸽了</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/gnn/">GNN</a>
+        
+            <a href="/tags/%E5%90%8E%E9%97%A8%E6%94%BB%E5%87%BB/">后门攻击</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/">
+        
+        
+            <div class="article-image">
+                <img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.ca7a4e4f5b98b46fa542961b7921bea3.webp" 
+                        width="1778" 
+                        height="1000" 
+                        loading="lazy"
+                        alt="Featured image of post APMSA: Adversarial Perturbation Against Model Stealing Attacks"
+                        
+                        data-hash="md5-ynpOT1uYtG&#43;lQpYbeSG&#43;ow==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">APMSA: Adversarial Perturbation Against Model Stealing Attacks</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/">
+        
+        
+            <div class="article-image">
+                <img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/100018879.3b7b76e6de45f5dbdd3bd31b20aa6bae.webp" 
+                        width="2833" 
+                        height="1814" 
+                        loading="lazy"
+                        alt="Featured image of post Feature Inference Attack on Model Predictions in Vertical Federated Learning"
+                        
+                        data-hash="md5-O3t25t5F9dvdO9MbIKprrg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Feature Inference Attack on Model Predictions in Vertical Federated Learning</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
+<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+    }
+    .waline-container .wl-count {
+        color: var(--card-text-color-main);
+    }
+</style><script>
+    
+    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 luoboQAQ
+    </section>
+    
+    <section class="powerby">
+        
+            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.17.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.bootcdn.net/ajax/libs/photoswipe/4.1.3/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

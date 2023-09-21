@@ -10,7 +10,7 @@
 <meta property='og:description' content='《图遗忘学习》阅读笔记'>
 <meta property='og:url' content='https://lbqaq.top/p/graph-unlearning/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GNN' /><meta property='article:tag' content='后门攻击' /><meta property='article:published_time' content='2023-09-13T16:38:20&#43;08:00'/><meta property='article:modified_time' content='2023-09-13T16:38:20&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/graph-unlearning/110091745.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='GNN' /><meta property='article:tag' content='后门攻击' /><meta property='article:published_time' content='2023-09-13T16:38:20&#43;08:00'/><meta property='article:modified_time' content='2023-09-21T20:11:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/graph-unlearning/110091745.webp' />
 <meta name="twitter:title" content="Graph Unlearning">
 <meta name="twitter:description" content="《图遗忘学习》阅读笔记"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/graph-unlearning/110091745.webp' /><script async defer
@@ -308,7 +308,14 @@
     </li>
     <li><a href="#基于学习的聚合">基于学习的聚合</a></li>
     <li><a href="#grapheraser">GraphEraser</a></li>
-    <li><a href="#评估">评估</a></li>
+    <li><a href="#评估">评估</a>
+      <ol>
+        <li><a href="#遗忘学习效率评估">遗忘学习效率评估</a></li>
+        <li><a href="#模型效用评分">模型效用评分</a></li>
+        <li><a href="#lbaggr-的效果">LBAggr 的效果</a></li>
+        <li><a href="#和其他遗忘学习方法对比">和其他遗忘学习方法对比</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -389,7 +396,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 8 分钟
+                    阅读时长: 10 分钟
                 </time>
             </div>
         
@@ -586,7 +593,112 @@
 	
 ></p>
 <h2 id="评估">评估</h2>
-<p>🕊️鸽了</p>
+<p><strong>数据集</strong></p>
+<p>作者采用了五个常用的图像数据集，分别为Cora, Citeseer, Pubmed, CS和Physics。</p>
+<p><strong>模型</strong></p>
+<p>作者在四个GNN模型上进行了测试，分别是SAGE，GCN，GAT和GIN。每个模型都经过100轮的训练，默认学习率设置为0.01，权重衰减为0.001。</p>
+<p><strong>指标</strong></p>
+<p>在问题构造中提过，就是遗忘学习效率和模型效用</p>
+<ul>
+<li>遗忘学习效率：计算100个独立遗忘学习请求的平均遗忘学习时间。</li>
+<li>模型效用：使用F1得分</li>
+</ul>
+<p><strong>基线</strong></p>
+<ul>
+<li>Scratch「从头开始训练」</li>
+<li>Random「随机分区」</li>
+</ul>
+<p><strong>实验设置</strong></p>
+<p>将整个图分为两个不相交的部分，其中80%的节点用于训练GNN模型，20%的节点用于评估模型效用。</p>
+<p>分片大小$k$设为20, 20, 50, 30, 和 100</p>
+<p>片中节点最大个数$\delta$设为$\left \lceil \frac{n}{k} \right \rceil $</p>
+<p>最大迭代次数$T$设为30</p>
+<p>BLPA对应社区发现算法；BEKM对应嵌入式聚类算法</p>
+<h3 id="遗忘学习效率评估">遗忘学习效率评估</h3>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230921185539675.png"
+	width="1733"
+	height="464"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921185539675_hu357da0419904c5306f4c338c1f07e223_56763_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230921185539675_hu357da0419904c5306f4c338c1f07e223_56763_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="遗忘学习效率"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="373"
+		data-flex-basis="896px"
+	
+></p>
+<p>如图所示，BLPA和BEKM相对于从头训练模型，可以显著的减少训练的时间。</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230921185950025.png"
+	width="991"
+	height="358"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921185950025_huab62683d841b334ff0c5433f374fa098_49492_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230921185950025_huab62683d841b334ff0c5433f374fa098_49492_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="每个步骤所花费的时间"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="276"
+		data-flex-basis="664px"
+	
+></p>
+<p>相对于Random，时间略长是因为存在更长的图分割成本。BLPA 和 BEKM 都需要多次迭代以保留结构信息。但一旦完成图分割，就会将其固定下来。从这个意义上说，我们可以容忍这种代价，因为它只执行一次。</p>
+<h3 id="模型效用评分">模型效用评分</h3>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230921193316971.png"
+	width="1960"
+	height="799"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921193316971_hu6311ec57331135408abc5299e0943c63_311344_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230921193316971_hu6311ec57331135408abc5299e0943c63_311344_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="不同遗忘学习方法模型效用"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="245"
+		data-flex-basis="588px"
+	
+></p>
+<p>绿色底色表示不需要聚合，红色底色表示作者提出的方法，蓝色字体表示最优得分。</p>
+<p>有些随机得分和BLPA和BEKM差不多，作者认为这时由于图结构信息在GNN模型中作用不大导致的。</p>
+<p>对此，作者提出了一个方法选择的技巧：可以首先比较MLP和GNN的F1分数，如果MLP和GNN之间的F1分数差距很小，随机方法可能是一个不错的选择，因为它更容易实现，并且可以实现与BLPA和BEKM相当的模型效用。否则，BLPA和BEKM是更好的选择，因为更好的模型实用程序。</p>
+<p>如果 GNN 遵循 GCN 结构，则可以选择BLPA，否则可以采用 BEKM。这是因为 GCN 模型需要节点度信息来进行归一化，而BLPA 可以保留更多的局部结构信息，从而更好地保留节点度。</p>
+<p>BEKM 在 Cora 数据集和 GIN 模型上的 F1 得分为 0.801，而 Scratch 的相应 F1 得分为 0.787。作者认为有两种可能的原因：抽样往往可以消除数据集中的一些“噪声”；其次，GraphEraser通过聚合所有子模型的结果来进行最终预测，从这个意义上说，GraphEraser执行集成，这是提高模型性能的另一种方法。</p>
+<h3 id="lbaggr-的效果">LBAggr 的效果</h3>
+<p>有效，可以提升F1分数。</p>
+<p>比较不同的GNN模型，GCN从LBAggr中受益最大，而GIN受益最少。在模型效用方面，GraphEraser-BLPA方法从LBAggr中受益最大。我们推测这是因为BLPA划分方法可以捕获局部结构信息，同时丢失训练图的一些全局结构信息。</p>
+<p>为了进一步提高忘却效率，可以使用训练图中的一小部分节点来学习重要性分数。这样做可以有效地减少 LBAggr 的遗忘学习时间。使用 10% 的节点和使用固定数量的 1，000 个节点都可以实现与使用所有节点相当的模型效用。</p>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230921194318907.png"
+	width="971"
+	height="561"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921194318907_hueeeeb49a2010607b4798f4d6741d1cea_86854_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230921194318907_hueeeeb49a2010607b4798f4d6741d1cea_86854_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="LBAggr 的效果"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="173"
+		data-flex-basis="415px"
+	
+></p>
+<h3 id="和其他遗忘学习方法对比">和其他遗忘学习方法对比</h3>
+<p><img src="/p/graph-unlearning/IMAGE/image-20230921200838804.png"
+	width="2011"
+	height="1003"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921200838804_hu70b9d295321989cbc4e75ad43331ce2c_282970_480x0_resize_box_3.png 480w, /p/graph-unlearning/IMAGE/image-20230921200838804_hu70b9d295321989cbc4e75ad43331ce2c_282970_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="遗忘学习对比"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="200"
+		data-flex-basis="481px"
+	
+></p>
+<p>同样，也是作者的方法比较好。</p>
 
 </section>
 
@@ -614,7 +726,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2023-09-21 20:11:00
+        </span>
+    </section></footer>
 
 
     

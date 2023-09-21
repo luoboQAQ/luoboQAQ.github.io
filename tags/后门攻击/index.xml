@@ -194,7 +194,112 @@
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;评估&#34;&gt;评估&lt;/h2&gt;
-&lt;p&gt;🕊️鸽了&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据集&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;作者采用了五个常用的图像数据集，分别为Cora, Citeseer, Pubmed, CS和Physics。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;模型&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;作者在四个GNN模型上进行了测试，分别是SAGE，GCN，GAT和GIN。每个模型都经过100轮的训练，默认学习率设置为0.01，权重衰减为0.001。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;指标&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在问题构造中提过，就是遗忘学习效率和模型效用&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;遗忘学习效率：计算100个独立遗忘学习请求的平均遗忘学习时间。&lt;/li&gt;
+&lt;li&gt;模型效用：使用F1得分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;基线&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Scratch「从头开始训练」&lt;/li&gt;
+&lt;li&gt;Random「随机分区」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;实验设置&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;将整个图分为两个不相交的部分，其中80%的节点用于训练GNN模型，20%的节点用于评估模型效用。&lt;/p&gt;
+&lt;p&gt;分片大小$k$设为20, 20, 50, 30, 和 100&lt;/p&gt;
+&lt;p&gt;片中节点最大个数$\delta$设为$\left \lceil \frac{n}{k} \right \rceil $&lt;/p&gt;
+&lt;p&gt;最大迭代次数$T$设为30&lt;/p&gt;
+&lt;p&gt;BLPA对应社区发现算法；BEKM对应嵌入式聚类算法&lt;/p&gt;
+&lt;h3 id=&#34;遗忘学习效率评估&#34;&gt;遗忘学习效率评估&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675.png&#34;
+	width=&#34;1733&#34;
+	height=&#34;464&#34;
+	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675_hu357da0419904c5306f4c338c1f07e223_56763_480x0_resize_box_3.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675_hu357da0419904c5306f4c338c1f07e223_56763_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;遗忘学习效率&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;373&#34;
+		data-flex-basis=&#34;896px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;如图所示，BLPA和BEKM相对于从头训练模型，可以显著的减少训练的时间。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025.png&#34;
+	width=&#34;991&#34;
+	height=&#34;358&#34;
+	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025_huab62683d841b334ff0c5433f374fa098_49492_480x0_resize_box_3.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025_huab62683d841b334ff0c5433f374fa098_49492_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;每个步骤所花费的时间&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;276&#34;
+		data-flex-basis=&#34;664px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;相对于Random，时间略长是因为存在更长的图分割成本。BLPA 和 BEKM 都需要多次迭代以保留结构信息。但一旦完成图分割，就会将其固定下来。从这个意义上说，我们可以容忍这种代价，因为它只执行一次。&lt;/p&gt;
+&lt;h3 id=&#34;模型效用评分&#34;&gt;模型效用评分&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971.png&#34;
+	width=&#34;1960&#34;
+	height=&#34;799&#34;
+	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971_hu6311ec57331135408abc5299e0943c63_311344_480x0_resize_box_3.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971_hu6311ec57331135408abc5299e0943c63_311344_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;不同遗忘学习方法模型效用&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;245&#34;
+		data-flex-basis=&#34;588px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;绿色底色表示不需要聚合，红色底色表示作者提出的方法，蓝色字体表示最优得分。&lt;/p&gt;
+&lt;p&gt;有些随机得分和BLPA和BEKM差不多，作者认为这时由于图结构信息在GNN模型中作用不大导致的。&lt;/p&gt;
+&lt;p&gt;对此，作者提出了一个方法选择的技巧：可以首先比较MLP和GNN的F1分数，如果MLP和GNN之间的F1分数差距很小，随机方法可能是一个不错的选择，因为它更容易实现，并且可以实现与BLPA和BEKM相当的模型效用。否则，BLPA和BEKM是更好的选择，因为更好的模型实用程序。&lt;/p&gt;
+&lt;p&gt;如果 GNN 遵循 GCN 结构，则可以选择BLPA，否则可以采用 BEKM。这是因为 GCN 模型需要节点度信息来进行归一化，而BLPA 可以保留更多的局部结构信息，从而更好地保留节点度。&lt;/p&gt;
+&lt;p&gt;BEKM 在 Cora 数据集和 GIN 模型上的 F1 得分为 0.801，而 Scratch 的相应 F1 得分为 0.787。作者认为有两种可能的原因：抽样往往可以消除数据集中的一些“噪声”；其次，GraphEraser通过聚合所有子模型的结果来进行最终预测，从这个意义上说，GraphEraser执行集成，这是提高模型性能的另一种方法。&lt;/p&gt;
+&lt;h3 id=&#34;lbaggr-的效果&#34;&gt;LBAggr 的效果&lt;/h3&gt;
+&lt;p&gt;有效，可以提升F1分数。&lt;/p&gt;
+&lt;p&gt;比较不同的GNN模型，GCN从LBAggr中受益最大，而GIN受益最少。在模型效用方面，GraphEraser-BLPA方法从LBAggr中受益最大。我们推测这是因为BLPA划分方法可以捕获局部结构信息，同时丢失训练图的一些全局结构信息。&lt;/p&gt;
+&lt;p&gt;为了进一步提高忘却效率，可以使用训练图中的一小部分节点来学习重要性分数。这样做可以有效地减少 LBAggr 的遗忘学习时间。使用 10% 的节点和使用固定数量的 1，000 个节点都可以实现与使用所有节点相当的模型效用。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907.png&#34;
+	width=&#34;971&#34;
+	height=&#34;561&#34;
+	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907_hueeeeb49a2010607b4798f4d6741d1cea_86854_480x0_resize_box_3.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907_hueeeeb49a2010607b4798f4d6741d1cea_86854_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;LBAggr 的效果&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;173&#34;
+		data-flex-basis=&#34;415px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;和其他遗忘学习方法对比&#34;&gt;和其他遗忘学习方法对比&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804.png&#34;
+	width=&#34;2011&#34;
+	height=&#34;1003&#34;
+	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804_hu70b9d295321989cbc4e75ad43331ce2c_282970_480x0_resize_box_3.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804_hu70b9d295321989cbc4e75ad43331ce2c_282970_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;遗忘学习对比&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;200&#34;
+		data-flex-basis=&#34;481px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;同样，也是作者的方法比较好。&lt;/p&gt;
 </description>
         </item>
         

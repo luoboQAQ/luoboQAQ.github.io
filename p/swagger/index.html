@@ -439,37 +439,37 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@EnableOpenApi</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwaggerConfig</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Docket</span> <span class="nf">docket</span><span class="o">(){</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">Docket</span><span class="o">(</span><span class="n">DocumentationType</span><span class="o">.</span><span class="na">OAS_30</span><span class="o">)</span>	<span class="c1">//3.0版本用OAS_30这个标准
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="o">.</span><span class="na">apiInfo</span><span class="o">(</span><span class="n">getApiInfo</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">select</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl">                <span class="c1">//扫描指定包下的接口
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="o">.</span><span class="na">apis</span><span class="o">(</span><span class="n">RequestHandlerSelectors</span><span class="o">.</span><span class="na">basePackage</span><span class="o">(</span><span class="s">&#34;top.lbqaq.controller&#34;</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableOpenApi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">SwaggerConfig</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Docket</span><span class="w"> </span><span class="nf">docket</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Docket</span><span class="p">(</span><span class="n">DocumentationType</span><span class="p">.</span><span class="na">OAS_30</span><span class="p">)</span><span class="w">	</span><span class="c1">//3.0版本用OAS_30这个标准</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">apiInfo</span><span class="p">(</span><span class="n">getApiInfo</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">select</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="c1">//扫描指定包下的接口</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">apis</span><span class="p">(</span><span class="n">RequestHandlerSelectors</span><span class="p">.</span><span class="na">basePackage</span><span class="p">(</span><span class="s">&#34;top.lbqaq.controller&#34;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * 配置swagger信息
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">ApiInfo</span> <span class="nf">getApiInfo</span><span class="o">(){</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//这里是作者信息，分别为姓名、个人主页、邮箱
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Contact</span> <span class="n">contact</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Contact</span><span class="o">(</span><span class="s">&#34;luoboQAQ&#34;</span><span class="o">,</span><span class="s">&#34;https://lbqaq.top&#34;</span><span class="o">,</span><span class="s">&#34;123@xx.com&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">ApiInfo</span><span class="o">(</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;项目名&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;项目描述&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;版本&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;项目主页&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="n">contact</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;Apache 2.0&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s">&#34;https://www.apache.org/licenses/LICENSE-2.0&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">                <span class="k">new</span> <span class="n">ArrayList</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ApiInfo</span><span class="w"> </span><span class="nf">getApiInfo</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//这里是作者信息，分别为姓名、个人主页、邮箱</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Contact</span><span class="w"> </span><span class="n">contact</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Contact</span><span class="p">(</span><span class="s">&#34;luoboQAQ&#34;</span><span class="p">,</span><span class="s">&#34;https://lbqaq.top&#34;</span><span class="p">,</span><span class="s">&#34;123@xx.com&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ApiInfo</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;项目名&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;项目描述&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;版本&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;项目主页&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">contact</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;Apache 2.0&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="s">&#34;https://www.apache.org/licenses/LICENSE-2.0&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样一个带有个人信息的配置页就做好了。</p>
 <h2 id="注解">注解</h2>
@@ -521,9 +521,9 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Operation</span><span class="o">(</span><span class="n">summary</span> <span class="o">=</span> <span class="s">&#34;这会显示在主页上&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;这显示在内页里&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">tags</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;test&#34;</span><span class="o">})</span>	<span class="c1">//会将接口分类出去
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Operation</span><span class="p">(</span><span class="n">summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;这会显示在主页上&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;这显示在内页里&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">tags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;test&#34;</span><span class="p">})</span><span class="w">	</span><span class="c1">//会将接口分类出去</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>在参数上注释</p>
@@ -532,8 +532,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Parameter</span><span class="o">(</span><span class="n">description</span> <span class="o">=</span> <span class="s">&#34;这里是描述&#34;</span><span class="o">,</span> <span class="n">required</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Parameter</span><span class="p">(</span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;这里是描述&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>只测了这么多，之前为了测试<code>@RequestBody</code>花了太多时间，结果一无所获。因为2.0的注解还能用，这里就挖个坑，等之后有时间再来完善吧。</p>
 

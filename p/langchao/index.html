@@ -10,7 +10,7 @@
 <meta property='og:description' content='记录我折腾服务器的过程，为初次接触此平台的用户提供一个简单的教程'>
 <meta property='og:url' content='https://lbqaq.top/p/langchao/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Docker' /><meta property='article:published_time' content='2023-09-03T14:10:14&#43;08:00'/><meta property='article:modified_time' content='2023-09-03T14:10:14&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/langchao/102879503.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Docker' /><meta property='article:published_time' content='2023-09-03T14:10:14&#43;08:00'/><meta property='article:modified_time' content='2023-11-22T13:24:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/langchao/102879503.webp' />
 <meta name="twitter:title" content="浪潮人工智能平台使用心得">
 <meta name="twitter:description" content="记录我折腾服务器的过程，为初次接触此平台的用户提供一个简单的教程"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/langchao/102879503.webp' /><script async defer
@@ -288,22 +288,7 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#省流版">省流版</a></li>
     <li><a href="#配置开发镜像">配置开发镜像</a></li>
-    <li><a href="#服务器连接互联网">服务器连接互联网</a>
-      <ol>
-        <li><a href="#思路">思路</a></li>
-        <li><a href="#配置代理">配置代理</a></li>
-        <li><a href="#设置端口转发">设置端口转发</a>
-          <ol>
-            <li><a href="#xshell">XShell</a></li>
-            <li><a href="#命令行">命令行</a></li>
-          </ol>
-        </li>
-        <li><a href="#服务器配置">服务器配置</a></li>
-        <li><a href="#测试">测试</a></li>
-      </ol>
-    </li>
     <li><a href="#小结">小结</a></li>
   </ol>
 </nav>
@@ -377,7 +362,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 6 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -393,12 +378,6 @@
     
     
     <p>随着学习的深入，对算力的要求越来越高。但我实验室的电脑并没有配置显卡，所以便需要使用学院的服务器。成功拿到账号后，却发现这个平台并没有我想象的那么好用😇为了达到最舒适的使用体验，开搞！</p>
-<h2 id="省流版">省流版</h2>
-<ol>
-<li>使用我提供的镜像创建开发环境</li>
-<li>按照<a class="link" href="#%e6%9c%8d%e5%8a%a1%e5%99%a8%e8%bf%9e%e6%8e%a5%e4%ba%92%e8%81%94%e7%bd%91" >服务器连接互联网</a>一节配置网络</li>
-<li>开始使用吧</li>
-</ol>
 <h2 id="配置开发镜像">配置开发镜像</h2>
 <p>平台里虽然预置了一些开发环境，但仍然缺少一些需要的软件，每次连入后再重新安装实在是不优雅。那么最好的方案就是配置好一套环境，直接拉取就能使用。在我之前，已经有位大佬构建了一套开发环境并进行了分享，可是镜像大小达到了惊人的18.4G😯（容量大说明功能多，此处并没有贬低的意思）。我个人比较喜欢Arch的哲学，即Keep It Simple, Stupid（对应中文为“保持简单，且一目了然”）。为此，我决定构建一个最小化的开发环境且可以开箱即用。</p>
 <p>通过探究发现，这个平台上所有的开发环境都是一个Docker容器。所以，我们只要构建好镜像并上传就OK了。构建镜像有两种方式，一种是进入容器手动配置然后使用<code>docker commit ...</code>保存修改；另一种则是使用<code>Dockerfile</code>。为了便于维护和修改，我选择了第二种。</p>
@@ -564,99 +543,8 @@
 <li>设置别名：<code>conda</code>-&gt;<code>micromamba</code>，方便日常使用</li>
 </ul>
 <p>由于服务器没有网络，需要我们手动上传镜像，使用命令<code>docker save -o [TAGS]</code>打包成tar包并上传至系统中。</p>
-<h2 id="服务器连接互联网">服务器连接互联网</h2>
-<p>学院的服务器默认是没有互联网访问的权限，如果想要安装包就会非常麻烦。对此，我们可以使用端口转发的方式来实现对互联网的访问。</p>
-<h3 id="思路">思路</h3>
-<p>已知我们的机器是可以连接外网的，同时服务器提供了SSH可以连接。故我们可通过端口转发实现服务器的上网，具体来说，就是将我们本机作为中转，让服务器的网络流量都通过本机转发到外网。</p>
-<h3 id="配置代理">配置代理</h3>
-<p>有很多软件都能实现代理的功能。如果你正在使用一款图标是小猫或者图标是一个V的软件，那么恭喜你，只需要在设置里打开<code>允许局域网连接</code>并记下<code>http</code>的端口即可。</p>
-<p>如果你不知道上面所述的软件是什么也没有关系，<a class="link" href="https://luoboquq.lanzouk.com/ibIAO15iprjg"  target="_blank" rel="noopener"
-    >点我下载</a>一个小工具，双击打开运行就OK了。</p>
-<p>小工具默认的端口为<code>10086</code>，下面的步骤中我们以此端口作为示例，如果你使用的是自己的软件记得进行替换。</p>
-<h3 id="设置端口转发">设置端口转发</h3>
-<p>这里需要我们配置一下SSH的端口转发功能，将远程（服务器）的请求转发到本地。这里我列举几个常见的客户端配置方法。</p>
-<p>我的镜像远程（服务器）的端口设置为<code>3128</code>，下面的步骤中同样以此端口作为示例。</p>
-<h4 id="xshell">XShell</h4>
-<p>如图所示配置即可</p>
-<p><img src="/p/langchao/IMAGE/1.png"
-	width="667"
-	height="701"
-	srcset="/p/langchao/IMAGE/1_hu30453e05e6273de25423501542d0f600_45853_480x0_resize_box_3.png 480w, /p/langchao/IMAGE/1_hu30453e05e6273de25423501542d0f600_45853_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-		alt="XShell设置"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="95"
-		data-flex-basis="228px"
-	
-></p>
-<p><img src="/p/langchao/IMAGE/2.png"
-	width="447"
-	height="361"
-	srcset="/p/langchao/IMAGE/2_hu8265d0823964ed2c685968715106455d_16697_480x0_resize_box_3.png 480w, /p/langchao/IMAGE/2_hu8265d0823964ed2c685968715106455d_16697_1024x0_resize_box_3.png 1024w"
-	loading="lazy"
-	
-		alt="XShell设置"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="123"
-		data-flex-basis="297px"
-	
-></p>
-<h4 id="命令行">命令行</h4>
-<p>输入以下命令</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh -R 3128:localhost:10086 root@192.168.101.56 -p <span class="m">30027</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="服务器配置">服务器配置</h3>
-<p>如果你使用了我的镜像，则无需执行此步。</p>
-<p>首先通过SSH连上服务器，输入下面的指令查看当前使用的shell</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$0</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果结果为<code>bash</code>，我们要编辑<code>.bashrc</code>；如果结果为<code>zsh</code>，我们要编辑<code>.zshrc</code>。</p>
-<p>我们需要在文件的最末尾添加下面的三句话</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HTTP_PROXY</span><span class="o">=</span><span class="s2">&#34;http://127.0.0.1:3128&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">HTTPS_PROXY</span><span class="o">=</span><span class="s2">&#34;http://127.0.0.1:3128&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">ALL_PROXY</span><span class="o">=</span><span class="s2">&#34;http://127.0.0.1:3128&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>输入<code>source .zshrc</code> 或重启终端来应用变更</p>
-<h3 id="测试">测试</h3>
-<p>想要测试有没有网络，只需要输入<code>curl www.baidu.com</code>，当出现像下面这一大坨内容就说明网络连接成功了</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;!DOCTYPE html&gt;
-</span></span><span class="line"><span class="cl">&lt;!--STATUS OK--&gt;&lt;html&gt; &lt;head&gt;&lt;meta http-equiv=content-type content=text/html;charset=utf-8&gt;&lt;meta http-equiv=X-UA-Compatible content=IE=Edge&gt;&lt;meta content=always name=referrer&gt;&lt;link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css&gt;&lt;title&gt;百度一下，你就知道&lt;/title&gt;&lt;/head&gt; &lt;body link=#0000cc&gt; &lt;div id=wrapper&gt; &lt;div id=head&gt; &lt;div class=head_wrapper&gt; &lt;div class=s_form&gt; &lt;div class=s_form_wrapper&gt; &lt;div id=lg&gt; &lt;img hidefocus=true src=//www.baidu.com/img/bd_logo1.png width=270 height=129&gt; &lt;/div&gt; &lt;form id=form name=f action=//www.baidu.com/s class=fm&gt; &lt;input type=hidden name=bdorz_come value=1&gt; &lt;input type=hidden name=ie value=utf-8&gt; &lt;input type=hidden name=f value=8&gt; &lt;input type=hidden name=rsv_bp value=1&gt; &lt;input type=hidden name=rsv_idx value=1&gt; &lt;input type=hidden name=tn value=baidu&gt;&lt;span class=&#34;bg s_ipt_wr&#34;&gt;&lt;input id=kw name=wd class=s_ipt value maxlength=255 autocomplete=off autofocus&gt;&lt;/span&gt;&lt;span class=&#34;bg s_btn_wr&#34;&gt;&lt;input type=submit id=su value=百度一下 class=&#34;bg s_btn&#34;&gt;&lt;/span&gt; &lt;/form&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=u1&gt; &lt;a href=http://news.baidu.com name=tj_trnews class=mnav&gt;新闻&lt;/a&gt; &lt;a href=http://www.hao123.com name=tj_trhao123 class=mnav&gt;hao123&lt;/a&gt; &lt;a href=http://map.baidu.com name=tj_trmap class=mnav&gt;地图&lt;/a&gt; &lt;a href=http://v.baidu.com name=tj_trvideo class=mnav&gt;视频&lt;/a&gt; &lt;a href=http://tieba.baidu.com name=tj_trtieba class=mnav&gt;贴吧&lt;/a&gt; &lt;noscript&gt; &lt;a href=http://www.baidu.com/bdorz/login.gif?login&amp;amp;tpl=mn&amp;amp;u=http%3A%2F%2Fwww.baidu.com%2f%3fbdorz_come%3d1 name=tj_login class=lb&gt;登录&lt;/a&gt; &lt;/noscript&gt; &lt;script&gt;document.write(&#39;&lt;a href=&#34;&lt;http://www.baidu.com/bdorz/login.gif?login&amp;tpl=mn&amp;u=&#39;+&gt; encodeURIComponent(window.location.href+ (window.location.search === &#34;&#34; ? &#34;?&#34; : &#34;&amp;&#34;)+ &#34;bdorz_come=1&#34;)+ &#39;&#34; name=&#34;tj_login&#34; class=&#34;lb&#34;&gt;登录&lt;/a&gt;&#39;);&lt;/script&gt; &lt;a href=//www.baidu.com/more/ name=tj_briicon class=bri style=&#34;display: block;&#34;&gt;更多产品&lt;/a&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;div id=ftCon&gt; &lt;div id=ftConw&gt; &lt;p id=lh&gt; &lt;a href=http://home.baidu.com&gt;关于百度&lt;/a&gt; &lt;a href=http://ir.baidu.com&gt;About Baidu&lt;/a&gt; &lt;/p&gt; &lt;p id=cp&gt;&amp;copy;2017&amp;nbsp;Baidu&amp;nbsp;&lt;a href=http://www.baidu.com/duty/&gt;使用百度前必读&lt;/a&gt;&amp;nbsp; &lt;a href=http://jianyi.baidu.com/ class=cp-feedback&gt;意见反馈&lt;/a&gt;&amp;nbsp;京ICP证030173号&amp;nbsp; &lt;img src=//www.baidu.com/img/gs.gif&gt; &lt;/p&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>每次使用时，只需打开之前下载的软件即可</p>
 <h2 id="小结">小结</h2>
-<p>其实本来只是想写使用Dockerfile配置开发环境的文章，结果就是为这盘醋包了饺子，把之前写的服务器联网也整合进来了。希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。</p>
+<p>希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。</p>
 
 </section>
 
@@ -684,7 +572,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2023-11-22 13:24:00
+        </span>
+    </section></footer>
 
 
     

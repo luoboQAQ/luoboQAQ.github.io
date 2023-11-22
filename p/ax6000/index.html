@@ -10,7 +10,7 @@
 <meta property='og:description' content='记录红米AX6000使用Openwrt系统打造舒适上网环境'>
 <meta property='og:url' content='https://lbqaq.top/p/ax6000/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='路由器' /><meta property='article:tag' content='openwrt' /><meta property='article:published_time' content='2023-10-21T21:36:58&#43;08:00'/><meta property='article:modified_time' content='2023-10-21T21:36:58&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/ax6000/112545261.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='路由器' /><meta property='article:tag' content='openwrt' /><meta property='article:published_time' content='2023-10-21T21:36:58&#43;08:00'/><meta property='article:modified_time' content='2023-11-22T13:24:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/ax6000/112545261.webp' />
 <meta name="twitter:title" content="红米AX6000折腾记">
 <meta name="twitter:description" content="记录红米AX6000使用Openwrt系统打造舒适上网环境"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/ax6000/112545261.webp' /><script async defer
@@ -293,13 +293,17 @@
     <li><a href="#配置">配置</a>
       <ol>
         <li><a href="#解锁与刷机">解锁与刷机</a></li>
+        <li><a href="#刷入uboot">刷入uboot</a></li>
         <li><a href="#配置校园网自动连接">配置校园网自动连接</a></li>
         <li><a href="#配置ipv6">配置ipv6</a></li>
+        <li><a href="#配置mosdns">配置mosdns</a></li>
         <li><a href="#配置wireguard">配置Wireguard</a></li>
         <li><a href="#配置ddns">配置ddns</a></li>
       </ol>
     </li>
     <li><a href="#小结">小结</a></li>
+    <li><a href="#更新日志">更新日志</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
   </ol>
 </nav>
         </div>
@@ -372,7 +376,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 9 分钟
+                    阅读时长: 13 分钟
                 </time>
             </div>
         
@@ -421,8 +425,7 @@
 <p>再加上各种插件，真的很舒适🤤，上网体验直接拉满。下面就是将相关的配置过程做个记录。</p>
 <h2 id="配置">配置</h2>
 <h3 id="解锁与刷机">解锁与刷机</h3>
-<p>这里可以参考<a class="link" href="https://www.bilibili.com/video/BV1Co4y1F7wM/"  target="_blank" rel="noopener"
-    >B站大佬的视频</a>，步骤非常详细，直接跟着做就好了。为了备忘，我这里再简单把步骤写一下。</p>
+<p>这里可以参考B站大佬的视频<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，步骤非常详细，直接跟着做就好了。为了备忘，我这里再简单把步骤写一下。</p>
 <p>高版本的系统已经封堵了解锁的漏洞，我们要做的第一步就是使用小米修复工具进行降级。</p>
 <p>之后进入管理界面并登录，此时地址格式类似下面这样：</p>
 <div class="highlight"><div class="chroma">
@@ -617,6 +620,53 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>之后刷入最新237大佬固件</p>
+<h3 id="刷入uboot">刷入uboot</h3>
+<p>之前刷入的官方版的镜像，虽然很方便，但是可用空间并不是很多，为了榨干它全部的性能，我还是决定刷入第三方uboot，将官方原始的三个分区合并成一个大分区。</p>
+<p>我这里刷入的hanwckf大佬制作的uboot，他支持多分区的切换，还是很方便的。具体的功能和下载链接可以看大佬的博客——<a class="link" href="https://cmi.hanwckf.top/p/mt798x-uboot-usage/"  target="_blank" rel="noopener"
+    >mt798x uboot 功能介绍</a>。</p>
+<p>我们之前刷入过237大佬的固件了，所以FIP分区已经解锁，可以直接刷。</p>
+<p>首先要<strong>备份</strong>原始的分区，像Factory为无线EEPROM分区；Bdata存储着你的SN和MAC。如果没了应该是无法使用别人的分区来使用的。所以一定要备份好。</p>
+<p>我们使用dd命令备份分区到tmp文件夹：<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/mtd1 <span class="nv">of</span><span class="o">=</span>/tmp/mtd1_BL2.bin
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/mtd2 <span class="nv">of</span><span class="o">=</span>/tmp/mtd2_Nvram.bin
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/mtd3 <span class="nv">of</span><span class="o">=</span>/tmp/mtd3_Bdata.bin
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/mtd4 <span class="nv">of</span><span class="o">=</span>/tmp/mtd4_Factory.bin
+</span></span><span class="line"><span class="cl">dd <span class="k">if</span><span class="o">=</span>/dev/mtd5 <span class="nv">of</span><span class="o">=</span>/tmp/mtd5_FIP.bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后使用WinSCP等软件将备份的文件下载到电脑上。</p>
+<p>备份好后，就可以通过WinSCP将uboot文件上传到tmp目录下，并执行下面的命令进行刷入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">d5sum /tmp/mt7986_redmi_ax6000-fip-fixed-parts-multi-layout.bin
+</span></span><span class="line"><span class="cl">mtd write /tmp/mt7986_redmi_ax6000-fip-fixed-parts-multi-layout.bin FIP
+</span></span><span class="line"><span class="cl">mtd verify /tmp/mt7986_redmi_ax6000-fip-fixed-parts-multi-layout.bin FIP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意对比md5的值是否一致。最后如果成功则会输出<code>Success</code></p>
+<p>将路由器断电，按住Reset键并通电，持续按住10S即可进入uboot了。</p>
+<p>由于H大的uboot没有配置DHCP，我们需要手动配置电脑ip：</p>
+<ul>
+<li>IP地址：192.168.31.100</li>
+<li>子网掩码：255.255.255.0</li>
+<li>默认网关：192.168.31.1</li>
+<li>DNS：192.168.31.1</li>
+</ul>
+<p>访问192.168.31.1即可进入uboot页面，这时就可以刷入大分区的固件了</p>
 <h3 id="配置校园网自动连接">配置校园网自动连接</h3>
 <p>在我之前，已经有大佬针对校园网的登录写了自动化脚本</p>
 <div class="github">
@@ -657,8 +707,7 @@
 </div><h3 id="配置ipv6">配置ipv6</h3>
 <p>学校的ipv6下发的是/64地址，一开始我参考<a class="link" href="https://wjk.moe/2022/%E9%94%90%E6%8D%B7%E6%A0%A1%E5%9B%AD%E7%BD%91IPv6%E7%9A%84%EF%BC%8F64%E5%86%85%E7%BD%91%E4%B8%AD%E7%BB%A7%E9%85%8D%E7%BD%AE%EF%BC%9Andp-proxy%E3%80%81relay/"  target="_blank" rel="noopener"
     >这个大佬的教程</a>，使用内网中继的方案来实现ipv6。然而无论我怎么配置，都无法连接互联网。最后发现是学校网关对每一个ipv6地址都会进行登录的校验，如果没有登录就不会放行，那这条路算是彻底堵死了😥。</p>
-<p>这样的话，就只能使用nat6了,详细的步骤可以参考<a class="link" href="https://zhuanlan.zhihu.com/p/492774540"  target="_blank" rel="noopener"
-    >这篇教程</a></p>
+<p>这样的话，就只能使用nat6了,详细的步骤可以参考这篇教程<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup></p>
 <p>将接口——LAN——IPV6设置中的路由通告服务选为“服务器模式”、DHCPv6 服务选为“服务器模式”、NDP 代理选为“禁用”、DHCPv6 模式选为“无状态的 + 有状态的”、总是通告默认路由勾上</p>
 <p>使用ssh连接路由器，在<code>/etc/init.d</code>目录下新建<code>nat6</code>并填入下面的内容：</p>
 <details>
@@ -912,7 +961,409 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>完成后重启就会发现有ipv6了</p>
-<p>然而，在我使用的过程中发现，开启了ipv6后手机打开app时加载的速度肉眼可见的变慢。一开始以为是DNS的问题，但修改了默认的DNS服务器后还是不行。为了保证使用的体验，目前我还是把nat6给关闭了😭。</p>
+<p>然而，在我使用的过程中发现，开启了ipv6后手机打开app时加载的速度肉眼可见的变慢。一开始以为是DNS的问题，但修改了默认的DNS服务器后还是不行。<del>为了保证使用的体验，目前我还是把nat6给关闭了😭。</del></p>
+<p>已经找到了解决方案😉，见下一节</p>
+<h3 id="配置mosdns">配置mosdns</h3>
+<p>mosdns作为一款自定义程度很高的DNS转发器，在之前的博文<a class="link" href="https://lbqaq.top/p/mydns/"  target="_blank" rel="noopener"
+    >《自建DNS实现分流及广告过滤》</a>就已经使用过了，这里我们需要他来解决ipv6 NAT后的卡顿问题。同时，配置好mosdns后，也可以实现广告过滤，dns防污染的功能。</p>
+<p>安装可以使用<a class="link" href="https://github.com/sbwml/luci-app-mosdns"  target="_blank" rel="noopener"
+    >luci-app-mosdns</a>这个项目来实现，直接执行它的脚本即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sh -c <span class="s2">&#34;</span><span class="k">$(</span>curl -ksS https://raw.githubusercontent.com/sbwml/luci-app-mosdns/v5/install.sh<span class="k">)</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>和之前的方案一样，我们需要以下项目提供的域名/IP文件：</p>
+<ul>
+<li><a class="link" href="https://github.com/Loyalsoldier/v2ray-rules-dat#%e8%a7%84%e5%88%99%e6%96%87%e4%bb%b6%e4%b8%8b%e8%bd%bd%e5%8f%8a%e4%bd%bf%e7%94%a8%e6%96%b9%e5%bc%8f"  target="_blank" rel="noopener"
+    >reject-list.txt 和 direct-list.txt</a></li>
+<li><a class="link" href="https://github.com/Masaiki/GeoIP2-CN#-%e4%b8%8b%e8%bd%bd%e9%93%be%e6%8e%a5"  target="_blank" rel="noopener"
+    >CN-ip-cidr.txt</a></li>
+<li><a class="link" href="https://anti-ad.net/"  target="_blank" rel="noopener"
+    >ad-domains.txt</a>：下载<code>domains.txt</code>并改名</li>
+</ul>
+<p>其实luci-app-mosdns默认提供了一套配置，但是我们需要使用mosdns的优先ipv4的功能，所以只能自己撸配置了。没错，解决ipv6卡顿的最好方式就是不用😥，通过mosdns可以避免操作系统使用优先ipv6的策略。这样既实现了不卡顿，又可以访问纯ipv6网站。</p>
+<p>这套配置可以实现屏蔽广告，国内域名用本地DNS解析，国外域名走远程DNS解析。遇到不在列表中的域名，会查询本地DNS，如果返回的是国外地址，则以远程DNS的结果为准。</p>
+<p>具体的配置如下：</p>
+<details>
+    <summary>📃展开代码</summary>
+    <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Powered by luoboQAQ</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">log</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l">warn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/tmp/log/mosdns.log&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># API 入口设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">api</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">http</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0:9091&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">plugins</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 国内域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">geosite_cn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">domain_set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/var/mosdns/direct-list.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 国内IP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">geoip_cn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ip_set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/var/mosdns/CN-ip-cidr.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 国外域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">geosite_no_cn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">domain_set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/var/mosdns/proxy-list.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 黑名单域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">blocklist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">domain_set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/etc/mosdns/rule/blocklist.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 广告域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">adlist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">domain_set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/var/mosdns/ad-domains.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># PTR黑名单</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">local_ptr</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">domain_set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;/etc/mosdns/rule/local-ptr.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 缓存插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="m">10240</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">lazy_cache_ttl</span><span class="p">:</span><span class="w"> </span><span class="m">86400</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 将缓存保存在磁盘</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dump_file</span><span class="p">:</span><span class="w"> </span><span class="l">/tmp/mosdns/cache.dump</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 转发至本地服务器的插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">forward_local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">forward</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">upstreams</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">alidns_dot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;tls://223.5.5.5&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">dnspod_dot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;tls://120.53.53.53&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 转发至远程服务器的插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">forward_remote</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">forward</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">upstreams</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># - tag: easymosdns</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c">#   addr: &#34;https://doh.apad.pro/dns-query&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c">#   bootstrap: &#34;223.5.5.5&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">cloudflare_dot</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">addr</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;tls://1.1.1.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 国内解析</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">local_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback 用本地服务器 sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 返回不包含本地 ip 则 reject</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">local_ip_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_local</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;!resp_ip $geoip_cn&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">drop_resp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback 用远程服务器 sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">remote_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$forward_remote</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># fallback插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">fallback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">fallback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">primary</span><span class="p">:</span><span class="w"> </span><span class="l">local_ip_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">secondary</span><span class="p">:</span><span class="w"> </span><span class="l">remote_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">threshold</span><span class="p">:</span><span class="w"> </span><span class="m">500</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">always_standby</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 有响应终止返回</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">has_resp_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">has_resp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">accept</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 查询国内域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">query_is_local_domain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname $geosite_cn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$local_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 查询国外域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">query_is_no_local_domain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname $geosite_no_cn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$remote_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 查询拒绝域名</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">query_is_reject_domain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname $blocklist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qname $adlist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">qtype 12</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">qname $local_ptr</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">matches</span><span class="p">:</span><span class="w"> </span><span class="l">qtype 65</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">reject 3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 主要运行逻辑插件</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">main_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># 去广告</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$query_is_reject_domain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">jump has_resp_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># ipv4地址优先，避免NAT占用CPU</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">prefer_ipv4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">jump has_resp_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$query_is_local_domain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">jump has_resp_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$query_is_no_local_domain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">jump has_resp_sequence     </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">exec</span><span class="p">:</span><span class="w"> </span><span class="l">$fallback</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 启动 udp 服务器。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">udp_server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">udp_server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="l">main_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">listen</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;:5335&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 启动 tcp 服务器。</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l">tcp_server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tcp_server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="l">main_sequence</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">listen</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;:5335&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+</details>
 <h3 id="配置wireguard">配置Wireguard</h3>
 <p>学院的服务器是在内网中的，如果没有连校园网就无法访问。为了随时随地可以访问，我们可以使用Wireguard进行虚拟组网。基于ipv6直接是公网的特点，我们可以很方便的实现这个功能。</p>
 <p>连接路由器，使用命令创建预共享密钥</p>
@@ -1076,6 +1527,28 @@
 <h2 id="小结">小结</h2>
 <p>Openwrt作为一个开放的系统，可玩性还是很高的，通过装上所需的插件，极大的提高了我的上网体验，只能说：真香~</p>
 <p>（本来是打算介绍我写的校园网连接程序，结果为了这碟醋包了这盘饺子QwQ）</p>
+<h2 id="更新日志">更新日志</h2>
+<ul>
+<li>23.11.22：添加了uboot和mosdns的内容</li>
+</ul>
+<h2 id="参考文献">参考文献</h2>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a class="link" href="https://www.bilibili.com/video/BV1Co4y1F7wM/"  target="_blank" rel="noopener"
+    >红米AX6000完美刷机 | 刷机无风险 小白适用</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p><a class="link" href="https://www.right.com.cn/forum/thread-8265832-1-2.html"  target="_blank" rel="noopener"
+    >红米AX6000刷hanwckf大佬的不死uboot+刷回官方固件+TTL使用+编程器救砖教程</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3">
+<p><a class="link" href="https://zhuanlan.zhihu.com/p/492774540"  target="_blank" rel="noopener"
+    >校园网环境下Openwrt配置ipv6教程——以nat6为例</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 </section>
 
@@ -1105,7 +1578,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2023-11-22 13:24:00
+        </span>
+    </section></footer>
 
 
     

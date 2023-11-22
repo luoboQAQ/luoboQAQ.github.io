@@ -565,28 +565,28 @@
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloServlet</span> <span class="kd">extends</span> <span class="n">HttpServlet</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doGet</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//获取前端操作
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">method</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="na">getParameter</span><span class="o">(</span><span class="s">&#34;method&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;add&#34;</span><span class="o">)){</span>
-</span></span><span class="line"><span class="cl">            <span class="n">req</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;执行了add方法&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;delete&#34;</span><span class="o">)){</span>
-</span></span><span class="line"><span class="cl">            <span class="n">req</span><span class="o">.</span><span class="na">getSession</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;执行了delete方法&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//调用业务层
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//视图转发或重定向
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">req</span><span class="o">.</span><span class="na">getRequestDispatcher</span><span class="o">(</span><span class="s">&#34;/WEB-INF/jsp/test.jsp&#34;</span><span class="o">).</span><span class="na">forward</span><span class="o">(</span><span class="n">req</span><span class="o">,</span><span class="n">resp</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doPost</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">resp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">doGet</span><span class="o">(</span><span class="n">req</span><span class="o">,</span> <span class="n">resp</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloServlet</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">HttpServlet</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doGet</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//获取前端操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&#34;method&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;add&#34;</span><span class="p">)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">req</span><span class="p">.</span><span class="na">getSession</span><span class="p">().</span><span class="na">setAttribute</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="s">&#34;执行了add方法&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">method</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;delete&#34;</span><span class="p">)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">req</span><span class="p">.</span><span class="na">getSession</span><span class="p">().</span><span class="na">setAttribute</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="s">&#34;执行了delete方法&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//调用业务层</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//视图转发或重定向</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">req</span><span class="p">.</span><span class="na">getRequestDispatcher</span><span class="p">(</span><span class="s">&#34;/WEB-INF/jsp/test.jsp&#34;</span><span class="p">).</span><span class="na">forward</span><span class="p">(</span><span class="n">req</span><span class="p">,</span><span class="n">resp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doPost</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">resp</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ServletException</span><span class="p">,</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">doGet</span><span class="p">(</span><span class="n">req</span><span class="p">,</span><span class="w"> </span><span class="n">resp</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -905,27 +905,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">top.lbqaq.Controller</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.servlet.mvc.Controller</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletResponse</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">ModelAndView</span> <span class="n">mv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//业务代码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">result</span> <span class="o">=</span> <span class="s">&#34;HelloSpringMVC&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">mv</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="n">result</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//视图跳转
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">mv</span><span class="o">.</span><span class="na">setViewName</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">top.lbqaq.Controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.servlet.ModelAndView</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.servlet.mvc.Controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletResponse</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloController</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Controller</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ModelAndView</span><span class="w"> </span><span class="nf">handleRequest</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">httpServletRequest</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">httpServletResponse</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ModelAndView</span><span class="w"> </span><span class="n">mv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ModelAndView</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//业务代码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;HelloSpringMVC&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mv</span><span class="p">.</span><span class="na">addObject</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="n">result</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//视图跳转</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mv</span><span class="p">.</span><span class="na">setViewName</span><span class="p">(</span><span class="s">&#34;test&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mv</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -1090,16 +1090,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//封装数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;Hello,SpringMVCAnnotation!&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>  <span class="c1">//会被视图解析器处理
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HelloController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="n">Model</span><span class="w"> </span><span class="n">model</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//封装数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">model</span><span class="p">.</span><span class="na">addAttribute</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="s">&#34;Hello,SpringMVCAnnotation!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">;</span><span class="w">  </span><span class="c1">//会被视图解析器处理</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>@Controller是为了让Spring IOC容器初始化时自动扫描到；</li>
@@ -1188,19 +1188,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestFulController</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">//原来的：localhost:8085/add?a=1&amp;b=2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//Restful:localhost:8085/add/1/2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/add/{a}/{b}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">test1</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">a</span><span class="o">,</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">b</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;结果为&#34;</span><span class="o">+</span><span class="n">res</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">RestFulController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//原来的：localhost:8085/add?a=1&amp;b=2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//Restful:localhost:8085/add/1/2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/add/{a}/{b}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">test1</span><span class="p">(</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="nd">@PathVariable</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">Model</span><span class="w"> </span><span class="n">model</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">model</span><span class="p">.</span><span class="na">addAttribute</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="s">&#34;结果为&#34;</span><span class="o">+</span><span class="n">res</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;test&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>@RequestMapping</code>里面的<code>{a}</code>就代表这里是传给a变量的值；下面的a变量前要加<code>@PathVariable</code></p>
 <p>使用路径变量的好处？</p>
@@ -1219,12 +1219,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@PostMapping</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@PutMapping</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@DeleteMapping</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@PatchMapping</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PostMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PutMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@DeleteMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PatchMapping</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>拿<code>@GetMapping</code>来说，就是<code>@RequestMapping(method =RequestMethod.GET)</code>意思，如果使用其他的方法，将会报405错误。</p>
 <h2 id="重定向和转发">重定向和转发</h2>
@@ -1250,23 +1250,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ResultSpringMVC2</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm2/t1&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">test1</span><span class="o">(){</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//转发
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/rsm2/t2&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">test2</span><span class="o">(){</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//重定向
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//return &#34;redirect:hello.do&#34;; //hello.do为另一个请求/
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ResultSpringMVC2</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/rsm2/t1&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">test1</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//转发</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;test&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/rsm2/t2&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">test2</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//重定向</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;redirect:/index.jsp&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//return &#34;redirect:hello.do&#34;; //hello.do为另一个请求/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="数据处理">数据处理</h2>
 <h3 id="处理提交数据">处理提交数据</h3>
@@ -1282,12 +1282,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>后台输出 : lbqaq</p>
 <p><strong>2、提交的域名称和处理方法的参数名不一致</strong></p>
@@ -1303,13 +1303,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//@RequestParam(&#34;username&#34;) : username提交的域的名称 .
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">//@RequestParam(&#34;username&#34;) : username提交的域的名称 .</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;username&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>后台输出 : lbqaq</p>
 <p><strong>3、提交的是一个对象</strong></p>
@@ -1327,15 +1327,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//get/set
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//tostring()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//构造</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//get/set</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//tostring()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>2、提交数据 : http://localhost:8080/mvc04/user?name=lbqaq&amp;id=1&amp;age=15</p>
 <p>3、处理方法 :</p>
@@ -1348,12 +1348,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/user&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">user</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/user&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">user</span><span class="p">(</span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>后台输出 : User { id=1, name=&lsquo;lbqaq&rsquo;, age=15 }</p>
 <p>说明：如果使用对象的话，前端传递的参数名和对象名必须一致，否则就是null。</p>
@@ -1374,17 +1374,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ControllerTest1</span> <span class="kd">implements</span> <span class="n">Controller</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">ModelAndView</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//返回一个模型视图对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">ModelAndView</span> <span class="n">mv</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ModelAndView</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="n">mv</span><span class="o">.</span><span class="na">addObject</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="s">&#34;ControllerTest1&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">mv</span><span class="o">.</span><span class="na">setViewName</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">mv</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ControllerTest1</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Controller</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ModelAndView</span><span class="w"> </span><span class="nf">handleRequest</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">httpServletRequest</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">httpServletResponse</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//返回一个模型视图对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ModelAndView</span><span class="w"> </span><span class="n">mv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ModelAndView</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mv</span><span class="p">.</span><span class="na">addObject</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="s">&#34;ControllerTest1&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">mv</span><span class="p">.</span><span class="na">setViewName</span><span class="p">(</span><span class="s">&#34;test&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">mv</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>第二种 : 通过ModelMap</strong></p>
 <p>ModelMap</p>
@@ -1400,15 +1400,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/hello&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">ModelMap</span> <span class="n">model</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//封装要显示到视图中的数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//相当于req.setAttribute(&#34;name&#34;,name);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">,</span><span class="n">name</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;hello&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;username&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">ModelMap</span><span class="w"> </span><span class="n">model</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//封装要显示到视图中的数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//相当于req.setAttribute(&#34;name&#34;,name);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">model</span><span class="p">.</span><span class="na">addAttribute</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">,</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>第三种 : 通过Model</strong></p>
 <p>Model</p>
@@ -1424,15 +1424,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/ct2/hello&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">Model</span> <span class="n">model</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//封装要显示到视图中的数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//相当于req.setAttribute(&#34;name&#34;,name);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">model</span><span class="o">.</span><span class="na">addAttribute</span><span class="o">(</span><span class="s">&#34;msg&#34;</span><span class="o">,</span><span class="n">name</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;test&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/ct2/hello&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;username&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">Model</span><span class="w"> </span><span class="n">model</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//封装要显示到视图中的数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//相当于req.setAttribute(&#34;name&#34;,name);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">model</span><span class="p">.</span><span class="na">addAttribute</span><span class="p">(</span><span class="s">&#34;msg&#34;</span><span class="p">,</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;test&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="对比">对比</h3>
 <p>就对于新手而言简单来说使用区别就是：</p>
@@ -1526,22 +1526,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/json1&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">   <span class="nd">@ResponseBody</span>
-</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="n">String</span> <span class="nf">json1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">JsonProcessingException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//创建一个jackson的对象映射器，用来解析数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//创建一个对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;小明&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//将我们的对象解析成为json格式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//由于@ResponseBody注解，这里会将str转成json格式返回；十分方便
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/json1&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nd">@ResponseBody</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">json1</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">JsonProcessingException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//创建一个jackson的对象映射器，用来解析数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//创建一个对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&#34;小明&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//将我们的对象解析成为json格式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//由于@ResponseBody注解，这里会将str转成json格式返回；十分方便</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="n">str</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果出现乱码，可以指定编码格式为UTF8来解决</p>
 <p><code>@RequestMapping(value = &quot;/json1&quot;,produces = &quot;application/json;charset=utf-8&quot;)</code></p>
@@ -1603,23 +1603,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestController</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//produces:指定响应体返回类型和编码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;/json1&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">json1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">JsonProcessingException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//创建一个jackson的对象映射器，用来解析数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//创建一个对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;小明&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//将我们的对象解析成为json格式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">//由于@ResponseBody注解，这里会将str转成json格式返回；十分方便
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">UserController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">//produces:指定响应体返回类型和编码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;/json1&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">json1</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">JsonProcessingException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//创建一个jackson的对象映射器，用来解析数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//创建一个对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">User</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&#34;小明&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//将我们的对象解析成为json格式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">//由于@ResponseBody注解，这里会将str转成json格式返回；十分方便</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">str</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>自定义工具类，可以是JSON转换变得更简单</p>
 <div class="highlight"><div class="chroma">
@@ -1648,29 +1648,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JsonUtils</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">   
-</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getJson</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="n">getJson</span><span class="o">(</span><span class="n">object</span><span class="o">,</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getJson</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">,</span><span class="n">String</span> <span class="n">dateFormat</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="n">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectMapper</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//不使用时间差的方式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">mapper</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">SerializationFeature</span><span class="o">.</span><span class="na">WRITE_DATES_AS_TIMESTAMPS</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//自定义日期格式对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">SimpleDateFormat</span> <span class="n">sdf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="n">dateFormat</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//指定日期格式
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">mapper</span><span class="o">.</span><span class="na">setDateFormat</span><span class="o">(</span><span class="n">sdf</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="k">try</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">           <span class="k">return</span> <span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JsonProcessingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">           <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">JsonUtils</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getJson</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">object</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="n">getJson</span><span class="p">(</span><span class="n">object</span><span class="p">,</span><span class="s">&#34;yyyy-MM-dd HH:mm:ss&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getJson</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">object</span><span class="p">,</span><span class="n">String</span><span class="w"> </span><span class="n">dateFormat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">ObjectMapper</span><span class="w"> </span><span class="n">mapper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObjectMapper</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//不使用时间差的方式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">mapper</span><span class="p">.</span><span class="na">configure</span><span class="p">(</span><span class="n">SerializationFeature</span><span class="p">.</span><span class="na">WRITE_DATES_AS_TIMESTAMPS</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//自定义日期格式对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">SimpleDateFormat</span><span class="w"> </span><span class="n">sdf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleDateFormat</span><span class="p">(</span><span class="n">dateFormat</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//指定日期格式</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">mapper</span><span class="p">.</span><span class="na">setDateFormat</span><span class="p">(</span><span class="n">sdf</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="k">return</span><span class="w"> </span><span class="n">mapper</span><span class="p">.</span><span class="na">writeValueAsString</span><span class="p">(</span><span class="n">object</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">JsonProcessingException</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="使用fastjson">使用FastJson</h3>
 <div class="highlight"><div class="chroma">
@@ -1777,40 +1777,40 @@
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FastJsonDemo</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//创建一个对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">User</span> <span class="n">user1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;1号&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">User</span> <span class="n">user2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;2号&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">User</span> <span class="n">user3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;3号&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">User</span> <span class="n">user4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">(</span><span class="s">&#34;4号&#34;</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="s">&#34;男&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;();</span>
-</span></span><span class="line"><span class="cl">       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">user1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">user2</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">user3</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">user4</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;*******Java对象 转 JSON字符串*******&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">list</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;JSON.toJSONString(list)==&gt;&#34;</span><span class="o">+</span><span class="n">str1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">String</span> <span class="n">str2</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">user1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;JSON.toJSONString(user1)==&gt;&#34;</span><span class="o">+</span><span class="n">str2</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;\n****** JSON字符串 转 Java对象*******&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">User</span> <span class="n">jp_user1</span><span class="o">=</span><span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">str2</span><span class="o">,</span><span class="n">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;JSON.parseObject(str2,User.class)==&gt;&#34;</span><span class="o">+</span><span class="n">jp_user1</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;\n****** Java对象 转 JSON对象 ******&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">JSONObject</span> <span class="n">jsonObject1</span> <span class="o">=</span> <span class="o">(</span><span class="n">JSONObject</span><span class="o">)</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJSON</span><span class="o">(</span><span class="n">user2</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;(JSONObject) JSON.toJSON(user2)==&gt;&#34;</span><span class="o">+</span><span class="n">jsonObject1</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;\n****** JSON对象 转 Java对象 ******&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">User</span> <span class="n">to_java_user</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJavaObject</span><span class="o">(</span><span class="n">jsonObject1</span><span class="o">,</span> <span class="n">User</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;JSON.toJavaObject(jsonObject1, User.class)==&gt;&#34;</span><span class="o">+</span><span class="n">to_java_user</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FastJsonDemo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//创建一个对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&#34;1号&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">user2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&#34;2号&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">user3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&#34;3号&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">user4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">(</span><span class="s">&#34;4号&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">3</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;男&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">user1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">user2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">user3</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">user4</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;*******Java对象 转 JSON字符串*******&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">String</span><span class="w"> </span><span class="n">str1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="p">.</span><span class="na">toJSONString</span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;JSON.toJSONString(list)==&gt;&#34;</span><span class="o">+</span><span class="n">str1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">String</span><span class="w"> </span><span class="n">str2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="p">.</span><span class="na">toJSONString</span><span class="p">(</span><span class="n">user1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;JSON.toJSONString(user1)==&gt;&#34;</span><span class="o">+</span><span class="n">str2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;\n****** JSON字符串 转 Java对象*******&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">jp_user1</span><span class="o">=</span><span class="n">JSON</span><span class="p">.</span><span class="na">parseObject</span><span class="p">(</span><span class="n">str2</span><span class="p">,</span><span class="n">User</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;JSON.parseObject(str2,User.class)==&gt;&#34;</span><span class="o">+</span><span class="n">jp_user1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;\n****** Java对象 转 JSON对象 ******&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">JSONObject</span><span class="w"> </span><span class="n">jsonObject1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">JSONObject</span><span class="p">)</span><span class="w"> </span><span class="n">JSON</span><span class="p">.</span><span class="na">toJSON</span><span class="p">(</span><span class="n">user2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;(JSONObject) JSON.toJSON(user2)==&gt;&#34;</span><span class="o">+</span><span class="n">jsonObject1</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;\n****** JSON对象 转 Java对象 ******&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">User</span><span class="w"> </span><span class="n">to_java_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSON</span><span class="p">.</span><span class="na">toJavaObject</span><span class="p">(</span><span class="n">jsonObject1</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;JSON.toJavaObject(jsonObject1, User.class)==&gt;&#34;</span><span class="o">+</span><span class="n">to_java_user</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Jackson刚刚测试没成功，还是选择FastJson吧😇。</p>
 <h2 id="拦截器">拦截器</h2>
@@ -1854,26 +1854,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyInterceptor</span> <span class="kd">implements</span> <span class="n">HandlerInterceptor</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//在请求处理的方法之前执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">//如果返回true执行下一个拦截器
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">//如果返回false就不执行下一个拦截器
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">preHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;------------处理前------------&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="c1">//在请求处理方法执行之后执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">postHandle</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">ModelAndView</span> <span class="n">modelAndView</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;------------处理后------------&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="c1">//在dispatcherServlet处理后执行,做清理工作.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterCompletion</span><span class="o">(</span><span class="n">HttpServletRequest</span> <span class="n">httpServletRequest</span><span class="o">,</span> <span class="n">HttpServletResponse</span> <span class="n">httpServletResponse</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;------------清理------------&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyInterceptor</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">HandlerInterceptor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//在请求处理的方法之前执行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//如果返回true执行下一个拦截器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//如果返回false就不执行下一个拦截器</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">preHandle</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">httpServletRequest</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">httpServletResponse</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;------------处理前------------&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//在请求处理方法执行之后执行</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">postHandle</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">httpServletRequest</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">httpServletResponse</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">ModelAndView</span><span class="w"> </span><span class="n">modelAndView</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;------------处理后------------&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//在dispatcherServlet处理后执行,做清理工作.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">afterCompletion</span><span class="p">(</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">httpServletRequest</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">httpServletResponse</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="n">o</span><span class="p">,</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;------------清理------------&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -2081,57 +2081,57 @@
 </span><span class="lnt">50
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.kuang.controller</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Controller</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.springframework.web.multipart.commons.CommonsMultipartFile</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.servlet.http.HttpServletRequest</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nd">@Controller</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FileController</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//@RequestParam(&#34;file&#34;) 将name=file控件得到的文件封装成CommonsMultipartFile 对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">//批量上传CommonsMultipartFile则为数组即可
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">   <span class="kd">public</span> <span class="n">String</span> <span class="nf">fileUpload</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;file&#34;</span><span class="o">)</span> <span class="n">CommonsMultipartFile</span> <span class="n">file</span> <span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="c1">//获取文件名 : file.getOriginalFilename();
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">String</span> <span class="n">uploadFileName</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getOriginalFilename</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="c1">//如果文件名为空，直接回到首页！
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="k">if</span> <span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">uploadFileName</span><span class="o">)){</span>
-</span></span><span class="line"><span class="cl">           <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;上传文件名 : &#34;</span><span class="o">+</span><span class="n">uploadFileName</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="c1">//上传路径保存设置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//如果路径不存在，创建一个
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">File</span> <span class="n">realPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="k">if</span> <span class="o">(!</span><span class="n">realPath</span><span class="o">.</span><span class="na">exists</span><span class="o">()){</span>
-</span></span><span class="line"><span class="cl">           <span class="n">realPath</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="cl">       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;上传文件保存地址：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span> <span class="c1">//文件输入流
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">realPath</span><span class="o">,</span><span class="n">uploadFileName</span><span class="o">));</span> <span class="c1">//文件输出流
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">       <span class="c1">//读取写出
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="kt">int</span> <span class="n">len</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">       <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">       <span class="k">while</span> <span class="o">((</span><span class="n">len</span><span class="o">=</span><span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))!=-</span><span class="mi">1</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">           <span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">len</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">           <span class="n">os</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">      <span class="o">}</span>
-</span></span><span class="line"><span class="cl">       <span class="n">os</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">       <span class="n">is</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">       <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.kuang.controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Controller</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.web.multipart.commons.CommonsMultipartFile</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.servlet.http.HttpServletRequest</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.*</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">FileController</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//@RequestParam(&#34;file&#34;) 将name=file控件得到的文件封装成CommonsMultipartFile 对象</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//批量上传CommonsMultipartFile则为数组即可</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">fileUpload</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;file&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">CommonsMultipartFile</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//获取文件名 : file.getOriginalFilename();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">String</span><span class="w"> </span><span class="n">uploadFileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getOriginalFilename</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//如果文件名为空，直接回到首页！</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">uploadFileName</span><span class="p">)){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;redirect:/index.jsp&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;上传文件名 : &#34;</span><span class="o">+</span><span class="n">uploadFileName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//上传路径保存设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getServletContext</span><span class="p">().</span><span class="na">getRealPath</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//如果路径不存在，创建一个</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">File</span><span class="w"> </span><span class="n">realPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">realPath</span><span class="p">.</span><span class="na">exists</span><span class="p">()){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="n">realPath</span><span class="p">.</span><span class="na">mkdir</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;上传文件保存地址：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">InputStream</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">();</span><span class="w"> </span><span class="c1">//文件输入流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">OutputStream</span><span class="w"> </span><span class="n">os</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileOutputStream</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">realPath</span><span class="p">,</span><span class="n">uploadFileName</span><span class="p">));</span><span class="w"> </span><span class="c1">//文件输出流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c1">//读取写出</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="kt">int</span><span class="w"> </span><span class="n">len</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">while</span><span class="w"> </span><span class="p">((</span><span class="n">len</span><span class="o">=</span><span class="n">is</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buffer</span><span class="p">))</span><span class="o">!=-</span><span class="n">1</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="n">os</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="n">0</span><span class="p">,</span><span class="n">len</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="n">os</span><span class="p">.</span><span class="na">flush</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">os</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">is</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;redirect:/index.jsp&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 </ol>
@@ -2162,25 +2162,25 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* 采用file.Transto 来保存上传的文件
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">&#34;/upload2&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span>  <span class="nf">fileUpload2</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;file&#34;</span><span class="o">)</span> <span class="n">CommonsMultipartFile</span> <span class="n">file</span><span class="o">,</span> <span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="c1">//上传路径保存设置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">   <span class="n">File</span> <span class="n">realPath</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">   <span class="k">if</span> <span class="o">(!</span><span class="n">realPath</span><span class="o">.</span><span class="na">exists</span><span class="o">()){</span>
-</span></span><span class="line"><span class="cl">       <span class="n">realPath</span><span class="o">.</span><span class="na">mkdir</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//上传文件地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;上传文件保存地址：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="c1">//通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">file</span><span class="o">.</span><span class="na">transferTo</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">realPath</span> <span class="o">+</span><span class="s">&#34;/&#34;</span><span class="o">+</span> <span class="n">file</span><span class="o">.</span><span class="na">getOriginalFilename</span><span class="o">()));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="s">&#34;redirect:/index.jsp&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&#34;/upload2&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w">  </span><span class="nf">fileUpload2</span><span class="p">(</span><span class="nd">@RequestParam</span><span class="p">(</span><span class="s">&#34;file&#34;</span><span class="p">)</span><span class="w"> </span><span class="n">CommonsMultipartFile</span><span class="w"> </span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//上传路径保存设置</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">String</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getServletContext</span><span class="p">().</span><span class="na">getRealPath</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">File</span><span class="w"> </span><span class="n">realPath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">path</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">realPath</span><span class="p">.</span><span class="na">exists</span><span class="p">()){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">realPath</span><span class="p">.</span><span class="na">mkdir</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//上传文件地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;上传文件保存地址：&#34;</span><span class="o">+</span><span class="n">realPath</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//通过CommonsMultipartFile的方法直接写文件（注意这个时候）</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">file</span><span class="p">.</span><span class="na">transferTo</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">realPath</span><span class="w"> </span><span class="o">+</span><span class="s">&#34;/&#34;</span><span class="o">+</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="na">getOriginalFilename</span><span class="p">()));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;redirect:/index.jsp&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="文件下载">文件下载</h3>
 <div class="highlight"><div class="chroma">
@@ -2218,38 +2218,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;/download&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">downloads</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span> <span class="o">,</span><span class="n">HttpServletRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//要下载的图片地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">String</span>  <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getServletContext</span><span class="o">().</span><span class="na">getRealPath</span><span class="o">(</span><span class="s">&#34;/upload&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">   <span class="n">String</span>  <span class="n">fileName</span> <span class="o">=</span> <span class="s">&#34;基础语法.jpg&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="c1">//1、设置response 响应头
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span> <span class="c1">//设置页面不缓存,清空buffer
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">setCharacterEncoding</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span> <span class="c1">//字符编码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="s">&#34;multipart/form-data&#34;</span><span class="o">);</span> <span class="c1">//二进制传输数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">//设置响应头
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">response</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&#34;Content-Disposition&#34;</span><span class="o">,</span>
-</span></span><span class="line"><span class="cl">           <span class="s">&#34;attachment;fileName=&#34;</span><span class="o">+</span><span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">fileName</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">,</span><span class="n">fileName</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//2、 读取文件--输入流
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">InputStream</span> <span class="n">input</span><span class="o">=</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//3、 写出文件--输出流
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">OutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="kt">byte</span><span class="o">[]</span> <span class="n">buff</span> <span class="o">=</span><span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">//4、执行 写出操作
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">while</span><span class="o">((</span><span class="n">index</span><span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buff</span><span class="o">))!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">       <span class="n">out</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buff</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">index</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">       <span class="n">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">   <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">   <span class="n">input</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RequestMapping</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;/download&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">downloads</span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="p">,</span><span class="n">HttpServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//要下载的图片地址</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">String</span><span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getServletContext</span><span class="p">().</span><span class="na">getRealPath</span><span class="p">(</span><span class="s">&#34;/upload&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">String</span><span class="w">  </span><span class="n">fileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;基础语法.jpg&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//1、设置response 响应头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">response</span><span class="p">.</span><span class="na">reset</span><span class="p">();</span><span class="w"> </span><span class="c1">//设置页面不缓存,清空buffer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">response</span><span class="p">.</span><span class="na">setCharacterEncoding</span><span class="p">(</span><span class="s">&#34;UTF-8&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">//字符编码</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">response</span><span class="p">.</span><span class="na">setContentType</span><span class="p">(</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">);</span><span class="w"> </span><span class="c1">//二进制传输数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//设置响应头</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&#34;Content-Disposition&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">           </span><span class="s">&#34;attachment;fileName=&#34;</span><span class="o">+</span><span class="n">URLEncoder</span><span class="p">.</span><span class="na">encode</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;UTF-8&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">File</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">fileName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//2、 读取文件--输入流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">InputStream</span><span class="w"> </span><span class="n">input</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">file</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//3、 写出文件--输出流</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">OutputStream</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kt">byte</span><span class="o">[]</span><span class="w"> </span><span class="n">buff</span><span class="w"> </span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="o">=</span><span class="n">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="c1">//4、执行 写出操作</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">while</span><span class="p">((</span><span class="n">index</span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="na">read</span><span class="p">(</span><span class="n">buff</span><span class="p">))</span><span class="o">!=</span><span class="w"> </span><span class="o">-</span><span class="n">1</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">out</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span><span class="w"> </span><span class="n">0</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="n">out</span><span class="p">.</span><span class="na">flush</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">out</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">input</span><span class="p">.</span><span class="na">close</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>或者直接用a标签</p>
 <p><code>&lt;a href=&quot;/1.jpg&quot;&gt;点击下载&lt;/a&gt;</code></p>

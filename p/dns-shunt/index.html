@@ -6,25 +6,38 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/dns-shunt/'>
 
-<link rel="stylesheet" href="/scss/style.min.7123a5072d7097ad47fc69c01c92d859822daeb0329e4b700a30d013e8d46204.css"><meta property='og:title' content='基于DNS的分流方案'>
+<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='基于DNS的分流方案'>
 <meta property='og:description' content='使用小猫和mosdns优雅的实现分流'>
 <meta property='og:url' content='https://lbqaq.top/p/dns-shunt/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
 <meta name="twitter:title" content="基于DNS的分流方案">
 <meta name="twitter:description" content="使用小猫和mosdns优雅的实现分流"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/dns-shunt/115597971.webp' /><script async defer
-    data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55"
-    data-cache="true"
-    src="https://umami.lbqaq.top/bpnwxrgz.js">
+    <meta name="twitter:image" content='https://lbqaq.top/p/dns-shunt/115597971.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
+  src="https://umami.lbqaq.top/bpnwxrgz.js">
+  </script>
+
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
 </script>
 
 
-  <script type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
-  </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css" />
 
+<style>
+   
+  :root {
+    --sys-font-family: -apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;
+    --code-font-family: "JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;
+    --article-font-family: "LXGW WenKai", sans-serif;
+    --base-font-family: "LXGW WenKai", var(--sys-font-family), sans-serif;
+  }
+</style>
     </head>
     <body class="
     article-page
@@ -425,7 +438,7 @@
 <h2 id="方案设计">方案设计</h2>
 <p>为了解决这两个问题，我重新设计了DNS解析的流程，从而得到了现在的这一套方案。</p>
 <h3 id="dns分流">DNS分流</h3>
-<pre class="mermaid">graph TB
+<pre class="mermaid" align=center>graph TB
 client[DNS 请求] -- 防火墙劫持 -->  mosdns
 	mosdns -- 需要代理的设备 --> query[按规则进行DNS查询]
 	mosdns -- 不需要代理的设备 --> dnsmasq
@@ -466,7 +479,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 <li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>追加默认 DNS</code></strong> 勾选</li>
 <li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>Fake-IP 持久化</code></strong> 勾选</li>
 <li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> 页面下方 <strong><code>NameServer</code></strong>，<strong><code>FallBack</code></strong>，<strong><code>Default-NameServer</code></strong> 里的 DNS 服务器全都取消勾选，我们只用运营商提供的 DNS 服务器就够了，一般运营商 DNS 都是最快的，也是 CDN 最优化的。</li>
-<li><strong><code>插件设置</code></strong> - **<code>开发者选项</code>**里，我们自定义一下防火墙规则，增加如下这些行。</li>
+<li><strong><code>插件设置</code></strong> - <strong><code>开发者选项</code></strong> 里，我们自定义一下防火墙规则，增加如下这些行。</li>
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1288,17 +1301,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
 
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-    }());
-</script>
 
     </body>
 </html>

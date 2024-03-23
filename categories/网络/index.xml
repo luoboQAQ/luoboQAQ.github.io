@@ -31,7 +31,7 @@
 &lt;h2 id=&#34;方案设计&#34;&gt;方案设计&lt;/h2&gt;
 &lt;p&gt;为了解决这两个问题，我重新设计了DNS解析的流程，从而得到了现在的这一套方案。&lt;/p&gt;
 &lt;h3 id=&#34;dns分流&#34;&gt;DNS分流&lt;/h3&gt;
-&lt;pre class=&#34;mermaid&#34;&gt;graph TB
+&lt;pre class=&#34;mermaid&#34; align=center&gt;graph TB
 client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 	mosdns -- 需要代理的设备 --&gt; query[按规则进行DNS查询]
 	mosdns -- 不需要代理的设备 --&gt; dnsmasq
@@ -72,7 +72,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;覆写设置&lt;/code&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;code&gt;DNS 设置&lt;/code&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;code&gt;追加默认 DNS&lt;/code&gt;&lt;/strong&gt; 勾选&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;覆写设置&lt;/code&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;code&gt;DNS 设置&lt;/code&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;code&gt;Fake-IP 持久化&lt;/code&gt;&lt;/strong&gt; 勾选&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;覆写设置&lt;/code&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;code&gt;DNS 设置&lt;/code&gt;&lt;/strong&gt; 页面下方 &lt;strong&gt;&lt;code&gt;NameServer&lt;/code&gt;&lt;/strong&gt;，&lt;strong&gt;&lt;code&gt;FallBack&lt;/code&gt;&lt;/strong&gt;，&lt;strong&gt;&lt;code&gt;Default-NameServer&lt;/code&gt;&lt;/strong&gt; 里的 DNS 服务器全都取消勾选，我们只用运营商提供的 DNS 服务器就够了，一般运营商 DNS 都是最快的，也是 CDN 最优化的。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;code&gt;插件设置&lt;/code&gt;&lt;/strong&gt; - **&lt;code&gt;开发者选项&lt;/code&gt;**里，我们自定义一下防火墙规则，增加如下这些行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;插件设置&lt;/code&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;code&gt;开发者选项&lt;/code&gt;&lt;/strong&gt; 里，我们自定义一下防火墙规则，增加如下这些行。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

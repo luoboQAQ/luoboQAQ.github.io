@@ -14,8 +14,10 @@
         <guid>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
         <description>&lt;img src="https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963.webp" alt="Featured image of post Qt构建qsqlmysql.dll" /&gt;&lt;p&gt;这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。&lt;del&gt;（你用ODBC？那没事了）&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;我在网上也查了很多资料，但根据步骤来总是会报错，提示没有&lt;code&gt;mysql.h&lt;/code&gt;这个头文件。下面就记录一下我成功编译的过程。&lt;/p&gt;
-&lt;h2 id=&#34;基于cmake的步骤&#34;&gt;基于cmake的步骤&lt;/h2&gt;
-&lt;p&gt;在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。&lt;/p&gt;
+&lt;h2 id=&#34;基于cmake的步骤&#34;&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e4%ba%8ecmake%e7%9a%84%e6%ad%a5%e9%aa%a4&#34;&gt;#&lt;/a&gt;
+    基于cmake的步骤
+&lt;/h2&gt;&lt;p&gt;在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
 &lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
 &lt;p&gt;2.打开&lt;code&gt;cmake-gui&lt;/code&gt;，选择目标文件夹为&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;，并设置生成文件夹为&lt;code&gt;D:/Qt/6.1.1/Src/qtbase/src/plugins/sqldrivers/build&lt;/code&gt;&lt;/p&gt;
@@ -96,8 +98,10 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;没有报错，说明生成成功。&lt;/p&gt;
 &lt;p&gt;8.最后打开目录&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers&lt;/code&gt;，就可以看到生成好的&lt;code&gt;qsqlmysql.dll&lt;/code&gt;了。&lt;/p&gt;
-&lt;h2 id=&#34;基于qmake的步骤&#34;&gt;基于qmake的步骤&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
+&lt;h2 id=&#34;基于qmake的步骤&#34;&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e4%ba%8eqmake%e7%9a%84%e6%ad%a5%e9%aa%a4&#34;&gt;#&lt;/a&gt;
+    基于qmake的步骤
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
 &lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
 &lt;p&gt;2.进入&lt;code&gt;D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;目录下，打开&lt;code&gt;sqldrivers.pro&lt;/code&gt;这个文件。&lt;/p&gt;
 &lt;p&gt;3.在左侧文件树中打开&lt;code&gt;mysql&lt;/code&gt;文件夹，选择&lt;code&gt;mysql.pro&lt;/code&gt;打开。&lt;/p&gt;

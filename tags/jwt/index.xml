@@ -13,8 +13,10 @@
         
         <guid>https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/</guid>
         <description>&lt;img src="https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/92388693.webp" alt="Featured image of post shiro整合JWT" /&gt;&lt;p&gt;在我现在在做的项目中需要进行身份和权限认证，在网上找了些教程，推荐都是使用JWT来进行身份认证，于是便决定使用此方法来实现。&lt;del&gt;（然而用完了才发现JWT也有缺点）&lt;/del&gt;&lt;/p&gt;
-&lt;h2 id=&#34;何为jwt&#34;&gt;何为JWT&lt;/h2&gt;
-&lt;p&gt;所谓JWT，全称是JSON Web Token。下面是从&lt;a class=&#34;link&#34; href=&#34;https://jwt.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;h2 id=&#34;何为jwt&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%95%e4%b8%bajwt&#34;&gt;#&lt;/a&gt;
+    何为JWT
+&lt;/h2&gt;&lt;p&gt;所谓JWT，全称是JSON Web Token。下面是从&lt;a class=&#34;link&#34; href=&#34;https://jwt.io&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;官网&lt;/a&gt;摘抄的定义：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;JWT是一个开放的标准（RFC 7519），它定义了一种紧凑和独立的方式，以JSON对象的形式在各方之间安全地传输信息。这种信息可以被验证和信任，因为它是经过数字签名的。JWTs可以使用秘密（使用HMAC算法）或使用RSA或ECDSA的公共/私人密钥对进行签名。&lt;/p&gt;
@@ -46,8 +48,10 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;当然，在载荷中还可以存放自定义的信息，在本项目中使用官方提供的就足以了，故不展开。&lt;/p&gt;
-&lt;h2 id=&#34;认证流程&#34;&gt;认证流程&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;认证流程&#34;&gt;
+    &lt;a href=&#34;#%e8%ae%a4%e8%af%81%e6%b5%81%e7%a8%8b&#34;&gt;#&lt;/a&gt;
+    认证流程
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;用户使用用户名密码来请求服务器&lt;/li&gt;
 &lt;li&gt;服务器进行验证用户的信息&lt;/li&gt;
 &lt;li&gt;服务器通过验证发送给用户一个token&lt;/li&gt;
@@ -68,9 +72,13 @@
 		data-flex-basis=&#34;436px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;具体实现&#34;&gt;具体实现&lt;/h2&gt;
-&lt;h3 id=&#34;导入依赖包&#34;&gt;导入依赖包&lt;/h3&gt;
-&lt;p&gt;第一步当然是导入相关依赖了，使用Maven进行包管理。&lt;/p&gt;
+&lt;h2 id=&#34;具体实现&#34;&gt;
+    &lt;a href=&#34;#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0&#34;&gt;#&lt;/a&gt;
+    具体实现
+&lt;/h2&gt;&lt;h3 id=&#34;导入依赖包&#34;&gt;
+    &lt;a href=&#34;#%e5%af%bc%e5%85%a5%e4%be%9d%e8%b5%96%e5%8c%85&#34;&gt;#&lt;/a&gt;
+    导入依赖包
+&lt;/h3&gt;&lt;p&gt;第一步当然是导入相关依赖了，使用Maven进行包管理。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -101,8 +109,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;封装jwt工具类&#34;&gt;封装JWT工具类&lt;/h3&gt;
-&lt;p&gt;这里主要实现JWT的生成、验证、提取用户名三个功能&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;封装jwt工具类&#34;&gt;
+    &lt;a href=&#34;#%e5%b0%81%e8%a3%85jwt%e5%b7%a5%e5%85%b7%e7%b1%bb&#34;&gt;#&lt;/a&gt;
+    封装JWT工具类
+&lt;/h3&gt;&lt;p&gt;这里主要实现JWT的生成、验证、提取用户名三个功能&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -283,8 +293,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;配置shiro&#34;&gt;配置Shiro&lt;/h3&gt;
-&lt;p&gt;这里的&lt;code&gt;ShiroConfig.java&lt;/code&gt;与一般Shiro项目的配置有以下几点不同：&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;配置shiro&#34;&gt;
+    &lt;a href=&#34;#%e9%85%8d%e7%bd%aeshiro&#34;&gt;#&lt;/a&gt;
+    配置Shiro
+&lt;/h3&gt;&lt;p&gt;这里的&lt;code&gt;ShiroConfig.java&lt;/code&gt;与一般Shiro项目的配置有以下几点不同：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;禁用Session&lt;/li&gt;
 &lt;li&gt;使用自定义的jwtFilter过滤器，用来拦截并处理携带JWT token的请求&lt;/li&gt;
@@ -424,8 +436,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;自定义token&#34;&gt;自定义Token&lt;/h3&gt;
-&lt;p&gt;由于使用了JWT当token，自然要写自定义的Token&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;自定义token&#34;&gt;
+    &lt;a href=&#34;#%e8%87%aa%e5%ae%9a%e4%b9%89token&#34;&gt;#&lt;/a&gt;
+    自定义Token
+&lt;/h3&gt;&lt;p&gt;由于使用了JWT当token，自然要写自定义的Token&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -466,8 +480,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;自定义过滤器&#34;&gt;自定义过滤器&lt;/h3&gt;
-&lt;p&gt;由于使用了JWT，所以不能使用shiro中自带的过滤器，而是自定义自己的过滤器 &lt;code&gt;JWTFilter&lt;/code&gt;，&lt;code&gt;JWTFilter&lt;/code&gt; 继承了 &lt;code&gt;BasicHttpAuthenticationFilter&lt;/code&gt;，并部分原方法进行了重写&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;自定义过滤器&#34;&gt;
+    &lt;a href=&#34;#%e8%87%aa%e5%ae%9a%e4%b9%89%e8%bf%87%e6%bb%a4%e5%99%a8&#34;&gt;#&lt;/a&gt;
+    自定义过滤器
+&lt;/h3&gt;&lt;p&gt;由于使用了JWT，所以不能使用shiro中自带的过滤器，而是自定义自己的过滤器 &lt;code&gt;JWTFilter&lt;/code&gt;，&lt;code&gt;JWTFilter&lt;/code&gt; 继承了 &lt;code&gt;BasicHttpAuthenticationFilter&lt;/code&gt;，并部分原方法进行了重写&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -604,8 +620,10 @@
 &lt;li&gt;如果带有 token，执行 shiro 的 login() 方法，将 token 提交到 Realm 中进行检验；如果没有 token，说明当前状态为游客状态（或者其他一些不需要进行认证的接口）&lt;/li&gt;
 &lt;li&gt;如果在 token 校验的过程中出现错误，如 token 校验失败，那么我会将该请求视为认证不通过，则重定向到 &lt;code&gt;/unauthorized/**&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;自定义realm&#34;&gt;自定义Realm&lt;/h3&gt;
-&lt;p&gt;这里主要是进行身份认证和权限认证&lt;/p&gt;
+&lt;h3 id=&#34;自定义realm&#34;&gt;
+    &lt;a href=&#34;#%e8%87%aa%e5%ae%9a%e4%b9%89realm&#34;&gt;#&lt;/a&gt;
+    自定义Realm
+&lt;/h3&gt;&lt;p&gt;这里主要是进行身份认证和权限认证&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -727,8 +745,10 @@
 &lt;/div&gt;&lt;p&gt;这里有个细节，在Controller中要求进行身份认证时，Shiro会自动把上面&lt;code&gt;doGetAuthenticationInfo&lt;/code&gt;方法中返回的Info存起来。这样我们就可以在Controller中调用这里面的值了。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;userName&lt;/code&gt;可以通过&lt;code&gt;(String) SecurityUtils.getSubject().getPrincipal()&lt;/code&gt;取出来&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;userId&lt;/code&gt;可以通过&lt;code&gt;SecurityUtils.getSubject().getPrincipals().getRealmNames().iterator().next()&lt;/code&gt;取出来。当然，这里根据Shiro的设计，&lt;code&gt;SimpleAuthenticationInfo&lt;/code&gt;的第三个构造参数应该填入&lt;code&gt;RealmName&lt;/code&gt;，用来区分用户该使用哪一个Realm进行验证的。但我这个项目就只有一个Realm，所以在这里就偷了个懒，就没按官方标准来了。&lt;/p&gt;
-&lt;h3 id=&#34;异常处理&#34;&gt;异常处理&lt;/h3&gt;
-&lt;p&gt;第一个是专门处理身份认证时的异常&lt;/p&gt;
+&lt;h3 id=&#34;异常处理&#34;&gt;
+    &lt;a href=&#34;#%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86&#34;&gt;#&lt;/a&gt;
+    异常处理
+&lt;/h3&gt;&lt;p&gt;第一个是专门处理身份认证时的异常&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -792,8 +812,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;解决中文报错&#34;&gt;解决中文报错&lt;/h3&gt;
-&lt;p&gt;在Shiro1.7版本之后增加了url校验，如果有中文字符就不通过。然而我们项目里返回错误信息就是通过url来实现的。参考&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_35598240/article/details/110310638&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;/div&gt;&lt;h3 id=&#34;解决中文报错&#34;&gt;
+    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e4%b8%ad%e6%96%87%e6%8a%a5%e9%94%99&#34;&gt;#&lt;/a&gt;
+    解决中文报错
+&lt;/h3&gt;&lt;p&gt;在Shiro1.7版本之后增加了url校验，如果有中文字符就不通过。然而我们项目里返回错误信息就是通过url来实现的。参考&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/qq_35598240/article/details/110310638&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;这篇文章&lt;/a&gt;知道，需要自己重写&lt;code&gt;ShiroFilterFactoryBean&lt;/code&gt;来实现关闭url校验&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -827,14 +849,18 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;开始使用&#34;&gt;开始使用&lt;/h3&gt;
-&lt;ul&gt;
+&lt;/div&gt;&lt;h3 id=&#34;开始使用&#34;&gt;
+    &lt;a href=&#34;#%e5%bc%80%e5%a7%8b%e4%bd%bf%e7%94%a8&#34;&gt;#&lt;/a&gt;
+    开始使用
+&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;身份认证在Controller上添加&lt;code&gt;@RequiresAuthentication&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;角色认证在Controller上添加&lt;code&gt;@RequiresRoles(&amp;quot;xxx&amp;quot;)&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;权限认证在Controller上添加&lt;code&gt;@RequiresPermissions(&amp;quot;xxx&amp;quot;)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;测试&#34;&gt;测试&lt;/h2&gt;
-&lt;p&gt;测试接口的代码：&lt;/p&gt;
+&lt;h2 id=&#34;测试&#34;&gt;
+    &lt;a href=&#34;#%e6%b5%8b%e8%af%95&#34;&gt;#&lt;/a&gt;
+    测试
+&lt;/h2&gt;&lt;p&gt;测试接口的代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -949,15 +975,19 @@
 		data-flex-basis=&#34;304px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;参考文章&#34;&gt;参考文章&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;参考文章&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0&#34;&gt;#&lt;/a&gt;
+    参考文章
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.jianshu.com/p/3c51832f1051&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;教你 Shiro + SpringBoot 整合 JWT&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/pengjunlee/article/details/95600843&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Shiro步步为营&amp;ndash;如何优雅地与JWT集成&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;更新日志&#34;&gt;更新日志&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;2021.11.7：&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;更新日志&#34;&gt;
+    &lt;a href=&#34;#%e6%9b%b4%e6%96%b0%e6%97%a5%e5%bf%97&#34;&gt;#&lt;/a&gt;
+    更新日志
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;2021.11.7：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;增加解决跳转时的跨域请求&lt;/li&gt;
 &lt;li&gt;更细粒度的展示JWT错误原因&lt;/li&gt;

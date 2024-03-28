@@ -12,8 +12,10 @@
         <pubDate>Fri, 20 May 2022 12:50:16 +0800</pubDate>
         
         <guid>https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp" alt="Featured image of post 回归分析学习笔记" /&gt;&lt;h2 id=&#34;线性回归&#34;&gt;线性回归&lt;/h2&gt;
-&lt;p&gt;线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：&lt;/p&gt;
+        <description>&lt;img src="https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp" alt="Featured image of post 回归分析学习笔记" /&gt;&lt;h2 id=&#34;线性回归&#34;&gt;
+    &lt;a href=&#34;#%e7%ba%bf%e6%80%a7%e5%9b%9e%e5%bd%92&#34;&gt;#&lt;/a&gt;
+    线性回归
+&lt;/h2&gt;&lt;p&gt;线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：&lt;/p&gt;
 &lt;p&gt;$$
 (x_1^{(0)}, x_2^{(0)}, &amp;hellip;x_n^{(0)}, y_0), (x_1^{(1)}, x_2^{(1)}, &amp;hellip;x_n^{(1)},y_1), &amp;hellip; (x_1^{(m)}, x_2^{(m)}, &amp;hellip;x_n^{(m)}, y_m)
 $$&lt;/p&gt;
@@ -33,11 +35,17 @@ J(\theta_0, \theta_1&amp;hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0
 $$&lt;/p&gt;
 &lt;p&gt;由于矩阵形式不好理解，这里就不列出了。&lt;/p&gt;
 &lt;p&gt;如何求损失函数最小化时候的$\mathbf{\theta}$参数，这时就需要使用梯度下降法了。&lt;/p&gt;
-&lt;h2 id=&#34;梯度下降法&#34;&gt;梯度下降法&lt;/h2&gt;
-&lt;h3 id=&#34;梯度&#34;&gt;梯度&lt;/h3&gt;
-&lt;p&gt;在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。&lt;/p&gt;
-&lt;h3 id=&#34;梯度下降的直观解释&#34;&gt;梯度下降的直观解释&lt;/h3&gt;
-&lt;p&gt;首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。&lt;/p&gt;
+&lt;h2 id=&#34;梯度下降法&#34;&gt;
+    &lt;a href=&#34;#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95&#34;&gt;#&lt;/a&gt;
+    梯度下降法
+&lt;/h2&gt;&lt;h3 id=&#34;梯度&#34;&gt;
+    &lt;a href=&#34;#%e6%a2%af%e5%ba%a6&#34;&gt;#&lt;/a&gt;
+    梯度
+&lt;/h3&gt;&lt;p&gt;在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。&lt;/p&gt;
+&lt;h3 id=&#34;梯度下降的直观解释&#34;&gt;
+    &lt;a href=&#34;#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e7%9b%b4%e8%a7%82%e8%a7%a3%e9%87%8a&#34;&gt;#&lt;/a&gt;
+    梯度下降的直观解释
+&lt;/h3&gt;&lt;p&gt;首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。&lt;/p&gt;
 &lt;p&gt;从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png&#34;
 	width=&#34;692&#34;
@@ -53,8 +61,10 @@ $$&lt;/p&gt;
 		data-flex-basis=&#34;484px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;梯度下降法的代数方式描述&#34;&gt;梯度下降法的代数方式描述&lt;/h3&gt;
-&lt;p&gt;在上面的内容中，我们知道了线性回归的函数为：&lt;/p&gt;
+&lt;h3 id=&#34;梯度下降法的代数方式描述&#34;&gt;
+    &lt;a href=&#34;#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95%e7%9a%84%e4%bb%a3%e6%95%b0%e6%96%b9%e5%bc%8f%e6%8f%8f%e8%bf%b0&#34;&gt;#&lt;/a&gt;
+    梯度下降法的代数方式描述
+&lt;/h3&gt;&lt;p&gt;在上面的内容中，我们知道了线性回归的函数为：&lt;/p&gt;
 &lt;p&gt;$$
 h_\theta(x_0, x_1, &amp;hellip;x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}
 $$&lt;/p&gt;
@@ -86,14 +96,18 @@ $$&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;从这个例子可以看出当前点的梯度方向是由所有的样本决定的，加 $\frac{1}{m}$  是为了好理解。由于步长也为常数，他们的乘机也为常数，所以这里 $\alpha\frac{1}{m}$ 可以用一个常数表示。&lt;/p&gt;
 &lt;p&gt;在下面第4节会详细讲到的梯度下降法的变种，他们主要的区别就是对样本的采用方法不同。这里我们采用的是用所有样本。&lt;/p&gt;
-&lt;h3 id=&#34;随机梯度下降法sgd&#34;&gt;随机梯度下降法(SGD)&lt;/h3&gt;
-&lt;p&gt;随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是&lt;/p&gt;
+&lt;h3 id=&#34;随机梯度下降法sgd&#34;&gt;
+    &lt;a href=&#34;#%e9%9a%8f%e6%9c%ba%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95sgd&#34;&gt;#&lt;/a&gt;
+    随机梯度下降法(SGD)
+&lt;/h3&gt;&lt;p&gt;随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是&lt;/p&gt;
 &lt;p&gt;$$
 \theta_i = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, &amp;hellip;x_n^{(j)}) - y_j)x_i^{(j)}
 $$&lt;/p&gt;
 &lt;p&gt;随机梯度下降法，和批量梯度下降法是两个极端，一个采用所有数据来梯度下降，一个用一个样本来梯度下降。自然各自的优缺点都非常突出。对于训练速度来说，随机梯度下降法由于每次仅仅采用一个样本来迭代，训练速度很快，而批量梯度下降法在样本量很大的时候，训练速度不能让人满意。对于准确度来说，随机梯度下降法用于仅仅用一个样本决定梯度方向，导致解很有可能不是最优。对于收敛速度来说，由于随机梯度下降法一次迭代一个样本，导致迭代方向变化很大，不能很快的收敛到局部最优解。&lt;/p&gt;
-&lt;h3 id=&#34;编程实现&#34;&gt;编程实现&lt;/h3&gt;
-&lt;p&gt;网上找的代码，没验证，看个思路就行&lt;/p&gt;
+&lt;h3 id=&#34;编程实现&#34;&gt;
+    &lt;a href=&#34;#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0&#34;&gt;#&lt;/a&gt;
+    编程实现
+&lt;/h3&gt;&lt;p&gt;网上找的代码，没验证，看个思路就行&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -132,18 +146,26 @@ $$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;小批量梯度下降法mini-batch-sgd&#34;&gt;小批量梯度下降法(Mini-Batch SGD)&lt;/h3&gt;
-&lt;p&gt;也就是对于m个样本，我们采用x个样子来迭代，1&amp;lt;x&amp;lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。&lt;/p&gt;
-&lt;h2 id=&#34;岭回归&#34;&gt;岭回归&lt;/h2&gt;
-&lt;p&gt;&lt;del&gt;助教妹说就是不考&lt;/del&gt; 反转了，居然要考&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;小批量梯度下降法mini-batch-sgd&#34;&gt;
+    &lt;a href=&#34;#%e5%b0%8f%e6%89%b9%e9%87%8f%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95mini-batch-sgd&#34;&gt;#&lt;/a&gt;
+    小批量梯度下降法(Mini-Batch SGD)
+&lt;/h3&gt;&lt;p&gt;也就是对于m个样本，我们采用x个样子来迭代，1&amp;lt;x&amp;lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。&lt;/p&gt;
+&lt;h2 id=&#34;岭回归&#34;&gt;
+    &lt;a href=&#34;#%e5%b2%ad%e5%9b%9e%e5%bd%92&#34;&gt;#&lt;/a&gt;
+    岭回归
+&lt;/h2&gt;&lt;p&gt;&lt;del&gt;助教妹说就是不考&lt;/del&gt; 反转了，居然要考&lt;/p&gt;
 &lt;p&gt;在原先的线性回归的代价函数上加入了一个L2正则项，就是岭回归&lt;/p&gt;
 &lt;p&gt;$$
 J(\theta_0, \theta_1&amp;hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, &amp;hellip;x_n^{(i)}) - y_i)^2+\lambda \sum_{i=1}^m\theta_i^2
 $$&lt;/p&gt;
-&lt;h2 id=&#34;非线性形式&#34;&gt;非线性形式&lt;/h2&gt;
-&lt;p&gt;助教妹说就是不考&lt;/p&gt;
-&lt;h2 id=&#34;参考链接&#34;&gt;参考链接&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;非线性形式&#34;&gt;
+    &lt;a href=&#34;#%e9%9d%9e%e7%ba%bf%e6%80%a7%e5%bd%a2%e5%bc%8f&#34;&gt;#&lt;/a&gt;
+    非线性形式
+&lt;/h2&gt;&lt;p&gt;助教妹说就是不考&lt;/p&gt;
+&lt;h2 id=&#34;参考链接&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5&#34;&gt;#&lt;/a&gt;
+    参考链接
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/pinard/p/5970503.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;梯度下降（Gradient Descent）小结 - 刘建平Pinard - 博客园&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/pinard/p/6004041.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

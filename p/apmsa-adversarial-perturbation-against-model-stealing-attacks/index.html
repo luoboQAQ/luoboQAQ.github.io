@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记">
 <title>APMSA: Adversarial Perturbation Against Model Stealing Attacks</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='APMSA: Adversarial Perturbation Against Model Stealing Attacks'>
-<meta property='og:description' content='《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="APMSA: Adversarial Perturbation Against Model Stealing Attacks">
+<meta property='og:description' content="《APMSA：针对模型窃取攻击的对抗性扰动》阅读笔记">
 <meta property='og:url' content='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='模型提取攻击' /><meta property='article:tag' content='对抗性防御' /><meta property='article:tag' content='论文笔记' /><meta property='article:published_time' content='2023-07-20T14:57:05&#43;08:00'/><meta property='article:modified_time' content='2023-07-20T14:57:05&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -418,10 +418,14 @@
     <section class="article-content">
     
     
-    <h2 id="介绍">介绍</h2>
-<p>在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。</p>
-<h3 id="mlaas">MLaaS</h3>
-<p>顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。</p>
+    <h2 id="介绍">
+    <a href="#%e4%bb%8b%e7%bb%8d">#</a>
+    介绍
+</h2><p>在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。</p>
+<h3 id="mlaas">
+    <a href="#mlaas">#</a>
+    MLaaS
+</h3><p>顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。</p>
 <p>然而，MLaaS却容易受到模型提取攻击的影响。如下图所示，虽然模型托管在安全的云服务中，客户通过基于云的API进行查询。但是，攻击者可以基于预测输出来训练具有目标私有模型类似功能的替代模型。用户可以通过访问替代模型而无需向模型提供者付费，从而破坏了其商业价值。此外，攻击者还可以利用替代模型来制作优秀的可转移对抗性示例，从而有效地欺骗原始模型做出错误的预测，构成严重的安全威胁。</p>
 <p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260.png"
 	width="1032"
@@ -438,8 +442,10 @@
 	
 ></p>
 <p>作者提出了APMSA来防御模型提取攻击。当攻击者窃取服务器中部署的 &ldquo;model under attack&rdquo; (MUA) 时，通过发散给定特定类别的特征空间中查询样本的置信向量距离，就会泄露足够的MUA内部信息，有利于替代模型的训练。对此，作者在MUA 之前将微妙的噪声注入每个传入的输入查询中，以限制其置信向量的多样性。</p>
-<h3 id="相关研究">相关研究</h3>
-<p>目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。</p>
+<h3 id="相关研究">
+    <a href="#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6">#</a>
+    相关研究
+</h3><p>目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。</p>
 <p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270.png"
 	width="2143"
 	height="1005"
@@ -464,15 +470,21 @@
 <li>Model stealing defense with hybrid fuzzy models: Work-in-progress</li>
 </ul>
 <p>与现有的直接置信扰动技术相比，APMSA不仅保留了MUA的可用性，还保留了MUA的实用性。与其他主动防御相比，APMSA可以简单地在MUA之前插入，而无需对MUA本身进行任何修改，因此它是通用的，易于部署的。</p>
-<h3 id="贡献">贡献</h3>
-<ul>
+<h3 id="贡献">
+    <a href="#%e8%b4%a1%e7%8c%ae">#</a>
+    贡献
+</h3><ul>
 <li>通过建设性地最小化对训练替代模型至关重要的发散置信度信息来禁用被盗模型的可用功能。</li>
 <li>通过形式化的优化实现了置信向量对 MUA 决策边界的限制。</li>
 <li>APMSA不会对具有硬标签推理的普通用户造成效用损失</li>
 </ul>
-<h2 id="问题构造">问题构造</h2>
-<h3 id="威胁模型">威胁模型</h3>
-<p>假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：</p>
+<h2 id="问题构造">
+    <a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0">#</a>
+    问题构造
+</h2><h3 id="威胁模型">
+    <a href="#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b">#</a>
+    威胁模型
+</h3><p>假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：</p>
 <p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990.png"
 	width="1035"
 	height="940"
@@ -491,8 +503,10 @@
 <p>攻击者旨在获得与私有模型$f$具有相似功能的替代模型$f&rsquo;$。替代模型$f&rsquo;$在公共数据集 $\mathbf{S}\subseteq\mathbf{X}_{pub}$ 的子集上进行训练：</p>
 <p>$$f^{\prime}\approx\arg\min\mathcal{L}\left(\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in\mathbf{S}\},f^{\prime}(\mathbf{x})\right)$$</p>
 <p>防御者旨在将噪声注入每个查询的输入中，以间接干扰模型返回的预测。APMSA有两个主要目标。一方面，保留了模型的精度，即不使用APMSA时的精度应与原始精度相同。另一方面，被盗模型的准确性在很大程度上被破坏，使攻击者的免费私人查询不再有效。作者将使用 APMSA 前后模型准确性的下降程度作为指标。</p>
-<h3 id="apmsa的概述">APMSA的概述</h3>
-<p>APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。</p>
+<h3 id="apmsa的概述">
+    <a href="#apmsa%e7%9a%84%e6%a6%82%e8%bf%b0">#</a>
+    APMSA的概述
+</h3><p>APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。</p>
 <p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552.png"
 	width="1036"
 	height="381"
@@ -508,8 +522,10 @@
 	
 ></p>
 <p>上图是APMSA的流程。当向API查询输入时，APMSA不直接将该输入馈送到模型并返回置信向量。 相反，APMSA通过将对抗性噪声扰动注入到输入中来将该输入转换为对抗性输入。模型最终返回的是变换后的对抗性输入相对应的置信度向量。从攻击者的角度来看，其输入与返回的置信向量之间的关系映射已经被混淆。并且将给定类别样本的置信度向量约束在一个小的区域内，从而大大减少了泄漏信息，便于其替代模型的训练。同时，由于APMSA不会修改输入的硬标签，所以对于普通用户来说性能几乎没有损失。值得注意的是，APMSA是作为插件使用，不需要修改模型。</p>
-<h3 id="apmsa的实现">APMSA的实现</h3>
-<p>作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）</p>
+<h3 id="apmsa的实现">
+    <a href="#apmsa%e7%9a%84%e5%ae%9e%e7%8e%b0">#</a>
+    APMSA的实现
+</h3><p>作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）</p>
 <p>也就是说如果输出都堆在一起，就可以混淆输入和输出之间的关系，并且可以更好地保护模型的隐私。</p>
 <p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739.png"
 	width="1036"
@@ -589,8 +605,10 @@
 		data-flex-basis="186px"
 	
 ></p>
-<h2 id="实验评价">实验评价</h2>
-<p><strong>数据集：</strong></p>
+<h2 id="实验评价">
+    <a href="#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7">#</a>
+    实验评价
+</h2><p><strong>数据集：</strong></p>
 <ul>
 <li>CIFAR10</li>
 <li>GTSRB</li>
@@ -599,8 +617,10 @@
 <ul>
 <li>Top-1 精度</li>
 </ul>
-<h3 id="模型提取攻击评估">模型提取攻击评估</h3>
-<p>选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。</p>
+<h3 id="模型提取攻击评估">
+    <a href="#%e6%a8%a1%e5%9e%8b%e6%8f%90%e5%8f%96%e6%94%bb%e5%87%bb%e8%af%84%e4%bc%b0">#</a>
+    模型提取攻击评估
+</h3><p>选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。</p>
 <p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587.png"
 	width="1055"
 	height="319"
@@ -685,8 +705,10 @@
 ></p>
 <p>综上，查询样本的选择会影响模型窃取攻击的效率和替代模型的准确性。具体来说，攻击最好选择类似于目标域的数据分布的公共查询样本。</p>
 <p>此外，基于决策边界的样本合成技术（PGD、CW等）可以提供比随机查询更有用的信息。但是，随着查询次数的增加，基于决策边界的样本并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集太接近。</p>
-<h3 id="防御验证">防御验证</h3>
-<p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png"
+<h3 id="防御验证">
+    <a href="#%e9%98%b2%e5%be%a1%e9%aa%8c%e8%af%81">#</a>
+    防御验证
+</h3><p><img src="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png"
 	width="968"
 	height="758"
 	srcset="/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu2c45c11a6ef1b2e31c5f24fda6657642_75676_480x0_resize_box_3.png 480w, /p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu2c45c11a6ef1b2e31c5f24fda6657642_75676_1024x0_resize_box_3.png 1024w"
@@ -752,18 +774,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -873,8 +895,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -964,7 +986,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

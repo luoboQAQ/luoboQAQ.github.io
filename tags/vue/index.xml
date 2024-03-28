@@ -15,10 +15,14 @@
         <description>&lt;img src="https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/88417243.webp" alt="Featured image of post Vue学习笔记" /&gt;&lt;p&gt;最近看了很久的Vue教程，为了避免之后的遗忘，还是停下脚步，花点时间讲笔记写出来吧。&lt;/p&gt;
 &lt;p&gt;这篇笔记是基于B站上的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1Zy4y1K7SH&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;尚硅谷Vue2.0+Vue3.0全套教程&lt;/a&gt;而成，在此感谢提供这么优秀的学习教程。&lt;/p&gt;
-&lt;h2 id=&#34;vue2基础&#34;&gt;Vue2基础&lt;/h2&gt;
-&lt;p&gt;想要学好Vue，那肯定还是从Vue2开始学起。那么这一章主要是Vue2中的基础内容，没有使用到脚手架。&lt;/p&gt;
-&lt;h3 id=&#34;初识vue&#34;&gt;初识Vue&lt;/h3&gt;
-&lt;p&gt;每学一个新的语言，HelloWord是必不可少的。话不多说，上代码：&lt;/p&gt;
+&lt;h2 id=&#34;vue2基础&#34;&gt;
+    &lt;a href=&#34;#vue2%e5%9f%ba%e7%a1%80&#34;&gt;#&lt;/a&gt;
+    Vue2基础
+&lt;/h2&gt;&lt;p&gt;想要学好Vue，那肯定还是从Vue2开始学起。那么这一章主要是Vue2中的基础内容，没有使用到脚手架。&lt;/p&gt;
+&lt;h3 id=&#34;初识vue&#34;&gt;
+    &lt;a href=&#34;#%e5%88%9d%e8%af%86vue&#34;&gt;#&lt;/a&gt;
+    初识Vue
+&lt;/h3&gt;&lt;p&gt;每学一个新的语言，HelloWord是必不可少的。话不多说，上代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -67,8 +71,10 @@
 &lt;p&gt;5.真实开发中只有一个Vue实例，并且会配合着组件一起使用；&lt;/p&gt;
 &lt;p&gt;6.{{xxx}}中的xxx要写js表达式，且xxx可以自动读取到data中的所有属性；&lt;/p&gt;
 &lt;p&gt;7.一旦data中的数据发生改变，那么页面中用到该数据的地方也会自动更新；&lt;/p&gt;
-&lt;h3 id=&#34;vue模板语法&#34;&gt;Vue模板语法&lt;/h3&gt;
-&lt;p&gt;Vue模板语法有2大类：&lt;/p&gt;
+&lt;h3 id=&#34;vue模板语法&#34;&gt;
+    &lt;a href=&#34;#vue%e6%a8%a1%e6%9d%bf%e8%af%ad%e6%b3%95&#34;&gt;#&lt;/a&gt;
+    Vue模板语法
+&lt;/h3&gt;&lt;p&gt;Vue模板语法有2大类：&lt;/p&gt;
 &lt;p&gt;1.插值语法：&lt;/p&gt;
 &lt;p&gt;​      功能：用于解析标签体内容。&lt;/p&gt;
 &lt;p&gt;​      写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。&lt;/p&gt;
@@ -78,8 +84,10 @@
 &lt;p&gt;​            且可以直接读取到data中的所有属性。&lt;/p&gt;
 &lt;p&gt;​      备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。&lt;/p&gt;
 &lt;p&gt;其实很好理解，想要显示在页面上的内容就使用&lt;code&gt;{{value}}&lt;/code&gt;这样的写法，而&lt;code&gt;v-bind:&lt;/code&gt;则是用于html标签中的属性绑定。&lt;/p&gt;
-&lt;h3 id=&#34;数据绑定&#34;&gt;数据绑定&lt;/h3&gt;
-&lt;p&gt;Vue中有2种数据绑定的方式：&lt;/p&gt;
+&lt;h3 id=&#34;数据绑定&#34;&gt;
+    &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e7%bb%91%e5%ae%9a&#34;&gt;#&lt;/a&gt;
+    数据绑定
+&lt;/h3&gt;&lt;p&gt;Vue中有2种数据绑定的方式：&lt;/p&gt;
 &lt;p&gt;​    1.单向绑定(v-bind)：数据只能从data流向页面。&lt;/p&gt;
 &lt;p&gt;​    2.双向绑定(v-model)：数据不仅能从data流向页面，还可以从页面流向data。&lt;/p&gt;
 &lt;p&gt;​      备注：&lt;/p&gt;
@@ -105,8 +113,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;双向数据绑定：&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;text&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;v-model&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;br&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;el与data的两种写法&#34;&gt;el与data的两种写法&lt;/h3&gt;
-&lt;p&gt;data与el的2种写法&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;el与data的两种写法&#34;&gt;
+    &lt;a href=&#34;#el%e4%b8%8edata%e7%9a%84%e4%b8%a4%e7%a7%8d%e5%86%99%e6%b3%95&#34;&gt;#&lt;/a&gt;
+    el与data的两种写法
+&lt;/h3&gt;&lt;p&gt;data与el的2种写法&lt;/p&gt;
 &lt;p&gt;​    1.el有2种写法&lt;/p&gt;
 &lt;p&gt;​            (1).new Vue时候配置el属性。&lt;/p&gt;
 &lt;p&gt;​            (2).先创建Vue实例，随后再通过vm.$mount(&amp;rsquo;#root&amp;rsquo;)指定el的值。&lt;/p&gt;
@@ -172,8 +182,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;​    3.一个重要的原则：&lt;/p&gt;
 &lt;p&gt;​            由Vue管理的函数，一定不要写箭头函数，一旦写了箭头函数，this就不再是Vue实例了。&lt;/p&gt;
-&lt;h3 id=&#34;数据代理&#34;&gt;数据代理&lt;/h3&gt;
-&lt;p&gt;在讲Vue中的数据代理之前，先讲一下js中&lt;code&gt;Object.defineproperty&lt;/code&gt;方法&lt;/p&gt;
+&lt;h3 id=&#34;数据代理&#34;&gt;
+    &lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e4%bb%a3%e7%90%86&#34;&gt;#&lt;/a&gt;
+    数据代理
+&lt;/h3&gt;&lt;p&gt;在讲Vue中的数据代理之前，先讲一下js中&lt;code&gt;Object.defineproperty&lt;/code&gt;方法&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -271,8 +283,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;通过在控制台查看&lt;code&gt;vm&lt;/code&gt;，可以发现&lt;code&gt;data&lt;/code&gt;中的数据都通过数据代理在&lt;code&gt;vm&lt;/code&gt;身上了&lt;/p&gt;
-&lt;h3 id=&#34;事件处理&#34;&gt;事件处理&lt;/h3&gt;
-&lt;p&gt;事件的基本使用：&lt;/p&gt;
+&lt;h3 id=&#34;事件处理&#34;&gt;
+    &lt;a href=&#34;#%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86&#34;&gt;#&lt;/a&gt;
+    事件处理
+&lt;/h3&gt;&lt;p&gt;事件的基本使用：&lt;/p&gt;
 &lt;p&gt;​      1.使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名；&lt;/p&gt;
 &lt;p&gt;​      2.事件的回调需要配置在methods对象中，最终会在vm上；&lt;/p&gt;
 &lt;p&gt;​      3.methods中配置的函数，不要用箭头函数！否则this就不是vm了；&lt;/p&gt;
@@ -394,8 +408,10 @@
 &lt;p&gt;4.也可以使用keyCode去指定具体的按键（不推荐）&lt;/p&gt;
 &lt;p&gt;5.Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名&lt;/p&gt;
 &lt;p&gt;一般都是&lt;code&gt;@keydown.xxx&lt;/code&gt;或者&lt;code&gt;@keyup.xxx&lt;/code&gt;来绑定按键&lt;/p&gt;
-&lt;h3 id=&#34;计算属性&#34;&gt;计算属性&lt;/h3&gt;
-&lt;p&gt;计算属性：&lt;/p&gt;
+&lt;h3 id=&#34;计算属性&#34;&gt;
+    &lt;a href=&#34;#%e8%ae%a1%e7%ae%97%e5%b1%9e%e6%80%a7&#34;&gt;#&lt;/a&gt;
+    计算属性
+&lt;/h3&gt;&lt;p&gt;计算属性：&lt;/p&gt;
 &lt;p&gt;​    1.定义：要用的属性不存在，要通过已有属性计算得来。&lt;/p&gt;
 &lt;p&gt;​    2.原理：底层借助了Objcet.defineproperty方法提供的getter和setter。&lt;/p&gt;
 &lt;p&gt;​    3.get函数什么时候执行？&lt;/p&gt;
@@ -499,8 +515,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;监视属性&#34;&gt;监视属性&lt;/h3&gt;
-&lt;p&gt;监视属性watch：&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;监视属性&#34;&gt;
+    &lt;a href=&#34;#%e7%9b%91%e8%a7%86%e5%b1%9e%e6%80%a7&#34;&gt;#&lt;/a&gt;
+    监视属性
+&lt;/h3&gt;&lt;p&gt;监视属性watch：&lt;/p&gt;
 &lt;p&gt;1.当被监视的属性变化时, 回调函数自动调用, 进行相关操作&lt;/p&gt;
 &lt;p&gt;2.监视的属性必须存在，才能进行监视！！&lt;/p&gt;
 &lt;p&gt;3.监视的两种写法：&lt;/p&gt;
@@ -624,8 +642,10 @@
 &lt;p&gt;​      1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm 或 组件实例对象。&lt;/p&gt;
 &lt;p&gt;​      2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，&lt;/p&gt;
 &lt;p&gt;​        这样this的指向才是vm 或 组件实例对象。&lt;/p&gt;
-&lt;h3 id=&#34;绑定样式&#34;&gt;绑定样式&lt;/h3&gt;
-&lt;p&gt;绑定样式：&lt;/p&gt;
+&lt;h3 id=&#34;绑定样式&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%91%e5%ae%9a%e6%a0%b7%e5%bc%8f&#34;&gt;#&lt;/a&gt;
+    绑定样式
+&lt;/h3&gt;&lt;p&gt;绑定样式：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;class样式&lt;/p&gt;
@@ -754,8 +774,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;条件渲染&#34;&gt;条件渲染&lt;/h3&gt;
-&lt;p&gt;条件渲染：&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;条件渲染&#34;&gt;
+    &lt;a href=&#34;#%e6%9d%a1%e4%bb%b6%e6%b8%b2%e6%9f%93&#34;&gt;#&lt;/a&gt;
+    条件渲染
+&lt;/h3&gt;&lt;p&gt;条件渲染：&lt;/p&gt;
 &lt;p&gt;​      1.v-if&lt;/p&gt;
 &lt;p&gt;​            写法：&lt;/p&gt;
 &lt;p&gt;​                (1).v-if=&amp;ldquo;表达式&amp;rdquo;&lt;/p&gt;
@@ -815,9 +837,13 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;列表渲染&#34;&gt;列表渲染&lt;/h3&gt;
-&lt;h4 id=&#34;基本列表&#34;&gt;基本列表&lt;/h4&gt;
-&lt;p&gt;v-for指令:&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;列表渲染&#34;&gt;
+    &lt;a href=&#34;#%e5%88%97%e8%a1%a8%e6%b8%b2%e6%9f%93&#34;&gt;#&lt;/a&gt;
+    列表渲染
+&lt;/h3&gt;&lt;h4 id=&#34;基本列表&#34;&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e5%88%97%e8%a1%a8&#34;&gt;#&lt;/a&gt;
+    基本列表
+&lt;/h4&gt;&lt;p&gt;v-for指令:&lt;/p&gt;
 &lt;p&gt;​    1.用于展示列表数据&lt;/p&gt;
 &lt;p&gt;​    2.语法：v-for=&amp;quot;(item, index) in xxx&amp;rdquo; :key=&amp;ldquo;yyy&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;​    3.可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）&lt;/p&gt;
@@ -946,8 +972,10 @@
 &lt;p&gt;​              1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。&lt;/p&gt;
 &lt;p&gt;​              2.如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，&lt;/p&gt;
 &lt;p&gt;​                使用index作为key是没有问题的。&lt;/p&gt;
-&lt;h4 id=&#34;列表过滤&#34;&gt;列表过滤&lt;/h4&gt;
-&lt;p&gt;可以通过&lt;code&gt;watch&lt;/code&gt;或者&lt;code&gt;computed&lt;/code&gt;实现。&lt;/p&gt;
+&lt;h4 id=&#34;列表过滤&#34;&gt;
+    &lt;a href=&#34;#%e5%88%97%e8%a1%a8%e8%bf%87%e6%bb%a4&#34;&gt;#&lt;/a&gt;
+    列表过滤
+&lt;/h4&gt;&lt;p&gt;可以通过&lt;code&gt;watch&lt;/code&gt;或者&lt;code&gt;computed&lt;/code&gt;实现。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -1078,8 +1106,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h4 id=&#34;列表排序&#34;&gt;列表排序&lt;/h4&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;/div&gt;&lt;h4 id=&#34;列表排序&#34;&gt;
+    &lt;a href=&#34;#%e5%88%97%e8%a1%a8%e6%8e%92%e5%ba%8f&#34;&gt;#&lt;/a&gt;
+    列表排序
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
@@ -1203,8 +1233,10 @@
 &lt;p&gt;​        1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()&lt;/p&gt;
 &lt;p&gt;​        2.Vue.set() 或 vm.$set()&lt;/p&gt;
 &lt;p&gt;特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！&lt;/p&gt;
-&lt;h3 id=&#34;收集表单数据&#34;&gt;收集表单数据&lt;/h3&gt;
-&lt;p&gt;若：&lt;code&gt;&amp;lt;input type=&amp;quot;text&amp;quot;/&amp;gt;&lt;/code&gt;，则v-model收集的是value值，用户输入的就是value值。&lt;/p&gt;
+&lt;h3 id=&#34;收集表单数据&#34;&gt;
+    &lt;a href=&#34;#%e6%94%b6%e9%9b%86%e8%a1%a8%e5%8d%95%e6%95%b0%e6%8d%ae&#34;&gt;#&lt;/a&gt;
+    收集表单数据
+&lt;/h3&gt;&lt;p&gt;若：&lt;code&gt;&amp;lt;input type=&amp;quot;text&amp;quot;/&amp;gt;&lt;/code&gt;，则v-model收集的是value值，用户输入的就是value值。&lt;/p&gt;
 &lt;p&gt;若：&lt;code&gt;&amp;lt;input type=&amp;quot;radio&amp;quot;/&amp;gt;&lt;/code&gt;，则v-model收集的是value值，且要给标签配置value值。&lt;/p&gt;
 &lt;p&gt;若：&lt;code&gt;&amp;lt;input type=&amp;quot;checkbox&amp;quot;/&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;​    1.没有配置input的value属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）&lt;/p&gt;
@@ -1317,8 +1349,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;过滤器&#34;&gt;过滤器&lt;/h3&gt;
-&lt;p&gt;过滤器：&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;过滤器&#34;&gt;
+    &lt;a href=&#34;#%e8%bf%87%e6%bb%a4%e5%99%a8&#34;&gt;#&lt;/a&gt;
+    过滤器
+&lt;/h3&gt;&lt;p&gt;过滤器：&lt;/p&gt;
 &lt;p&gt;定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）。&lt;/p&gt;
 &lt;p&gt;语法：&lt;/p&gt;
 &lt;p&gt;​      1.注册过滤器：Vue.filter(name,callback) 或 new Vue{filters:{}}&lt;/p&gt;
@@ -1438,8 +1472,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;script&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;内置指令&#34;&gt;内置指令&lt;/h3&gt;
-&lt;p&gt;我们学过的指令：&lt;/p&gt;
+&lt;/div&gt;&lt;h3 id=&#34;内置指令&#34;&gt;
+    &lt;a href=&#34;#%e5%86%85%e7%bd%ae%e6%8c%87%e4%bb%a4&#34;&gt;#&lt;/a&gt;
+    内置指令
+&lt;/h3&gt;&lt;p&gt;我们学过的指令：&lt;/p&gt;
 &lt;p&gt;​    v-bind : 单向绑定解析表达式, 可简写为 :xxx&lt;/p&gt;
 &lt;p&gt;​    v-model : 双向数据绑定&lt;/p&gt;
 &lt;p&gt;​    v-for  : 遍历数组/对象/字符串&lt;/p&gt;
@@ -1467,8 +1503,10 @@
 &lt;p&gt;v-pre指令：&lt;/p&gt;
 &lt;p&gt;​    1.跳过其所在节点的编译过程。&lt;/p&gt;
 &lt;p&gt;​    2.可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。&lt;/p&gt;
-&lt;h3 id=&#34;生命周期&#34;&gt;生命周期&lt;/h3&gt;
-&lt;p&gt;话不多说先上图：&lt;/p&gt;
+&lt;h3 id=&#34;生命周期&#34;&gt;
+    &lt;a href=&#34;#%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f&#34;&gt;#&lt;/a&gt;
+    生命周期
+&lt;/h3&gt;&lt;p&gt;话不多说先上图：&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png&#34;
 	width=&#34;1469&#34;
 	height=&#34;1892&#34;
@@ -1495,8 +1533,10 @@
 &lt;p&gt;​    1.销毁后借助Vue开发者工具看不到任何信息。&lt;/p&gt;
 &lt;p&gt;​    2.销毁后自定义事件会失效，但原生DOM事件依然有效。&lt;/p&gt;
 &lt;p&gt;​    3.一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。&lt;/p&gt;
-&lt;h3 id=&#34;组件&#34;&gt;组件&lt;/h3&gt;
-&lt;p&gt;Vue中使用组件的三大步骤：&lt;/p&gt;
+&lt;h3 id=&#34;组件&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%84%e4%bb%b6&#34;&gt;#&lt;/a&gt;
+    组件
+&lt;/h3&gt;&lt;p&gt;Vue中使用组件的三大步骤：&lt;/p&gt;
 &lt;p&gt;​    一、定义组件(创建组件)&lt;/p&gt;
 &lt;p&gt;​    二、注册组件&lt;/p&gt;
 &lt;p&gt;​    三、使用组件(写组件标签)&lt;/p&gt;
@@ -1540,10 +1580,14 @@
 &lt;p&gt;​                data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【Vue实例对象】。&lt;/p&gt;
 &lt;p&gt;​      5.VueComponent的实例对象，以后简称vc（也可称之为：组件实例对象）。&lt;/p&gt;
 &lt;p&gt;​        Vue的实例对象，以后简称vm。&lt;/p&gt;
-&lt;h2 id=&#34;vue2进阶&#34;&gt;Vue2进阶&lt;/h2&gt;
-&lt;p&gt;到这一部分，就要使用到脚手架了，同时也向正式的项目靠近了。&lt;/p&gt;
-&lt;h3 id=&#34;脚手架文件结构&#34;&gt;脚手架文件结构&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;h2 id=&#34;vue2进阶&#34;&gt;
+    &lt;a href=&#34;#vue2%e8%bf%9b%e9%98%b6&#34;&gt;#&lt;/a&gt;
+    Vue2进阶
+&lt;/h2&gt;&lt;p&gt;到这一部分，就要使用到脚手架了，同时也向正式的项目靠近了。&lt;/p&gt;
+&lt;h3 id=&#34;脚手架文件结构&#34;&gt;
+    &lt;a href=&#34;#%e8%84%9a%e6%89%8b%e6%9e%b6%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84&#34;&gt;#&lt;/a&gt;
+    脚手架文件结构
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
@@ -1581,8 +1625,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;├── package-lock.json：包版本控制文件
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;关于不同版本的vue&#34;&gt;关于不同版本的Vue&lt;/h3&gt;
-&lt;ol&gt;
+&lt;/div&gt;&lt;h3 id=&#34;关于不同版本的vue&#34;&gt;
+    &lt;a href=&#34;#%e5%85%b3%e4%ba%8e%e4%b8%8d%e5%90%8c%e7%89%88%e6%9c%ac%e7%9a%84vue&#34;&gt;#&lt;/a&gt;
+    关于不同版本的Vue
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;vue.js与vue.runtime.xxx.js的区别：
 &lt;ol&gt;
 &lt;li&gt;vue.js是完整版的Vue，包含：核心功能 + 模板解析器。&lt;/li&gt;
@@ -1591,14 +1637,18 @@
 &lt;/li&gt;
 &lt;li&gt;因为vue.runtime.xxx.js没有模板解析器，所以不能使用template这个配置项，需要使用render函数接收到的createElement函数去指定具体内容。也就是代码中的这句&lt;code&gt;render: h =&amp;gt; h(App)&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;vueconfigjs配置文件&#34;&gt;vue.config.js配置文件&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;vueconfigjs配置文件&#34;&gt;
+    &lt;a href=&#34;#vueconfigjs%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6&#34;&gt;#&lt;/a&gt;
+    vue.config.js配置文件
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;使用vue inspect &amp;gt; output.js可以查看到Vue脚手架的默认配置。&lt;/li&gt;
 &lt;li&gt;使用vue.config.js可以对脚手架进行个性化定制，详情见：&lt;a class=&#34;link&#34; href=&#34;https://cli.vuejs.org/zh&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;https://cli.vuejs.org/zh&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;ref属性&#34;&gt;ref属性&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;ref属性&#34;&gt;
+    &lt;a href=&#34;#ref%e5%b1%9e%e6%80%a7&#34;&gt;#&lt;/a&gt;
+    ref属性
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;被用来给元素或子组件注册引用信息（id的替代者）&lt;/li&gt;
 &lt;li&gt;应用在html标签上获取的是真实DOM元素，应用在组件标签上是组件实例对象（vc）&lt;/li&gt;
 &lt;li&gt;使用方式：
@@ -1608,8 +1658,10 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;props配置项&#34;&gt;props配置项&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;props配置项&#34;&gt;
+    &lt;a href=&#34;#props%e9%85%8d%e7%bd%ae%e9%a1%b9&#34;&gt;#&lt;/a&gt;
+    props配置项
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;功能：让组件接收外部传过来的数据&lt;/p&gt;
 &lt;/li&gt;
@@ -1654,8 +1706,10 @@
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;mixin混入&#34;&gt;mixin(混入)&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;mixin混入&#34;&gt;
+    &lt;a href=&#34;#mixin%e6%b7%b7%e5%85%a5&#34;&gt;#&lt;/a&gt;
+    mixin(混入)
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;功能：可以把多个组件共用的配置提取成一个混入对象&lt;/p&gt;
 &lt;/li&gt;
@@ -1683,8 +1737,10 @@
 ​	局部混入：&lt;code&gt;mixins:[&#39;xxx&#39;]	&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;插件&#34;&gt;插件&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;插件&#34;&gt;
+    &lt;a href=&#34;#%e6%8f%92%e4%bb%b6&#34;&gt;#&lt;/a&gt;
+    插件
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;功能：用于增强Vue&lt;/p&gt;
 &lt;/li&gt;
@@ -1732,13 +1788,17 @@
 &lt;p&gt;使用插件：&lt;code&gt;Vue.use()&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;scoped样式&#34;&gt;scoped样式&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;scoped样式&#34;&gt;
+    &lt;a href=&#34;#scoped%e6%a0%b7%e5%bc%8f&#34;&gt;#&lt;/a&gt;
+    scoped样式
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;作用：让样式在局部生效，防止冲突。&lt;/li&gt;
 &lt;li&gt;写法：&lt;code&gt;&amp;lt;style scoped&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;总结todolist案例&#34;&gt;总结TodoList案例&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;总结todolist案例&#34;&gt;
+    &lt;a href=&#34;#%e6%80%bb%e7%bb%93todolist%e6%a1%88%e4%be%8b&#34;&gt;#&lt;/a&gt;
+    总结TodoList案例
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;组件化编码流程：&lt;/p&gt;
 &lt;p&gt;​	(1).拆分静态组件：组件要按照功能点拆分，命名不要与html元素冲突。&lt;/p&gt;
@@ -1759,8 +1819,10 @@
 &lt;p&gt;props传过来的若是对象类型的值，修改对象中的属性时Vue不会报错，但不推荐这样做。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;webstorage&#34;&gt;webStorage&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;webstorage&#34;&gt;
+    &lt;a href=&#34;#webstorage&#34;&gt;#&lt;/a&gt;
+    webStorage
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;存储内容大小一般支持5MB左右（不同浏览器可能还不一样）&lt;/p&gt;
 &lt;/li&gt;
@@ -1798,8 +1860,10 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;组件的自定义事件&#34;&gt;组件的自定义事件&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;组件的自定义事件&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%84%e4%bb%b6%e7%9a%84%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6&#34;&gt;#&lt;/a&gt;
+    组件的自定义事件
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;一种组件间通信的方式，适用于：&lt;!-- raw HTML omitted --&gt;子组件 ===&amp;gt; 父组件&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
 &lt;/li&gt;
@@ -1849,8 +1913,10 @@
 &lt;p&gt;注意：通过&lt;code&gt;this.$refs.xxx.$on(&#39;atguigu&#39;,回调)&lt;/code&gt;绑定自定义事件时，回调&lt;!-- raw HTML omitted --&gt;要么配置在methods中&lt;!-- raw HTML omitted --&gt;，&lt;!-- raw HTML omitted --&gt;要么用箭头函数&lt;!-- raw HTML omitted --&gt;，否则this指向会出问题！&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;全局事件总线globaleventbus&#34;&gt;全局事件总线（GlobalEventBus）&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;全局事件总线globaleventbus&#34;&gt;
+    &lt;a href=&#34;#%e5%85%a8%e5%b1%80%e4%ba%8b%e4%bb%b6%e6%80%bb%e7%ba%bfglobaleventbus&#34;&gt;#&lt;/a&gt;
+    全局事件总线（GlobalEventBus）
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;一种组件间通信的方式，适用于&lt;!-- raw HTML omitted --&gt;任意组件间通信&lt;!-- raw HTML omitted --&gt;。&lt;/p&gt;
 &lt;/li&gt;
@@ -1912,8 +1978,10 @@
 &lt;p&gt;最好在beforeDestroy钩子中，用$off去解绑&lt;!-- raw HTML omitted --&gt;当前组件所用到的&lt;!-- raw HTML omitted --&gt;事件。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;消息订阅与发布pubsub&#34;&gt;消息订阅与发布（pubsub）&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;消息订阅与发布pubsub&#34;&gt;
+    &lt;a href=&#34;#%e6%b6%88%e6%81%af%e8%ae%a2%e9%98%85%e4%b8%8e%e5%8f%91%e5%b8%83pubsub&#34;&gt;#&lt;/a&gt;
+    消息订阅与发布（pubsub）
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;一种组件间通信的方式，适用于&lt;!-- raw HTML omitted --&gt;任意组件间通信&lt;!-- raw HTML omitted --&gt;。&lt;/p&gt;
 &lt;/li&gt;
@@ -1958,14 +2026,18 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;nexttick&#34;&gt;nextTick&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;nexttick&#34;&gt;
+    &lt;a href=&#34;#nexttick&#34;&gt;#&lt;/a&gt;
+    nextTick
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;语法：&lt;code&gt;this.$nextTick(回调函数)&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;作用：在下一次 DOM 更新结束后执行其指定的回调。&lt;/li&gt;
 &lt;li&gt;什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;vue封装的过度与动画&#34;&gt;Vue封装的过度与动画&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;vue封装的过度与动画&#34;&gt;
+    &lt;a href=&#34;#vue%e5%b0%81%e8%a3%85%e7%9a%84%e8%bf%87%e5%ba%a6%e4%b8%8e%e5%8a%a8%e7%94%bb&#34;&gt;#&lt;/a&gt;
+    Vue封装的过度与动画
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;作用：在插入、更新或移除 DOM元素时，在合适的时候给元素添加样式类名。&lt;/p&gt;
 &lt;/li&gt;
@@ -2015,9 +2087,13 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;vue脚手架配置代理&#34;&gt;vue脚手架配置代理&lt;/h3&gt;
-&lt;h4 id=&#34;方法一&#34;&gt;方法一&lt;/h4&gt;
-&lt;p&gt;​	在vue.config.js中添加如下配置：&lt;/p&gt;
+&lt;h3 id=&#34;vue脚手架配置代理&#34;&gt;
+    &lt;a href=&#34;#vue%e8%84%9a%e6%89%8b%e6%9e%b6%e9%85%8d%e7%bd%ae%e4%bb%a3%e7%90%86&#34;&gt;#&lt;/a&gt;
+    vue脚手架配置代理
+&lt;/h3&gt;&lt;h4 id=&#34;方法一&#34;&gt;
+    &lt;a href=&#34;#%e6%96%b9%e6%b3%95%e4%b8%80&#34;&gt;#&lt;/a&gt;
+    方法一
+&lt;/h4&gt;&lt;p&gt;​	在vue.config.js中添加如下配置：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2036,8 +2112,10 @@
 &lt;li&gt;缺点：不能配置多个代理，不能灵活的控制请求是否走代理。&lt;/li&gt;
 &lt;li&gt;工作方式：若按照上述配置代理，当请求了前端不存在的资源时，那么该请求会转发给服务器 （优先匹配前端资源）&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;方法二&#34;&gt;方法二&lt;/h4&gt;
-&lt;p&gt;​	编写vue.config.js配置具体代理规则：&lt;/p&gt;
+&lt;h4 id=&#34;方法二&#34;&gt;
+    &lt;a href=&#34;#%e6%96%b9%e6%b3%95%e4%ba%8c&#34;&gt;#&lt;/a&gt;
+    方法二
+&lt;/h4&gt;&lt;p&gt;​	编写vue.config.js配置具体代理规则：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -2091,8 +2169,10 @@
 &lt;li&gt;优点：可以配置多个代理，且可以灵活的控制请求是否走代理。&lt;/li&gt;
 &lt;li&gt;缺点：配置略微繁琐，请求资源时必须加前缀。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;插槽&#34;&gt;插槽&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;插槽&#34;&gt;
+    &lt;a href=&#34;#%e6%8f%92%e6%a7%bd&#34;&gt;#&lt;/a&gt;
+    插槽
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;作用：让父组件可以向子组件指定位置插入html结构，也是一种组件间通信的方式，适用于 &lt;!-- raw HTML omitted --&gt;父组件 ===&amp;gt; 子组件&lt;!-- raw HTML omitted --&gt; 。&lt;/p&gt;
 &lt;/li&gt;
@@ -2268,13 +2348,21 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;vuex&#34;&gt;Vuex&lt;/h3&gt;
-&lt;h4 id=&#34;概念&#34;&gt;概念&lt;/h4&gt;
-&lt;p&gt;​		在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于任意组件间通信。&lt;/p&gt;
-&lt;h4 id=&#34;何时使用&#34;&gt;何时使用？&lt;/h4&gt;
-&lt;p&gt;​		多个组件需要共享数据时&lt;/p&gt;
-&lt;h4 id=&#34;搭建vuex环境&#34;&gt;搭建vuex环境&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;vuex&#34;&gt;
+    &lt;a href=&#34;#vuex&#34;&gt;#&lt;/a&gt;
+    Vuex
+&lt;/h3&gt;&lt;h4 id=&#34;概念&#34;&gt;
+    &lt;a href=&#34;#%e6%a6%82%e5%bf%b5&#34;&gt;#&lt;/a&gt;
+    概念
+&lt;/h4&gt;&lt;p&gt;​		在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于任意组件间通信。&lt;/p&gt;
+&lt;h4 id=&#34;何时使用&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8&#34;&gt;#&lt;/a&gt;
+    何时使用？
+&lt;/h4&gt;&lt;p&gt;​		多个组件需要共享数据时&lt;/p&gt;
+&lt;h4 id=&#34;搭建vuex环境&#34;&gt;
+    &lt;a href=&#34;#%e6%90%ad%e5%bb%bavuex%e7%8e%af%e5%a2%83&#34;&gt;#&lt;/a&gt;
+    搭建vuex环境
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;创建文件：&lt;code&gt;src/store/index.js&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2356,8 +2444,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;基本使用&#34;&gt;基本使用&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;基本使用&#34;&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8&#34;&gt;#&lt;/a&gt;
+    基本使用
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;初始化数据、配置&lt;code&gt;actions&lt;/code&gt;、配置&lt;code&gt;mutations&lt;/code&gt;，操作文件&lt;code&gt;store.js&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2445,8 +2535,10 @@
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;getters的使用&#34;&gt;getters的使用&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;getters的使用&#34;&gt;
+    &lt;a href=&#34;#getters%e7%9a%84%e4%bd%bf%e7%94%a8&#34;&gt;#&lt;/a&gt;
+    getters的使用
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;概念：当state中的数据需要经过加工后再使用时，可以使用getters加工。&lt;/p&gt;
 &lt;/li&gt;
@@ -2489,8 +2581,10 @@
 &lt;p&gt;组件中读取数据：&lt;code&gt;$store.getters.bigSum&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;四个map方法的使用&#34;&gt;四个map方法的使用&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;四个map方法的使用&#34;&gt;
+    &lt;a href=&#34;#%e5%9b%9b%e4%b8%aamap%e6%96%b9%e6%b3%95%e7%9a%84%e4%bd%bf%e7%94%a8&#34;&gt;#&lt;/a&gt;
+    四个map方法的使用
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;!-- raw HTML omitted --&gt;mapState方法：&lt;!-- raw HTML omitted --&gt;用于帮助我们映射&lt;code&gt;state&lt;/code&gt;中的数据为计算属性&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2587,8 +2681,10 @@
 &lt;blockquote&gt;
 &lt;p&gt;备注：mapActions与mapMutations使用时，若需要传递参数需要：在模板中绑定事件时传递好参数，否则参数是事件对象。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h4 id=&#34;模块化命名空间&#34;&gt;模块化+命名空间&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;模块化命名空间&#34;&gt;
+    &lt;a href=&#34;#%e6%a8%a1%e5%9d%97%e5%8c%96%e5%91%bd%e5%90%8d%e7%a9%ba%e9%97%b4&#34;&gt;#&lt;/a&gt;
+    模块化+命名空间
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;目的：让代码更好维护，让多种数据分类更加明确。&lt;/p&gt;
 &lt;/li&gt;
@@ -2720,13 +2816,17 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;路由&#34;&gt;路由&lt;/h3&gt;
-&lt;ol&gt;
+&lt;h3 id=&#34;路由&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e7%94%b1&#34;&gt;#&lt;/a&gt;
+    路由
+&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;理解： 一个路由（route）就是一组映射关系（key - value），多个路由需要路由器（router）进行管理。&lt;/li&gt;
 &lt;li&gt;前端路由：key是路径，value是组件。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;基本使用-1&#34;&gt;基本使用&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;基本使用-1&#34;&gt;
+    &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8-1&#34;&gt;#&lt;/a&gt;
+    基本使用
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;安装vue-router，命令：&lt;code&gt;npm i vue-router&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
@@ -2809,15 +2909,19 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;几个注意点&#34;&gt;几个注意点&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;几个注意点&#34;&gt;
+    &lt;a href=&#34;#%e5%87%a0%e4%b8%aa%e6%b3%a8%e6%84%8f%e7%82%b9&#34;&gt;#&lt;/a&gt;
+    几个注意点
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;路由组件通常存放在&lt;code&gt;pages&lt;/code&gt;文件夹，一般组件通常存放在&lt;code&gt;components&lt;/code&gt;文件夹。&lt;/li&gt;
 &lt;li&gt;通过切换，“隐藏”了的路由组件，默认是被销毁掉的，需要的时候再去挂载。&lt;/li&gt;
 &lt;li&gt;每个组件都有自己的&lt;code&gt;$route&lt;/code&gt;属性，里面存储着自己的路由信息。&lt;/li&gt;
 &lt;li&gt;整个应用只有一个router，可以通过组件的&lt;code&gt;$router&lt;/code&gt;属性获取到。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;多级路由多级路由&#34;&gt;多级路由（多级路由）&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;多级路由多级路由&#34;&gt;
+    &lt;a href=&#34;#%e5%a4%9a%e7%ba%a7%e8%b7%af%e7%94%b1%e5%a4%9a%e7%ba%a7%e8%b7%af%e7%94%b1&#34;&gt;#&lt;/a&gt;
+    多级路由（多级路由）
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;配置路由规则，使用children配置项：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2879,8 +2983,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;路由的query参数&#34;&gt;路由的query参数&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;路由的query参数&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e7%94%b1%e7%9a%84query%e5%8f%82%e6%95%b0&#34;&gt;#&lt;/a&gt;
+    路由的query参数
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;传递参数&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2930,8 +3036,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;命名路由&#34;&gt;命名路由&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;命名路由&#34;&gt;
+    &lt;a href=&#34;#%e5%91%bd%e5%90%8d%e8%b7%af%e7%94%b1&#34;&gt;#&lt;/a&gt;
+    命名路由
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;作用：可以简化路由的跳转。&lt;/p&gt;
 &lt;/li&gt;
@@ -3025,8 +3133,10 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;路由的params参数&#34;&gt;路由的params参数&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;路由的params参数&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e7%94%b1%e7%9a%84params%e5%8f%82%e6%95%b0&#34;&gt;#&lt;/a&gt;
+    路由的params参数
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;配置路由，声明接收params参数&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -3128,8 +3238,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;路由的props配置&#34;&gt;路由的props配置&lt;/h4&gt;
-&lt;p&gt;​	作用：让路由组件更方便的收到参数&lt;/p&gt;
+&lt;h4 id=&#34;路由的props配置&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e7%94%b1%e7%9a%84props%e9%85%8d%e7%bd%ae&#34;&gt;#&lt;/a&gt;
+    路由的props配置
+&lt;/h4&gt;&lt;p&gt;​	作用：让路由组件更方便的收到参数&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -3174,14 +3286,18 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h4 id=&#34;router-link的replace属性&#34;&gt;&lt;code&gt;&amp;lt;router-link&amp;gt;&lt;/code&gt;的replace属性&lt;/h4&gt;
-&lt;ol&gt;
+&lt;/div&gt;&lt;h4 id=&#34;router-link的replace属性&#34;&gt;
+    &lt;a href=&#34;#router-link%e7%9a%84replace%e5%b1%9e%e6%80%a7&#34;&gt;#&lt;/a&gt;
+    &lt;code&gt;&amp;lt;router-link&amp;gt;&lt;/code&gt;的replace属性
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;作用：控制路由跳转时操作浏览器历史记录的模式&lt;/li&gt;
 &lt;li&gt;浏览器的历史记录有两种写入方式：分别为&lt;code&gt;push&lt;/code&gt;和&lt;code&gt;replace&lt;/code&gt;，&lt;code&gt;push&lt;/code&gt;是追加历史记录，&lt;code&gt;replace&lt;/code&gt;是替换当前记录。路由跳转时候默认为&lt;code&gt;push&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;如何开启&lt;code&gt;replace&lt;/code&gt;模式：&lt;code&gt;&amp;lt;router-link replace .......&amp;gt;News&amp;lt;/router-link&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;编程式路由导航&#34;&gt;编程式路由导航&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;编程式路由导航&#34;&gt;
+    &lt;a href=&#34;#%e7%bc%96%e7%a8%8b%e5%bc%8f%e8%b7%af%e7%94%b1%e5%af%bc%e8%88%aa&#34;&gt;#&lt;/a&gt;
+    编程式路由导航
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;作用：不借助&lt;code&gt;&amp;lt;router-link&amp;gt; &lt;/code&gt;实现路由跳转，让路由跳转更加灵活&lt;/p&gt;
 &lt;/li&gt;
@@ -3233,8 +3349,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;缓存路由组件&#34;&gt;缓存路由组件&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;缓存路由组件&#34;&gt;
+    &lt;a href=&#34;#%e7%bc%93%e5%ad%98%e8%b7%af%e7%94%b1%e7%bb%84%e4%bb%b6&#34;&gt;#&lt;/a&gt;
+    缓存路由组件
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;作用：让不展示的路由组件保持挂载，不被销毁。&lt;/p&gt;
 &lt;/li&gt;
@@ -3254,8 +3372,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;两个新的生命周期钩子&#34;&gt;两个新的生命周期钩子&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;两个新的生命周期钩子&#34;&gt;
+    &lt;a href=&#34;#%e4%b8%a4%e4%b8%aa%e6%96%b0%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e9%92%a9%e5%ad%90&#34;&gt;#&lt;/a&gt;
+    两个新的生命周期钩子
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;作用：路由组件所独有的两个钩子，用于捕获路由组件的激活状态。&lt;/li&gt;
 &lt;li&gt;具体名字：
 &lt;ol&gt;
@@ -3264,8 +3384,10 @@
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;路由守卫&#34;&gt;路由守卫&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;路由守卫&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e7%94%b1%e5%ae%88%e5%8d%ab&#34;&gt;#&lt;/a&gt;
+    路由守卫
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;作用：对路由进行权限控制&lt;/p&gt;
 &lt;/li&gt;
@@ -3386,8 +3508,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h4 id=&#34;路由器的两种工作模式&#34;&gt;路由器的两种工作模式&lt;/h4&gt;
-&lt;ol&gt;
+&lt;h4 id=&#34;路由器的两种工作模式&#34;&gt;
+    &lt;a href=&#34;#%e8%b7%af%e7%94%b1%e5%99%a8%e7%9a%84%e4%b8%a4%e7%a7%8d%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f&#34;&gt;#&lt;/a&gt;
+    路由器的两种工作模式
+&lt;/h4&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;对于一个url来说，什么是hash值？—— #及其后面的内容就是hash值。&lt;/p&gt;
 &lt;/li&gt;

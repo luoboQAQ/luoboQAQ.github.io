@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='整理竞赛中可能会用到的STL代码和性质'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="整理竞赛中可能会用到的STL代码和性质">
 <title>竞赛用STL整理</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='竞赛用STL整理'>
-<meta property='og:description' content='整理竞赛中可能会用到的STL代码和性质'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="竞赛用STL整理">
+<meta property='og:description' content="整理竞赛中可能会用到的STL代码和性质">
 <meta property='og:url' content='https://lbqaq.top/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;' /><meta property='article:published_time' content='2021-01-31T20:39:29&#43;08:00'/><meta property='article:modified_time' content='2021-02-01T12:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%AB%9E%E8%B5%9B%E7%94%A8stl%E6%95%B4%E7%90%86/85526504.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -432,11 +432,15 @@
 <li>特殊：<code>stack,queue,priority_queue</code></li>
 <li>算法：<code>sort,lower_bound,find</code></li>
 </ul>
-<h2 id="vector">vector</h2>
-<p>vector可以理解为可以自由变换长度的数组(不定长数组)，个人感觉使用频率还是很高的。vector是连续的，意味着可以使用<code>[]</code>或<code>at()</code>。</p>
+<h2 id="vector">
+    <a href="#vector">#</a>
+    vector
+</h2><p>vector可以理解为可以自由变换长度的数组(不定长数组)，个人感觉使用频率还是很高的。vector是连续的，意味着可以使用<code>[]</code>或<code>at()</code>。</p>
 <p><strong>声明：</strong> <code>vector&lt;int&gt; a</code></p>
-<h3 id="常用函数">常用函数</h3>
-<ul>
+<h3 id="常用函数">
+    <a href="#%e5%b8%b8%e7%94%a8%e5%87%bd%e6%95%b0">#</a>
+    常用函数
+</h3><ul>
 <li>
 <p>push_back：在尾部添加一个数据</p>
 </li>
@@ -456,19 +460,29 @@
 <p>empty：判断是否为空</p>
 </li>
 </ul>
-<h2 id="deque">deque</h2>
-<p>deque可以看作是双向队列，是<strong>连续</strong>存储结构。vector有的功能它都有，还支持高效的首/尾端插入/删除操作。</p>
-<h3 id="新增函数">新增函数</h3>
-<ul>
+<h2 id="deque">
+    <a href="#deque">#</a>
+    deque
+</h2><p>deque可以看作是双向队列，是<strong>连续</strong>存储结构。vector有的功能它都有，还支持高效的首/尾端插入/删除操作。</p>
+<h3 id="新增函数">
+    <a href="#%e6%96%b0%e5%a2%9e%e5%87%bd%e6%95%b0">#</a>
+    新增函数
+</h3><ul>
 <li>push_front：在头部添加一个数据</li>
 <li>pop_front：在头部删除一个数据</li>
 </ul>
-<h2 id="list">list</h2>
-<p>list可以看作是双链表，是<strong>非连续</strong>存储结构。可在两端进行push、pop，同时在内部可以很方便的进行插入和删除操作。不过我没怎么用到这个容器。等我做到相关的题目再来补充一些信息吧。</p>
-<h2 id="string">string</h2>
-<p>string就是字符串。相比char[]那可是方便不少，c++的cin/cout就只支持string类型而不支持char型数组。string还支持<code>+、=、+=</code>等运算符。</p>
-<h3 id="常用函数-1">常用函数</h3>
-<ul>
+<h2 id="list">
+    <a href="#list">#</a>
+    list
+</h2><p>list可以看作是双链表，是<strong>非连续</strong>存储结构。可在两端进行push、pop，同时在内部可以很方便的进行插入和删除操作。不过我没怎么用到这个容器。等我做到相关的题目再来补充一些信息吧。</p>
+<h2 id="string">
+    <a href="#string">#</a>
+    string
+</h2><p>string就是字符串。相比char[]那可是方便不少，c++的cin/cout就只支持string类型而不支持char型数组。string还支持<code>+、=、+=</code>等运算符。</p>
+<h3 id="常用函数-1">
+    <a href="#%e5%b8%b8%e7%94%a8%e5%87%bd%e6%95%b0-1">#</a>
+    常用函数
+</h3><ul>
 <li>
 <p>append：在字符串后添加（相当于+=）</p>
 </li>
@@ -501,8 +515,10 @@
 <p>find_last_not_of：从后往前查找何处出现另一个字符串中没有包含的字符。</p>
 </li>
 </ul>
-<h3 id="流处理">流处理</h3>
-<p>可以通过<code>&lt;sstream&gt;</code>，将string对象作为一个流。例如：</p>
+<h3 id="流处理">
+    <a href="#%e6%b5%81%e5%a4%84%e7%90%86">#</a>
+    流处理
+</h3><p>可以通过<code>&lt;sstream&gt;</code>，将string对象作为一个流。例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -533,18 +549,24 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="set">set</h2>
-<p>set就是数学中的集合，每个元素只能出现一次，set中的元素已经从小到大排好了。</p>
-<h3 id="常用函数-2">常用函数</h3>
-<ul>
+</div><h2 id="set">
+    <a href="#set">#</a>
+    set
+</h2><p>set就是数学中的集合，每个元素只能出现一次，set中的元素已经从小到大排好了。</p>
+<h3 id="常用函数-2">
+    <a href="#%e5%b8%b8%e7%94%a8%e5%87%bd%e6%95%b0-2">#</a>
+    常用函数
+</h3><ul>
 <li>insert：插入一个元素</li>
 <li>erase：删除，可以传入定位器，也可直接传入值</li>
 <li>count：统计元素出现的个数，因为只有0/1个，所以一般用来判断元素是否存在</li>
 <li>find：查找</li>
 </ul>
 <p>对于自己定义的结构体，需要重载&lt;运算符。</p>
-<h3 id="常用算法">常用算法</h3>
-<p>在<code>&lt;algorithm&gt;</code>中提供了关于set的两种算法（目前只知道两种）</p>
+<h3 id="常用算法">
+    <a href="#%e5%b8%b8%e7%94%a8%e7%ae%97%e6%b3%95">#</a>
+    常用算法
+</h3><p>在<code>&lt;algorithm&gt;</code>中提供了关于set的两种算法（目前只知道两种）</p>
 <ol>
 <li>
 <p>set_union：取两个集合的并集，例如：</p>
@@ -573,22 +595,32 @@
 </div>
 </div></li>
 </ol>
-<h2 id="map">map</h2>
-<p>map是映射，支持[]运算符，还是非常实用的。</p>
+<h2 id="map">
+    <a href="#map">#</a>
+    map
+</h2><p>map是映射，支持[]运算符，还是非常实用的。</p>
 <p>map的函数和set基本一致，这里就不重复写了。</p>
-<h2 id="stack">stack</h2>
-<p>stack就是数据结构中的栈，数据是“后进先出”。</p>
-<h3 id="基本函数">基本函数</h3>
-<ul>
+<h2 id="stack">
+    <a href="#stack">#</a>
+    stack
+</h2><p>stack就是数据结构中的栈，数据是“后进先出”。</p>
+<h3 id="基本函数">
+    <a href="#%e5%9f%ba%e6%9c%ac%e5%87%bd%e6%95%b0">#</a>
+    基本函数
+</h3><ul>
 <li>push：入栈</li>
 <li>pop：出栈</li>
 <li>top：取栈顶元素</li>
 </ul>
 <p>要注意的是，使用pop()出栈并不会返回被删除的元素值，如果想要需要先top()一下</p>
-<h2 id="queue">queue</h2>
-<p>queue就是数据结构里的队列，数据符合“先进先出”的规则。</p>
-<h3 id="基本函数-1">基本函数</h3>
-<ul>
+<h2 id="queue">
+    <a href="#queue">#</a>
+    queue
+</h2><p>queue就是数据结构里的队列，数据符合“先进先出”的规则。</p>
+<h3 id="基本函数-1">
+    <a href="#%e5%9f%ba%e6%9c%ac%e5%87%bd%e6%95%b0-1">#</a>
+    基本函数
+</h3><ul>
 <li>
 <p>push：入队</p>
 </li>
@@ -599,8 +631,10 @@
 <p>front：取队首</p>
 </li>
 </ul>
-<h3 id="priority_queue">priority_queue</h3>
-<p>优先队列，将按照优先级来排序，取队首的<code>front()</code>的函数将换为<code>top()</code>。该容器也定义在头文件<code>&lt;queue&gt;</code>里。</p>
+<h3 id="priority_queue">
+    <a href="#priority_queue">#</a>
+    priority_queue
+</h3><p>优先队列，将按照优先级来排序，取队首的<code>front()</code>的函数将换为<code>top()</code>。该容器也定义在头文件<code>&lt;queue&gt;</code>里。</p>
 <p>对于自定义数据类型的队列，需要定义<code>&lt;</code>运算。对于已经定义过的数据类型，我们可以通过定义一个结构体，在其中重载<code>()</code>运算符来看起来像一个函数，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -668,18 +702,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -732,8 +766,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -823,7 +857,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

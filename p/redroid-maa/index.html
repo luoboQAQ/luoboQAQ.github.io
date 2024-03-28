@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='介绍了ReDroid以及MAA安装配置方法，实现在Linux环境下优雅的玩方舟'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="介绍了ReDroid以及MAA安装配置方法，实现在Linux环境下优雅的玩方舟">
 <title>ReDroid&#43;MAA：在Linux下游玩明日方舟</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/redroid-maa/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='ReDroid&#43;MAA：在Linux下游玩明日方舟'>
-<meta property='og:description' content='介绍了ReDroid以及MAA安装配置方法，实现在Linux环境下优雅的玩方舟'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="ReDroid+MAA：在Linux下游玩明日方舟">
+<meta property='og:description' content="介绍了ReDroid以及MAA安装配置方法，实现在Linux环境下优雅的玩方舟">
 <meta property='og:url' content='https://lbqaq.top/p/redroid-maa/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux' /><meta property='article:tag' content='ReDroid' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2023-06-17T16:47:00&#43;08:00'/><meta property='article:modified_time' content='2023-06-17T16:47:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/redroid-maa/103123878.webp' />
-<meta name="twitter:title" content="ReDroid&#43;MAA：在Linux下游玩明日方舟">
+<meta name="twitter:title" content="ReDroid+MAA：在Linux下游玩明日方舟">
 <meta name="twitter:description" content="介绍了ReDroid以及MAA安装配置方法，实现在Linux环境下优雅的玩方舟"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/redroid-maa/103123878.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
   src="https://umami.lbqaq.top/bpnwxrgz.js">
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -430,9 +430,13 @@
 <p>在搜索中，我发现ReDroid可以满足我的需求。作为一个“云手机”的方案，自然是可以部署在本地，摸索明白了部署到服务器上也挺不错(雾。</p>
 <p>具体的安装的教程我参考的是Ivon大佬的<a class="link" href="https://ivonblog.com/posts/redroid-android-docker/"  target="_blank" rel="noopener"
     >这篇文章</a>，在此基础上作了一些小小的修改。</p>
-<h2 id="redroid配置">ReDroid配置</h2>
-<h3 id="安装环境">安装环境</h3>
-<p>ReDroid需要Linux内核启用binderfs模块，Arch Liunx默认的linux内核并不包含此模块，需要安装linux-zen模块。</p>
+<h2 id="redroid配置">
+    <a href="#redroid%e9%85%8d%e7%bd%ae">#</a>
+    ReDroid配置
+</h2><h3 id="安装环境">
+    <a href="#%e5%ae%89%e8%a3%85%e7%8e%af%e5%a2%83">#</a>
+    安装环境
+</h3><p>ReDroid需要Linux内核启用binderfs模块，Arch Liunx默认的linux内核并不包含此模块，需要安装linux-zen模块。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -463,13 +467,17 @@
 </span></span><span class="line"><span class="cl">sudo pacman -S scrcpy
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="可选配置arm转译器">[可选]配置ARM转译器</h3>
-<p>大部分安卓应用都只有ARM版，这也意味着无法在X86的电脑上运行，这时就需要安装ARM转译器了。</p>
+</div><h3 id="可选配置arm转译器">
+    <a href="#%e5%8f%af%e9%80%89%e9%85%8d%e7%bd%aearm%e8%bd%ac%e8%af%91%e5%99%a8">#</a>
+    [可选]配置ARM转译器
+</h3><p>大部分安卓应用都只有ARM版，这也意味着无法在X86的电脑上运行，这时就需要安装ARM转译器了。</p>
 <p>然而，明日方舟居然支持X86，我们可以通过压缩工具解压方舟的安装包，可以看到<code>lib</code>下有<code>x86</code>目录。这也意味着如果只是用来玩方舟的话，完全不需要配置ARM转译。</p>
 <p>同时，根据大佬的教程配置好转译器后，方舟反而会闪退，所以完全不用做此步😥。如果需要安装arm应用，可以看上面大佬的教程来做。</p>
 <p>我后面可能会考虑使用libhoudini来作为ReDroid的转译器。</p>
-<h3 id="启动镜像">启动镜像</h3>
-<p>我这里就使用不包含ARM转译器的ReDroid继续了。通过下面的命令即可部署ReDroid：</p>
+<h3 id="启动镜像">
+    <a href="#%e5%90%af%e5%8a%a8%e9%95%9c%e5%83%8f">#</a>
+    启动镜像
+</h3><p>我这里就使用不包含ARM转译器的ReDroid继续了。通过下面的命令即可部署ReDroid：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -532,8 +540,10 @@
 		data-flex-basis="346px"
 	
 ></p>
-<h3 id="安装应用及开关机">安装应用及开关机</h3>
-<p>向ReDroid安装应用，只需要使用adb即可</p>
+<h3 id="安装应用及开关机">
+    <a href="#%e5%ae%89%e8%a3%85%e5%ba%94%e7%94%a8%e5%8f%8a%e5%bc%80%e5%85%b3%e6%9c%ba">#</a>
+    安装应用及开关机
+</h3><p>向ReDroid安装应用，只需要使用adb即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -553,10 +563,14 @@
 </span></span><span class="line"><span class="cl">sudo docker start redroid11 <span class="c1">#开机</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="maa配置">MAA配置</h2>
-<p>MAA作为自动化的挂机<del>长草</del>神器，肯定是要安排上的。</p>
-<h3 id="安装maa">安装MAA</h3>
-<p><del>Arch用户直接aur安装即可</del></p>
+</div><h2 id="maa配置">
+    <a href="#maa%e9%85%8d%e7%bd%ae">#</a>
+    MAA配置
+</h2><p>MAA作为自动化的挂机<del>长草</del>神器，肯定是要安排上的。</p>
+<h3 id="安装maa">
+    <a href="#%e5%ae%89%e8%a3%85maa">#</a>
+    安装MAA
+</h3><p><del>Arch用户直接aur安装即可</del></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -567,8 +581,10 @@
 </div>
 </div><p>我使用yay安装时，会安装许多用不到的库，而且会因为依赖错误而无法安装。故还是去<a class="link" href="https://maa.plus/"  target="_blank" rel="noopener"
     >官网</a>下载压缩包解压使用。</p>
-<h3 id="配置maa">配置MAA</h3>
-<p>我们需要修改<code>./MAA-v{版本号}-linux-{架构}/Python/</code> 目录下的 <code>sample.py</code> 文件</p>
+<h3 id="配置maa">
+    <a href="#%e9%85%8d%e7%bd%aemaa">#</a>
+    配置MAA
+</h3><p>我们需要修改<code>./MAA-v{版本号}-linux-{架构}/Python/</code> 目录下的 <code>sample.py</code> 文件</p>
 <p>首先需要配置adb连接，由于我们之前已经安装过adb了，这里直接替换地址即可：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -690,18 +706,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -811,8 +827,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -902,7 +918,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

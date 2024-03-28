@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中聚类算法的学习笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据挖掘中聚类算法的学习笔记">
 <title>聚类算法学习笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='聚类算法学习笔记'>
-<meta property='og:description' content='数据挖掘中聚类算法的学习笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="聚类算法学习笔记">
+<meta property='og:description' content="数据挖掘中聚类算法的学习笔记">
 <meta property='og:url' content='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据挖掘' /><meta property='article:tag' content='Kmeans' /><meta property='article:tag' content='谱聚类' /><meta property='article:published_time' content='2022-05-10T08:23:41&#43;08:00'/><meta property='article:modified_time' content='2022-05-10T08:23:41&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -419,9 +419,13 @@
     <section class="article-content">
     
     
-    <h2 id="kmeans">Kmeans</h2>
-<h3 id="算法步骤">算法步骤</h3>
-<ol>
+    <h2 id="kmeans">
+    <a href="#kmeans">#</a>
+    Kmeans
+</h2><h3 id="算法步骤">
+    <a href="#%e7%ae%97%e6%b3%95%e6%ad%a5%e9%aa%a4">#</a>
+    算法步骤
+</h3><ol>
 <li>从样本中选择 K 个点作为初始质心（完全随机）</li>
 <li>计算每个样本到各个质心的距离，将样本划分到距离最近的质心所对应的簇中</li>
 <li>计算每个簇内所有样本的均值，并使用该均值更新簇的质心</li>
@@ -432,8 +436,10 @@
 </ul>
 </li>
 </ol>
-<h3 id="欧氏距离">欧氏距离</h3>
-<blockquote>
+<h3 id="欧氏距离">
+    <a href="#%e6%ac%a7%e6%b0%8f%e8%b7%9d%e7%a6%bb">#</a>
+    欧氏距离
+</h3><blockquote>
 <p>衡量的是多维空间中两个点之间的绝对距离</p>
 </blockquote>
 <p>在二维和三维空间中的欧氏距离就是两点之间的实际距离</p>
@@ -446,8 +452,10 @@ $$</p>
 dist(X,Y)=\sqrt{(x_1-y_1)^2+(x_2-y_2)^2}
 $$</p>
 <p>注意理解输入？输出？类别中心？迭代过程中做什么？</p>
-<h3 id="编程实现">编程实现</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="编程实现">
+    <a href="#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0">#</a>
+    编程实现
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -621,8 +629,10 @@ $$</p>
 		data-flex-basis="318px"
 	
 ></p>
-<h3 id="缺点">缺点</h3>
-<p>容易受初始质心的影响；算法聚类时，容易产生空簇；算法可能收敛到局部最小值。</p>
+<h3 id="缺点">
+    <a href="#%e7%bc%ba%e7%82%b9">#</a>
+    缺点
+</h3><p>容易受初始质心的影响；算法聚类时，容易产生空簇；算法可能收敛到局部最小值。</p>
 <p><img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3.png"
 	width="438"
 	height="343"
@@ -652,11 +662,17 @@ $$</p>
 	
 ></p>
 <p>解决办法：重新执行K-means算法，重新分配质心</p>
-<h2 id="谱聚类spectral-clustering">谱聚类(Spectral Clustering)</h2>
-<h3 id="算法思想">算法思想</h3>
-<p>把所有的数据看做空间中的点，这些点之间可以用边连接起来。距离较远的两个点之间的边权重值较低，而距离较近的两个点之间的边权重值较高，通过对所有数据点组成的图进行切图，让切图后不同的子图间边权重和尽可能的低，而子图内的边权重和尽可能的高，从而达到聚类的目的。</p>
-<h3 id="度矩阵d">度矩阵D</h3>
-<p>对于一个图$G$，我们一般用点的集合$V$和边的集合$E$来描述。即为$G(V,E)$。其中$V$即为我们数据集里面所有的点$(v_1, v_2,&hellip;v_n)$。对于$V$中的任意两个点，可以有边连接，也可以没有边连接。我们定义权重$w_{ij}$为点$v_i$和点$v_j$之间的权重。由于我们是无向图，所以$w_{ij} = w_{ji}$。</p>
+<h2 id="谱聚类spectral-clustering">
+    <a href="#%e8%b0%b1%e8%81%9a%e7%b1%bbspectral-clustering">#</a>
+    谱聚类(Spectral Clustering)
+</h2><h3 id="算法思想">
+    <a href="#%e7%ae%97%e6%b3%95%e6%80%9d%e6%83%b3">#</a>
+    算法思想
+</h3><p>把所有的数据看做空间中的点，这些点之间可以用边连接起来。距离较远的两个点之间的边权重值较低，而距离较近的两个点之间的边权重值较高，通过对所有数据点组成的图进行切图，让切图后不同的子图间边权重和尽可能的低，而子图内的边权重和尽可能的高，从而达到聚类的目的。</p>
+<h3 id="度矩阵d">
+    <a href="#%e5%ba%a6%e7%9f%a9%e9%98%b5d">#</a>
+    度矩阵D
+</h3><p>对于一个图$G$，我们一般用点的集合$V$和边的集合$E$来描述。即为$G(V,E)$。其中$V$即为我们数据集里面所有的点$(v_1, v_2,&hellip;v_n)$。对于$V$中的任意两个点，可以有边连接，也可以没有边连接。我们定义权重$w_{ij}$为点$v_i$和点$v_j$之间的权重。由于我们是无向图，所以$w_{ij} = w_{ji}$。</p>
 <p>对于有边连接的两个点$v_i$和$v_j$，$w_{ij} &gt; 0$,对于没有边连接的两个点$v_i$和$v_j$，$w_{ij} = 0$。对于图中的任意一个点$v_i$，它的度$d_i$定义为和它相连的所有边的权重之和，即</p>
 <p>$$
 d_i = \sum\limits_{j=1}^{n}w_{ij}
@@ -678,8 +694,10 @@ $$</p>
 <p>$$
 vol(A): = \sum\limits_{i \in A}d_i
 $$</p>
-<h3 id="相似矩阵">相似矩阵</h3>
-<p>构建邻接矩阵$W$的方法有三类：</p>
+<h3 id="相似矩阵">
+    <a href="#%e7%9b%b8%e4%bc%bc%e7%9f%a9%e9%98%b5">#</a>
+    相似矩阵
+</h3><p>构建邻接矩阵$W$的方法有三类：</p>
 <ul>
 <li>
 <p>$\epsilon$-邻近法</p>
@@ -700,11 +718,15 @@ $$</p>
 <blockquote>
 <p>💡 exp(x)表示$e^x$</p>
 </blockquote>
-<h3 id="拉普拉斯矩阵">拉普拉斯矩阵</h3>
-<p>拉普拉斯矩阵$L= D-W$</p>
+<h3 id="拉普拉斯矩阵">
+    <a href="#%e6%8b%89%e6%99%ae%e6%8b%89%e6%96%af%e7%9f%a9%e9%98%b5">#</a>
+    拉普拉斯矩阵
+</h3><p>拉普拉斯矩阵$L= D-W$</p>
 <p>$D$即为度矩阵，它是一个对角矩阵。$W$为邻接矩阵。</p>
-<h3 id="无向图切图">无向图切图</h3>
-<p>对于无向图$G$的切图，我们的目标是将图$G(V,E)$切成相互没有连接的k个子图，每个子图点的集合为：$A_1,A_2,..A_k$，它们满足$A_i \cap A_j = \emptyset$,且$A_1 \cup A_2 \cup &hellip; \cup A_k = V$.</p>
+<h3 id="无向图切图">
+    <a href="#%e6%97%a0%e5%90%91%e5%9b%be%e5%88%87%e5%9b%be">#</a>
+    无向图切图
+</h3><p>对于无向图$G$的切图，我们的目标是将图$G(V,E)$切成相互没有连接的k个子图，每个子图点的集合为：$A_1,A_2,..A_k$，它们满足$A_i \cap A_j = \emptyset$,且$A_1 \cup A_2 \cup &hellip; \cup A_k = V$.</p>
 <p>对于任意两个子图点的集合$A, B \subset V$, $A \cap B = \emptyset$, 我们定义A和B之间的切图权重为：</p>
 <p>$$
 W(A, B) = \sum\limits_{i \in A, j \in B}w_{ij}
@@ -729,8 +751,10 @@ Ncut(A,B)=cut(A,B)(\frac{1}{vol(A)}+\frac{1}{vol(B)})
 $$</p>
 </li>
 </ul>
-<h3 id="算法流程">算法流程</h3>
-<p>最常用的相似矩阵的生成方式是基于高斯核距离的全连接方式，最常用的切图方式是Ncut。而到最后常用的聚类方法为K-Means。</p>
+<h3 id="算法流程">
+    <a href="#%e7%ae%97%e6%b3%95%e6%b5%81%e7%a8%8b">#</a>
+    算法流程
+</h3><p>最常用的相似矩阵的生成方式是基于高斯核距离的全连接方式，最常用的切图方式是Ncut。而到最后常用的聚类方法为K-Means。</p>
 <p>输入：样本集D=$(x_1,x_2,&hellip;,x_n)$，相似矩阵的生成方式, 降维后的维度$k_1$, 聚类方法，聚类后的维度$k_2$</p>
 <p>输出： 簇划分$C(c_1,c_2,&hellip;c_{k_2})$.</p>
 <ol>
@@ -743,8 +767,10 @@ $$</p>
 <li>对F中的每一行作为一个$k_1$维的样本，共n个样本，用输入的聚类方法进行聚类，聚类维数为$k_2$</li>
 <li>得到簇划分$C(c_1,c_2,&hellip;c_{k_2})$</li>
 </ol>
-<h3 id="编程实现-1">编程实现</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="编程实现-1">
+    <a href="#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0-1">#</a>
+    编程实现
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -838,8 +864,10 @@ $$</p>
 		data-flex-basis="321px"
 	
 ></p>
-<h3 id="简化考试专用代码">简化考试专用代码</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="简化考试专用代码">
+    <a href="#%e7%ae%80%e5%8c%96%e8%80%83%e8%af%95%e4%b8%93%e7%94%a8%e4%bb%a3%e7%a0%81">#</a>
+    简化考试专用代码
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -883,8 +911,10 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="n">title</span><span class="p">([</span><span class="s">&#39;谱聚类 \sigma = &#39;</span><span class="p">,</span><span class="n">num2str</span><span class="p">(</span><span class="n">sigma</span><span class="p">)])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考文档">参考文档</h2>
-<ul>
+</div><h2 id="参考文档">
+    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e6%a1%a3">#</a>
+    参考文档
+</h2><ul>
 <li><a class="link" href="https://zhuanlan.zhihu.com/p/136842949"  target="_blank" rel="noopener"
     >K-Means(K均值聚类算法) - 知乎</a></li>
 <li><a class="link" href="https://www.cnblogs.com/pinard/p/6221564.html"  target="_blank" rel="noopener"
@@ -925,18 +955,18 @@ $$</p>
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1094,8 +1124,8 @@ $$</p>
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1185,7 +1215,25 @@ $$</p>
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

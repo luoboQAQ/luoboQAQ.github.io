@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中分类算法的学习笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据挖掘中分类算法的学习笔记">
 <title>分类算法学习笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='分类算法学习笔记'>
-<meta property='og:description' content='数据挖掘中分类算法的学习笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="分类算法学习笔记">
+<meta property='og:description' content="数据挖掘中分类算法的学习笔记">
 <meta property='og:url' content='https://lbqaq.top/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据挖掘' /><meta property='article:tag' content='交叉验证' /><meta property='article:tag' content='SVM' /><meta property='article:published_time' content='2022-05-10T14:00:16&#43;08:00'/><meta property='article:modified_time' content='2022-05-10T14:00:16&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/86368113.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -432,8 +432,10 @@
     <section class="article-content">
     
     
-    <h2 id="分类算法的作用">分类算法的作用</h2>
-<p>分类是在一群已经知道类别标号的样本中，训练一种<strong>分类器</strong>，让其能够对某种未知的样本进行分类。分类算法属于一种有监督的学习。分类算法的分类过程就是建立一种分类模型来描述预定的数据集或概念集，通过分析由属性描述的数据库元组来构造模型。分类的目的就是使用分类对新的数据集进行划分，其主要涉及分类规则的准确性、过拟合、矛盾划分的取舍等。</p>
+    <h2 id="分类算法的作用">
+    <a href="#%e5%88%86%e7%b1%bb%e7%ae%97%e6%b3%95%e7%9a%84%e4%bd%9c%e7%94%a8">#</a>
+    分类算法的作用
+</h2><p>分类是在一群已经知道类别标号的样本中，训练一种<strong>分类器</strong>，让其能够对某种未知的样本进行分类。分类算法属于一种有监督的学习。分类算法的分类过程就是建立一种分类模型来描述预定的数据集或概念集，通过分析由属性描述的数据库元组来构造模型。分类的目的就是使用分类对新的数据集进行划分，其主要涉及分类规则的准确性、过拟合、矛盾划分的取舍等。</p>
 <ul>
 <li><strong>有监督学习和无监督学习的区别</strong>
 <ul>
@@ -443,11 +445,17 @@
 </ul>
 </li>
 </ul>
-<h2 id="交叉验证">交叉验证</h2>
-<h3 id="基本思想">基本思想</h3>
-<p>交叉验证的基本思想是把在某种意义下将原始数据(dataset)进行分组，一部分做为训练集(train set)，另一部分做为验证集(validation set or test set)，首先用训练集对分类器进行训练，再利用验证集来测试训练得到的模型(model)，以此来做为评价分类器的性能指标。<strong>用交叉验证的目的是为了得到可靠稳定的模型</strong>。</p>
-<h3 id="k折交叉验证k-fold-cross-validation">K折交叉验证(K-fold cross-validation)</h3>
-<p>K折交叉验证就是进行多次train_test_split划分；每次划分时，在不同的数据集上进行训练、测试评估，从而得出一个评价结果；如果是10折交叉验证，意思就是在原始数据集上，进行10次划分，每次划分进行一次训练、评估，最后得到10次划分后的评估结果，一般在这几次评估结果上取平均得到最后的评分。<strong>其中，k一般取5或10。</strong></p>
+<h2 id="交叉验证">
+    <a href="#%e4%ba%a4%e5%8f%89%e9%aa%8c%e8%af%81">#</a>
+    交叉验证
+</h2><h3 id="基本思想">
+    <a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3">#</a>
+    基本思想
+</h3><p>交叉验证的基本思想是把在某种意义下将原始数据(dataset)进行分组，一部分做为训练集(train set)，另一部分做为验证集(validation set or test set)，首先用训练集对分类器进行训练，再利用验证集来测试训练得到的模型(model)，以此来做为评价分类器的性能指标。<strong>用交叉验证的目的是为了得到可靠稳定的模型</strong>。</p>
+<h3 id="k折交叉验证k-fold-cross-validation">
+    <a href="#k%e6%8a%98%e4%ba%a4%e5%8f%89%e9%aa%8c%e8%af%81k-fold-cross-validation">#</a>
+    K折交叉验证(K-fold cross-validation)
+</h3><p>K折交叉验证就是进行多次train_test_split划分；每次划分时，在不同的数据集上进行训练、测试评估，从而得出一个评价结果；如果是10折交叉验证，意思就是在原始数据集上，进行10次划分，每次划分进行一次训练、评估，最后得到10次划分后的评估结果，一般在这几次评估结果上取平均得到最后的评分。<strong>其中，k一般取5或10。</strong></p>
 <p><strong>K折交叉验证的步骤：</strong></p>
 <ol>
 <li>将原始数据集划分为相等的K部分（“折”）</li>
@@ -474,9 +482,13 @@
 <p>💡 要会给定数据集进行K折交叉验证
 要会计算模型准确率（每次的准确率、最终的准确率）</p>
 </blockquote>
-<h2 id="支持向量机svm">支持向量机(SVM)</h2>
-<h3 id="基本思想-1">基本思想</h3>
-<p>SVM学习的基本思想是求解能够正确划分训练数据集并且几何间隔最大的分离超平面。对于线性可分的数据集来说，这样的超平面有无穷多个（即感知机），但是几何间隔最大的分离超平面却是唯一的。</p>
+<h2 id="支持向量机svm">
+    <a href="#%e6%94%af%e6%8c%81%e5%90%91%e9%87%8f%e6%9c%basvm">#</a>
+    支持向量机(SVM)
+</h2><h3 id="基本思想-1">
+    <a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3-1">#</a>
+    基本思想
+</h3><p>SVM学习的基本思想是求解能够正确划分训练数据集并且几何间隔最大的分离超平面。对于线性可分的数据集来说，这样的超平面有无穷多个（即感知机），但是几何间隔最大的分离超平面却是唯一的。</p>
 <p><img src="/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/2.png"
 	width="922"
 	height="812"
@@ -492,8 +504,10 @@
 	
 ></p>
 <p>用我自己的理解，就是找一条线将两个数据集分开，要保证这条线到两边的数据集距离最大。那么，如何才能保证距离最大呢，这就是下面要讨论的难点了。</p>
-<h3 id="支持向量">支持向量</h3>
-<blockquote>
+<h3 id="支持向量">
+    <a href="#%e6%94%af%e6%8c%81%e5%90%91%e9%87%8f">#</a>
+    支持向量
+</h3><blockquote>
 <p>在支持向量机中，距离超平面最近的且满足一定条件的几个训练样本点被称为支持向量。</p>
 </blockquote>
 <p>在上图中，处于虚线上的点（即红色的点）我们就将其定义为支持向量。那么，如何得到支持向量到超平面的距离呢？我们引入<strong>几何间隔</strong>的概念：</p>
@@ -501,8 +515,10 @@
 \gamma = \frac{y(w^Tx + b)}{||w||_2} = \frac{\gamma^{&rsquo;}}{||w||_2}
 $$</p>
 <p>一般我们都取函数间隔$\gamma^{&rsquo;}$为1，这样我们就可以得到支持向量到超平面的距离为$\frac{1}{||w||_2}$，两个支持向量之间的距离为$\frac{2}{||w||_2}$</p>
-<h3 id="svm模型目标函数">SVM模型目标函数</h3>
-<p>SVM的模型是让所有点到超平面的距离大于一定的距离，也就是所有的分类点要在各自类别的支持向量两边。用数学式子表示为：</p>
+<h3 id="svm模型目标函数">
+    <a href="#svm%e6%a8%a1%e5%9e%8b%e7%9b%ae%e6%a0%87%e5%87%bd%e6%95%b0">#</a>
+    SVM模型目标函数
+</h3><p>SVM的模型是让所有点到超平面的距离大于一定的距离，也就是所有的分类点要在各自类别的支持向量两边。用数学式子表示为：</p>
 <p>$$
 max \;\; \frac{1}{||w||_2} \;\; s.t \;\; y_i(w^Tx_i + b) \geq 1 (i =1,2,&hellip;m)
 $$</p>
@@ -519,8 +535,10 @@ $$</p>
 L(w,b,\alpha) = \frac{1}{2}||w||_2^2 - \sum \limits _{i=1}^{m} \alpha_i [y_i(w^Tx_i + b) - 1] \; 满足\alpha_i \geq 0
 $$</p>
 <p>其中$\alpha_i$为拉格朗日乘子。</p>
-<h3 id="kkt条件">KKT条件</h3>
-<p>我们对上面的式子求偏导，可以得到</p>
+<h3 id="kkt条件">
+    <a href="#kkt%e6%9d%a1%e4%bb%b6">#</a>
+    KKT条件
+</h3><p>我们对上面的式子求偏导，可以得到</p>
 <p>$$
 \frac{\partial L }{\partial w}=0,\frac{\partial L }{\partial b}=0
 $$</p>
@@ -540,8 +558,10 @@ y_i(\overrightarrow{w_i}\cdot \overrightarrow{x_i}+b)-1\geq 0 \\
 \end{cases}
 $$</p>
 <p>上面的式子即为KKT条件</p>
-<h3 id="svm对偶性">SVM对偶性</h3>
-<p>现在我们令</p>
+<h3 id="svm对偶性">
+    <a href="#svm%e5%af%b9%e5%81%b6%e6%80%a7">#</a>
+    SVM对偶性
+</h3><p>现在我们令</p>
 <p>$$
 \theta \left( \boldsymbol{w} \right) =\underset{\alpha _{_i}\ge 0}{\max}\ L\left( \boldsymbol{w,}b,\boldsymbol{\alpha } \right)
 $$</p>
@@ -604,9 +624,13 @@ $$</p>
 		data-flex-basis="1332px"
 	
 ></p>
-<h2 id="svm核kernel方法">SVM核（Kernel）方法</h2>
-<h3 id="基本概念">基本概念</h3>
-<p>在上节我们推导出的式子中，我们可以看到上式低维特征仅仅以内积$x_i \bullet x_j$ 的形式出现，如果我们定义一个低维特征空间到高维特征空间的映射$T$，将所有特征映射到一个更高的维度，让数据线性可分，我们就可以求出分离超平面和分类决策函数了。</p>
+<h2 id="svm核kernel方法">
+    <a href="#svm%e6%a0%b8kernel%e6%96%b9%e6%b3%95">#</a>
+    SVM核（Kernel）方法
+</h2><h3 id="基本概念">
+    <a href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5">#</a>
+    基本概念
+</h3><p>在上节我们推导出的式子中，我们可以看到上式低维特征仅仅以内积$x_i \bullet x_j$ 的形式出现，如果我们定义一个低维特征空间到高维特征空间的映射$T$，将所有特征映射到一个更高的维度，让数据线性可分，我们就可以求出分离超平面和分类决策函数了。</p>
 <p>但是，将数据从低维映射到高维，将会大大增加计算的复杂度，如果遇到无穷维的情况，就根本无从计算了。这时，就需要引入<strong>核函数</strong>了。</p>
 <p>我们定义果存在函数$K(x,z)$，对于任意$x, z$ ，都有：</p>
 <p>$$
@@ -615,20 +639,26 @@ $$</p>
 <p>那么我们就称$K(x, z)$为核函数。</p>
 <p>通过核函数，就避免了在刚才我们提到了在高维维度空间计算内积的恐怖计算量。也就是说，我们可以好好享受在高维特征空间线性可分的红利，却避免了高维特征空间恐怖的内积计算量。</p>
 <p>下面我们来看看常见的核函数, 选择这几个核函数介绍是因为scikit-learn中默认可选的就是下面几个核函数。</p>
-<h3 id="线性核函数linear-kernel">线性核函数（Linear Kernel）</h3>
-<p>其实就是线性可分SVM，表达式为：</p>
+<h3 id="线性核函数linear-kernel">
+    <a href="#%e7%ba%bf%e6%80%a7%e6%a0%b8%e5%87%bd%e6%95%b0linear-kernel">#</a>
+    线性核函数（Linear Kernel）
+</h3><p>其实就是线性可分SVM，表达式为：</p>
 <p>$$
 K(x, z) = x \bullet z
 $$</p>
 <p>也就是说，线性可分SVM我们可以和线性不可分SVM归为一类，区别仅仅在于线性可分SVM用的是线性核函数。</p>
-<h3 id="多项式核函数polynomial-kernel">多项式核函数（Polynomial Kernel）</h3>
-<p>多项式核函数是线性不可分SVM常用的核函数之一，表达式为：</p>
+<h3 id="多项式核函数polynomial-kernel">
+    <a href="#%e5%a4%9a%e9%a1%b9%e5%bc%8f%e6%a0%b8%e5%87%bd%e6%95%b0polynomial-kernel">#</a>
+    多项式核函数（Polynomial Kernel）
+</h3><p>多项式核函数是线性不可分SVM常用的核函数之一，表达式为：</p>
 <p>$$
 K(x, z) = （\gamma x \bullet z + r)^d
 $$</p>
 <p>其中，$\gamma, r,d$都需要自己调参定义。</p>
-<h3 id="高斯核函数gaussian-kernel">高斯核函数（Gaussian Kernel）</h3>
-<p>在SVM中也称为径向基核函数（Radial Basis Function,RBF），它是非线性分类SVM最主流的核函数。libsvm默认的核函数就是它。表达式为：</p>
+<h3 id="高斯核函数gaussian-kernel">
+    <a href="#%e9%ab%98%e6%96%af%e6%a0%b8%e5%87%bd%e6%95%b0gaussian-kernel">#</a>
+    高斯核函数（Gaussian Kernel）
+</h3><p>在SVM中也称为径向基核函数（Radial Basis Function,RBF），它是非线性分类SVM最主流的核函数。libsvm默认的核函数就是它。表达式为：</p>
 <p>$$
 K(x, z) = exp(-\gamma||x-z||^2)
 $$</p>
@@ -636,14 +666,18 @@ $$</p>
 <blockquote>
 <p>💡 高斯核函数很重要，一定要记住</p>
 </blockquote>
-<h3 id="sigmoid核函数">Sigmoid核函数</h3>
-<p>也是线性不可分SVM常用的核函数之一，表达式为：</p>
+<h3 id="sigmoid核函数">
+    <a href="#sigmoid%e6%a0%b8%e5%87%bd%e6%95%b0">#</a>
+    Sigmoid核函数
+</h3><p>也是线性不可分SVM常用的核函数之一，表达式为：</p>
 <p>$$
 K(x, z) = tanh（\gamma x \bullet z + r)
 $$</p>
 <p>其中，$\gamma, r$都需要自己调参定义。</p>
-<h2 id="svm软间隔">SVM软间隔</h2>
-<p>有时候本来数据的确是可分的，也就是说可以用 线性分类SVM的学习方法来求解，但是却因为混入了异常点，导致不能线性可分，比如下图</p>
+<h2 id="svm软间隔">
+    <a href="#svm%e8%bd%af%e9%97%b4%e9%9a%94">#</a>
+    SVM软间隔
+</h2><p>有时候本来数据的确是可分的，也就是说可以用 线性分类SVM的学习方法来求解，但是却因为混入了异常点，导致不能线性可分，比如下图</p>
 <p><img src="/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/3.png"
 	width="300"
 	height="245"
@@ -675,8 +709,10 @@ $$</p>
 $$</p>
 <p>这里，$C&gt;0$为惩罚参数，可以理解为我们一般回归和分类问题正则化时候的参数。$C$越大，对误分类的惩罚越大，$C$越小，对误分类的惩罚越小。</p>
 <p>也就是说，我们希望$\frac{1}{2}||w||_2^2$尽量小，误分类的点尽可能的少。C是协调两者关系的正则化惩罚系数。在实际应用中，需要调参来选择。</p>
-<h2 id="svm编程实现">SVM编程实现</h2>
-<div class="highlight"><div class="chroma">
+<h2 id="svm编程实现">
+    <a href="#svm%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0">#</a>
+    SVM编程实现
+</h2><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -871,13 +907,17 @@ $$</p>
 		data-flex-basis="318px"
 	
 ></p>
-<h2 id="svm实现多分类">SVM实现多分类</h2>
-<p>SVM算法最初是为二值分类问题设计的，当处理多类问题时，就需要构造合适的多类分类器。</p>
+<h2 id="svm实现多分类">
+    <a href="#svm%e5%ae%9e%e7%8e%b0%e5%a4%9a%e5%88%86%e7%b1%bb">#</a>
+    SVM实现多分类
+</h2><p>SVM算法最初是为二值分类问题设计的，当处理多类问题时，就需要构造合适的多类分类器。</p>
 <p>目前，构造SVM多类分类器的方法主要有两类：</p>
 <p>（1）直接法，直接在目标函数上进行修改，将多个分类面的参数求解合并到一个最优化问题中，通过求解该最优化问题“一次性”实现多类分类。这种方法看似简单，但其计算复杂度比较高，实现起来比较困难，只适合用于小型问题中；</p>
 <p>（2）间接法，主要是通过组合多个二分类器来实现多分类器的构造，常见的方法有one-against-one和one-against-all两种。</p>
-<h3 id="一对多法ovr">一对多法（OVR）</h3>
-<p>训练时依次把某个类别的样本归为一类,其他剩余的样本归为另一类，这样k个类别的样本就构造出了k个SVM。分类时将未知样本分类为具有最大分类函数值的那类。</p>
+<h3 id="一对多法ovr">
+    <a href="#%e4%b8%80%e5%af%b9%e5%a4%9a%e6%b3%95ovr">#</a>
+    一对多法（OVR）
+</h3><p>训练时依次把某个类别的样本归为一类,其他剩余的样本归为另一类，这样k个类别的样本就构造出了k个SVM。分类时将未知样本分类为具有最大分类函数值的那类。</p>
 <p>假如我有四类要划分（也就是4个Label），他们是A、B、C、D。</p>
 <p>于是我在抽取训练集的时候，分别抽取</p>
 <ol>
@@ -888,10 +928,14 @@ $$</p>
 </ol>
 <p>使用这四个训练集分别进行训练，然后的得到四个训练结果文件。在测试的时候，把对应的测试向量分别利用这四个训练结果文件进行测试。最后每个测试都有一个结果f1(x),f2(x),f3(x),f4(x)。</p>
 <p>于是最终的结果便是这四个值中最大的一个作为分类结果。</p>
-<h3 id="一对一法ovo">一对一法（OVO）</h3>
-<p>一般都是用一对多法，这里就不展开了，知道有这个东西就行。</p>
-<h2 id="参考资料">参考资料</h2>
-<ul>
+<h3 id="一对一法ovo">
+    <a href="#%e4%b8%80%e5%af%b9%e4%b8%80%e6%b3%95ovo">#</a>
+    一对一法（OVO）
+</h3><p>一般都是用一对多法，这里就不展开了，知道有这个东西就行。</p>
+<h2 id="参考资料">
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">#</a>
+    参考资料
+</h2><ul>
 <li><a class="link" href="https://zhuanlan.zhihu.com/p/31886934"  target="_blank" rel="noopener"
     >支持向量机（SVM）——原理篇 - 知乎</a></li>
 <li><a class="link" href="https://www.cnblogs.com/pinard/p/6097604.html"  target="_blank" rel="noopener"
@@ -934,18 +978,18 @@ $$</p>
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1103,8 +1147,8 @@ $$</p>
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1194,7 +1238,25 @@ $$</p>
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

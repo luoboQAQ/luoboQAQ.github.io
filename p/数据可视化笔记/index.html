@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中数据可视化的学习笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据挖掘中数据可视化的学习笔记">
 <title>数据可视化笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='数据可视化笔记'>
-<meta property='og:description' content='数据挖掘中数据可视化的学习笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="数据可视化笔记">
+<meta property='og:description' content="数据挖掘中数据可视化的学习笔记">
 <meta property='og:url' content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PCA' /><meta property='article:tag' content='EVD' /><meta property='article:tag' content='SVD' /><meta property='article:published_time' content='2022-05-17T22:45:18&#43;08:00'/><meta property='article:modified_time' content='2022-05-17T22:45:18&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -414,13 +414,19 @@
     <section class="article-content">
     
     
-    <h2 id="主成分分析pca">主成分分析(PCA)</h2>
-<h3 id="基本思想">基本思想</h3>
-<p>PCA顾名思义，就是找出数据里最主要的方面，用数据里最主要的方面来代替原始数据。具体的，假如我们的数据集是n维的，共有m个数据$(x^{(1)},x^{(2)},&hellip;,x^{(m)})$。我们希望将这m个数据的维度从n维降到n&rsquo;维，希望这m个n&rsquo;维的数据集尽可能的代表原始数据集。</p>
+    <h2 id="主成分分析pca">
+    <a href="#%e4%b8%bb%e6%88%90%e5%88%86%e5%88%86%e6%9e%90pca">#</a>
+    主成分分析(PCA)
+</h2><h3 id="基本思想">
+    <a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3">#</a>
+    基本思想
+</h3><p>PCA顾名思义，就是找出数据里最主要的方面，用数据里最主要的方面来代替原始数据。具体的，假如我们的数据集是n维的，共有m个数据$(x^{(1)},x^{(2)},&hellip;,x^{(m)})$。我们希望将这m个数据的维度从n维降到n&rsquo;维，希望这m个n&rsquo;维的数据集尽可能的代表原始数据集。</p>
 <p>通过计算数据矩阵的协方差矩阵，然后得到协方差矩阵的特征值特征向量，选择特征值最大(即方差最大)的k个特征所对应的特征向量组成的矩阵。这样就可以将数据矩阵转换到新的空间当中，实现数据特征的降维。</p>
 <p>由于得到协方差矩阵的特征值特征向量有两种方法：特征值分解协方差矩阵、奇异值分解协方差矩阵，所以PCA算法有两种实现方法：基于特征值分解协方差矩阵实现PCA算法、基于SVD分解协方差矩阵实现PCA算法。</p>
-<h3 id="特征值分解evd">特征值分解(EVD)</h3>
-<p>特征值和特征向量的定义如下：</p>
+<h3 id="特征值分解evd">
+    <a href="#%e7%89%b9%e5%be%81%e5%80%bc%e5%88%86%e8%a7%a3evd">#</a>
+    特征值分解(EVD)
+</h3><p>特征值和特征向量的定义如下：</p>
 <p>$$
 Ax=\lambda x
 $$</p>
@@ -428,8 +434,10 @@ $$</p>
 <p>求出特征值和特征向量有什么好处呢？ 就是我们可以将矩阵A特征分解。如果我们求出了矩阵A的$n$个特征值$\lambda_1 \leq \lambda_2 \leq &hellip; \leq \lambda_n$,以及这$n$个特征值所对应的特征向量${q_1,q_2,&hellip;q_n}$，如果这$n$个特征向量线性无关，那么矩阵A就可以用下式的特征分解表示：$A=Q\Sigma Q^{-1}$ 。</p>
 <p>其中，Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的，这些特征值所对应的特征向量就是描述这个矩阵变化方向（从主要的变化到次要的变化排列）。也就是说矩阵A的信息可以由其特征值和特征向量表示。</p>
 <p>注意到要进行特征分解，矩阵A必须为方阵。那么如果A不是方阵，即行和列不相同时，我们还可以对矩阵进行分解吗？答案是可以，此时我们的SVD登场了。</p>
-<h3 id="奇异值分解svd">奇异值分解(SVD)</h3>
-<p>SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。假设我们的矩阵A是一个$m \times n$的矩阵，那么我们定义矩阵A的SVD为：</p>
+<h3 id="奇异值分解svd">
+    <a href="#%e5%a5%87%e5%bc%82%e5%80%bc%e5%88%86%e8%a7%a3svd">#</a>
+    奇异值分解(SVD)
+</h3><p>SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。假设我们的矩阵A是一个$m \times n$的矩阵，那么我们定义矩阵A的SVD为：</p>
 <p>$$
 A = U\Sigma V^T
 $$</p>
@@ -440,8 +448,10 @@ $$</p>
 <li>对$AA^T$进行特征值分解，得到m个特征值和对应的m个特征向量$u$了。将$AA^T$的所有特征向量张成一个$m \times m$的矩阵U，就是我们SVD公式里面的U矩阵了。一般我们将U中的每个特征向量叫做A的左奇异向量。</li>
 <li>由于奇异值矩阵$\Sigma$除了对角线上是奇异值其他位置都是0，那我们只需要求出每个奇异值$\sigma$就可以了。求解奇异值可以用$\sigma_i = Av_i / u_i$或$\sigma_i = \sqrt{\lambda_i}$</li>
 </ul>
-<h3 id="算法过程">算法过程</h3>
-<p>输入：n维样本集$D=(x^{(1)}, x^{(2)},&hellip;,x^{(m)})$，要降维到的维数n'.</p>
+<h3 id="算法过程">
+    <a href="#%e7%ae%97%e6%b3%95%e8%bf%87%e7%a8%8b">#</a>
+    算法过程
+</h3><p>输入：n维样本集$D=(x^{(1)}, x^{(2)},&hellip;,x^{(m)})$，要降维到的维数n'.</p>
 <p>输出：降维后的样本集$D'$</p>
 <ol>
 <li>对所有的样本进行中心化： $x^{(i)} = x^{(i)} - \frac{1}{m}\sum\limits_{j=1}^{m} x^{(j)}$</li>
@@ -452,8 +462,10 @@ $$</p>
 <li>得到输出样本集$D&rsquo; =(z^{(1)}, z^{(2)},&hellip;,z^{(m)})$</li>
 </ol>
 <p>上面是采用EVD，如果采用SVD，在第二第三步时就用SVD进行解决。</p>
-<h3 id="编程实现">编程实现</h3>
-<div class="highlight"><div class="chroma">
+<h3 id="编程实现">
+    <a href="#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0">#</a>
+    编程实现
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -561,9 +573,13 @@ $$</p>
 		data-flex-basis="321px"
 	
 ></p>
-<h2 id="matlab三维数据绘图">MATLAB三维数据绘图</h2>
-<h3 id="三维线">三维线</h3>
-<p>使用<code>plot3()</code>函数即可绘制三维线,输入应为三个向量</p>
+<h2 id="matlab三维数据绘图">
+    <a href="#matlab%e4%b8%89%e7%bb%b4%e6%95%b0%e6%8d%ae%e7%bb%98%e5%9b%be">#</a>
+    MATLAB三维数据绘图
+</h2><h3 id="三维线">
+    <a href="#%e4%b8%89%e7%bb%b4%e7%ba%bf">#</a>
+    三维线
+</h3><p>使用<code>plot3()</code>函数即可绘制三维线,输入应为三个向量</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -600,8 +616,10 @@ $$</p>
 		data-flex-basis="321px"
 	
 ></p>
-<h3 id="三维图形绘制及等高线">三维图形绘制及等高线</h3>
-<p>我们可以通过使用<code>mesh()</code>命令绘制三维面，使用<code>contour()</code>命令可以绘制三维图形的等高线。
+<h3 id="三维图形绘制及等高线">
+    <a href="#%e4%b8%89%e7%bb%b4%e5%9b%be%e5%bd%a2%e7%bb%98%e5%88%b6%e5%8f%8a%e7%ad%89%e9%ab%98%e7%ba%bf">#</a>
+    三维图形绘制及等高线
+</h3><p>我们可以通过使用<code>mesh()</code>命令绘制三维面，使用<code>contour()</code>命令可以绘制三维图形的等高线。
 与之前的命令一样，我们也可以通过向其传递不同的参数来改变图形的细节。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -644,8 +662,10 @@ $$</p>
 	
 ></p>
 <p>三维图形绘制及等高线</p>
-<h2 id="参考资料">参考资料</h2>
-<ul>
+<h2 id="参考资料">
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">#</a>
+    参考资料
+</h2><ul>
 <li><a class="link" href="https://zhuanlan.zhihu.com/p/37777074"  target="_blank" rel="noopener"
     >主成分分析（PCA）原理详解 - 知乎</a></li>
 <li><a class="link" href="https://www.cnblogs.com/pinard/p/6251584.html"  target="_blank" rel="noopener"
@@ -686,18 +706,18 @@ $$</p>
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -855,8 +875,8 @@ $$</p>
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -946,7 +966,25 @@ $$</p>
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

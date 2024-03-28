@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中回归分析的学习笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据挖掘中回归分析的学习笔记">
 <title>回归分析学习笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='回归分析学习笔记'>
-<meta property='og:description' content='数据挖掘中回归分析的学习笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="回归分析学习笔记">
+<meta property='og:description' content="数据挖掘中回归分析的学习笔记">
 <meta property='og:url' content='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据挖掘' /><meta property='article:tag' content='线性回归' /><meta property='article:tag' content='梯度下降' /><meta property='article:published_time' content='2022-05-20T12:50:16&#43;08:00'/><meta property='article:modified_time' content='2022-05-20T12:50:16&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -412,8 +412,10 @@
     <section class="article-content">
     
     
-    <h2 id="线性回归">线性回归</h2>
-<p>线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：</p>
+    <h2 id="线性回归">
+    <a href="#%e7%ba%bf%e6%80%a7%e5%9b%9e%e5%bd%92">#</a>
+    线性回归
+</h2><p>线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：</p>
 <p>$$
 (x_1^{(0)}, x_2^{(0)}, &hellip;x_n^{(0)}, y_0), (x_1^{(1)}, x_2^{(1)}, &hellip;x_n^{(1)},y_1), &hellip; (x_1^{(m)}, x_2^{(m)}, &hellip;x_n^{(m)}, y_m)
 $$</p>
@@ -433,11 +435,17 @@ J(\theta_0, \theta_1&hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i
 $$</p>
 <p>由于矩阵形式不好理解，这里就不列出了。</p>
 <p>如何求损失函数最小化时候的$\mathbf{\theta}$参数，这时就需要使用梯度下降法了。</p>
-<h2 id="梯度下降法">梯度下降法</h2>
-<h3 id="梯度">梯度</h3>
-<p>在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。</p>
-<h3 id="梯度下降的直观解释">梯度下降的直观解释</h3>
-<p>首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。</p>
+<h2 id="梯度下降法">
+    <a href="#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95">#</a>
+    梯度下降法
+</h2><h3 id="梯度">
+    <a href="#%e6%a2%af%e5%ba%a6">#</a>
+    梯度
+</h3><p>在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。</p>
+<h3 id="梯度下降的直观解释">
+    <a href="#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e7%9b%b4%e8%a7%82%e8%a7%a3%e9%87%8a">#</a>
+    梯度下降的直观解释
+</h3><p>首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。</p>
 <p>从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。</p>
 <p><img src="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
 	width="692"
@@ -453,8 +461,10 @@ $$</p>
 		data-flex-basis="484px"
 	
 ></p>
-<h3 id="梯度下降法的代数方式描述">梯度下降法的代数方式描述</h3>
-<p>在上面的内容中，我们知道了线性回归的函数为：</p>
+<h3 id="梯度下降法的代数方式描述">
+    <a href="#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95%e7%9a%84%e4%bb%a3%e6%95%b0%e6%96%b9%e5%bc%8f%e6%8f%8f%e8%bf%b0">#</a>
+    梯度下降法的代数方式描述
+</h3><p>在上面的内容中，我们知道了线性回归的函数为：</p>
 <p>$$
 h_\theta(x_0, x_1, &hellip;x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}
 $$</p>
@@ -486,14 +496,18 @@ $$</p>
 </ol>
 <p>从这个例子可以看出当前点的梯度方向是由所有的样本决定的，加 $\frac{1}{m}$  是为了好理解。由于步长也为常数，他们的乘机也为常数，所以这里 $\alpha\frac{1}{m}$ 可以用一个常数表示。</p>
 <p>在下面第4节会详细讲到的梯度下降法的变种，他们主要的区别就是对样本的采用方法不同。这里我们采用的是用所有样本。</p>
-<h3 id="随机梯度下降法sgd">随机梯度下降法(SGD)</h3>
-<p>随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是</p>
+<h3 id="随机梯度下降法sgd">
+    <a href="#%e9%9a%8f%e6%9c%ba%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95sgd">#</a>
+    随机梯度下降法(SGD)
+</h3><p>随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是</p>
 <p>$$
 \theta_i = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, &hellip;x_n^{(j)}) - y_j)x_i^{(j)}
 $$</p>
 <p>随机梯度下降法，和批量梯度下降法是两个极端，一个采用所有数据来梯度下降，一个用一个样本来梯度下降。自然各自的优缺点都非常突出。对于训练速度来说，随机梯度下降法由于每次仅仅采用一个样本来迭代，训练速度很快，而批量梯度下降法在样本量很大的时候，训练速度不能让人满意。对于准确度来说，随机梯度下降法用于仅仅用一个样本决定梯度方向，导致解很有可能不是最优。对于收敛速度来说，由于随机梯度下降法一次迭代一个样本，导致迭代方向变化很大，不能很快的收敛到局部最优解。</p>
-<h3 id="编程实现">编程实现</h3>
-<p>网上找的代码，没验证，看个思路就行</p>
+<h3 id="编程实现">
+    <a href="#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0">#</a>
+    编程实现
+</h3><p>网上找的代码，没验证，看个思路就行</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -532,18 +546,26 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="k">end</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="小批量梯度下降法mini-batch-sgd">小批量梯度下降法(Mini-Batch SGD)</h3>
-<p>也就是对于m个样本，我们采用x个样子来迭代，1&lt;x&lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。</p>
-<h2 id="岭回归">岭回归</h2>
-<p><del>助教妹说就是不考</del> 反转了，居然要考</p>
+</div><h3 id="小批量梯度下降法mini-batch-sgd">
+    <a href="#%e5%b0%8f%e6%89%b9%e9%87%8f%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95mini-batch-sgd">#</a>
+    小批量梯度下降法(Mini-Batch SGD)
+</h3><p>也就是对于m个样本，我们采用x个样子来迭代，1&lt;x&lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。</p>
+<h2 id="岭回归">
+    <a href="#%e5%b2%ad%e5%9b%9e%e5%bd%92">#</a>
+    岭回归
+</h2><p><del>助教妹说就是不考</del> 反转了，居然要考</p>
 <p>在原先的线性回归的代价函数上加入了一个L2正则项，就是岭回归</p>
 <p>$$
 J(\theta_0, \theta_1&hellip;, \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, &hellip;x_n^{(i)}) - y_i)^2+\lambda \sum_{i=1}^m\theta_i^2
 $$</p>
-<h2 id="非线性形式">非线性形式</h2>
-<p>助教妹说就是不考</p>
-<h2 id="参考链接">参考链接</h2>
-<ul>
+<h2 id="非线性形式">
+    <a href="#%e9%9d%9e%e7%ba%bf%e6%80%a7%e5%bd%a2%e5%bc%8f">#</a>
+    非线性形式
+</h2><p>助教妹说就是不考</p>
+<h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5">#</a>
+    参考链接
+</h2><ul>
 <li><a class="link" href="https://www.cnblogs.com/pinard/p/5970503.html"  target="_blank" rel="noopener"
     >梯度下降（Gradient Descent）小结 - 刘建平Pinard - 博客园</a></li>
 <li><a class="link" href="https://www.cnblogs.com/pinard/p/6004041.html"  target="_blank" rel="noopener"
@@ -584,18 +606,18 @@ $$</p>
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -753,8 +775,8 @@ $$</p>
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -844,7 +866,25 @@ $$</p>
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

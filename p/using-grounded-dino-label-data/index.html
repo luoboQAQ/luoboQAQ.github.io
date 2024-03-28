@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='使用Grounding DINO构建自己的YOLO TXT格式训练集'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="使用Grounding DINO构建自己的YOLO TXT格式训练集">
 <title>利用Grounding DINO自动标注数据</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/using-grounded-dino-label-data/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='利用Grounding DINO自动标注数据'>
-<meta property='og:description' content='使用Grounding DINO构建自己的YOLO TXT格式训练集'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="利用Grounding DINO自动标注数据">
+<meta property='og:description' content="使用Grounding DINO构建自己的YOLO TXT格式训练集">
 <meta property='og:url' content='https://lbqaq.top/p/using-grounded-dino-label-data/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='机器学习' /><meta property='article:tag' content='Python' /><meta property='article:tag' content='CV' /><meta property='article:tag' content='Grounding DINO' /><meta property='article:tag' content='YOLO' /><meta property='article:published_time' content='2023-04-14T10:07:42&#43;08:00'/><meta property='article:modified_time' content='2023-04-14T10:07:42&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/using-grounded-dino-label-data/75910823.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -395,16 +395,20 @@
     
     <p>最近需要构建属于自己的YOLO训练数据集，如果手动标注2k张图片这工作量太大了，于是就寻找有什么可以自动标注的方法。碰巧的是， 知乎正好推荐了一篇相关的文章，里面介绍了<a class="link" href="https://github.com/IDEA-Research/GroundingDINO"  target="_blank" rel="noopener"
     >Grounding DINO</a>这个项目完美符合我的需求。那就不用多说了，直接修改他来实现我所需的功能。</p>
-<h2 id="需求">需求</h2>
-<p>首先要明确一下我的需求：</p>
+<h2 id="需求">
+    <a href="#%e9%9c%80%e6%b1%82">#</a>
+    需求
+</h2><p>首先要明确一下我的需求：</p>
 <ul>
 <li>能根据prompt实现画框标注</li>
 <li>能对文件夹内的数据进行批量处理</li>
 <li>能将识别的结果保存为YOLO TXT格式</li>
 </ul>
 <p>这个项目可以实现第一个功能，但对于第二和第三个功能就需要我自己来实现了。</p>
-<h2 id="实现">实现</h2>
-<p>Grounding DINO可以在CPU上运行，不过为了效率考虑，最好还是运行在GPU上，为此我所有的代码都在Colab上实现。</p>
+<h2 id="实现">
+    <a href="#%e5%ae%9e%e7%8e%b0">#</a>
+    实现
+</h2><p>Grounding DINO可以在CPU上运行，不过为了效率考虑，最好还是运行在GPU上，为此我所有的代码都在Colab上实现。</p>
 <p><a class="link" href="https://colab.research.google.com/drive/1SkxCR5Qi6fvLe1DNnwGgayPe5GpQ7a5l?usp=sharing"  target="_blank" rel="noopener"
     ><img src="https://colab.research.google.com/assets/colab-badge.svg"
 	
@@ -542,8 +546,10 @@
 </div><p>我们的代码会自动遍历文件夹下面所有的<code>.png</code>格式的文件，并调用Grounding DINO进行标注。在这段代码中，<code>face</code>的<code>class_id</code>为<code>0</code>，<code>phone</code>的<code>class_id</code>为<code>1</code>。</p>
 <p>特别的，参考<a class="link" href="https://github.com/IDEA-Research/GroundingDINO/issues/26#issuecomment-1501045766"  target="_blank" rel="noopener"
     >这篇issue</a>，我们的prompt使用了<code>.</code>分割，这是为了避免不同顺序对结果的影响。</p>
-<h2 id="测试">测试</h2>
-<p>由于拿到的数据是txt格式，人类很难识别，所以我们可以借助<code>cv2</code>将识别的结果在图片中框出，直接写个小脚本。</p>
+<h2 id="测试">
+    <a href="#%e6%b5%8b%e8%af%95">#</a>
+    测试
+</h2><p>由于拿到的数据是txt格式，人类很难识别，所以我们可以借助<code>cv2</code>将识别的结果在图片中框出，直接写个小脚本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -664,18 +670,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -728,8 +734,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -819,7 +825,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

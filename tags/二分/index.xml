@@ -13,8 +13,10 @@
         
         <guid>https://lbqaq.top/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%98%AF%E4%B8%AA%E5%95%A5%E5%95%8A/</guid>
         <description>&lt;img src="https://lbqaq.top/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%98%AF%E4%B8%AA%E5%95%A5%E5%95%8A/89247070.webp" alt="Featured image of post 二分查找是个啥啊" /&gt;&lt;p&gt;打了两次力扣的周赛，都败在了第三题上，而且都是二分查找的题目。这下不能忍了，必须来总结一波。&lt;/p&gt;
-&lt;h2 id=&#34;第一次二分查找&#34;&gt;第一次二分查找&lt;/h2&gt;
-&lt;p&gt;二分查找是用来在一个有序数组中查找某一元素的算法。它的工作原理如下：&lt;/p&gt;
+&lt;h2 id=&#34;第一次二分查找&#34;&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%b8%80%e6%ac%a1%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
+    第一次二分查找
+&lt;/h2&gt;&lt;p&gt;二分查找是用来在一个有序数组中查找某一元素的算法。它的工作原理如下：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;它每次考察数组当前部分的中间元素，如果中间元素刚好是要找的，就结束搜索过程；如果中间元素小于所查找的值，那么左侧的只会更小，不会有所查找的元素，只需到右侧查找；如果中间元素大于所查找的值同理，只需到左侧查找。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -62,8 +64,10 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在上面的代码中，我们每次搜索的是[left,right]这个闭区间，所以在while中要使用&lt;code&gt;&amp;lt;=&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;但是，这样的算法还是存在一些缺陷。比如对于条件&lt;code&gt;nums = [1,2,2,2,3],target=2&lt;/code&gt;，使用上面的算法返回的下标是&lt;code&gt;2&lt;/code&gt;。虽然答案是正确的，但我们想要得到&lt;code&gt;target&lt;/code&gt;的左侧边界或右侧边界就不能使用上面的算法了。虽然可以先查出结果再向左或右线性搜索，但这样时间复杂度就被提高了。&lt;/p&gt;
-&lt;h3 id=&#34;寻找左侧边界的二分查找&#34;&gt;寻找左侧边界的二分查找&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;h3 id=&#34;寻找左侧边界的二分查找&#34;&gt;
+    &lt;a href=&#34;#%e5%af%bb%e6%89%be%e5%b7%a6%e4%be%a7%e8%be%b9%e7%95%8c%e7%9a%84%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
+    寻找左侧边界的二分查找
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
@@ -118,8 +122,10 @@
 &lt;p&gt;那么，这个模板为什么能找到左边界呢？关键在于&lt;code&gt;nums[mid] == target&lt;/code&gt;这种情况的处理：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;right = mid;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;我们找到 target 时没有立即返回，而是缩小「搜索区间」的上界 &lt;code&gt;right&lt;/code&gt;，在区间 &lt;code&gt;[left, mid)&lt;/code&gt;中继续搜索，即不断向左收缩，达到锁定左侧边界的目的。&lt;/p&gt;
-&lt;h3 id=&#34;寻找右侧边界的二分查找&#34;&gt;寻找右侧边界的二分查找&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;h3 id=&#34;寻找右侧边界的二分查找&#34;&gt;
+    &lt;a href=&#34;#%e5%af%bb%e6%89%be%e5%8f%b3%e4%be%a7%e8%be%b9%e7%95%8c%e7%9a%84%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
+    寻找右侧边界的二分查找
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
@@ -164,10 +170,14 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;由于我们对 &lt;code&gt;left&lt;/code&gt;的更新必须是 &lt;code&gt;left = mid + 1&lt;/code&gt;，这就导致了 while 循环结束时，&lt;code&gt;nums[left]&lt;/code&gt;一定不等于 &lt;code&gt;target&lt;/code&gt;了，而 &lt;code&gt;nums[left-1]&lt;/code&gt;可能是 &lt;code&gt;targe&lt;/code&gt;。所以我们在返回结果时要进行&lt;code&gt;-1&lt;/code&gt;操作。&lt;/p&gt;
-&lt;h2 id=&#34;第二次二分查找&#34;&gt;第二次二分查找&lt;/h2&gt;
-&lt;p&gt;虽说上面的模板已经够好了，但是有些题目并不是只考一个二分，如果照着敲一遍模板还是比较费时的。这是就不得不祭出&lt;code&gt;&amp;lt;algorithm&amp;gt;&lt;/code&gt;里的两个内置函数了：&lt;/p&gt;
-&lt;h3 id=&#34;lower_bound&#34;&gt;lower_bound&lt;/h3&gt;
-&lt;p&gt;返回指向范围 &lt;code&gt;[first, last)&lt;/code&gt; 中首个&lt;strong&gt;不小于&lt;/strong&gt;（即大于或等于） &lt;code&gt;value&lt;/code&gt; 的元素的&lt;strong&gt;迭代器&lt;/strong&gt;，或若找不到这种元素则返回 &lt;code&gt;last&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id=&#34;第二次二分查找&#34;&gt;
+    &lt;a href=&#34;#%e7%ac%ac%e4%ba%8c%e6%ac%a1%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
+    第二次二分查找
+&lt;/h2&gt;&lt;p&gt;虽说上面的模板已经够好了，但是有些题目并不是只考一个二分，如果照着敲一遍模板还是比较费时的。这是就不得不祭出&lt;code&gt;&amp;lt;algorithm&amp;gt;&lt;/code&gt;里的两个内置函数了：&lt;/p&gt;
+&lt;h3 id=&#34;lower_bound&#34;&gt;
+    &lt;a href=&#34;#lower_bound&#34;&gt;#&lt;/a&gt;
+    lower_bound
+&lt;/h3&gt;&lt;p&gt;返回指向范围 &lt;code&gt;[first, last)&lt;/code&gt; 中首个&lt;strong&gt;不小于&lt;/strong&gt;（即大于或等于） &lt;code&gt;value&lt;/code&gt; 的元素的&lt;strong&gt;迭代器&lt;/strong&gt;，或若找不到这种元素则返回 &lt;code&gt;last&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;仔细考虑一下，就会发现这就是上面提到的寻找左侧边界的二分查找，一下就把原来那么长的代码变成了一行，太香了。（但是上面的模板还是要掌握，有些题目是无法调库）&lt;/p&gt;
 &lt;p&gt;使用举例：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -189,8 +199,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;一个小细节，&lt;code&gt;lower_bound&lt;/code&gt;返回的是迭代器，所以lower的真实类型是&lt;code&gt;vector&amp;lt;int&amp;gt;::iterator&lt;/code&gt;，太长了所以我们用的时候还是使用&lt;code&gt;auto&lt;/code&gt;让编译器来补全QuQ。&lt;/p&gt;
-&lt;h3 id=&#34;upper_bound&#34;&gt;upper_bound&lt;/h3&gt;
-&lt;p&gt;返回指向范围 &lt;code&gt;[first, last)&lt;/code&gt; 中首个&lt;strong&gt;大于&lt;/strong&gt; &lt;code&gt;value&lt;/code&gt; 的元素的&lt;strong&gt;迭代器&lt;/strong&gt;，或若找不到这种元素则返回 &lt;code&gt;last&lt;/code&gt; 。&lt;/p&gt;
+&lt;h3 id=&#34;upper_bound&#34;&gt;
+    &lt;a href=&#34;#upper_bound&#34;&gt;#&lt;/a&gt;
+    upper_bound
+&lt;/h3&gt;&lt;p&gt;返回指向范围 &lt;code&gt;[first, last)&lt;/code&gt; 中首个&lt;strong&gt;大于&lt;/strong&gt; &lt;code&gt;value&lt;/code&gt; 的元素的&lt;strong&gt;迭代器&lt;/strong&gt;，或若找不到这种元素则返回 &lt;code&gt;last&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;其实就是上面寻找右侧边界的二分查找，只不过我们进行了&lt;code&gt;-1&lt;/code&gt;操作而该函数没有而已。&lt;/p&gt;
 &lt;p&gt;使用举例：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -211,8 +223,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;终极二分查找&#34;&gt;终极二分查找&lt;/h2&gt;
-&lt;p&gt;上面的都是对一个数组进行二分查找，我们也可以把思路放开一点，对&lt;strong&gt;答案&lt;/strong&gt;进行二分查找。我们都知道暴力法就是枚举答案然后检验枚举的值是否正确，当答案满足单调性时，我们就可以将枚举换为二分，这样能大大降低时间复杂度。&lt;/p&gt;
+&lt;/div&gt;&lt;h2 id=&#34;终极二分查找&#34;&gt;
+    &lt;a href=&#34;#%e7%bb%88%e6%9e%81%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
+    终极二分查找
+&lt;/h2&gt;&lt;p&gt;上面的都是对一个数组进行二分查找，我们也可以把思路放开一点，对&lt;strong&gt;答案&lt;/strong&gt;进行二分查找。我们都知道暴力法就是枚举答案然后检验枚举的值是否正确，当答案满足单调性时，我们就可以将枚举换为二分，这样能大大降低时间复杂度。&lt;/p&gt;
 &lt;p&gt;放两道例题，就是引言里我说的周赛题&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/problems/minimum-time-to-complete-trips/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -220,8 +234,10 @@
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/problems/maximum-candies-allocated-to-k-children/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;5219. 每个小孩最多能分到多少糖果 - 力扣（LeetCode）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
-&lt;ul&gt;
+&lt;h2 id=&#34;参考资料&#34;&gt;
+    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34;&gt;#&lt;/a&gt;
+    参考资料
+&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://oi-wiki.org/basic/binary&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;二分 - OI Wiki&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;

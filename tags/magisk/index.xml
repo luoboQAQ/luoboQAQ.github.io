@@ -12,11 +12,15 @@
         <pubDate>Fri, 07 Oct 2022 11:30:17 +0800</pubDate>
         
         <guid>https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp" alt="Featured image of post 简易Magisk模块的制作" /&gt;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
-&lt;p&gt;说到搞机，那肯定绕不开大名鼎鼎的&lt;a class=&#34;link&#34; href=&#34;https://github.com/topjohnwu/Magisk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp" alt="Featured image of post 简易Magisk模块的制作" /&gt;&lt;h2 id=&#34;前言&#34;&gt;
+    &lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34;&gt;#&lt;/a&gt;
+    前言
+&lt;/h2&gt;&lt;p&gt;说到搞机，那肯定绕不开大名鼎鼎的&lt;a class=&#34;link&#34; href=&#34;https://github.com/topjohnwu/Magisk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Magisk&lt;/a&gt;。就我来说，&lt;code&gt;root&lt;/code&gt;完后做的第一件事，就是安装各种各样的模块，但是，我却从来没有研究过Magisk的内容。同时，现在也有许多心怀不轨的人制作锁机模块骗人刷入。所以，了解Magisk模块的一些基本内容就显得比较重要了。&lt;/p&gt;
-&lt;h2 id=&#34;认识magisk模块&#34;&gt;认识Magisk模块&lt;/h2&gt;
-&lt;p&gt;根据官方的文档，一个典型的Magisk模块的目录应该如下所示：&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;h2 id=&#34;认识magisk模块&#34;&gt;
+    &lt;a href=&#34;#%e8%ae%a4%e8%af%86magisk%e6%a8%a1%e5%9d%97&#34;&gt;#&lt;/a&gt;
+    认识Magisk模块
+&lt;/h2&gt;&lt;p&gt;根据官方的文档，一个典型的Magisk模块的目录应该如下所示：&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -52,8 +56,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;可以看出来，&lt;code&gt;META-INF&lt;/code&gt;目录是由官方提供，并不需要我们进行修改。&lt;/p&gt;
-&lt;h3 id=&#34;moduleprop&#34;&gt;module.prop&lt;/h3&gt;
-&lt;p&gt;这个文件是模块的标识信息，模块的基本信息就存放在这里，文件的格式如下。&lt;sup id=&#34;fnref1:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;h3 id=&#34;moduleprop&#34;&gt;
+    &lt;a href=&#34;#moduleprop&#34;&gt;#&lt;/a&gt;
+    module.prop
+&lt;/h3&gt;&lt;p&gt;这个文件是模块的标识信息，模块的基本信息就存放在这里，文件的格式如下。&lt;sup id=&#34;fnref1:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -113,11 +119,15 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id=&#34;system文件夹&#34;&gt;system文件夹&lt;/h3&gt;
-&lt;p&gt;Magisk的一个主要作用就是对系统文件进行注入或替换，只要将文件按顺序放入此目录中即可。例如我想修改hosts文件，只需要将修改好的hosts文件放入&lt;code&gt;system/etc&lt;/code&gt;这个目录下，Magisk就会自动将其替换了。&lt;/p&gt;
+&lt;h3 id=&#34;system文件夹&#34;&gt;
+    &lt;a href=&#34;#system%e6%96%87%e4%bb%b6%e5%a4%b9&#34;&gt;#&lt;/a&gt;
+    system文件夹
+&lt;/h3&gt;&lt;p&gt;Magisk的一个主要作用就是对系统文件进行注入或替换，只要将文件按顺序放入此目录中即可。例如我想修改hosts文件，只需要将修改好的hosts文件放入&lt;code&gt;system/etc&lt;/code&gt;这个目录下，Magisk就会自动将其替换了。&lt;/p&gt;
 &lt;p&gt;如果要替换&lt;code&gt;/vendor&lt;/code&gt;、&lt;code&gt;/product&lt;/code&gt;或&lt;code&gt;/system_ext&lt;/code&gt;中的文件，只需将它们分别放在&lt;code&gt;system/vendor&lt;/code&gt;、&lt;code&gt;system/product&lt;/code&gt;和&lt;code&gt;system/system_ext&lt;/code&gt;下。Magisk就会自动替换完成。&lt;/p&gt;
-&lt;h3 id=&#34;customizesh&#34;&gt;customize.sh&lt;/h3&gt;
-&lt;p&gt;这是自定义模块安装过程，如果只是简单的替换文件就不需要用到它。但是，很多时候我们并不是仅需替换文件，还需要执行一些脚本，这里就需要使用到它了。&lt;/p&gt;
+&lt;h3 id=&#34;customizesh&#34;&gt;
+    &lt;a href=&#34;#customizesh&#34;&gt;#&lt;/a&gt;
+    customize.sh
+&lt;/h3&gt;&lt;p&gt;这是自定义模块安装过程，如果只是简单的替换文件就不需要用到它。但是，很多时候我们并不是仅需替换文件，还需要执行一些脚本，这里就需要使用到它了。&lt;/p&gt;
 &lt;p&gt;根据官方文档，这里支持以下的环境变量：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -171,9 +181,13 @@
 &lt;li&gt;&lt;code&gt;abort &amp;lt;msg&amp;gt;&lt;/code&gt;：将错误消息打印到控制台并终止安装&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;set_perm&lt;/code&gt;和&lt;code&gt;set_perm_recursive&lt;/code&gt;：修改文件权限&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;实践&#34;&gt;实践&lt;/h2&gt;
-&lt;h3 id=&#34;修改系统hosts&#34;&gt;修改系统Hosts&lt;/h3&gt;
-&lt;p&gt;我一开始想研究Magisk的契机，就是想要修改我手机的Hosts文件。一开始按百度的教程做，但没有效果，后来就尝试了一下Magisk模块，直接就成功了。&lt;/p&gt;
+&lt;h2 id=&#34;实践&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%9e%e8%b7%b5&#34;&gt;#&lt;/a&gt;
+    实践
+&lt;/h2&gt;&lt;h3 id=&#34;修改系统hosts&#34;&gt;
+    &lt;a href=&#34;#%e4%bf%ae%e6%94%b9%e7%b3%bb%e7%bb%9fhosts&#34;&gt;#&lt;/a&gt;
+    修改系统Hosts
+&lt;/h3&gt;&lt;p&gt;我一开始想研究Magisk的契机，就是想要修改我手机的Hosts文件。一开始按百度的教程做，但没有效果，后来就尝试了一下Magisk模块，直接就成功了。&lt;/p&gt;
 &lt;p&gt;有了前面知识的铺垫，想要实现这个功能就非常简单了，下面列出我们程序的目录树。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -223,8 +237,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;如此看来，如果只要替换文件，基本没有任何难度。&lt;/p&gt;
-&lt;h3 id=&#34;使用dnscrypt-proxy实现doh&#34;&gt;使用dnscrypt-proxy实现DoH&lt;/h3&gt;
-&lt;p&gt;这部分我正在研究，等研究明白了就补上🕊️。&lt;/p&gt;
+&lt;h3 id=&#34;使用dnscrypt-proxy实现doh&#34;&gt;
+    &lt;a href=&#34;#%e4%bd%bf%e7%94%a8dnscrypt-proxy%e5%ae%9e%e7%8e%b0doh&#34;&gt;#&lt;/a&gt;
+    使用dnscrypt-proxy实现DoH
+&lt;/h3&gt;&lt;p&gt;这部分我正在研究，等研究明白了就补上🕊️。&lt;/p&gt;
 &lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;

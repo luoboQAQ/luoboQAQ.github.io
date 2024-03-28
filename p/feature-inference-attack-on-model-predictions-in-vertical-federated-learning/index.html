@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='《纵向联邦预测模型的特征推理攻击》阅读笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="《纵向联邦预测模型的特征推理攻击》阅读笔记">
 <title>Feature Inference Attack on Model Predictions in Vertical Federated Learning</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='Feature Inference Attack on Model Predictions in Vertical Federated Learning'>
-<meta property='og:description' content='《纵向联邦预测模型的特征推理攻击》阅读笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="Feature Inference Attack on Model Predictions in Vertical Federated Learning">
+<meta property='og:description' content="《纵向联邦预测模型的特征推理攻击》阅读笔记">
 <meta property='og:url' content='https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='联邦学习' /><meta property='article:tag' content='推理攻击' /><meta property='article:published_time' content='2023-01-03T16:27:11&#43;08:00'/><meta property='article:modified_time' content='2023-01-03T16:27:11&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/100018879.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -434,8 +434,10 @@
     <section class="article-content">
     
     
-    <h2 id="介绍">介绍</h2>
-<p>近年来，人们对利用来自多个组织的分布式源的数据来设计复杂的机器学习模型越来越感兴趣。</p>
+    <h2 id="介绍">
+    <a href="#%e4%bb%8b%e7%bb%8d">#</a>
+    介绍
+</h2><p>近年来，人们对利用来自多个组织的分布式源的数据来设计复杂的机器学习模型越来越感兴趣。</p>
 <p>但是，由于</p>
 <ul>
 <li>用户敏感数据的使用被迫遵守标准隐私规章或法律，例如GDPR或CCPA</li>
@@ -459,24 +461,32 @@
 		data-flex-basis="413px"
 	
 ></p>
-<h3 id="相关研究">相关研究</h3>
-<ul>
+<h3 id="相关研究">
+    <a href="#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6">#</a>
+    相关研究
+</h3><ul>
 <li>Comprehensive privacy analysis of deep learning: Stand-alone and federated learning under passive and active white-box inference attacks</li>
 <li>The secret sharer: Measuring unintended neural network memorization &amp; extracting secrets</li>
 <li>Exploiting unintended feature leakage in collaborative learning</li>
 <li>Deep models under the gan: information leakage from collaborative deep learning</li>
 </ul>
 <p>等等，这些文章旨在推断横向联邦学习中参与方的特征值，其中各方具有相同的特征但具有不同的样本。 然而，这些攻击极大地依赖于在训练过程中交换的模型梯度，一旦模型梯度被安全地保护，这些攻击将是无效的。而且，对于预测阶段中的推理攻击，联邦学习模型事先不知道预测样本。于是，作者提出几种基于模型预测的特征推理攻击，研究了纵向联邦学习预测阶段的隐私泄露问题，该攻击方法在预测输出的计算过程中不依赖任何中间信息。</p>
-<h3 id="本文贡献">本文贡献</h3>
-<ul>
+<h3 id="本文贡献">
+    <a href="#%e6%9c%ac%e6%96%87%e8%b4%a1%e7%8c%ae">#</a>
+    本文贡献
+</h3><ul>
 <li>首次提出了纵向联邦学习预测模型的特征推理攻击</li>
 <li>提出了针对逻辑回归和决策树的两种特定的攻击思路</li>
 <li>利用攻方积累的多种预测输出，来设计一种从中学习攻方特征和目标特征关联的通用攻击思路</li>
 <li>在真实和合成的数据集上，实践了提出的方法并进行了大量的评估。结论显示了攻击的有效性，本文也分析和建议了几种潜在的应对思路</li>
 </ul>
-<h2 id="问题构造">问题构造</h2>
-<h3 id="系统模型">系统模型</h3>
-<p>我们考虑一组m个分布方（或数据所有者）${P_1,&hellip;,P_m}$，他们通过合并各自的数据集来训练纵向联邦学习模型。在获得经训练的纵向联邦学习模型参数$\theta$之后，各方协作地对其联合预测数据集$D_{pred}={D_1,&hellip;,D_m}$进行预测。 数据集中的每一行对应一个样本，每一列对应一个要素。 设$n$为样本数，$d_i$为$D_i$中的特征数，其中$i\in{1,&hellip;,m}$。我们表示$D_i={x^t_i}^n_{t=1}$，其中$x^t_i$表示$D_i$的第t个样本。在这篇文章中，作者考虑监督分类任务，并用$c$表示分类的数量。</p>
+<h2 id="问题构造">
+    <a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0">#</a>
+    问题构造
+</h2><h3 id="系统模型">
+    <a href="#%e7%b3%bb%e7%bb%9f%e6%a8%a1%e5%9e%8b">#</a>
+    系统模型
+</h3><p>我们考虑一组m个分布方（或数据所有者）${P_1,&hellip;,P_m}$，他们通过合并各自的数据集来训练纵向联邦学习模型。在获得经训练的纵向联邦学习模型参数$\theta$之后，各方协作地对其联合预测数据集$D_{pred}={D_1,&hellip;,D_m}$进行预测。 数据集中的每一行对应一个样本，每一列对应一个要素。 设$n$为样本数，$d_i$为$D_i$中的特征数，其中$i\in{1,&hellip;,m}$。我们表示$D_i={x^t_i}^n_{t=1}$，其中$x^t_i$表示$D_i$的第t个样本。在这篇文章中，作者考虑监督分类任务，并用$c$表示分类的数量。</p>
 <p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656.png"
 	width="1017"
 	height="715"
@@ -491,20 +501,30 @@
 		data-flex-basis="341px"
 	
 ></p>
-<h3 id="威胁模型">威胁模型</h3>
-<p>我们考虑半诚实模型，其中每一方都严格按照规定遵循协议，但可能试图基于接收到的消息推断其他方的私有信息。具体而言，本文着重研究了主动方为对抗方的情形。主动方还可以与其他被动方串通来推断一组目标被动方的私有特征值。最强的概念是m-1个参与方（包括主动方）合谋推断其余被动方的特征值。</p>
-<h2 id="攻击方法">攻击方法</h2>
-<h3 id="逻辑回归模型lr的等式求解攻击">逻辑回归模型(LR)的等式求解攻击</h3>
-<p>给定预测输出$v$，对手$P_{adv}$可以构造一组方程，$P_{adv}$可以从该组方程推断出$P_{target}$所持有的特征值。也就是说攻击者利用纵向联邦学习预测结果以及自己所持有的参数推断数据其他提供方的参数。</p>
+<h3 id="威胁模型">
+    <a href="#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b">#</a>
+    威胁模型
+</h3><p>我们考虑半诚实模型，其中每一方都严格按照规定遵循协议，但可能试图基于接收到的消息推断其他方的私有信息。具体而言，本文着重研究了主动方为对抗方的情形。主动方还可以与其他被动方串通来推断一组目标被动方的私有特征值。最强的概念是m-1个参与方（包括主动方）合谋推断其余被动方的特征值。</p>
+<h2 id="攻击方法">
+    <a href="#%e6%94%bb%e5%87%bb%e6%96%b9%e6%b3%95">#</a>
+    攻击方法
+</h2><h3 id="逻辑回归模型lr的等式求解攻击">
+    <a href="#%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92%e6%a8%a1%e5%9e%8blr%e7%9a%84%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb">#</a>
+    逻辑回归模型(LR)的等式求解攻击
+</h3><p>给定预测输出$v$，对手$P_{adv}$可以构造一组方程，$P_{adv}$可以从该组方程推断出$P_{target}$所持有的特征值。也就是说攻击者利用纵向联邦学习预测结果以及自己所持有的参数推断数据其他提供方的参数。</p>
 <p>作者分别讨论了二分类逻辑回归以及多分类逻辑回归。</p>
-<h4 id="二分类逻辑回归">二分类逻辑回归</h4>
-<p>将模型参数表示为$\theta = \theta (\theta_{adv},\theta_{target})$，其中$\theta_{adv}$和$\theta_{target}$分别是对应于$P_{adv}$和$P_{target}$所拥有的特征的权重。</p>
+<h4 id="二分类逻辑回归">
+    <a href="#%e4%ba%8c%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92">#</a>
+    二分类逻辑回归
+</h4><p>将模型参数表示为$\theta = \theta (\theta_{adv},\theta_{target})$，其中$\theta_{adv}$和$\theta_{target}$分别是对应于$P_{adv}$和$P_{target}$所拥有的特征的权重。</p>
 <p>令$v$为给定样本$x=(x_{adv},x_{target})$的预测输出。对于二元LR分类，$v$中只有一个有意义的置信度分数，我们令其为$v_1$。</p>
 <p>给定$v_1$和对手自己的特征值$x_{adv}$，$P_{adv}$可以直接创建以$x_{target}$作为变量的方程，即，</p>
 <p>$$\sigma\left(x_{\text {adv }} \cdot \theta_{\text {adv }}+x_{\text {target }} \cdot \theta_{\text {target }}\right)=v_{1}$$</p>
 <p>其中$\sigma(\cdot)$是S形函数。显然，如果只有一个未知特征，即，$d_{target} = 1$，则方程只有一个解，这意味着可以精确地推断未知特征值$x_{target}$。</p>
-<h4 id="多分类逻辑回归">多分类逻辑回归</h4>
-<p>对于多分类逻辑回归，存在$c$个线性回归模型。设$\theta = (\theta^{(1)},&hellip;,\theta^{(c)})$分别为这些$c$模型的参数。</p>
+<h4 id="多分类逻辑回归">
+    <a href="#%e5%a4%9a%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92">#</a>
+    多分类逻辑回归
+</h4><p>对于多分类逻辑回归，存在$c$个线性回归模型。设$\theta = (\theta^{(1)},&hellip;,\theta^{(c)})$分别为这些$c$模型的参数。</p>
 <p>为了发起特征推理攻击，对手的目标是构造$k\in{1,&hellip;,c}$的线性方程。</p>
 <p>$$x _ { a d v } \cdot \theta _ { a d v } ^ { ( k ) } + x _ { target } \cdot \theta _ { target } ^ { ( k ) } = z _ { k }$$</p>
 <p>其中$z_k$是第$k$个线性回归模型的输出。然而，$P_{adv}$只知道置信度向量$v =(v_1,&hellip;,v_c)$，使得</p>
@@ -521,8 +541,10 @@
 <p>实际情况中，主动方或者进攻方在一般的纵向联邦框架中是无法得到被动方的参数θ数据的。</p>
 <p>本文中我们姑且认为进攻方能得到，那么上式中的未知数只有$x_{target}$了，而$x_{target}$的维数为$d_{target}$，数量为目标方所用拥有的特征数。</p>
 <p>这里我们把$x_{target}$的未知数看作自变量，个数为目标放所拥有的特征数。那么也就是说，$d_{target}$个自变量，$c-1$个方程，当$d_{target}\le c-1$，那么$x_{target}$只有一个解，可以精确地推断出来。</p>
-<h3 id="决策树模型的路径限制攻击">决策树模型的路径限制攻击</h3>
-<p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474.png"
+<h3 id="决策树模型的路径限制攻击">
+    <a href="#%e5%86%b3%e7%ad%96%e6%a0%91%e6%a8%a1%e5%9e%8b%e7%9a%84%e8%b7%af%e5%be%84%e9%99%90%e5%88%b6%e6%94%bb%e5%87%bb">#</a>
+    决策树模型的路径限制攻击
+</h3><p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474.png"
 	width="1016"
 	height="673"
 	srcset="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474_hu972ae682ff1d9163dc57351f93d86ec4_63681_480x0_resize_box_3.png 480w, /p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474_hu972ae682ff1d9163dc57351f93d86ec4_63681_1024x0_resize_box_3.png 1024w"
@@ -551,8 +573,10 @@
 		data-flex-basis="228px"
 	
 ></p>
-<h3 id="生成回归网络攻击">生成回归网络攻击</h3>
-<p>上面介绍的两种攻击方式都是基于单个模型预测。然而，这些攻击很难应用于复杂的模型，如神经网络（NN）和随机森林（RF）。</p>
+<h3 id="生成回归网络攻击">
+    <a href="#%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb">#</a>
+    生成回归网络攻击
+</h3><p>上面介绍的两种攻击方式都是基于单个模型预测。然而，这些攻击很难应用于复杂的模型，如神经网络（NN）和随机森林（RF）。</p>
 <p>针对上述缺陷，作者设计了一种基于多模型预测的通用特征推理攻击，即生成回归网络（GRN）攻击，这是本篇论文的重点。</p>
 <p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865.png"
 	width="1583"
@@ -606,13 +630,17 @@
 		data-flex-basis="303px"
 	
 ></p>
-<h3 id="随机森林的生成模型的攻击">随机森林的生成模型的攻击</h3>
-<p>路径限制攻击不适用于随机森林的模型，特别是当随机森林的树数量很大的时候。</p>
+<h3 id="随机森林的生成模型的攻击">
+    <a href="#%e9%9a%8f%e6%9c%ba%e6%a3%ae%e6%9e%97%e7%9a%84%e7%94%9f%e6%88%90%e6%a8%a1%e5%9e%8b%e7%9a%84%e6%94%bb%e5%87%bb">#</a>
+    随机森林的生成模型的攻击
+</h3><p>路径限制攻击不适用于随机森林的模型，特别是当随机森林的树数量很大的时候。</p>
 <p>因此，在随机森林模型使用GRN攻击的思想。</p>
 <p>但是，因为随机森林（RF）模型的目标函数并不是可微的，所以不能通过随机森林（RF）把预测损失反向传播给生成模型。</p>
 <p>因此，本文在得到纵向联邦模型（比如随机森林RF）之后，攻方会另外训练一个可微的模型（比如神经网络NN）来近似RF模型。</p>
-<h2 id="实验评价">实验评价</h2>
-<p><strong>数据集：</strong></p>
+<h2 id="实验评价">
+    <a href="#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7">#</a>
+    实验评价
+</h2><p><strong>数据集：</strong></p>
 <p>四个数据集，分别是银行营销（20个特征的2分类），信用卡（23个特征的2分类），诊断（48个特征的11分类）和新闻流行（59个特征的5分类）。</p>
 <p>此外，利用sklearn库生成了两个合成数据集，用于评估预测数据集中样本数n对生成回归网络攻击性能的影响。</p>
 <p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230.png"
@@ -633,8 +661,10 @@
 <p>对于等式求解攻击（ESA）和生成回归网络攻击（GRNA），由于是回归任务，因此使用每个特征的均方误差（MSE）来衡量它们在重建多个目标特征时的总体准确性。具体而言，每个特征的MSE计算如下：</p>
 <p>$$\mathrm{MSE}=\frac{1}{n * d_{\text {target }}} \sum_{t=1}^{n} \sum_{i=1}^{d_{\text {target }}}\left(\hat{x}_{\text {target }, i}^{t}-x_{\text {target }, i}^{t}\right)^{2}$$</p>
 <p>对于路径限制攻击（PRA），作者测量了正确分支率（CBR）。</p>
-<h3 id="d_target对等式求解攻击的影响">$d_{target}$对等式求解攻击的影响</h3>
-<p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720.png"
+<h3 id="d_target对等式求解攻击的影响">
+    <a href="#d_target%e5%af%b9%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d">#</a>
+    $d_{target}$对等式求解攻击的影响
+</h3><p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720.png"
 	width="2090"
 	height="518"
 	srcset="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720_hu26e002b03b1f435e1a462aa79d6f4a16_126779_480x0_resize_box_3.png 480w, /p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720_hu26e002b03b1f435e1a462aa79d6f4a16_126779_1024x0_resize_box_3.png 1024w"
@@ -665,8 +695,10 @@
 <p>我们便推导出$\mathrm{MSE}(\hat{x}_{target},x_{target})$的上界。</p>
 <p>作者分别计算了Bank、Credit、Drive和News四个数据集的上界，分别为0.60、0.14、0.45和0.34。</p>
 <p>一般来说，上界越大，对手的攻击精度就越差。这就解释了为什么Bank的MSE比其他数据集增长得更快。</p>
-<h3 id="d_target对路径限制攻击的影响">$d_{target}$对路径限制攻击的影响</h3>
-<p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445.png"
+<h3 id="d_target对路径限制攻击的影响">
+    <a href="#d_target%e5%af%b9%e8%b7%af%e5%be%84%e9%99%90%e5%88%b6%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d">#</a>
+    $d_{target}$对路径限制攻击的影响
+</h3><p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445.png"
 	width="2090"
 	height="516"
 	srcset="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445_huc03260d828ad55b2b33ab863ff938e27_94677_480x0_resize_box_3.png 480w, /p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445_huc03260d828ad55b2b33ab863ff938e27_94677_1024x0_resize_box_3.png 1024w"
@@ -683,8 +715,10 @@
 <p>与等式求解攻击类似，攻击精度随着$d_{target}$的增加而降低。这是因为通常更多的目标特征将导致更多可能的预测路径，从而导致选择正确路径的概率降低。</p>
 <p>我们可以发现，第三个数据集是异常的，它甚至随着$d_{target}$的增加而增加了。这是因为Drive数据集有11个类，比其他数据集的类要多得多。因此，在Drive中，每个类别对应的树形路径数量较少。其次，决策树模型在训练过程中只选择信息量大的特征，这意味着Drive数据集中$d_{target}$的增加不一定会增加树中未知特征的数量，因为有些特征可能永远不会被选中。</p>
 <p>综上，较大的目标数据并不总是能降低路径限制攻击的CBR。</p>
-<h3 id="d_target对生成回归网络攻击的影响">$d_{target}$对生成回归网络攻击的影响</h3>
-<p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894.png"
+<h3 id="d_target对生成回归网络攻击的影响">
+    <a href="#d_target%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d">#</a>
+    $d_{target}$对生成回归网络攻击的影响
+</h3><p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894.png"
 	width="2090"
 	height="525"
 	srcset="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894_hu41dda155227b1882aea0b2f87862a6a8_144065_480x0_resize_box_3.png 480w, /p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894_hu41dda155227b1882aea0b2f87862a6a8_144065_1024x0_resize_box_3.png 1024w"
@@ -716,8 +750,10 @@
 	
 ></p>
 <p>作者还将CBR度量用于评估RF模型上的GRNA，同样效果也比随机猜测方法优秀。</p>
-<h3 id="需要预测的样本数对生成回归网络攻击的影响">需要预测的样本数对生成回归网络攻击的影响</h3>
-<p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389.png"
+<h3 id="需要预测的样本数对生成回归网络攻击的影响">
+    <a href="#%e9%9c%80%e8%a6%81%e9%a2%84%e6%b5%8b%e7%9a%84%e6%a0%b7%e6%9c%ac%e6%95%b0%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d">#</a>
+    需要预测的样本数对生成回归网络攻击的影响
+</h3><p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389.png"
 	width="2070"
 	height="518"
 	srcset="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389_hu12e4d81fcac6715264670b55b204377c_146244_480x0_resize_box_3.png 480w, /p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389_hu12e4d81fcac6715264670b55b204377c_146244_1024x0_resize_box_3.png 1024w"
@@ -732,8 +768,10 @@
 	
 ></p>
 <p>四个数据集上的趋势表明，预测数据集中的样本越多，对手可以获得的每个特征的MSE越少。 换句话说，对手可以长期积累更多的预测输出，以提高其攻击精度。</p>
-<h3 id="数据相关性对生成回归网络攻击的影响">数据相关性对生成回归网络攻击的影响</h3>
-<p>由于LR和RF模型的性能低于NN模型，作者推断是因为一小部分推断出的特征值与真实相差甚远，导致整体攻击性能相对较低，于是作者研究数据相关性的影响。</p>
+<h3 id="数据相关性对生成回归网络攻击的影响">
+    <a href="#%e6%95%b0%e6%8d%ae%e7%9b%b8%e5%85%b3%e6%80%a7%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d">#</a>
+    数据相关性对生成回归网络攻击的影响
+</h3><p>由于LR和RF模型的性能低于NN模型，作者推断是因为一小部分推断出的特征值与真实相差甚远，导致整体攻击性能相对较低，于是作者研究数据相关性的影响。</p>
 <p>数据相关性定义如下：</p>
 <p>$$\begin{aligned}
 \operatorname{corr}\left(x_{\mathrm{adv}}, x_{\mathrm{target}, i}\right) &amp; =\frac{1}{d_{\mathrm{adv}}} \sum_{j=1}^{d_{\mathrm{adv}}} a b s\left(r\left(x_{\mathrm{adv}, j}, x_{\mathrm{target}, i}\right)\right), \\
@@ -755,8 +793,10 @@
 	
 ></p>
 <p>我们可以观察到相关系数$x_{adv}$和$v$都会影响生成回归网络攻击的攻击性能。$x_{target}$，$i$与$x_{adv}$和$v$之间较弱的相关性导致较低的推断准确度，例如图10a中的特征1和3以及图10b中的特征4和6。</p>
-<h2 id="对策">对策</h2>
-<p>作者讨论了几种可能减轻所提出的特征推断攻击的潜在防御方法。</p>
+<h2 id="对策">
+    <a href="#%e5%af%b9%e7%ad%96">#</a>
+    对策
+</h2><p>作者讨论了几种可能减轻所提出的特征推断攻击的潜在防御方法。</p>
 <p><img src="/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515.png"
 	width="2030"
 	height="1174"
@@ -805,8 +845,10 @@
 </tr>
 </tbody>
 </table></div>
-<h2 id="参考文章">参考文章</h2>
-<ul>
+<h2 id="参考文章">
+    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0">#</a>
+    参考文章
+</h2><ul>
 <li><a class="link" href="https://www.cnblogs.com/linear345/p/16406051.html"  target="_blank" rel="noopener"
     >【论文阅读】Feature Inference Attack on Model Predictions in Vertical Federated Learning - linear345 - 博客园 (cnblogs.com)</a></li>
 <li><a class="link" href="https://zhuanlan.zhihu.com/p/547510858"  target="_blank" rel="noopener"
@@ -845,18 +887,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -966,8 +1008,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1057,7 +1099,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

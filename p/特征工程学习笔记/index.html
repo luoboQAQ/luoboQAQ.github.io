@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='数据挖掘中回归分析的学习笔记'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据挖掘中回归分析的学习笔记">
 <title>特征工程学习笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='特征工程学习笔记'>
-<meta property='og:description' content='数据挖掘中回归分析的学习笔记'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="特征工程学习笔记">
+<meta property='og:description' content="数据挖掘中回归分析的学习笔记">
 <meta property='og:url' content='https://lbqaq.top/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='数据挖掘' /><meta property='article:tag' content='CNN' /><meta property='article:tag' content='RNN' /><meta property='article:published_time' content='2022-05-20T13:18:58&#43;08:00'/><meta property='article:modified_time' content='2022-05-20T13:18:58&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/98259515.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -413,9 +413,13 @@
     <section class="article-content">
     
     
-    <h2 id="卷积神经网络cnn">卷积神经网络(CNN)</h2>
-<h3 id="cnn的基本架构">CNN的基本架构</h3>
-<p>一个典型的卷积网络是由卷积层、 汇聚层、 全连接层交叉堆叠而成。</p>
+    <h2 id="卷积神经网络cnn">
+    <a href="#%e5%8d%b7%e7%a7%af%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9ccnn">#</a>
+    卷积神经网络(CNN)
+</h2><h3 id="cnn的基本架构">
+    <a href="#cnn%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%9e%b6%e6%9e%84">#</a>
+    CNN的基本架构
+</h3><p>一个典型的卷积网络是由卷积层、 汇聚层、 全连接层交叉堆叠而成。</p>
 <p><img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
 	width="1236"
 	height="284"
@@ -456,8 +460,10 @@
 <li>全连接层(Fully Connected Layer, 简称FC)，输出层使用了Softmax激活函数来做图像识别的分</li>
 </ul>
 <p>为了统一起见，我们下面对于Pooling layer的中文翻译都为<strong>汇聚层</strong>。</p>
-<h3 id="卷积">卷积</h3>
-<p>对于一维卷积，我们假设滤波器长度为$K$， 它和一个信号序列$x_1,x_2,&hellip;$的卷积为：</p>
+<h3 id="卷积">
+    <a href="#%e5%8d%b7%e7%a7%af">#</a>
+    卷积
+</h3><p>对于一维卷积，我们假设滤波器长度为$K$， 它和一个信号序列$x_1,x_2,&hellip;$的卷积为：</p>
 <p>$$
 y_t=\sum_{k=1}^{K}w_kx_{t-k+1}
 $$</p>
@@ -539,8 +545,10 @@ $$</p>
 <p><a class="link" href="https://cs231n.github.io/assets/conv-demo/index.html"  target="_blank" rel="noopener"
     >Convolution demo</a></p>
 <p>可以看出来，对于三维的矩阵，我们是将其拆成3个二维的矩阵，然后对应的将输入$X$和卷积核$W$进行卷积运算。</p>
-<h3 id="汇聚层">汇聚层</h3>
-<p>其作用是进行特征选择，降低特征数量， 从而减少参数数量。说人话就是输入张量的各个子矩阵进行压缩。假如是2x2的汇聚，那么就将子矩阵的每2x2个元素变成一个元素，如果是3x3的汇聚，那么就将子矩阵的每3x3个元素变成一个元素，这样输入矩阵的维度就变小了。</p>
+<h3 id="汇聚层">
+    <a href="#%e6%b1%87%e8%81%9a%e5%b1%82">#</a>
+    汇聚层
+</h3><p>其作用是进行特征选择，降低特征数量， 从而减少参数数量。说人话就是输入张量的各个子矩阵进行压缩。假如是2x2的汇聚，那么就将子矩阵的每2x2个元素变成一个元素，如果是3x3的汇聚，那么就将子矩阵的每3x3个元素变成一个元素，这样输入矩阵的维度就变小了。</p>
 <p>要想将输入子矩阵的每nxn个元素变成一个元素，那么需要一个汇聚标准。常见的汇聚标准有2个，MAX或者是MEAN。即取对应区域的最大值或者平均值作为汇聚后的元素值。</p>
 <p>下面这个例子采用取最大值的汇聚方法。同时采用的是2x2的汇聚。步幅为2。</p>
 <p><img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/6.png"
@@ -558,8 +566,10 @@ $$</p>
 	
 ></p>
 <p>首先对红色2x2区域进行汇聚，由于此2x2区域的最大值为6。那么对应的汇聚输出位置的值为6，由于步幅为2，此时移动到绿色的位置去进行汇聚，输出的最大值为8。同样的方法，可以得到黄色区域和蓝色区域的输出值。最终，我们的输入4x4的矩阵在汇聚后变成了2x2的矩阵，进行了压缩。</p>
-<h3 id="例题">例题</h3>
-<p>有了上面这些内容的铺垫，我们就会惊喜的发现，下面这道题可以轻松的完成了</p>
+<h3 id="例题">
+    <a href="#%e4%be%8b%e9%a2%98">#</a>
+    例题
+</h3><p>有了上面这些内容的铺垫，我们就会惊喜的发现，下面这道题可以轻松的完成了</p>
 <p><img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/7.png"
 	width="1037"
 	height="710"
@@ -574,8 +584,10 @@ $$</p>
 		data-flex-basis="350px"
 	
 ></p>
-<h2 id="循环神经网络rnn">循环神经网络(RNN)</h2>
-<p>在前面讲到的DNN和CNN中，训练样本的输入和输出是比较的确定的。但是有一类问题DNN和CNN不好解决，就是训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。</p>
+<h2 id="循环神经网络rnn">
+    <a href="#%e5%be%aa%e7%8e%af%e7%a5%9e%e7%bb%8f%e7%bd%91%e7%bb%9crnn">#</a>
+    循环神经网络(RNN)
+</h2><p>在前面讲到的DNN和CNN中，训练样本的输入和输出是比较的确定的。但是有一类问题DNN和CNN不好解决，就是训练样本输入是连续的序列,且序列的长短不一，比如基于时间的序列：一段段连续的语音，一段段连续的手写文字。这些序列比较长，且长度不一，比较难直接的拆分成一个个独立的样本来通过DNN/CNN进行训练。</p>
 <p>这时就需要RNN了。RNN是一类具有短期记忆能力的神经网络，RNN的模型如下：</p>
 <p><img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/8.png"
 	width="405"
@@ -591,8 +603,10 @@ $$</p>
 		data-flex-basis="408px"
 	
 ></p>
-<h3 id="单一神经元的rnn">单一神经元的RNN</h3>
-<p><img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9.png"
+<h3 id="单一神经元的rnn">
+    <a href="#%e5%8d%95%e4%b8%80%e7%a5%9e%e7%bb%8f%e5%85%83%e7%9a%84rnn">#</a>
+    单一神经元的RNN
+</h3><p><img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9.png"
 	width="665"
 	height="473"
 	srcset="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9_huf04eeed6b6af2bc72132945265686a47_64695_480x0_resize_box_3.png 480w, /p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/9_huf04eeed6b6af2bc72132945265686a47_64695_1024x0_resize_box_3.png 1024w"
@@ -672,8 +686,10 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">Y1_batch</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="使用rnn进行mnist训练">使用RNN进行MNIST训练</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="使用rnn进行mnist训练">
+    <a href="#%e4%bd%bf%e7%94%a8rnn%e8%bf%9b%e8%a1%8cmnist%e8%ae%ad%e7%bb%83">#</a>
+    使用RNN进行MNIST训练
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
@@ -961,8 +977,10 @@ $$</p>
 		data-flex-basis="543px"
 	
 ></p>
-<h2 id="参考资料">参考资料</h2>
-<ul>
+<h2 id="参考资料">
+    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">#</a>
+    参考资料
+</h2><ul>
 <li><a class="link" href="https://www.cnblogs.com/pinard/p/6483207.html"  target="_blank" rel="noopener"
     >卷积神经网络(CNN)模型结构 - 刘建平Pinard - 博客园</a></li>
 <li><a class="link" href="https://nndl.github.io/"  target="_blank" rel="noopener"
@@ -1003,18 +1021,18 @@ $$</p>
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1172,8 +1190,8 @@ $$</p>
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1263,7 +1281,25 @@ $$</p>
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

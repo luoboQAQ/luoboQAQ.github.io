@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录我折腾服务器的过程，为初次接触此平台的用户提供一个简单的教程'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录我折腾服务器的过程，为初次接触此平台的用户提供一个简单的教程">
 <title>浪潮人工智能平台使用心得</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/langchao/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='浪潮人工智能平台使用心得'>
-<meta property='og:description' content='记录我折腾服务器的过程，为初次接触此平台的用户提供一个简单的教程'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="浪潮人工智能平台使用心得">
+<meta property='og:description' content="记录我折腾服务器的过程，为初次接触此平台的用户提供一个简单的教程">
 <meta property='og:url' content='https://lbqaq.top/p/langchao/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Docker' /><meta property='article:published_time' content='2023-09-03T14:10:14&#43;08:00'/><meta property='article:modified_time' content='2023-11-22T13:24:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/langchao/102879503.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -393,8 +393,10 @@
     
     
     <p>随着学习的深入，对算力的要求越来越高。但我实验室的电脑并没有配置显卡，所以便需要使用学院的服务器。成功拿到账号后，却发现这个平台并没有我想象的那么好用😇为了达到最舒适的使用体验，开搞！</p>
-<h2 id="配置开发镜像">配置开发镜像</h2>
-<p>平台里虽然预置了一些开发环境，但仍然缺少一些需要的软件，每次连入后再重新安装实在是不优雅。那么最好的方案就是配置好一套环境，直接拉取就能使用。在我之前，已经有位大佬构建了一套开发环境并进行了分享，可是镜像大小达到了惊人的18.4G😯（容量大说明功能多，此处并没有贬低的意思）。我个人比较喜欢Arch的哲学，即Keep It Simple, Stupid（对应中文为“保持简单，且一目了然”）。为此，我决定构建一个最小化的开发环境且可以开箱即用。</p>
+<h2 id="配置开发镜像">
+    <a href="#%e9%85%8d%e7%bd%ae%e5%bc%80%e5%8f%91%e9%95%9c%e5%83%8f">#</a>
+    配置开发镜像
+</h2><p>平台里虽然预置了一些开发环境，但仍然缺少一些需要的软件，每次连入后再重新安装实在是不优雅。那么最好的方案就是配置好一套环境，直接拉取就能使用。在我之前，已经有位大佬构建了一套开发环境并进行了分享，可是镜像大小达到了惊人的18.4G😯（容量大说明功能多，此处并没有贬低的意思）。我个人比较喜欢Arch的哲学，即Keep It Simple, Stupid（对应中文为“保持简单，且一目了然”）。为此，我决定构建一个最小化的开发环境且可以开箱即用。</p>
 <p>通过探究发现，这个平台上所有的开发环境都是一个Docker容器。所以，我们只要构建好镜像并上传就OK了。构建镜像有两种方式，一种是进入容器手动配置然后使用<code>docker commit ...</code>保存修改；另一种则是使用<code>Dockerfile</code>。为了便于维护和修改，我选择了第二种。</p>
 <p>接下来就是明确需求了，我对其的要求有几点：</p>
 <ul>
@@ -558,8 +560,10 @@
 <li>设置别名：<code>conda</code>-&gt;<code>micromamba</code>，方便日常使用</li>
 </ul>
 <p>由于服务器没有网络，需要我们手动上传镜像，使用命令<code>docker save -o [TAGS]</code>打包成tar包并上传至系统中。</p>
-<h2 id="小结">小结</h2>
-<p>希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。</p>
+<h2 id="小结">
+    <a href="#%e5%b0%8f%e7%bb%93">#</a>
+    小结
+</h2><p>希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。</p>
 
 </section>
 
@@ -605,18 +609,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -669,8 +673,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -760,7 +764,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

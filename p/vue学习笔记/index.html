@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='记录学习Vue的心得'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记录学习Vue的心得">
 <title>Vue学习笔记</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='Vue学习笔记'>
-<meta property='og:description' content='记录学习Vue的心得'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="Vue学习笔记">
+<meta property='og:description' content="记录学习Vue的心得">
 <meta property='og:url' content='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='笔记' /><meta property='article:tag' content='Vue' /><meta property='article:published_time' content='2021-09-22T08:21:14&#43;08:00'/><meta property='article:modified_time' content='2021-10-01T16:00:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/88417243.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -473,10 +473,14 @@
     <p>最近看了很久的Vue教程，为了避免之后的遗忘，还是停下脚步，花点时间讲笔记写出来吧。</p>
 <p>这篇笔记是基于B站上的<a class="link" href="https://www.bilibili.com/video/BV1Zy4y1K7SH"  target="_blank" rel="noopener"
     >尚硅谷Vue2.0+Vue3.0全套教程</a>而成，在此感谢提供这么优秀的学习教程。</p>
-<h2 id="vue2基础">Vue2基础</h2>
-<p>想要学好Vue，那肯定还是从Vue2开始学起。那么这一章主要是Vue2中的基础内容，没有使用到脚手架。</p>
-<h3 id="初识vue">初识Vue</h3>
-<p>每学一个新的语言，HelloWord是必不可少的。话不多说，上代码：</p>
+<h2 id="vue2基础">
+    <a href="#vue2%e5%9f%ba%e7%a1%80">#</a>
+    Vue2基础
+</h2><p>想要学好Vue，那肯定还是从Vue2开始学起。那么这一章主要是Vue2中的基础内容，没有使用到脚手架。</p>
+<h3 id="初识vue">
+    <a href="#%e5%88%9d%e8%af%86vue">#</a>
+    初识Vue
+</h3><p>每学一个新的语言，HelloWord是必不可少的。话不多说，上代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -525,8 +529,10 @@
 <p>5.真实开发中只有一个Vue实例，并且会配合着组件一起使用；</p>
 <p>6.{{xxx}}中的xxx要写js表达式，且xxx可以自动读取到data中的所有属性；</p>
 <p>7.一旦data中的数据发生改变，那么页面中用到该数据的地方也会自动更新；</p>
-<h3 id="vue模板语法">Vue模板语法</h3>
-<p>Vue模板语法有2大类：</p>
+<h3 id="vue模板语法">
+    <a href="#vue%e6%a8%a1%e6%9d%bf%e8%af%ad%e6%b3%95">#</a>
+    Vue模板语法
+</h3><p>Vue模板语法有2大类：</p>
 <p>1.插值语法：</p>
 <p>​      功能：用于解析标签体内容。</p>
 <p>​      写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性。</p>
@@ -536,8 +542,10 @@
 <p>​            且可以直接读取到data中的所有属性。</p>
 <p>​      备注：Vue中有很多的指令，且形式都是：v-????，此处我们只是拿v-bind举个例子。</p>
 <p>其实很好理解，想要显示在页面上的内容就使用<code>{{value}}</code>这样的写法，而<code>v-bind:</code>则是用于html标签中的属性绑定。</p>
-<h3 id="数据绑定">数据绑定</h3>
-<p>Vue中有2种数据绑定的方式：</p>
+<h3 id="数据绑定">
+    <a href="#%e6%95%b0%e6%8d%ae%e7%bb%91%e5%ae%9a">#</a>
+    数据绑定
+</h3><p>Vue中有2种数据绑定的方式：</p>
 <p>​    1.单向绑定(v-bind)：数据只能从data流向页面。</p>
 <p>​    2.双向绑定(v-model)：数据不仅能从data流向页面，还可以从页面流向data。</p>
 <p>​      备注：</p>
@@ -563,8 +571,10 @@
 </span></span><span class="line"><span class="cl">双向数据绑定：<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">v-model</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">/&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="el与data的两种写法">el与data的两种写法</h3>
-<p>data与el的2种写法</p>
+</div><h3 id="el与data的两种写法">
+    <a href="#el%e4%b8%8edata%e7%9a%84%e4%b8%a4%e7%a7%8d%e5%86%99%e6%b3%95">#</a>
+    el与data的两种写法
+</h3><p>data与el的2种写法</p>
 <p>​    1.el有2种写法</p>
 <p>​            (1).new Vue时候配置el属性。</p>
 <p>​            (2).先创建Vue实例，随后再通过vm.$mount(&rsquo;#root&rsquo;)指定el的值。</p>
@@ -630,8 +640,10 @@
 </div>
 </div><p>​    3.一个重要的原则：</p>
 <p>​            由Vue管理的函数，一定不要写箭头函数，一旦写了箭头函数，this就不再是Vue实例了。</p>
-<h3 id="数据代理">数据代理</h3>
-<p>在讲Vue中的数据代理之前，先讲一下js中<code>Object.defineproperty</code>方法</p>
+<h3 id="数据代理">
+    <a href="#%e6%95%b0%e6%8d%ae%e4%bb%a3%e7%90%86">#</a>
+    数据代理
+</h3><p>在讲Vue中的数据代理之前，先讲一下js中<code>Object.defineproperty</code>方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -729,8 +741,10 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过在控制台查看<code>vm</code>，可以发现<code>data</code>中的数据都通过数据代理在<code>vm</code>身上了</p>
-<h3 id="事件处理">事件处理</h3>
-<p>事件的基本使用：</p>
+<h3 id="事件处理">
+    <a href="#%e4%ba%8b%e4%bb%b6%e5%a4%84%e7%90%86">#</a>
+    事件处理
+</h3><p>事件的基本使用：</p>
 <p>​      1.使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名；</p>
 <p>​      2.事件的回调需要配置在methods对象中，最终会在vm上；</p>
 <p>​      3.methods中配置的函数，不要用箭头函数！否则this就不是vm了；</p>
@@ -852,8 +866,10 @@
 <p>4.也可以使用keyCode去指定具体的按键（不推荐）</p>
 <p>5.Vue.config.keyCodes.自定义键名 = 键码，可以去定制按键别名</p>
 <p>一般都是<code>@keydown.xxx</code>或者<code>@keyup.xxx</code>来绑定按键</p>
-<h3 id="计算属性">计算属性</h3>
-<p>计算属性：</p>
+<h3 id="计算属性">
+    <a href="#%e8%ae%a1%e7%ae%97%e5%b1%9e%e6%80%a7">#</a>
+    计算属性
+</h3><p>计算属性：</p>
 <p>​    1.定义：要用的属性不存在，要通过已有属性计算得来。</p>
 <p>​    2.原理：底层借助了Objcet.defineproperty方法提供的getter和setter。</p>
 <p>​    3.get函数什么时候执行？</p>
@@ -957,8 +973,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">})</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="监视属性">监视属性</h3>
-<p>监视属性watch：</p>
+</div><h3 id="监视属性">
+    <a href="#%e7%9b%91%e8%a7%86%e5%b1%9e%e6%80%a7">#</a>
+    监视属性
+</h3><p>监视属性watch：</p>
 <p>1.当被监视的属性变化时, 回调函数自动调用, 进行相关操作</p>
 <p>2.监视的属性必须存在，才能进行监视！！</p>
 <p>3.监视的两种写法：</p>
@@ -1082,8 +1100,10 @@
 <p>​      1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm 或 组件实例对象。</p>
 <p>​      2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，</p>
 <p>​        这样this的指向才是vm 或 组件实例对象。</p>
-<h3 id="绑定样式">绑定样式</h3>
-<p>绑定样式：</p>
+<h3 id="绑定样式">
+    <a href="#%e7%bb%91%e5%ae%9a%e6%a0%b7%e5%bc%8f">#</a>
+    绑定样式
+</h3><p>绑定样式：</p>
 <ol>
 <li>
 <p>class样式</p>
@@ -1212,8 +1232,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="条件渲染">条件渲染</h3>
-<p>条件渲染：</p>
+</div><h3 id="条件渲染">
+    <a href="#%e6%9d%a1%e4%bb%b6%e6%b8%b2%e6%9f%93">#</a>
+    条件渲染
+</h3><p>条件渲染：</p>
 <p>​      1.v-if</p>
 <p>​            写法：</p>
 <p>​                (1).v-if=&ldquo;表达式&rdquo;</p>
@@ -1273,9 +1295,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="列表渲染">列表渲染</h3>
-<h4 id="基本列表">基本列表</h4>
-<p>v-for指令:</p>
+</div><h3 id="列表渲染">
+    <a href="#%e5%88%97%e8%a1%a8%e6%b8%b2%e6%9f%93">#</a>
+    列表渲染
+</h3><h4 id="基本列表">
+    <a href="#%e5%9f%ba%e6%9c%ac%e5%88%97%e8%a1%a8">#</a>
+    基本列表
+</h4><p>v-for指令:</p>
 <p>​    1.用于展示列表数据</p>
 <p>​    2.语法：v-for=&quot;(item, index) in xxx&rdquo; :key=&ldquo;yyy&rdquo;</p>
 <p>​    3.可遍历：数组、对象、字符串（用的很少）、指定次数（用的很少）</p>
@@ -1404,8 +1430,10 @@
 <p>​              1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。</p>
 <p>​              2.如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，</p>
 <p>​                使用index作为key是没有问题的。</p>
-<h4 id="列表过滤">列表过滤</h4>
-<p>可以通过<code>watch</code>或者<code>computed</code>实现。</p>
+<h4 id="列表过滤">
+    <a href="#%e5%88%97%e8%a1%a8%e8%bf%87%e6%bb%a4">#</a>
+    列表过滤
+</h4><p>可以通过<code>watch</code>或者<code>computed</code>实现。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1536,8 +1564,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="列表排序">列表排序</h4>
-<div class="highlight"><div class="chroma">
+</div><h4 id="列表排序">
+    <a href="#%e5%88%97%e8%a1%a8%e6%8e%92%e5%ba%8f">#</a>
+    列表排序
+</h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -1661,8 +1691,10 @@
 <p>​        1.使用这些API:push()、pop()、shift()、unshift()、splice()、sort()、reverse()</p>
 <p>​        2.Vue.set() 或 vm.$set()</p>
 <p>特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！</p>
-<h3 id="收集表单数据">收集表单数据</h3>
-<p>若：<code>&lt;input type=&quot;text&quot;/&gt;</code>，则v-model收集的是value值，用户输入的就是value值。</p>
+<h3 id="收集表单数据">
+    <a href="#%e6%94%b6%e9%9b%86%e8%a1%a8%e5%8d%95%e6%95%b0%e6%8d%ae">#</a>
+    收集表单数据
+</h3><p>若：<code>&lt;input type=&quot;text&quot;/&gt;</code>，则v-model收集的是value值，用户输入的就是value值。</p>
 <p>若：<code>&lt;input type=&quot;radio&quot;/&gt;</code>，则v-model收集的是value值，且要给标签配置value值。</p>
 <p>若：<code>&lt;input type=&quot;checkbox&quot;/&gt;</code></p>
 <p>​    1.没有配置input的value属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）</p>
@@ -1775,8 +1807,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="过滤器">过滤器</h3>
-<p>过滤器：</p>
+</div><h3 id="过滤器">
+    <a href="#%e8%bf%87%e6%bb%a4%e5%99%a8">#</a>
+    过滤器
+</h3><p>过滤器：</p>
 <p>定义：对要显示的数据进行特定格式化后再显示（适用于一些简单逻辑的处理）。</p>
 <p>语法：</p>
 <p>​      1.注册过滤器：Vue.filter(name,callback) 或 new Vue{filters:{}}</p>
@@ -1896,8 +1930,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="内置指令">内置指令</h3>
-<p>我们学过的指令：</p>
+</div><h3 id="内置指令">
+    <a href="#%e5%86%85%e7%bd%ae%e6%8c%87%e4%bb%a4">#</a>
+    内置指令
+</h3><p>我们学过的指令：</p>
 <p>​    v-bind : 单向绑定解析表达式, 可简写为 :xxx</p>
 <p>​    v-model : 双向数据绑定</p>
 <p>​    v-for  : 遍历数组/对象/字符串</p>
@@ -1925,8 +1961,10 @@
 <p>v-pre指令：</p>
 <p>​    1.跳过其所在节点的编译过程。</p>
 <p>​    2.可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。</p>
-<h3 id="生命周期">生命周期</h3>
-<p>话不多说先上图：</p>
+<h3 id="生命周期">
+    <a href="#%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f">#</a>
+    生命周期
+</h3><p>话不多说先上图：</p>
 <p><img src="/p/vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
 	width="1469"
 	height="1892"
@@ -1953,8 +1991,10 @@
 <p>​    1.销毁后借助Vue开发者工具看不到任何信息。</p>
 <p>​    2.销毁后自定义事件会失效，但原生DOM事件依然有效。</p>
 <p>​    3.一般不会在beforeDestroy操作数据，因为即便操作数据，也不会再触发更新流程了。</p>
-<h3 id="组件">组件</h3>
-<p>Vue中使用组件的三大步骤：</p>
+<h3 id="组件">
+    <a href="#%e7%bb%84%e4%bb%b6">#</a>
+    组件
+</h3><p>Vue中使用组件的三大步骤：</p>
 <p>​    一、定义组件(创建组件)</p>
 <p>​    二、注册组件</p>
 <p>​    三、使用组件(写组件标签)</p>
@@ -1998,10 +2038,14 @@
 <p>​                data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【Vue实例对象】。</p>
 <p>​      5.VueComponent的实例对象，以后简称vc（也可称之为：组件实例对象）。</p>
 <p>​        Vue的实例对象，以后简称vm。</p>
-<h2 id="vue2进阶">Vue2进阶</h2>
-<p>到这一部分，就要使用到脚手架了，同时也向正式的项目靠近了。</p>
-<h3 id="脚手架文件结构">脚手架文件结构</h3>
-<div class="highlight"><div class="chroma">
+<h2 id="vue2进阶">
+    <a href="#vue2%e8%bf%9b%e9%98%b6">#</a>
+    Vue2进阶
+</h2><p>到这一部分，就要使用到脚手架了，同时也向正式的项目靠近了。</p>
+<h3 id="脚手架文件结构">
+    <a href="#%e8%84%9a%e6%89%8b%e6%9e%b6%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84">#</a>
+    脚手架文件结构
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -2039,8 +2083,10 @@
 </span></span><span class="line"><span class="cl">├── package-lock.json：包版本控制文件
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="关于不同版本的vue">关于不同版本的Vue</h3>
-<ol>
+</div><h3 id="关于不同版本的vue">
+    <a href="#%e5%85%b3%e4%ba%8e%e4%b8%8d%e5%90%8c%e7%89%88%e6%9c%ac%e7%9a%84vue">#</a>
+    关于不同版本的Vue
+</h3><ol>
 <li>vue.js与vue.runtime.xxx.js的区别：
 <ol>
 <li>vue.js是完整版的Vue，包含：核心功能 + 模板解析器。</li>
@@ -2049,14 +2095,18 @@
 </li>
 <li>因为vue.runtime.xxx.js没有模板解析器，所以不能使用template这个配置项，需要使用render函数接收到的createElement函数去指定具体内容。也就是代码中的这句<code>render: h =&gt; h(App)</code></li>
 </ol>
-<h3 id="vueconfigjs配置文件">vue.config.js配置文件</h3>
-<ol>
+<h3 id="vueconfigjs配置文件">
+    <a href="#vueconfigjs%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6">#</a>
+    vue.config.js配置文件
+</h3><ol>
 <li>使用vue inspect &gt; output.js可以查看到Vue脚手架的默认配置。</li>
 <li>使用vue.config.js可以对脚手架进行个性化定制，详情见：<a class="link" href="https://cli.vuejs.org/zh"  target="_blank" rel="noopener"
     >https://cli.vuejs.org/zh</a></li>
 </ol>
-<h3 id="ref属性">ref属性</h3>
-<ol>
+<h3 id="ref属性">
+    <a href="#ref%e5%b1%9e%e6%80%a7">#</a>
+    ref属性
+</h3><ol>
 <li>被用来给元素或子组件注册引用信息（id的替代者）</li>
 <li>应用在html标签上获取的是真实DOM元素，应用在组件标签上是组件实例对象（vc）</li>
 <li>使用方式：
@@ -2066,8 +2116,10 @@
 </ol>
 </li>
 </ol>
-<h3 id="props配置项">props配置项</h3>
-<ol>
+<h3 id="props配置项">
+    <a href="#props%e9%85%8d%e7%bd%ae%e9%a1%b9">#</a>
+    props配置项
+</h3><ol>
 <li>
 <p>功能：让组件接收外部传过来的数据</p>
 </li>
@@ -2112,8 +2164,10 @@
 </blockquote>
 </li>
 </ol>
-<h3 id="mixin混入">mixin(混入)</h3>
-<ol>
+<h3 id="mixin混入">
+    <a href="#mixin%e6%b7%b7%e5%85%a5">#</a>
+    mixin(混入)
+</h3><ol>
 <li>
 <p>功能：可以把多个组件共用的配置提取成一个混入对象</p>
 </li>
@@ -2141,8 +2195,10 @@
 ​	局部混入：<code>mixins:['xxx']	</code></p>
 </li>
 </ol>
-<h3 id="插件">插件</h3>
-<ol>
+<h3 id="插件">
+    <a href="#%e6%8f%92%e4%bb%b6">#</a>
+    插件
+</h3><ol>
 <li>
 <p>功能：用于增强Vue</p>
 </li>
@@ -2190,13 +2246,17 @@
 <p>使用插件：<code>Vue.use()</code></p>
 </li>
 </ol>
-<h3 id="scoped样式">scoped样式</h3>
-<ol>
+<h3 id="scoped样式">
+    <a href="#scoped%e6%a0%b7%e5%bc%8f">#</a>
+    scoped样式
+</h3><ol>
 <li>作用：让样式在局部生效，防止冲突。</li>
 <li>写法：<code>&lt;style scoped&gt;</code></li>
 </ol>
-<h3 id="总结todolist案例">总结TodoList案例</h3>
-<ol>
+<h3 id="总结todolist案例">
+    <a href="#%e6%80%bb%e7%bb%93todolist%e6%a1%88%e4%be%8b">#</a>
+    总结TodoList案例
+</h3><ol>
 <li>
 <p>组件化编码流程：</p>
 <p>​	(1).拆分静态组件：组件要按照功能点拆分，命名不要与html元素冲突。</p>
@@ -2217,8 +2277,10 @@
 <p>props传过来的若是对象类型的值，修改对象中的属性时Vue不会报错，但不推荐这样做。</p>
 </li>
 </ol>
-<h3 id="webstorage">webStorage</h3>
-<ol>
+<h3 id="webstorage">
+    <a href="#webstorage">#</a>
+    webStorage
+</h3><ol>
 <li>
 <p>存储内容大小一般支持5MB左右（不同浏览器可能还不一样）</p>
 </li>
@@ -2256,8 +2318,10 @@
 </ol>
 </li>
 </ol>
-<h3 id="组件的自定义事件">组件的自定义事件</h3>
-<ol>
+<h3 id="组件的自定义事件">
+    <a href="#%e7%bb%84%e4%bb%b6%e7%9a%84%e8%87%aa%e5%ae%9a%e4%b9%89%e4%ba%8b%e4%bb%b6">#</a>
+    组件的自定义事件
+</h3><ol>
 <li>
 <p>一种组件间通信的方式，适用于：<!-- raw HTML omitted -->子组件 ===&gt; 父组件<!-- raw HTML omitted --></p>
 </li>
@@ -2307,8 +2371,10 @@
 <p>注意：通过<code>this.$refs.xxx.$on('atguigu',回调)</code>绑定自定义事件时，回调<!-- raw HTML omitted -->要么配置在methods中<!-- raw HTML omitted -->，<!-- raw HTML omitted -->要么用箭头函数<!-- raw HTML omitted -->，否则this指向会出问题！</p>
 </li>
 </ol>
-<h3 id="全局事件总线globaleventbus">全局事件总线（GlobalEventBus）</h3>
-<ol>
+<h3 id="全局事件总线globaleventbus">
+    <a href="#%e5%85%a8%e5%b1%80%e4%ba%8b%e4%bb%b6%e6%80%bb%e7%ba%bfglobaleventbus">#</a>
+    全局事件总线（GlobalEventBus）
+</h3><ol>
 <li>
 <p>一种组件间通信的方式，适用于<!-- raw HTML omitted -->任意组件间通信<!-- raw HTML omitted -->。</p>
 </li>
@@ -2370,8 +2436,10 @@
 <p>最好在beforeDestroy钩子中，用$off去解绑<!-- raw HTML omitted -->当前组件所用到的<!-- raw HTML omitted -->事件。</p>
 </li>
 </ol>
-<h3 id="消息订阅与发布pubsub">消息订阅与发布（pubsub）</h3>
-<ol>
+<h3 id="消息订阅与发布pubsub">
+    <a href="#%e6%b6%88%e6%81%af%e8%ae%a2%e9%98%85%e4%b8%8e%e5%8f%91%e5%b8%83pubsub">#</a>
+    消息订阅与发布（pubsub）
+</h3><ol>
 <li>
 <p>一种组件间通信的方式，适用于<!-- raw HTML omitted -->任意组件间通信<!-- raw HTML omitted -->。</p>
 </li>
@@ -2416,14 +2484,18 @@
 </ol>
 </li>
 </ol>
-<h3 id="nexttick">nextTick</h3>
-<ol>
+<h3 id="nexttick">
+    <a href="#nexttick">#</a>
+    nextTick
+</h3><ol>
 <li>语法：<code>this.$nextTick(回调函数)</code></li>
 <li>作用：在下一次 DOM 更新结束后执行其指定的回调。</li>
 <li>什么时候用：当改变数据后，要基于更新后的新DOM进行某些操作时，要在nextTick所指定的回调函数中执行。</li>
 </ol>
-<h3 id="vue封装的过度与动画">Vue封装的过度与动画</h3>
-<ol>
+<h3 id="vue封装的过度与动画">
+    <a href="#vue%e5%b0%81%e8%a3%85%e7%9a%84%e8%bf%87%e5%ba%a6%e4%b8%8e%e5%8a%a8%e7%94%bb">#</a>
+    Vue封装的过度与动画
+</h3><ol>
 <li>
 <p>作用：在插入、更新或移除 DOM元素时，在合适的时候给元素添加样式类名。</p>
 </li>
@@ -2473,9 +2545,13 @@
 </ol>
 </li>
 </ol>
-<h3 id="vue脚手架配置代理">vue脚手架配置代理</h3>
-<h4 id="方法一">方法一</h4>
-<p>​	在vue.config.js中添加如下配置：</p>
+<h3 id="vue脚手架配置代理">
+    <a href="#vue%e8%84%9a%e6%89%8b%e6%9e%b6%e9%85%8d%e7%bd%ae%e4%bb%a3%e7%90%86">#</a>
+    vue脚手架配置代理
+</h3><h4 id="方法一">
+    <a href="#%e6%96%b9%e6%b3%95%e4%b8%80">#</a>
+    方法一
+</h4><p>​	在vue.config.js中添加如下配置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2494,8 +2570,10 @@
 <li>缺点：不能配置多个代理，不能灵活的控制请求是否走代理。</li>
 <li>工作方式：若按照上述配置代理，当请求了前端不存在的资源时，那么该请求会转发给服务器 （优先匹配前端资源）</li>
 </ol>
-<h4 id="方法二">方法二</h4>
-<p>​	编写vue.config.js配置具体代理规则：</p>
+<h4 id="方法二">
+    <a href="#%e6%96%b9%e6%b3%95%e4%ba%8c">#</a>
+    方法二
+</h4><p>​	编写vue.config.js配置具体代理规则：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2549,8 +2627,10 @@
 <li>优点：可以配置多个代理，且可以灵活的控制请求是否走代理。</li>
 <li>缺点：配置略微繁琐，请求资源时必须加前缀。</li>
 </ol>
-<h3 id="插槽">插槽</h3>
-<ol>
+<h3 id="插槽">
+    <a href="#%e6%8f%92%e6%a7%bd">#</a>
+    插槽
+</h3><ol>
 <li>
 <p>作用：让父组件可以向子组件指定位置插入html结构，也是一种组件间通信的方式，适用于 <!-- raw HTML omitted -->父组件 ===&gt; 子组件<!-- raw HTML omitted --> 。</p>
 </li>
@@ -2726,13 +2806,21 @@
 </ol>
 </li>
 </ol>
-<h3 id="vuex">Vuex</h3>
-<h4 id="概念">概念</h4>
-<p>​		在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于任意组件间通信。</p>
-<h4 id="何时使用">何时使用？</h4>
-<p>​		多个组件需要共享数据时</p>
-<h4 id="搭建vuex环境">搭建vuex环境</h4>
-<ol>
+<h3 id="vuex">
+    <a href="#vuex">#</a>
+    Vuex
+</h3><h4 id="概念">
+    <a href="#%e6%a6%82%e5%bf%b5">#</a>
+    概念
+</h4><p>​		在Vue中实现集中式状态（数据）管理的一个Vue插件，对vue应用中多个组件的共享状态进行集中式的管理（读/写），也是一种组件间通信的方式，且适用于任意组件间通信。</p>
+<h4 id="何时使用">
+    <a href="#%e4%bd%95%e6%97%b6%e4%bd%bf%e7%94%a8">#</a>
+    何时使用？
+</h4><p>​		多个组件需要共享数据时</p>
+<h4 id="搭建vuex环境">
+    <a href="#%e6%90%ad%e5%bb%bavuex%e7%8e%af%e5%a2%83">#</a>
+    搭建vuex环境
+</h4><ol>
 <li>
 <p>创建文件：<code>src/store/index.js</code></p>
 <div class="highlight"><div class="chroma">
@@ -2814,8 +2902,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="基本使用">基本使用</h4>
-<ol>
+<h4 id="基本使用">
+    <a href="#%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8">#</a>
+    基本使用
+</h4><ol>
 <li>
 <p>初始化数据、配置<code>actions</code>、配置<code>mutations</code>，操作文件<code>store.js</code></p>
 <div class="highlight"><div class="chroma">
@@ -2903,8 +2993,10 @@
 </blockquote>
 </li>
 </ol>
-<h4 id="getters的使用">getters的使用</h4>
-<ol>
+<h4 id="getters的使用">
+    <a href="#getters%e7%9a%84%e4%bd%bf%e7%94%a8">#</a>
+    getters的使用
+</h4><ol>
 <li>
 <p>概念：当state中的数据需要经过加工后再使用时，可以使用getters加工。</p>
 </li>
@@ -2947,8 +3039,10 @@
 <p>组件中读取数据：<code>$store.getters.bigSum</code></p>
 </li>
 </ol>
-<h4 id="四个map方法的使用">四个map方法的使用</h4>
-<ol>
+<h4 id="四个map方法的使用">
+    <a href="#%e5%9b%9b%e4%b8%aamap%e6%96%b9%e6%b3%95%e7%9a%84%e4%bd%bf%e7%94%a8">#</a>
+    四个map方法的使用
+</h4><ol>
 <li>
 <p><!-- raw HTML omitted -->mapState方法：<!-- raw HTML omitted -->用于帮助我们映射<code>state</code>中的数据为计算属性</p>
 <div class="highlight"><div class="chroma">
@@ -3045,8 +3139,10 @@
 <blockquote>
 <p>备注：mapActions与mapMutations使用时，若需要传递参数需要：在模板中绑定事件时传递好参数，否则参数是事件对象。</p>
 </blockquote>
-<h4 id="模块化命名空间">模块化+命名空间</h4>
-<ol>
+<h4 id="模块化命名空间">
+    <a href="#%e6%a8%a1%e5%9d%97%e5%8c%96%e5%91%bd%e5%90%8d%e7%a9%ba%e9%97%b4">#</a>
+    模块化+命名空间
+</h4><ol>
 <li>
 <p>目的：让代码更好维护，让多种数据分类更加明确。</p>
 </li>
@@ -3178,13 +3274,17 @@
 </div>
 </div></li>
 </ol>
-<h3 id="路由">路由</h3>
-<ol>
+<h3 id="路由">
+    <a href="#%e8%b7%af%e7%94%b1">#</a>
+    路由
+</h3><ol>
 <li>理解： 一个路由（route）就是一组映射关系（key - value），多个路由需要路由器（router）进行管理。</li>
 <li>前端路由：key是路径，value是组件。</li>
 </ol>
-<h4 id="基本使用-1">基本使用</h4>
-<ol>
+<h4 id="基本使用-1">
+    <a href="#%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8-1">#</a>
+    基本使用
+</h4><ol>
 <li>
 <p>安装vue-router，命令：<code>npm i vue-router</code></p>
 </li>
@@ -3267,15 +3367,19 @@
 </div>
 </div></li>
 </ol>
-<h4 id="几个注意点">几个注意点</h4>
-<ol>
+<h4 id="几个注意点">
+    <a href="#%e5%87%a0%e4%b8%aa%e6%b3%a8%e6%84%8f%e7%82%b9">#</a>
+    几个注意点
+</h4><ol>
 <li>路由组件通常存放在<code>pages</code>文件夹，一般组件通常存放在<code>components</code>文件夹。</li>
 <li>通过切换，“隐藏”了的路由组件，默认是被销毁掉的，需要的时候再去挂载。</li>
 <li>每个组件都有自己的<code>$route</code>属性，里面存储着自己的路由信息。</li>
 <li>整个应用只有一个router，可以通过组件的<code>$router</code>属性获取到。</li>
 </ol>
-<h4 id="多级路由多级路由">多级路由（多级路由）</h4>
-<ol>
+<h4 id="多级路由多级路由">
+    <a href="#%e5%a4%9a%e7%ba%a7%e8%b7%af%e7%94%b1%e5%a4%9a%e7%ba%a7%e8%b7%af%e7%94%b1">#</a>
+    多级路由（多级路由）
+</h4><ol>
 <li>
 <p>配置路由规则，使用children配置项：</p>
 <div class="highlight"><div class="chroma">
@@ -3337,8 +3441,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="路由的query参数">路由的query参数</h4>
-<ol>
+<h4 id="路由的query参数">
+    <a href="#%e8%b7%af%e7%94%b1%e7%9a%84query%e5%8f%82%e6%95%b0">#</a>
+    路由的query参数
+</h4><ol>
 <li>
 <p>传递参数</p>
 <div class="highlight"><div class="chroma">
@@ -3388,8 +3494,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="命名路由">命名路由</h4>
-<ol>
+<h4 id="命名路由">
+    <a href="#%e5%91%bd%e5%90%8d%e8%b7%af%e7%94%b1">#</a>
+    命名路由
+</h4><ol>
 <li>
 <p>作用：可以简化路由的跳转。</p>
 </li>
@@ -3483,8 +3591,10 @@
 </ol>
 </li>
 </ol>
-<h4 id="路由的params参数">路由的params参数</h4>
-<ol>
+<h4 id="路由的params参数">
+    <a href="#%e8%b7%af%e7%94%b1%e7%9a%84params%e5%8f%82%e6%95%b0">#</a>
+    路由的params参数
+</h4><ol>
 <li>
 <p>配置路由，声明接收params参数</p>
 <div class="highlight"><div class="chroma">
@@ -3586,8 +3696,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="路由的props配置">路由的props配置</h4>
-<p>​	作用：让路由组件更方便的收到参数</p>
+<h4 id="路由的props配置">
+    <a href="#%e8%b7%af%e7%94%b1%e7%9a%84props%e9%85%8d%e7%bd%ae">#</a>
+    路由的props配置
+</h4><p>​	作用：让路由组件更方便的收到参数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3632,14 +3744,18 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="router-link的replace属性"><code>&lt;router-link&gt;</code>的replace属性</h4>
-<ol>
+</div><h4 id="router-link的replace属性">
+    <a href="#router-link%e7%9a%84replace%e5%b1%9e%e6%80%a7">#</a>
+    <code>&lt;router-link&gt;</code>的replace属性
+</h4><ol>
 <li>作用：控制路由跳转时操作浏览器历史记录的模式</li>
 <li>浏览器的历史记录有两种写入方式：分别为<code>push</code>和<code>replace</code>，<code>push</code>是追加历史记录，<code>replace</code>是替换当前记录。路由跳转时候默认为<code>push</code></li>
 <li>如何开启<code>replace</code>模式：<code>&lt;router-link replace .......&gt;News&lt;/router-link&gt;</code></li>
 </ol>
-<h4 id="编程式路由导航">编程式路由导航</h4>
-<ol>
+<h4 id="编程式路由导航">
+    <a href="#%e7%bc%96%e7%a8%8b%e5%bc%8f%e8%b7%af%e7%94%b1%e5%af%bc%e8%88%aa">#</a>
+    编程式路由导航
+</h4><ol>
 <li>
 <p>作用：不借助<code>&lt;router-link&gt; </code>实现路由跳转，让路由跳转更加灵活</p>
 </li>
@@ -3691,8 +3807,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="缓存路由组件">缓存路由组件</h4>
-<ol>
+<h4 id="缓存路由组件">
+    <a href="#%e7%bc%93%e5%ad%98%e8%b7%af%e7%94%b1%e7%bb%84%e4%bb%b6">#</a>
+    缓存路由组件
+</h4><ol>
 <li>
 <p>作用：让不展示的路由组件保持挂载，不被销毁。</p>
 </li>
@@ -3712,8 +3830,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="两个新的生命周期钩子">两个新的生命周期钩子</h4>
-<ol>
+<h4 id="两个新的生命周期钩子">
+    <a href="#%e4%b8%a4%e4%b8%aa%e6%96%b0%e7%9a%84%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f%e9%92%a9%e5%ad%90">#</a>
+    两个新的生命周期钩子
+</h4><ol>
 <li>作用：路由组件所独有的两个钩子，用于捕获路由组件的激活状态。</li>
 <li>具体名字：
 <ol>
@@ -3722,8 +3842,10 @@
 </ol>
 </li>
 </ol>
-<h4 id="路由守卫">路由守卫</h4>
-<ol>
+<h4 id="路由守卫">
+    <a href="#%e8%b7%af%e7%94%b1%e5%ae%88%e5%8d%ab">#</a>
+    路由守卫
+</h4><ol>
 <li>
 <p>作用：对路由进行权限控制</p>
 </li>
@@ -3844,8 +3966,10 @@
 </div>
 </div></li>
 </ol>
-<h4 id="路由器的两种工作模式">路由器的两种工作模式</h4>
-<ol>
+<h4 id="路由器的两种工作模式">
+    <a href="#%e8%b7%af%e7%94%b1%e5%99%a8%e7%9a%84%e4%b8%a4%e7%a7%8d%e5%b7%a5%e4%bd%9c%e6%a8%a1%e5%bc%8f">#</a>
+    路由器的两种工作模式
+</h4><ol>
 <li>
 <p>对于一个url来说，什么是hash值？—— #及其后面的内容就是hash值。</p>
 </li>
@@ -3914,18 +4038,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -3978,8 +4102,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -4069,7 +4193,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

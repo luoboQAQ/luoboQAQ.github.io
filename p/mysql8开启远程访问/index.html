@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='MySQL8.0开启远程访问账户'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="MySQL8.0开启远程访问账户">
 <title>MySQL8开启远程访问</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='MySQL8开启远程访问'>
-<meta property='og:description' content='MySQL8.0开启远程访问账户'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="MySQL8开启远程访问">
+<meta property='og:description' content="MySQL8.0开启远程访问账户">
 <meta property='og:url' content='https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='MySQL' /><meta property='article:published_time' content='2021-10-21T10:19:52&#43;08:00'/><meta property='article:modified_time' content='2021-10-21T10:19:52&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/90561040.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -398,8 +398,10 @@
     
     
     <p>最近把服务器重装成Ubuntu了，所以要重装MySQL，没想到在这里踩了好几个坑，在这里记录下来备忘。</p>
-<h2 id="安装">安装</h2>
-<p>这其实很简单，直接通过Ubuntu的包管理器直接安装就行了（我把系统转为Ubuntu也有这方面的原因）。</p>
+<h2 id="安装">
+    <a href="#%e5%ae%89%e8%a3%85">#</a>
+    安装
+</h2><p>这其实很简单，直接通过Ubuntu的包管理器直接安装就行了（我把系统转为Ubuntu也有这方面的原因）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -409,10 +411,14 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过这条命令安装的MySQL的root账号是没有密码的，所以只要输入<code>mysql</code>就直接可以进入了</p>
-<h2 id="开启远程访问">开启远程访问</h2>
-<p>这里就是本文的重点了，我在这里花了很多时间😇</p>
-<h3 id="设定mysql的监听端口">设定MySQL的监听端口</h3>
-<p>通过apt安装的MySQL默认是只监听本地的端口的，我们要修改使其监听所有ip地址的请求。</p>
+<h2 id="开启远程访问">
+    <a href="#%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae">#</a>
+    开启远程访问
+</h2><p>这里就是本文的重点了，我在这里花了很多时间😇</p>
+<h3 id="设定mysql的监听端口">
+    <a href="#%e8%ae%be%e5%ae%9amysql%e7%9a%84%e7%9b%91%e5%90%ac%e7%ab%af%e5%8f%a3">#</a>
+    设定MySQL的监听端口
+</h3><p>通过apt安装的MySQL默认是只监听本地的端口的，我们要修改使其监听所有ip地址的请求。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -427,8 +433,10 @@
 </span></span><span class="line"><span class="cl">systemctl restart mysql
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="设置root账号密码并开启远程访问">设置root账号密码并开启远程访问</h3>
-<p>默认root账号是没有密码的，这当然是不行的，我们需要给一个密码</p>
+</div><h3 id="设置root账号密码并开启远程访问">
+    <a href="#%e8%ae%be%e7%bd%aeroot%e8%b4%a6%e5%8f%b7%e5%af%86%e7%a0%81%e5%b9%b6%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae">#</a>
+    设置root账号密码并开启远程访问
+</h3><p>默认root账号是没有密码的，这当然是不行的，我们需要给一个密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -475,18 +483,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -539,8 +547,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -630,7 +638,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

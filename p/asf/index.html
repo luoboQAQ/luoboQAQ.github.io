@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='如何在Linux服务器上使用ASF挂卡'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="如何在Linux服务器上使用ASF挂卡">
 <title>从零开始ASF挂卡</title>
 
 <link rel='canonical' href='https://lbqaq.top/p/asf/'>
 
-<link rel="stylesheet" href="/scss/style.min.ecd069d5577f5c63d21b52d0f1a9dd1a5c8f5cef672d83bf1fcffc64201370a3.css"><meta property='og:title' content='从零开始ASF挂卡'>
-<meta property='og:description' content='如何在Linux服务器上使用ASF挂卡'>
+<link rel="stylesheet" href="/scss/style.min.4848aaed0da8c67f7c544ca83ddceb5f2bd225d6863e55294a02845410be7167.css"><meta property='og:title' content="从零开始ASF挂卡">
+<meta property='og:description' content="如何在Linux服务器上使用ASF挂卡">
 <meta property='og:url' content='https://lbqaq.top/p/asf/'>
 <meta property='og:site_name' content='luoboQAQ'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ASF' /><meta property='article:tag' content='教程' /><meta property='article:published_time' content='2021-08-11T21:46:24&#43;08:00'/><meta property='article:modified_time' content='2021-08-11T21:46:24&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/asf/82970659.webp' />
@@ -21,8 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css" />
+<link rel="preconnect" href="https://font.onmicrosoft.cn">
 
 <style>
    
@@ -92,7 +91,7 @@
             <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
             <h2 class="site-description">快乐学习每一天</h2>
         </div>
-    </header><ol class="social-menu">
+    </header><ol class="menu-social">
             
                 <li>
                     <a 
@@ -253,12 +252,12 @@
             </a>
         </li>
         
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-        <div class="menu-bottom-section">
-
-            
-                <li id="dark-mode-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="8" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -266,7 +265,7 @@
 
 
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="16" cy="12" r="2" />
   <rect x="2" y="6" width="20" height="12" rx="6" />
@@ -274,10 +273,11 @@
 
 
 
-                    <span>暗色模式</span>
-                </li>
-            
-        </div>
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
     </ol>
 </aside>
 
@@ -406,9 +406,13 @@
     
     
     <p>因为买了一台云服务器，不拿来干点啥实在是太亏了，于是便想到了可以使用云服务器来挂卡。</p>
-<h2 id="步骤">步骤</h2>
-<h3 id="安装net环境">安装.net环境</h3>
-<p>ASF是基于.netcore开发的程序，所以需要安装环境。这里建议看微软官方的<a class="link" href="https://docs.microsoft.com/zh-cn/dotnet/core/install/"  target="_blank" rel="noopener"
+<h2 id="步骤">
+    <a href="#%e6%ad%a5%e9%aa%a4">#</a>
+    步骤
+</h2><h3 id="安装net环境">
+    <a href="#%e5%ae%89%e8%a3%85net%e7%8e%af%e5%a2%83">#</a>
+    安装.net环境
+</h3><p>ASF是基于.netcore开发的程序，所以需要安装环境。这里建议看微软官方的<a class="link" href="https://docs.microsoft.com/zh-cn/dotnet/core/install/"  target="_blank" rel="noopener"
     >安装文档</a>，里面有不同系统的安装方法。</p>
 <p>我们需要安装的只是ASP.NET Core 运行时。</p>
 <p>我的系统是centos7，这里就只列举我系统上的命令了。</p>
@@ -422,12 +426,16 @@
 </span></span><span class="line"><span class="cl">sudo yum install aspnetcore-runtime-5.0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="安装asf">安装ASF</h3>
-<p>在<a class="link" href="https://github.com/JustArchiNET/ArchiSteamFarm/releases/latest"  target="_blank" rel="noopener"
+</div><h3 id="安装asf">
+    <a href="#%e5%ae%89%e8%a3%85asf">#</a>
+    安装ASF
+</h3><p>在<a class="link" href="https://github.com/JustArchiNET/ArchiSteamFarm/releases/latest"  target="_blank" rel="noopener"
     >ASF的发布页面</a>上下载系统对应的版本解压即可。</p>
 <p>我这里是在本地先下载好后用WinSCP直接传上服务器。</p>
-<h3 id="配置asf">配置ASF</h3>
-<p>这里就采用官方的**<a class="link" href="https://justarchinet.github.io/ASF-WebConfigGenerator"  target="_blank" rel="noopener"
+<h3 id="配置asf">
+    <a href="#%e9%85%8d%e7%bd%aeasf">#</a>
+    配置ASF
+</h3><p>这里就采用官方的**<a class="link" href="https://justarchinet.github.io/ASF-WebConfigGenerator"  target="_blank" rel="noopener"
     >在线配置文件生成器</a>**自动生成即可。</p>
 <p>我们这里选择<code>机器人</code>，将steam的账号和密码填入，并将Enabled设置为True就行了。</p>
 <p>详细的配置内容可以在<a class="link" href="https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration-zh-CN"  target="_blank" rel="noopener"
@@ -493,8 +501,10 @@
 <li><code>IPCPassword</code>：由于ASF默认会开启IPC服务，为了安全起见建议设置密码或关闭IPC服务。</li>
 </ul>
 <p>将配置文件放入<code>config</code>目录里就行了。</p>
-<h3 id="启动asf">启动ASF</h3>
-<p>首先将ASF的主程序设置为可执行：</p>
+<h3 id="启动asf">
+    <a href="#%e5%90%af%e5%8a%a8asf">#</a>
+    启动ASF
+</h3><p>首先将ASF的主程序设置为可执行：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -512,9 +522,13 @@
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">./ArchiSteamFarm
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="附加步骤">附加步骤</h2>
-<h3 id="使用ascf">使用ASCF</h3>
-<p>由于服务器在大陆境内，由于众所周知的原因是无法访问steam社区的，这时就需要使用大佬开发的转发工具了。</p>
+</div><h2 id="附加步骤">
+    <a href="#%e9%99%84%e5%8a%a0%e6%ad%a5%e9%aa%a4">#</a>
+    附加步骤
+</h2><h3 id="使用ascf">
+    <a href="#%e4%bd%bf%e7%94%a8ascf">#</a>
+    使用ASCF
+</h3><p>由于服务器在大陆境内，由于众所周知的原因是无法访问steam社区的，这时就需要使用大佬开发的转发工具了。</p>
 <p><a class="link" href="https://keylol.com/t339641-1-1"  target="_blank" rel="noopener"
     >【更新2.0】另一个SteamCommunityFix | 支持Win/Linux/MacOS 【2018-08-29】</a></p>
 <p>下载地址：https://pan.baidu.com/s/1nvBW8qP</p>
@@ -563,8 +577,10 @@
 <p>若程序已经成功运行，此时就不要关闭终端窗口了，否则程序就会退出！试下Steam社区能否正常打开</p>
 </li>
 </ul>
-<h3 id="使用tmux">使用Tmux</h3>
-<p>由于我们在服务器上使用，不可能一直开着ssh，这时就需要将终端窗口和会话解绑，Tmux就是做这个工作的。</p>
+<h3 id="使用tmux">
+    <a href="#%e4%bd%bf%e7%94%a8tmux">#</a>
+    使用Tmux
+</h3><p>由于我们在服务器上使用，不可能一直开着ssh，这时就需要将终端窗口和会话解绑，Tmux就是做这个工作的。</p>
 <p><strong>安装：</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -649,8 +665,10 @@
 </div>
 </div></li>
 </ul>
-<h2 id="参考链接">参考链接</h2>
-<ul>
+<h2 id="参考链接">
+    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5">#</a>
+    参考链接
+</h2><ul>
 <li><a class="link" href="http://www.ruanyifeng.com/blog/2019/10/tmux.html"  target="_blank" rel="noopener"
     >Tmux 使用教程 - 阮一峰的网络日志</a></li>
 <li><a class="link" href="https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration-zh-CN"  target="_blank" rel="noopener"
@@ -691,18 +709,18 @@
     
         <link 
                 rel="stylesheet" 
-                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.css"crossorigin="anonymous"
+                href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.css"crossorigin="anonymous"
             ><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/katex.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/katex.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script 
-                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.4/contrib/auto-render.min.js"crossorigin="anonymous"
+                src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"crossorigin="anonymous"
                 defer
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.querySelector(`.article-content`), {
+        renderMathInElement(document.body, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -755,8 +773,8 @@
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.22.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -846,7 +864,25 @@
                 
                 >
             </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
 
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+
+        const customFont2 = document.createElement('link');
+        customFont2.href = "https://font.onmicrosoft.cn/@callmebill/lxgw-wenkai-web@latest/style.css";
+
+        customFont2.type = "text/css";
+        customFont2.rel = "stylesheet";
+
+        document.head.appendChild(customFont2);        
+    }());
+</script>
 
     </body>
 </html>

@@ -1574,8 +1574,7 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
      
     
         
-    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
-<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+    <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet'/>
 <div id="waline" class="waline-container"></div>
 <style>
     .waline-container {
@@ -1588,9 +1587,15 @@ person存放在request属性中person对象的类yzu.Person，对象的java代�
     .waline-container .wl-count {
         color: var(--card-text-color-main);
     }
-</style><script>
-    
-    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</style><script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    setTimeout(function () {
+        
+        init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.2.0/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+    }, 300);
+
+
 </script>
 
     

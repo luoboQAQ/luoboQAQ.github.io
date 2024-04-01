@@ -419,7 +419,7 @@
     <section class="article-content">
     
     
-    <p>最近将路由器上的工具换为小猫，使用默认的redir-host模式虽然能用，但总是出现各种各样奇怪的问题，再加上C官方已经删除了redir-host模式，于是我便想找到一个基于fake-ip的分流方式。通过在互联网上检索发现，找到了这篇文章——《<a class="link" href="https://songchenwen.com/tproxy-split-by-dns"  target="_blank" rel="noopener"
+    <p>最近将路由器上的工具换为小猫，使用默认的redir-host模式虽然能用，但总是出现各种各样奇怪的问题，再加上小猫官方已经删除了redir-host模式，于是我便想找到一个基于fake-ip的分流方式。通过在互联网上检索发现，找到了这篇文章——《<a class="link" href="https://songchenwen.com/tproxy-split-by-dns"  target="_blank" rel="noopener"
     >基于 DNS 的内网透明代理分流方案</a>》。仔细研读下来，完美符合我的需求，然而，我使用的是内存捉襟见肘的硬路由，并没有足够的空间装下AdGuardHome+mosdns+小猫三员大将。于是，我便在他方案的基础上删除了AdGuardHome，优化出了现在的方案。</p>
 <h2 id="实现效果">
     <a href="#%e5%ae%9e%e7%8e%b0%e6%95%88%e6%9e%9c">#</a>
@@ -1197,8 +1197,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
      
     
         
-    <script src='//unpkg.com/@waline/client@v2/dist/waline.js'></script>
-<link href='//unpkg.com/@waline/client@v2/dist/waline.css' rel='stylesheet'/>
+    <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet'/>
 <div id="waline" class="waline-container"></div>
 <style>
     .waline-container {
@@ -1211,9 +1210,15 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
     .waline-container .wl-count {
         color: var(--card-text-color-main);
     }
-</style><script>
-    
-    Waline.init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.0.1/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+</style><script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    setTimeout(function () {
+        
+        init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.2.0/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+    }, 300);
+
+
 </script>
 
     

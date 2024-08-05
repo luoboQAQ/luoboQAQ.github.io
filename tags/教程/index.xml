@@ -6,7 +6,89 @@
         <description>Recent content in 教程 on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 16 Jun 2024 20:59:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 05 Aug 2024 09:34:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%95%99%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>使用micromamba代替anaconda</title>
+        <link>https://lbqaq.top/p/micromamba/</link>
+        <pubDate>Mon, 05 Aug 2024 09:34:00 +0800</pubDate>
+        
+        <guid>https://lbqaq.top/p/micromamba/</guid>
+        <description>&lt;img src="https://lbqaq.top/p/micromamba/119683453.webp" alt="Featured image of post 使用micromamba代替anaconda" /&gt;&lt;p&gt;经常使用anaconda的小伙伴都会遇到一个问题，每次想要安装新的包，但会在solve environment这一步卡上半天，之后装包又要花上不少的时间。于是我找到了一款替代品，就是micromamba，据其官网所属，它是纯用C++编写的，同时使用了多线程。经过我的体验，确实是比anaconda要快一点的。&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;
+    &lt;a href=&#34;#%e5%ae%89%e8%a3%85&#34;&gt;#&lt;/a&gt;
+    安装
+&lt;/h2&gt;&lt;p&gt;安装很简单，跟着&lt;a class=&#34;link&#34; href=&#34;https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方文档&lt;/a&gt;做就好了。例如，Linux就只要输入下面的一串命令就可以了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;SHELL&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;curl -L micro.mamba.pm/install.sh&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;不过默认的命令是&lt;code&gt;micromamba&lt;/code&gt;，这实在是太长了，所以我们可以设置一个别名，方便平时使用。在&lt;code&gt;~/.bashrc&lt;/code&gt;加入下面的内容就可以了。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;alias&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;conda&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;micromamba&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;由于默认是不含 Anaconda 仓库源的，所以我们还需要再配置一下，正好把镜像也配置好。在&lt;code&gt;~/.condarc&lt;/code&gt;中加入下面的内容：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;channels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;defaults&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;show_channel_urls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;default_channels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;- &lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;custom_channels&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;conda-forge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;msys2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;bioconda&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;menpo&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;pytorch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;pytorch-lts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;simpleitk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;deepmodeling&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;在vscode中使用&#34;&gt;
+    &lt;a href=&#34;#%e5%9c%a8vscode%e4%b8%ad%e4%bd%bf%e7%94%a8&#34;&gt;#&lt;/a&gt;
+    在vscode中使用
+&lt;/h2&gt;&lt;p&gt;这边才是我这篇文章的重点，由于是第三方的软件，所以vscode的Python插件默认是读取不到环境的，我们需要改一下配置。&lt;/p&gt;
+&lt;p&gt;在安装的时候，如果没有修改默认的设置，则mamba的路径应该在&lt;code&gt;~/micromamba&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;我们打开VSCode的设置，添加下面的设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;python.venvFolders&lt;/code&gt;这一项，添加mamba的目录名，即&lt;code&gt;micromamba&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;python.venvPath&lt;/code&gt;这一项，添加mamba虚拟环境的目录，即&lt;code&gt;~/micromamba/envs&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;只要添加好这两个设置，就可以发现VSCode能读取到虚拟环境了。&lt;/p&gt;
+&lt;p&gt;此时我们已经完成了所有的配置，像以前一样创建虚拟环境、装包就能开始使用了。根据我的体验，anaconda的绝大部分功能都可以无缝使用。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>我的rime：打造多端同步的本地输入法</title>
         <link>https://lbqaq.top/p/rime-sync/</link>
         <pubDate>Sun, 16 Jun 2024 20:59:00 +0800</pubDate>
@@ -980,7 +1062,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/1.png&#34;
 	width=&#34;698&#34;
 	height=&#34;241&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hud53f20e4f07f2ae594561c4c37c0fba7_10803_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hud53f20e4f07f2ae594561c4c37c0fba7_10803_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu9784353562475032419.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu8436133588967625446.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;添加新接口&#34;
@@ -995,7 +1077,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/2.png&#34;
 	width=&#34;805&#34;
 	height=&#34;788&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu6870a499e57a17cf139282b60d42acf2_46779_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu6870a499e57a17cf139282b60d42acf2_46779_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu18118814757866967224.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu386917478657268608.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;接口详细配置&#34;
@@ -1088,7 +1170,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/3.png&#34;
 	width=&#34;1042&#34;
 	height=&#34;870&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu122936a794ae6d68a88b71a78f3de4c1_65305_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu122936a794ae6d68a88b71a78f3de4c1_65305_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu2205473461414856247.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu9676918426130217976.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;对端配置&#34;
@@ -1115,7 +1197,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/4.png&#34;
 	width=&#34;1700&#34;
 	height=&#34;845&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hud6fc1de999d032495af7ca081874bd01_88365_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hud6fc1de999d032495af7ca081874bd01_88365_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu12104561334326000249.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu2362571343135021943.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;防火墙配置&#34;
@@ -1136,7 +1218,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/5.png&#34;
 	width=&#34;709&#34;
 	height=&#34;642&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu38914d10a37af6bdb5f672093804da04_34170_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu38914d10a37af6bdb5f672093804da04_34170_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu18266595638606010818.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu3998678084137206360.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;路由端口配置&#34;
@@ -1191,7 +1273,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021190205506.png&#34;
 	width=&#34;564&#34;
 	height=&#34;335&#34;
-	srcset=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021190205506_hu2b185484fdebcca21b16fefb62bb8e41_26513_480x0_resize_box_3.png 480w, https://lbqaq.top/p/ax6000/IMAGE/image-20231021190205506_hu2b185484fdebcca21b16fefb62bb8e41_26513_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021190205506_hu15917185296520154306.png 480w, https://lbqaq.top/p/ax6000/IMAGE/image-20231021190205506_hu2506036870454602071.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;学校WIFI测试&#34;
@@ -1204,7 +1286,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &gt; &lt;img src=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021190046644.png&#34;
 	width=&#34;641&#34;
 	height=&#34;351&#34;
-	srcset=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021190046644_hu0bdf349d2ded4538fe418677dc6399b5_26908_480x0_resize_box_3.png 480w, https://lbqaq.top/p/ax6000/IMAGE/image-20231021190046644_hu0bdf349d2ded4538fe418677dc6399b5_26908_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021190046644_hu4394486372178401315.png 480w, https://lbqaq.top/p/ax6000/IMAGE/image-20231021190046644_hu6259815229535432924.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;AX6000测速&#34;
@@ -2242,7 +2324,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021204344135.png&#34;
 	width=&#34;1042&#34;
 	height=&#34;303&#34;
-	srcset=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021204344135_hua574dd8cc732d2521c08ca5222dd5649_31549_480x0_resize_box_3.png 480w, https://lbqaq.top/p/ax6000/IMAGE/image-20231021204344135_hua574dd8cc732d2521c08ca5222dd5649_31549_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/ax6000/IMAGE/image-20231021204344135_hu4077207599950221921.png 480w, https://lbqaq.top/p/ax6000/IMAGE/image-20231021204344135_hu9562504355710943538.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;创建新接口&#34;
@@ -2650,7 +2732,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/init-xposed/IMAGE/1.jpg&#34;
 	width=&#34;864&#34;
 	height=&#34;956&#34;
-	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/1_hu826d12cb66fdd7982acd54417450cd18_68922_480x0_resize_q75_box.jpg 480w, https://lbqaq.top/p/init-xposed/IMAGE/1_hu826d12cb66fdd7982acd54417450cd18_68922_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/1_hu14875471462142454837.jpg 480w, https://lbqaq.top/p/init-xposed/IMAGE/1_hu16076167425478605431.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;推荐应用效果&#34;
@@ -2808,7 +2890,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/init-xposed/IMAGE/activity_lifecycle.png&#34;
 	width=&#34;513&#34;
 	height=&#34;663&#34;
-	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/activity_lifecycle_hubaedecba2d19bfc07f2ccbd3037d2abc_45666_480x0_resize_box_3.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/activity_lifecycle_hubaedecba2d19bfc07f2ccbd3037d2abc_45666_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/activity_lifecycle_hu10391291397713530138.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/activity_lifecycle_hu3207422893502716230.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;Activity生命周期&#34;
@@ -2824,7 +2906,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/init-xposed/IMAGE/2.jpg&#34;
 	width=&#34;432&#34;
 	height=&#34;960&#34;
-	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/2_hu24671cd304f55338e50d6c23b390339b_16068_480x0_resize_q75_box.jpg 480w, https://lbqaq.top/p/init-xposed/IMAGE/2_hu24671cd304f55338e50d6c23b390339b_16068_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/2_hu15762718106563491444.jpg 480w, https://lbqaq.top/p/init-xposed/IMAGE/2_hu2608676794459930772.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;布局查看&#34;
@@ -2839,7 +2921,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721100655336.png&#34;
 	width=&#34;1790&#34;
 	height=&#34;1004&#34;
-	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721100655336_huda747ad6cc053689c5a693c015cbb452_273707_480x0_resize_box_3.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/image-20230721100655336_huda747ad6cc053689c5a693c015cbb452_273707_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721100655336_hu5741093480517300737.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/image-20230721100655336_hu17948777699139049007.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;jadx-gui反编译&#34;
@@ -3112,7 +3194,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141436862.png&#34;
 	width=&#34;793&#34;
 	height=&#34;493&#34;
-	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141436862_hu9daeabb5bc39d1e3f9c5898bd62a21f3_49879_480x0_resize_box_3.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141436862_hu9daeabb5bc39d1e3f9c5898bd62a21f3_49879_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141436862_hu9363832006972823948.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141436862_hu12720441762740438369.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;全局搜索&#34;
@@ -3127,7 +3209,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141535571.png&#34;
 	width=&#34;1788&#34;
 	height=&#34;996&#34;
-	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141535571_hu58419bdd11bba9b3df43704953622e7a_320745_480x0_resize_box_3.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141535571_hu58419bdd11bba9b3df43704953622e7a_320745_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141535571_hu9329098984249989763.png 480w, https://lbqaq.top/p/init-xposed/IMAGE/image-20230721141535571_hu10072178060606616894.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;具体代码&#34;
@@ -3506,7 +3588,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/linux-font/IMAGE/font_glyph_variants.png&#34;
 	width=&#34;250&#34;
 	height=&#34;280&#34;
-	srcset=&#34;https://lbqaq.top/p/linux-font/IMAGE/font_glyph_variants_hud5ba9aa06fb372e451e0cb2d202e140e_31753_480x0_resize_box_3.png 480w, https://lbqaq.top/p/linux-font/IMAGE/font_glyph_variants_hud5ba9aa06fb372e451e0cb2d202e140e_31753_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/linux-font/IMAGE/font_glyph_variants_hu12592833877181918506.png 480w, https://lbqaq.top/p/linux-font/IMAGE/font_glyph_variants_hu10498546035939031622.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;异形字&#34;
@@ -3561,7 +3643,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/linux-font/IMAGE/font_quote.png&#34;
 	width=&#34;280&#34;
 	height=&#34;85&#34;
-	srcset=&#34;https://lbqaq.top/p/linux-font/IMAGE/font_quote_huae9db1c70ba69b094d6c4b6f105e1961_9621_480x0_resize_box_3.png 480w, https://lbqaq.top/p/linux-font/IMAGE/font_quote_huae9db1c70ba69b094d6c4b6f105e1961_9621_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/linux-font/IMAGE/font_quote_hu5472066240467584003.png 480w, https://lbqaq.top/p/linux-font/IMAGE/font_quote_hu10023710041586463648.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;全角引号&#34;
@@ -3829,7 +3911,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA.jpg&#34;
 	width=&#34;680&#34;
 	height=&#34;652&#34;
-	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu9fedc94f36875ca66754cb24680e1a47_299972_480x0_resize_q75_box.jpg 480w, https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu9fedc94f36875ca66754cb24680e1a47_299972_1024x0_resize_q75_box.jpg 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu4978593876249512132.jpg 480w, https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu7884577504193965645.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;be like&#34;
@@ -3942,7 +4024,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447.png&#34;
 	width=&#34;1340&#34;
 	height=&#34;928&#34;
-	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu020e1f7881f505cade7035a6afe0e8ae_1340308_480x0_resize_box_3.png 480w, https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu020e1f7881f505cade7035a6afe0e8ae_1340308_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu14650617500943951546.png 480w, https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu6649746242982691437.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;运行截图&#34;
@@ -4100,7 +4182,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926.png&#34;
 	width=&#34;875&#34;
 	height=&#34;69&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hudc1d4e67302d2921be3d9260318362cd_12159_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hudc1d4e67302d2921be3d9260318362cd_12159_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hu8309421124594993370.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hu10777054506721596345.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;错误的公式渲染&#34;
@@ -4115,7 +4197,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149.png&#34;
 	width=&#34;1055&#34;
 	height=&#34;31&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu0571ead45fc4d056f62c67385ecb94ac_7977_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu0571ead45fc4d056f62c67385ecb94ac_7977_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu17822205802302379728.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu4043560878079832817.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;hugo转义后的代码&#34;
@@ -4133,7 +4215,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440.png&#34;
 	width=&#34;388&#34;
 	height=&#34;508&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu65b9889258f2a5ba9954b599eaf5518d_261892_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu65b9889258f2a5ba9954b599eaf5518d_261892_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu6147440670692919311.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu15131685169280282024.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;喜多可爱捏&#34;
@@ -4406,7 +4488,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477.png&#34;
 	width=&#34;1373&#34;
 	height=&#34;143&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu85a4f0848a72d7ba3f4f5d3333a85e17_31494_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu85a4f0848a72d7ba3f4f5d3333a85e17_31494_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu13313694409377526518.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu15164641633786492308.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;公式按钮&#34;
@@ -4420,7 +4502,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636.png&#34;
 	width=&#34;725&#34;
 	height=&#34;220&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu029e6ffdb581aeb01beaf46984b18818_22293_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu029e6ffdb581aeb01beaf46984b18818_22293_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu8157576117863113986.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu16368777467503595221.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;专用按钮及显示效果&#34;
@@ -4447,7 +4529,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293.png&#34;
 	width=&#34;836&#34;
 	height=&#34;717&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu5d8b080935ae6580ecea4471e1f37b87_46142_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu5d8b080935ae6580ecea4471e1f37b87_46142_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu1535629664316395424.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu11668705386098154250.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;加载项选择&#34;
@@ -4464,7 +4546,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275.png&#34;
 	width=&#34;384&#34;
 	height=&#34;372&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu7dc19ca109d2663a109a9a04402b9d7d_11201_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu7dc19ca109d2663a109a9a04402b9d7d_11201_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu9289262135367810112.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu17877603256089648641.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;加载项&#34;
@@ -4481,7 +4563,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417.png&#34;
 	width=&#34;703&#34;
 	height=&#34;139&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hueecd2738ac4aa9815c4ffef126c6b63c_13770_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hueecd2738ac4aa9815c4ffef126c6b63c_13770_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hu15032940148863626500.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hu7294787493669915013.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;设置&#34;
@@ -4498,7 +4580,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982.png&#34;
 	width=&#34;411&#34;
 	height=&#34;563&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu56b787cefbee279ee68ca87bc63c9212_36264_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu56b787cefbee279ee68ca87bc63c9212_36264_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu11609015257280520186.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu13936464134892558951.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;设置&#34;
@@ -4514,7 +4596,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191.png&#34;
 	width=&#34;464&#34;
 	height=&#34;151&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu5e67e36820ba8423e411e257277b650a_8725_480x0_resize_box_3.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu5e67e36820ba8423e411e257277b650a_8725_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu6794240688570224294.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu5577269139615697708.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;生成公式&#34;
@@ -4989,7 +5071,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1.png&#34;
 	width=&#34;391&#34;
 	height=&#34;292&#34;
-	srcset=&#34;https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu503c65b31b42912d633bc0d58c32116b_6879_480x0_resize_box_3.png 480w, https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu503c65b31b42912d633bc0d58c32116b_6879_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu12539542682261012051.png 480w, https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu2360906359279881095.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;流程图&#34;
@@ -5517,7 +5599,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34;
 	width=&#34;922&#34;
 	height=&#34;928&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hufb12c4842f7ea89d4329a0064abab710_23328_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hu7821641842471549917.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hu7869599864489052641.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;配置文件夹&#34;
@@ -5533,7 +5615,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34;
 	width=&#34;500&#34;
 	height=&#34;360&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hub87630a4f6450467b319bc1529c86ead_9101_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hu500003321167129245.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hu15435701780960009169.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;选择编译器&#34;
@@ -5548,7 +5630,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34;
 	width=&#34;920&#34;
 	height=&#34;889&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_huf7669eeae173906233165483ea4931f5_53135_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_hu5835377477361412204.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_hu3255559089195245175.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;选择生成模块&#34;
@@ -5563,7 +5645,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34;
 	width=&#34;922&#34;
 	height=&#34;928&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu6bbd49fe2ffcd4c707c2e09b7fb75ec0_49812_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu17495375575451956837.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu16016863335148347745.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;配置成功&#34;
@@ -5578,7 +5660,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34;
 	width=&#34;1461&#34;
 	height=&#34;855&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_480x0_resize_box_3.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7ae8b6ae16cfd88a2b3e9c2ed854d40c_102530_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7280532903166949565.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu1408954072625104694.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;编译成功&#34;
@@ -5638,7 +5720,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png&#34;
 	width=&#34;1461&#34;
 	height=&#34;855&#34;
-	srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_huda21dc7e0f22d1b343fd6f31ac664cbf_818415_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_hu10640813298662658771.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_hu17924433167729387410.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;精美的界面&#34;
@@ -5738,7 +5820,7 @@ client[DNS 请求] -- 防火墙劫持 --&gt;  mosdns
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png&#34;
 	width=&#34;837&#34;
 	height=&#34;794&#34;
-	srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_480x0_resize_box_3.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu1e402dfac3092c220d66bee19959dd1d_248044_1024x0_resize_box_3.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu3025910784356134692.png 480w, https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu5953326361112033986.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;设置&#34;

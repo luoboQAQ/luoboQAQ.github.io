@@ -10,7 +10,7 @@
 <meta property='og:description' content="使用小猫和mosdns优雅的实现分流">
 <meta property='og:url' content='https://lbqaq.top/p/dns-shunt/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T13:47:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
 <meta name="twitter:title" content="基于DNS的分流方案">
 <meta name="twitter:description" content="使用小猫和mosdns优雅的实现分流"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
@@ -326,6 +326,11 @@
       </ol>
     </li>
     <li><a href="#后记">后记</a></li>
+    <li><a href="#后续更新">后续更新</a>
+      <ol>
+        <li><a href="#20240829更新">2024.08.29更新</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -406,7 +411,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 7 分钟
+                    阅读时长: 8 分钟
                 </time>
             </div>
         
@@ -789,10 +794,24 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span><span class="lnt">194
 </span><span class="lnt">195
 </span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Powered by luoboQAQ</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 适配fake-ip模式</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 适配Clash的fake-ip模式</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 24-08-29：让灰名单优先生效，避免被geosite_cn抢答</span>
 </span></span><span class="line"><span class="cl">log:
 </span></span><span class="line"><span class="cl">  level: info
 </span></span><span class="line"><span class="cl">  file: <span class="s2">&#34;/tmp/log/mosdns.log&#34;</span>
@@ -823,7 +842,13 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl">    args:
 </span></span><span class="line"><span class="cl">      files:
 </span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/data/proxy-list.txt&#34;</span>
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/greylist.txt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1"># 灰名单域名，强制远程解析</span>
+</span></span><span class="line"><span class="cl">  - tag: greylist
+</span></span><span class="line"><span class="cl">    type: domain_set
+</span></span><span class="line"><span class="cl">    args:
+</span></span><span class="line"><span class="cl">      files:
+</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/greylist.txt&#34;</span>    
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1"># 黑名单域名：屏蔽 DNS 解析</span>
 </span></span><span class="line"><span class="cl">  - tag: blocklist
@@ -867,7 +892,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl">      size: <span class="m">10240</span>
 </span></span><span class="line"><span class="cl">      lazy_cache_ttl: <span class="m">86400</span>
 </span></span><span class="line"><span class="cl">      <span class="c1"># 将缓存保存在磁盘</span>
-</span></span><span class="line"><span class="cl">      dump_file: /tmp/mosdns/cache.dump
+</span></span><span class="line"><span class="cl">      <span class="c1"># dump_file: /tmp/mosdns/cache.dump</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1"># 国内解析</span>
 </span></span><span class="line"><span class="cl">  - tag: local_sequence
@@ -918,10 +943,10 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl">  - tag: main_sequence
 </span></span><span class="line"><span class="cl">    type: sequence
 </span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      <span class="c1"># 不走代理的ip，按照自己的需求填写</span>
-</span></span><span class="line"><span class="cl">      - matches: client_ip 192.168.6.107
-</span></span><span class="line"><span class="cl">        exec: forward 127.0.0.1
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
+</span></span><span class="line"><span class="cl">      <span class="c1"># 不走代理的ip</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">#- matches: client_ip 192.168.6.144</span>
+</span></span><span class="line"><span class="cl">       <span class="c1"># exec: forward 127.0.0.1</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">#- exec: jump has_resp_sequence</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="c1"># hosts</span>
 </span></span><span class="line"><span class="cl">      - exec: <span class="nv">$hosts</span>
@@ -964,6 +989,12 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl">        exec: <span class="nv">$local_sequence</span>
 </span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1"># 灰名单在geosite_cn之前查询</span>
+</span></span><span class="line"><span class="cl">      - matches:
+</span></span><span class="line"><span class="cl">        - qname <span class="nv">$greylist</span>
+</span></span><span class="line"><span class="cl">        exec: <span class="nv">$remote_sequence</span>
+</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      - matches:
 </span></span><span class="line"><span class="cl">        - qname <span class="nv">$geosite_cn</span>
 </span></span><span class="line"><span class="cl">        exec: <span class="nv">$local_sequence</span>
@@ -981,7 +1012,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl">    args:
 </span></span><span class="line"><span class="cl">      entry: main_sequence
 </span></span><span class="line"><span class="cl">      listen: <span class="s2">&#34;:5335&#34;</span>
-</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  - tag: tcp_server
 </span></span><span class="line"><span class="cl">    type: tcp_server
 </span></span><span class="line"><span class="cl">    args:
@@ -989,7 +1020,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl">      listen: <span class="s2">&#34;:5335&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>在这个配置中，我使用了上以下项目提供的域名/IP文件：</p>
+</div><p>在这个配置中，我使用了以下项目提供的域名/IP文件：</p>
 <ul>
 <li><a class="link" href="https://github.com/Loyalsoldier/v2ray-rules-dat"  target="_blank" rel="noopener"
     >direct-list.txt和proxy-list.txt</a></li>
@@ -1026,6 +1057,52 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
     <a href="#%e5%90%8e%e8%ae%b0">#</a>
     后记
 </h2><p>这也是一个大工程了，前前后后也花了好多天，不过做完后使用起来还是非常丝滑和顺畅的，最重要的是自己折腾出来这是在是太酷了🤓。这里还是要感谢方案的原作者和开源项目作者，我从中学到了许多🙏。</p>
+<h2 id="后续更新">
+    <a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0">#</a>
+    后续更新
+</h2><h3 id="20240829更新">
+    <a href="#20240829%e6%9b%b4%e6%96%b0">#</a>
+    2024.08.29更新
+</h3><p>在使用时，会发现Google Play商店不能正常下载或更新应用。在<a class="link" href="https://www.yetpage.com/archives/278"  target="_blank" rel="noopener"
+    >《大陆用户 Google Play 商店无法下载或更新应用的原因分析与解决办法》</a>这篇文章中，作者指出了这是由于国内版商店的api请求链接和下载链接分别通过直连和代理导致的问题，解决方案就是让请求都从代理出去。</p>
+<p>具体而言，我们需要将下面这几个域名添加到代理规则中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">domain:googleapis.cn
+</span></span><span class="line"><span class="cl">domain:googleapis.com
+</span></span><span class="line"><span class="cl">domain:xn--ngstr-lra8j.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Mosdns</strong></p>
+<ul>
+<li>在<code>规则列表</code>-<code>灰名单</code>中添加上面的域名</li>
+</ul>
+<p><strong>小猫</strong></p>
+<ul>
+<li>在<code>覆写设置</code>-<code>规则设置</code>-<code>自定义规则</code>中添加下面的分流规则</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rules:
+</span></span><span class="line"><span class="cl">  # Google Play
+</span></span><span class="line"><span class="cl">  - DOMAIN-SUFFIX,googleapis.cn,🚀 节点选择
+</span></span><span class="line"><span class="cl">  - DOMAIN-SUFFIX,googleapis.com,🚀 节点选择
+</span></span><span class="line"><span class="cl">  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样就可以正常的使用Play商店了</p>
 
 </section>
 
@@ -1057,7 +1134,19 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2024-08-29 13:47:00
+        </span>
+    </section></footer>
 
 
     

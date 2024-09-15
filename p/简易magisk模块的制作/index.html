@@ -13,10 +13,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Magisk' /><meta property='article:tag' content='安卓' /><meta property='article:published_time' content='2022-10-07T11:30:17&#43;08:00'/><meta property='article:modified_time' content='2022-10-07T11:30:17&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp' />
 <meta name="twitter:title" content="简易Magisk模块的制作">
 <meta name="twitter:description" content="从零开始尝试自制Magisk模块"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp' />
-  
-
-<script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
+    <meta name="twitter:image" content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/95936465.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
   src="https://umami.lbqaq.top/bpnwxrgz.js">
   </script>
 
@@ -476,42 +473,42 @@
 </div>
 </div><p>各键值的作用说明如下：</p>
 <div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>模块的唯一标识符，需符合该正则表达式<code>^[a-zA-Z][a-zA-Z0-9._-]+$</code></td>
-</tr>
-<tr>
-<td>name</td>
-<td>模块名称</td>
-</tr>
-<tr>
-<td>version</td>
-<td>模块版本号</td>
-</tr>
-<tr>
-<td>versionCode</td>
-<td>模块版本标识，必须为整数，用于更新</td>
-</tr>
-<tr>
-<td>author</td>
-<td>作者信息</td>
-</tr>
-<tr>
-<td>description</td>
-<td>模块描述</td>
-</tr>
-<tr>
-<td>updateJson</td>
-<td>更新信息链接，现在Magisk移除了内部的更新功能，这个属性应该是无用了</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">名称</th>
+          <th style="text-align: left">说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">id</td>
+          <td style="text-align: left">模块的唯一标识符，需符合该正则表达式<code>^[a-zA-Z][a-zA-Z0-9._-]+$</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">name</td>
+          <td style="text-align: left">模块名称</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">version</td>
+          <td style="text-align: left">模块版本号</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">versionCode</td>
+          <td style="text-align: left">模块版本标识，必须为整数，用于更新</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">author</td>
+          <td style="text-align: left">作者信息</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">description</td>
+          <td style="text-align: left">模块描述</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">updateJson</td>
+          <td style="text-align: left">更新信息链接，现在Magisk移除了内部的更新功能，这个属性应该是无用了</td>
+      </tr>
+  </tbody>
 </table></div>
 <h3 id="system文件夹">
     <a href="#system%e6%96%87%e4%bb%b6%e5%a4%b9">#</a>
@@ -524,50 +521,50 @@
 </h3><p>这是自定义模块安装过程，如果只是简单的替换文件就不需要用到它。但是，很多时候我们并不是仅需替换文件，还需要执行一些脚本，这里就需要使用到它了。</p>
 <p>根据官方文档，这里支持以下的环境变量：</p>
 <div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>变量名</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>MAGISK_VER (string)</td>
-<td>当前安装的Magisk的版本字符串（例如v20.0）</td>
-</tr>
-<tr>
-<td>MAGISK_VER_CODE (int)</td>
-<td>当前安装的Magisk的版本代码（例如20000）</td>
-</tr>
-<tr>
-<td>BOOTMODE (bool)</td>
-<td>如果模块正在Magisk应用程序中安装，则为true</td>
-</tr>
-<tr>
-<td>MODPATH (path)</td>
-<td>安装模块文件的路径</td>
-</tr>
-<tr>
-<td>TMPDIR (path)</td>
-<td>可以临时存储文件的位置</td>
-</tr>
-<tr>
-<td>ZIPFILE (path)</td>
-<td>您的模块的安装zip</td>
-</tr>
-<tr>
-<td>ARCH (string)</td>
-<td>设备的CPU架构，值可以是<code>arm</code>、<code>arm 64</code>、<code>x86</code>或<code>x64</code></td>
-</tr>
-<tr>
-<td>IS64BIT (bool)</td>
-<td>如果<code>$ARCH</code>为<code>arm 64</code>或<code>x64</code>，则为true</td>
-</tr>
-<tr>
-<td>API (int)</td>
-<td>设备的API级别（Android版本）（例如，Android 5.0为21）</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">变量名</th>
+          <th style="text-align: left">作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">MAGISK_VER (string)</td>
+          <td style="text-align: left">当前安装的Magisk的版本字符串（例如v20.0）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">MAGISK_VER_CODE (int)</td>
+          <td style="text-align: left">当前安装的Magisk的版本代码（例如20000）</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">BOOTMODE (bool)</td>
+          <td style="text-align: left">如果模块正在Magisk应用程序中安装，则为true</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">MODPATH (path)</td>
+          <td style="text-align: left">安装模块文件的路径</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">TMPDIR (path)</td>
+          <td style="text-align: left">可以临时存储文件的位置</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ZIPFILE (path)</td>
+          <td style="text-align: left">您的模块的安装zip</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ARCH (string)</td>
+          <td style="text-align: left">设备的CPU架构，值可以是<code>arm</code>、<code>arm 64</code>、<code>x86</code>或<code>x64</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">IS64BIT (bool)</td>
+          <td style="text-align: left">如果<code>$ARCH</code>为<code>arm 64</code>或<code>x64</code>，则为true</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">API (int)</td>
+          <td style="text-align: left">设备的API级别（Android版本）（例如，Android 5.0为21）</td>
+      </tr>
+  </tbody>
 </table></div>
 <p>以及以下的命令：</p>
 <ul>

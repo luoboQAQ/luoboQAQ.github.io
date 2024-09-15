@@ -13,10 +13,7 @@
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='路由器' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='WireGuard' /><meta property='article:published_time' content='2024-02-03T23:00:08&#43;08:00'/><meta property='article:modified_time' content='2024-02-03T23:00:08&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/wireguard-ipv6/104589070.webp' />
 <meta name="twitter:title" content="使用WireGuard+ipv6进行异地组网">
 <meta name="twitter:description" content="借助WireGuard实现无缝访问异地局域网"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/wireguard-ipv6/104589070.webp' />
-  
-
-<script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
+    <meta name="twitter:image" content='https://lbqaq.top/p/wireguard-ipv6/104589070.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
   src="https://umami.lbqaq.top/bpnwxrgz.js">
   </script>
 
@@ -431,30 +428,30 @@
 </ul>
 <p>我们首先设计一下网络拓扑，其中实验室的ip段为<code>192.168.6.0/24</code>，家里的ip段为<code>192.168.10.0/24</code>。我这里选取<code>192.168.100.0/24</code>为WireGurad的虚拟局域网网段，并分别给家中和实验室路由器分配<code>192.168.100.100/32</code>和<code>192.168.100.1/32</code>两个地址。为了接下来使用方便，我建议用表格整理一下：</p>
 <div class="table-wrapper"><table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">实验室</th>
-<th style="text-align:center">家</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">局域网段</td>
-<td style="text-align:center">192.168.6.0/24</td>
-<td style="text-align:center">192.168.10.0/24</td>
-</tr>
-<tr>
-<td style="text-align:center">ddns地址</td>
-<td style="text-align:center">school.example.com</td>
-<td style="text-align:center">home.example.com</td>
-</tr>
-<tr>
-<td style="text-align:center">WireGurad接口ip地址</td>
-<td style="text-align:center">192.168.100.1/32</td>
-<td style="text-align:center">192.168.100.100/32</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center"></th>
+          <th style="text-align: center">实验室</th>
+          <th style="text-align: center">家</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">局域网段</td>
+          <td style="text-align: center">192.168.6.0/24</td>
+          <td style="text-align: center">192.168.10.0/24</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ddns地址</td>
+          <td style="text-align: center">school.example.com</td>
+          <td style="text-align: center">home.example.com</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">WireGurad接口ip地址</td>
+          <td style="text-align: center">192.168.100.1/32</td>
+          <td style="text-align: center">192.168.100.100/32</td>
+      </tr>
+  </tbody>
 </table></div>
 <h2 id="具体操作">
     <a href="#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c">#</a>
@@ -518,50 +515,50 @@
 </div>
 </div><p>我们需要创建两次公私钥，预共享密钥是一致的，所以只需创建一次即可，为了便于之后的操作，我们将其存放到上文列好的表中：</p>
 <div class="table-wrapper"><table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">实验室</th>
-<th style="text-align:center">家</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">局域网段</td>
-<td style="text-align:center">192.168.6.0/24</td>
-<td style="text-align:center">192.168.10.0/24</td>
-</tr>
-<tr>
-<td style="text-align:center">ddns地址</td>
-<td style="text-align:center">school.example.com</td>
-<td style="text-align:center">home.example.com</td>
-</tr>
-<tr>
-<td style="text-align:center">WireGurad接口ip地址</td>
-<td style="text-align:center">192.168.100.1/32</td>
-<td style="text-align:center">192.168.100.100/32</td>
-</tr>
-<tr>
-<td style="text-align:center">监听端口</td>
-<td style="text-align:center">6789</td>
-<td style="text-align:center">7890</td>
-</tr>
-<tr>
-<td style="text-align:center">WireGurad公钥</td>
-<td style="text-align:center">YJF1c//jJ0K2HSZ+yNqfjBfJL6Z90lyfVCyML8To1lI=</td>
-<td style="text-align:center">Q/gtGW5xBK5sEgPTrSo3CWqGOv3SYhzkqw8CBOJ3ZHs=</td>
-</tr>
-<tr>
-<td style="text-align:center">WireGurad私钥</td>
-<td style="text-align:center">0MyNAHWVI0owbbZ3Et9gWtNFSVWiOqiHHYJAj86Wq0E=</td>
-<td style="text-align:center">eKGSiCzaVi9IHfDLv4atx//wE8LGCR2xWAwc3XBw9kg=</td>
-</tr>
-<tr>
-<td style="text-align:center">预共享密钥</td>
-<td style="text-align:center">OQrD6nvzMGQklARhwwhlrinFiumrGe2SIBxcRSOuIEo=</td>
-<td style="text-align:center">同左</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center"></th>
+          <th style="text-align: center">实验室</th>
+          <th style="text-align: center">家</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">局域网段</td>
+          <td style="text-align: center">192.168.6.0/24</td>
+          <td style="text-align: center">192.168.10.0/24</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ddns地址</td>
+          <td style="text-align: center">school.example.com</td>
+          <td style="text-align: center">home.example.com</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">WireGurad接口ip地址</td>
+          <td style="text-align: center">192.168.100.1/32</td>
+          <td style="text-align: center">192.168.100.100/32</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">监听端口</td>
+          <td style="text-align: center">6789</td>
+          <td style="text-align: center">7890</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">WireGurad公钥</td>
+          <td style="text-align: center">YJF1c//jJ0K2HSZ+yNqfjBfJL6Z90lyfVCyML8To1lI=</td>
+          <td style="text-align: center">Q/gtGW5xBK5sEgPTrSo3CWqGOv3SYhzkqw8CBOJ3ZHs=</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">WireGurad私钥</td>
+          <td style="text-align: center">0MyNAHWVI0owbbZ3Et9gWtNFSVWiOqiHHYJAj86Wq0E=</td>
+          <td style="text-align: center">eKGSiCzaVi9IHfDLv4atx//wE8LGCR2xWAwc3XBw9kg=</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">预共享密钥</td>
+          <td style="text-align: center">OQrD6nvzMGQklARhwwhlrinFiumrGe2SIBxcRSOuIEo=</td>
+          <td style="text-align: center">同左</td>
+      </tr>
+  </tbody>
 </table></div>
 
 <div class="notice notice-info" >

@@ -10,13 +10,10 @@
 <meta property='og:description' content="记录第一次编写Xposed模块的步骤">
 <meta property='og:url' content='https://lbqaq.top/p/init-xposed/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Xposed' /><meta property='article:tag' content='安卓' /><meta property='article:published_time' content='2023-07-21T14:22:44&#43;08:00'/><meta property='article:modified_time' content='2023-07-21T14:22:44&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/init-xposed/109457609.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='Xposed' /><meta property='article:tag' content='安卓' /><meta property='article:published_time' content='2023-07-21T14:22:44&#43;08:00'/><meta property='article:modified_time' content='2023-09-15T15:52:44&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/init-xposed/109457609.webp' />
 <meta name="twitter:title" content="从零开始编写Xposed模块">
 <meta name="twitter:description" content="记录第一次编写Xposed模块的步骤"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/init-xposed/109457609.webp' />
-  
-
-<script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
+    <meta name="twitter:image" content='https://lbqaq.top/p/init-xposed/109457609.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
   src="https://umami.lbqaq.top/bpnwxrgz.js">
   </script>
 
@@ -309,7 +306,12 @@
     <li><a href="#环境准备">环境准备</a></li>
     <li><a href="#准备工作">准备工作</a>
       <ol>
-        <li><a href="#创建项目引入依赖">创建项目&amp;引入依赖</a></li>
+        <li><a href="#创建项目引入依赖">创建项目&amp;引入依赖</a>
+          <ol>
+            <li><a href="#java">Java</a></li>
+            <li><a href="#kotlin">Kotlin</a></li>
+          </ol>
+        </li>
         <li><a href="#声明模块">声明模块</a></li>
       </ol>
     </li>
@@ -322,7 +324,13 @@
         <li><a href="#修改内部参数">修改内部参数</a></li>
       </ol>
     </li>
+    <li><a href="#配置文件读取">配置文件读取</a></li>
     <li><a href="#结语">结语</a></li>
+    <li><a href="#后续更新">后续更新</a>
+      <ol>
+        <li><a href="#20240915">2024.09.15</a></li>
+      </ol>
+    </li>
     <li><a href="#参考文献">参考文献</a></li>
   </ol>
 </nav>
@@ -396,7 +404,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 11 分钟
+                    阅读时长: 13 分钟
                 </time>
             </div>
         
@@ -442,7 +450,10 @@
     创建项目&amp;引入依赖
 </h3><p>首先在IDEA选择新建项目，可以看到生成器下有Android这项，我们选择它。</p>
 <p>第一次选择时可能会要求你下载安卓的SDK，按照指示一步一步进行就好。</p>
-<p>我们选择创建一个<code>No Activity</code>，语言选择<code>Java</code>，SDK选默认的<code>API 24</code>就可。</p>
+<h4 id="java">
+    <a href="#java">#</a>
+    Java
+</h4><p>我们选择创建一个<code>No Activity</code>，语言选择<code>Java</code>，SDK选默认的<code>API 24</code>就可。</p>
 <p>然后，我们需要引入Xposed的库，不过它并没有上传到MavenCentral上，所以我们需要在<code>settings.gradle</code>里修改一下(gradle 7.0+)</p>
 <p>打开<code>settings.gradle</code>，添加一行代码</p>
 <div class="highlight"><div class="chroma">
@@ -521,7 +532,47 @@
 	
 ></p>
 <p>最后，我们在Run那里编辑一下启动配置，勾选<code>Always install with package manager</code>并且将<code>Launch Options</code>改成<code>Nothing</code></p>
-<h3 id="声明模块">
+<h4 id="kotlin">
+    <a href="#kotlin">#</a>
+    Kotlin
+</h4><p>创建项目的部分和Java的设置没有什么区别，只不过是需要将语言切换一下。新版本的Android Studio将原来的打包语言换成了Kotlin，所以我们的设置有一些不一样的地方。<a class="link" href="#20240915" >2024.09.15更新</a></p>
+<p>原来的<code>settings.gradle</code>变为<code>settings.gradle.kts</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gradle" data-lang="gradle"><span class="line"><span class="cl"><span class="n">dependencyResolutionManagement</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">repositoriesMode</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">RepositoriesMode</span><span class="o">.</span><span class="na">FAIL_ON_PROJECT_REPOS</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">google</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mavenCentral</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="o">=</span>  <span class="n">uri</span><span class="o">(</span><span class="s2">&#34;https://api.xposed.info/&#34;</span><span class="o">)</span> <span class="o">}</span> <span class="c1">//添加这一行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>原来的<code>build.gradle</code>变为<code>build.gradle.kts</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gradle" data-lang="gradle"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compileOnly</span><span class="o">(</span><span class="s2">&#34;de.robv.android.xposed:api:82&#34;</span><span class="o">)</span> <span class="c1">//添加我
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="声明模块">
     <a href="#%e5%a3%b0%e6%98%8e%e6%a8%a1%e5%9d%97">#</a>
     声明模块
 </h3><p>接下来就是要声明我们是一个Xposed模块，方便框架发现。</p>
@@ -616,6 +667,43 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
+</div><p>对于Kotlin，代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">de.robv.android.xposed.IXposedHookLoadPackage</span>
+</span></span><span class="line"><span class="cl"><span class="k">import</span> <span class="nn">de.robv.android.xposed.callbacks.XC_LoadPackage</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MainHook</span> <span class="p">:</span> <span class="n">IXposedHookLoadPackage</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">handleLoadPackage</span><span class="p">(</span><span class="n">lpparam</span><span class="p">:</span> <span class="nc">XC_LoadPackage</span><span class="p">.</span><span class="n">LoadPackageParam</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 过滤不必要的应用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">lpparam</span><span class="p">.</span><span class="n">packageName</span> <span class="o">!=</span> <span class="s2">&#34;ceui.lisa.pixiv&#34;</span><span class="p">)</span> <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 执行Hook
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">hook</span><span class="p">(</span><span class="n">lpparam</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">fun</span> <span class="nf">hook</span><span class="p">(</span><span class="n">lpparam</span><span class="p">:</span> <span class="nc">XC_LoadPackage</span><span class="p">.</span><span class="n">LoadPackageParam</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 具体流程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div><p>到这里，我们的准备工作已经完成，安装模块并在框架中激活它！</p>
 <h3 id="阻止应用启动">
     <a href="#%e9%98%bb%e6%ad%a2%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8">#</a>
@@ -626,42 +714,42 @@
 <p>在应用中的一个Activity可以用来表示一个界面，意思可以理解为“活动”，即一个活动开始，代表  Activity组件启动，活动结束，代表一个Activity的生命周期结束。一个Android应用必须通过Activity来运行和启动，Activity的生命周期交给系统统一管理。</p>
 </blockquote>
 <div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>函数名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>onCreate()</td>
-<td>一个Activity启动后第一个被调用的函数，常用来在此方法中进行Activity的一些初始化操作。例如创建View，绑定数据，注册监听，加载参数等。</td>
-</tr>
-<tr>
-<td>onStart()</td>
-<td>当Activity显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
-</tr>
-<tr>
-<td>onResume()</td>
-<td>这个方法在onStart()之后调用，也就是在Activity准备好与用户进行交互的时候调用，此时的Activity一定位于Activity栈顶，处于运行状态。</td>
-</tr>
-<tr>
-<td>onPause()</td>
-<td>这个方法是在系统准备去启动或者恢复另外一个Activity的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
-</tr>
-<tr>
-<td>onStop()</td>
-<td>这个方法是在Activity完全不可见的时候调用的。</td>
-</tr>
-<tr>
-<td>onDestroy()</td>
-<td>这个方法在Activity销毁之前调用，之后Activity的状态为销毁状态。</td>
-</tr>
-<tr>
-<td>onRestart()</td>
-<td>当Activity从停止stop状态恢进入start状态时调用状态。</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">函数名称</th>
+          <th style="text-align: left">描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">onCreate()</td>
+          <td style="text-align: left">一个Activity启动后第一个被调用的函数，常用来在此方法中进行Activity的一些初始化操作。例如创建View，绑定数据，注册监听，加载参数等。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">onStart()</td>
+          <td style="text-align: left">当Activity显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">onResume()</td>
+          <td style="text-align: left">这个方法在onStart()之后调用，也就是在Activity准备好与用户进行交互的时候调用，此时的Activity一定位于Activity栈顶，处于运行状态。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">onPause()</td>
+          <td style="text-align: left">这个方法是在系统准备去启动或者恢复另外一个Activity的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">onStop()</td>
+          <td style="text-align: left">这个方法是在Activity完全不可见的时候调用的。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">onDestroy()</td>
+          <td style="text-align: left">这个方法在Activity销毁之前调用，之后Activity的状态为销毁状态。</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">onRestart()</td>
+          <td style="text-align: left">当Activity从停止stop状态恢进入start状态时调用状态。</td>
+      </tr>
+  </tbody>
 </table></div>
 <p>当 Activity 进入新状态时，系统会调用其中每个回调。</p>
 <p><img src="/p/init-xposed/IMAGE/activity_lifecycle.png"
@@ -962,7 +1050,32 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里要注意，使用<code>findAndHookMethod</code>时要hook的方法的参数表一定要填对。如果没有填对就会报<code>java.lang.NoSuchMethodError</code>错误。我之前被这个问题折磨了很久😭（仔细想想也是这样，Java里有重载机制，参数不同就不是同一个方法了）</p>
-<h3 id="修改内部参数">
+<p>kotlin所对应的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">lpparam</span><span class="p">.</span><span class="n">packageName</span> <span class="o">==</span> <span class="s2">&#34;com.xjs.ehviewer&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">XposedHelpers</span><span class="p">.</span><span class="n">findAndHookMethod</span><span class="p">(</span><span class="s2">&#34;com.hippo.ehviewer.ui.MainActivity&#34;</span><span class="p">,</span> <span class="n">lpparam</span><span class="p">.</span><span class="n">classLoader</span><span class="p">,</span> <span class="s2">&#34;initUserImage&#34;</span><span class="p">,</span><span class="k">object</span> <span class="err">: </span><span class="nc">XC</span><span class="n">_MethodHook</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">override</span> <span class="k">fun</span> <span class="nf">afterHookedMethod</span><span class="p">(</span><span class="k">param</span><span class="p">:</span> <span class="n">MethodHookParam</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="nc">Toast</span><span class="p">.</span><span class="n">makeText</span><span class="p">(</span><span class="k">param</span><span class="p">.</span><span class="n">thisObject</span> <span class="k">as</span> <span class="n">Activity</span><span class="p">,</span><span class="s2">&#34;不许涩涩！&#34;</span><span class="p">,</span><span class="nc">Toast</span><span class="p">.</span><span class="n">LENGTH_SHORT</span><span class="p">).</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="k">param</span><span class="p">.</span><span class="n">thisObject</span> <span class="k">as</span> <span class="n">Activity</span><span class="p">).</span><span class="n">finish</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">          
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="修改内部参数">
     <a href="#%e4%bf%ae%e6%94%b9%e5%86%85%e9%83%a8%e5%8f%82%e6%95%b0">#</a>
     修改内部参数
 </h3><p>虽然一股脑关闭程序非常简单，但小明不乐意了。对于<code>ceui.lisa.pixiv</code>来说，只有长按头像才会触发，直接一刀切实在是太粗暴了。没问题，直接安排上。</p>
@@ -1038,13 +1151,78 @@
 </div>
 </div><p>我们这里使用了Java的反射机制，拿到了它内部的变量<code>userHead</code>，然后通过<code>setAccessible</code>将其设置为可访问。这样我们就能对其私有变量进行修改了。</p>
 <p>我们可以简单的将其可点击关闭，但是这样一点也不酷。我直接使用自己的函数将其进行替换，这样每次点击都会出现一个<code>Toast</code>。</p>
-<p>至此，一个简单的Xposed模块就写好了。</p>
-<h2 id="结语">
+<p>kotlin的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">lpparam</span><span class="p">.</span><span class="n">packageName</span> <span class="o">==</span> <span class="s2">&#34;ceui.lisa.pixiv&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nc">XposedHelpers</span><span class="p">.</span><span class="n">findAndHookMethod</span><span class="p">(</span><span class="s2">&#34;ceui.lisa.activities.MainActivity&#34;</span><span class="p">,</span> <span class="n">lpparam</span><span class="p">.</span><span class="n">classLoader</span><span class="p">,</span> <span class="s2">&#34;initView&#34;</span><span class="p">,</span><span class="k">object</span> <span class="err">: </span><span class="nc">XC</span><span class="n">_MethodHook</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">override</span> <span class="k">fun</span> <span class="nf">afterHookedMethod</span><span class="p">(</span><span class="k">param</span><span class="p">:</span> <span class="n">MethodHookParam</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">val</span> <span class="py">f</span> <span class="p">=</span> <span class="k">param</span><span class="p">.</span><span class="n">thisObject</span><span class="p">.</span><span class="n">javaClass</span><span class="p">.</span><span class="n">getDeclaredField</span><span class="p">(</span><span class="s2">&#34;userHead&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">f</span><span class="p">.</span><span class="n">isAccessible</span> <span class="p">=</span> <span class="k">true</span>
+</span></span><span class="line"><span class="cl">            <span class="k">val</span> <span class="py">v</span> <span class="p">=</span> <span class="n">f</span><span class="p">[</span><span class="k">param</span><span class="p">.</span><span class="n">thisObject</span><span class="p">]</span> <span class="k">as</span> <span class="n">ImageView</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v</span><span class="p">.</span><span class="n">setOnLongClickListener</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nc">Toast</span><span class="p">.</span><span class="n">makeText</span><span class="p">(</span><span class="k">param</span><span class="p">.</span><span class="n">thisObject</span> <span class="k">as</span> <span class="n">Activity</span><span class="p">,</span><span class="s2">&#34;不许涩涩！&#34;</span><span class="p">,</span><span class="nc">Toast</span><span class="p">.</span><span class="n">LENGTH_SHORT</span><span class="p">).</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="k">true</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>至此，一个简单的Xposed模块就写好了。</p>
+<h2 id="配置文件读取">
+    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96">#</a>
+    配置文件读取
+</h2><p>现在的模块往往还会搭配一个UI来实现配置文件的设置，在安卓开发中，常用<code>SharedPreferences</code>来实现配置的保存。随着google的更新，现在的配置文件无法设置<code>MODE_WORLD_READABLE</code>的权限，即只允许本应用读取。虽然Xposed本身提供了<code>XSharedPreferences</code>来读取配置文件，然而模块是依附于宿主程序所执行的，它的访问权限和宿主一致，所以无法访问到我们的配置文件。<a class="link" href="#20240915" >2024.09.15更新</a></p>
+<p>好在目前常用的框架LSPosed提供了<a class="link" href="https://github.com/LSPosed/LSPosed/wiki/New-XSharedPreferences"  target="_blank" rel="noopener"
+    >New XSharedPreferences</a>，我们只需要指定xposedAPI的最低版本≥93就可以了。</p>
+<p>在<code>AndroidManifest.xml</code>里将<code>xposedminversion</code>的值改为<code>93</code></p>
+<p>对于模块的Activity来说，我们只需要指定权限为<code>Context.MODE_WORLD_READABLE</code>即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">sharedPreferences</span> <span class="p">:</span> <span class="n">SharedPreferences</span> <span class="p">=</span> <span class="n">getSharedPreferences</span><span class="p">(</span><span class="s2">&#34;config&#34;</span><span class="p">,</span> <span class="nc">Context</span><span class="p">.</span><span class="n">MODE_WORLD_READABLE</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对于hook的应用来说，我们使用原来的<code>XSharedPreferences</code>即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">xsp</span> <span class="p">=</span> <span class="n">XSharedPreferences</span><span class="p">(</span><span class="s2">&#34;top.lbqaq.nosese&#34;</span><span class="p">,</span><span class="s2">&#34;config&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="结语">
     <a href="#%e7%bb%93%e8%af%ad">#</a>
     结语
 </h2><p>完整的项目代码可以在<a class="link" href="https://github.com/luoboQAQ/nosese"  target="_blank" rel="noopener"
     >Github仓库</a>中查看，通过这次的编写，我发现Xposed实际上还是一个工具，想要实现去广告等功能，都是通过反编译来找到突破口，有了Hook的目标后才需要Xposed。</p>
 <p>所以，之后的学习还是要以安卓逆向为主，只有打好基本功，才能写出优秀的代码。</p>
+<h2 id="后续更新">
+    <a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0">#</a>
+    后续更新
+</h2><h3 id="20240915">
+    <a href="#20240915">#</a>
+    2024.09.15
+</h3><p>将项目使用了目前流行的Kotlin重构了一波，并添加了UI和模块的配置读取的内容</p>
 <h2 id="参考文献">
     <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae">#</a>
     参考文献
@@ -1095,7 +1273,19 @@
 
         <span>Licensed under CC BY-NC-SA 4.0</span>
     </section>
-    </footer>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 2023-09-15 15:52:44
+        </span>
+    </section></footer>
 
 
     

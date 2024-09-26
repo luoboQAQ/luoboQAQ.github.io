@@ -10,7 +10,7 @@
 <meta property='og:description' content="使用小猫和mosdns优雅的实现分流">
 <meta property='og:url' content='https://lbqaq.top/p/dns-shunt/'>
 <meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T13:47:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-26T20:09:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
 <meta name="twitter:title" content="基于DNS的分流方案">
 <meta name="twitter:description" content="使用小猫和mosdns优雅的实现分流"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://lbqaq.top/p/dns-shunt/115597971.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
@@ -325,7 +325,8 @@
     <li><a href="#后记">后记</a></li>
     <li><a href="#后续更新">后续更新</a>
       <ol>
-        <li><a href="#20240829更新">2024.08.29更新</a></li>
+        <li><a href="#20240829">2024.08.29</a></li>
+        <li><a href="#20240926">2024.09.26</a></li>
       </ol>
     </li>
   </ol>
@@ -408,7 +409,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 8 分钟
+                    阅读时长: 9 分钟
                 </time>
             </div>
         
@@ -542,7 +543,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 <li>可能是我内核版本太旧了，这里使用任何变量都是空值，所以我把所有地址都写死了，记得根据自己的路由器地址进行修改</li>
 <li>不要忘记劫持TCP流量！我之前仅仅劫持了UDP流量导致浏览器一直请求到真实ip而无法访问。</li>
 </ul>
-<p><code>genipset.sh</code> 的代码如下，这是针对某些应用不通过DNS直接用ip访问，要将这部分流量劫持到小猫。这个文件放到路由器上后，记得要执行 <code>chmod a+x /etc/mosdns/genipset.sh</code> 给它赋予可执行权限。</p>
+<p><a class="link" href="#20240926" >2024.09.26更新</a> 使用<code>nftables</code>的高版本openwrt需要使用下面的脚本：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -565,22 +566,133 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span><span class="lnt">18
 </span><span class="lnt">19
 </span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">LOG_OUT <span class="s2">&#34;Start Add Custom Firewall Rules...&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">FW4</span><span class="o">=</span><span class="k">$(</span><span class="nb">command</span> -v fw4<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">en_mode</span><span class="o">=</span><span class="k">$(</span>uci -q get openclash.config.en_mode<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">proxy_port</span><span class="o">=</span><span class="k">$(</span>uci -q get openclash.config.proxy_port<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$en_mode</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;fake-ip&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">  LOG_OUT <span class="s2">&#34;limit route to only fake ips with proxy port </span><span class="nv">$proxy_port</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  /root/genipset.sh
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">handle</span><span class="o">=</span><span class="k">$(</span>nft -a list chain inet fw4 openclash <span class="p">|</span> grep <span class="s1">&#39;ip protocol tcp counter&#39;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $NF}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl">    LOG_OUT <span class="s2">&#34;deleting nft rule handle </span><span class="nv">$handle</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">    nft delete rule inet fw4 openclash handle <span class="nv">$handle</span>
+</span></span><span class="line"><span class="cl">    nft add rule inet fw4 openclash ip protocol tcp ip daddr @telegram counter redirect to <span class="nv">$proxy_port</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    iptables -t nat -D openclash -p tcp -j REDIRECT --to-ports <span class="nv">$proxy_port</span>
+</span></span><span class="line"><span class="cl">    iptables -t nat -A openclash -m <span class="nb">set</span> --match-set telegram dst -p tcp -j REDIRECT --to-ports <span class="nv">$proxy_port</span>
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  LOG_OUT <span class="s2">&#34;restart mosdns&#34;</span>
+</span></span><span class="line"><span class="cl">  /etc/init.d/mosdns restart
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  LOG_OUT <span class="s2">&#34;将53端口重定向到mosdns&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    ! nft --check list table inet mosdns &gt; <span class="s2">&#34;/dev/null&#34;</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> nft delete table inet mosdns
+</span></span><span class="line"><span class="cl">    nft add table inet mosdns
+</span></span><span class="line"><span class="cl">    nft add chain inet mosdns prerouting <span class="s2">&#34;{ type nat hook prerouting priority -110; policy accept; }&#34;</span>
+</span></span><span class="line"><span class="cl">    nft add rule inet mosdns prerouting <span class="s2">&#34;meta nfproto { ipv4 } udp dport 53 ip daddr 192.168.6.1 counter redirect to :5335 comment \&#34;MOSDNS HIJACK\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    nft add rule inet mosdns prerouting <span class="s2">&#34;meta nfproto { ipv4 } tcp dport 53 ip daddr 192.168.6.1 counter redirect to :5335 comment \&#34;MOSDNS HIJACK\&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    iptables -t nat -D PREROUTING -p udp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
+</span></span><span class="line"><span class="cl">    iptables -t nat -A PREROUTING -p udp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
+</span></span><span class="line"><span class="cl">    iptables -t nat -D PREROUTING -p tcp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
+</span></span><span class="line"><span class="cl">    iptables -t nat -A PREROUTING -p tcp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>  
+</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>genipset.sh</code> 的代码如下，这是针对某些应用不通过DNS直接用ip访问，要将这部分流量劫持到小猫。这个文件放到路由器上后，记得要执行 <code>chmod a+x /etc/mosdns/genipset.sh</code> 给它赋予可执行权限。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="nv">tag</span><span class="o">=</span><span class="s2">&#34;telegram&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">filename</span><span class="o">=</span><span class="s2">&#34;/etc/mosdns/data/telegram-cidr.txt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">FW4</span><span class="o">=</span><span class="k">$(</span><span class="nb">command</span> -v fw4<span class="k">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> -f <span class="s2">&#34;</span><span class="nv">$filename</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">        nft add <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> <span class="o">{</span> <span class="nb">type</span> ipv4_addr<span class="se">\;</span> flags interval<span class="se">\;</span>  auto-merge<span class="se">\;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        nft add <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> <span class="o">{</span> <span class="nb">type</span> ipv6_addr<span class="se">\;</span> flags interval<span class="se">\;</span>  auto-merge<span class="se">\;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        nft flush <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">        nft flush <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
 </span></span><span class="line"><span class="cl">    ipset create <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> hash:net -!
 </span></span><span class="line"><span class="cl">    ipset create <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> hash:net family inet6 -!
 </span></span><span class="line"><span class="cl">    ipset flush <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">    ipset flush <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="nb">read</span> p<span class="p">;</span> <span class="k">do</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> ! grep -q <span class="s2">&#34;:&#34;</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">                nft add element inet fw4 <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> <span class="o">{</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
 </span></span><span class="line"><span class="cl">            ipset add <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">                nft add element inet fw4 <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> <span class="o">{</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
 </span></span><span class="line"><span class="cl">            ipset add <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">fi</span>
 </span></span><span class="line"><span class="cl">    <span class="k">done</span> &lt;<span class="s2">&#34;</span><span class="nv">$filename</span><span class="s2">&#34;</span>
@@ -1057,9 +1169,9 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 <h2 id="后续更新">
     <a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0">#</a>
     后续更新
-</h2><h3 id="20240829更新">
-    <a href="#20240829%e6%9b%b4%e6%96%b0">#</a>
-    2024.08.29更新
+</h2><h3 id="20240829">
+    <a href="#20240829">#</a>
+    2024.08.29
 </h3><p>在使用时，会发现Google Play商店不能正常下载或更新应用。在<a class="link" href="https://www.yetpage.com/archives/278"  target="_blank" rel="noopener"
     >《大陆用户 Google Play 商店无法下载或更新应用的原因分析与解决办法》</a>这篇文章中，作者指出了这是由于国内版商店的api请求链接和下载链接分别通过直连和代理导致的问题，解决方案就是让请求都从代理出去。</p>
 <p>具体而言，我们需要将下面这几个域名添加到代理规则中</p>
@@ -1100,6 +1212,10 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样就可以正常的使用Play商店了</p>
+<h3 id="20240926">
+    <a href="#20240926">#</a>
+    2024.09.26
+</h3><p>将路由器刷到了最新的immortalWrt，防火墙从iptables升级到了nftables，所以原来的命令不能用了，需要使用新的命令。</p>
 
 </section>
 
@@ -1141,7 +1257,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 
 
         <span>
-            最后更新于 2024-08-29 13:47:00
+            最后更新于 2024-09-26 20:09:00
         </span>
     </section></footer>
 

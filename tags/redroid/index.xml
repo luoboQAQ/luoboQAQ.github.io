@@ -16,7 +16,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA.jpg&#34;
 	width=&#34;680&#34;
 	height=&#34;652&#34;
-	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu4978593876249512132.jpg 480w, https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu7884577504193965645.jpg 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu_c75c6775f0f9f0.jpg 480w, https://lbqaq.top/p/redroid-maa/IMAGE/FUrYLxA_hu_ba1dee1c70dac098.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;be like&#34;
@@ -30,12 +30,8 @@
 &lt;p&gt;在搜索中，我发现ReDroid可以满足我的需求。作为一个“云手机”的方案，自然是可以部署在本地，摸索明白了部署到服务器上也挺不错(雾。&lt;/p&gt;
 &lt;p&gt;具体的安装的教程我参考的是Ivon大佬的&lt;a class=&#34;link&#34; href=&#34;https://ivonblog.com/posts/redroid-android-docker/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;这篇文章&lt;/a&gt;，在此基础上作了一些小小的修改。&lt;/p&gt;
-&lt;h2 id=&#34;redroid配置&#34;&gt;
-    &lt;a href=&#34;#redroid%e9%85%8d%e7%bd%ae&#34;&gt;#&lt;/a&gt;
-    ReDroid配置
-&lt;/h2&gt;&lt;h3 id=&#34;安装环境&#34;&gt;
-    &lt;a href=&#34;#%e5%ae%89%e8%a3%85%e7%8e%af%e5%a2%83&#34;&gt;#&lt;/a&gt;
-    安装环境
+&lt;h2 id=&#34;redroid配置&#34;&gt;&lt;a href=&#34;#redroid%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ReDroid配置
+&lt;/h2&gt;&lt;h3 id=&#34;安装环境&#34;&gt;&lt;a href=&#34;#%e5%ae%89%e8%a3%85%e7%8e%af%e5%a2%83&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;安装环境
 &lt;/h3&gt;&lt;p&gt;ReDroid需要Linux内核启用binderfs模块，Arch Liunx默认的linux内核并不包含此模块，需要安装linux-zen模块。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -67,16 +63,12 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo pacman -S scrcpy
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;可选配置arm转译器&#34;&gt;
-    &lt;a href=&#34;#%e5%8f%af%e9%80%89%e9%85%8d%e7%bd%aearm%e8%bd%ac%e8%af%91%e5%99%a8&#34;&gt;#&lt;/a&gt;
-    [可选]配置ARM转译器
+&lt;/div&gt;&lt;h3 id=&#34;可选配置arm转译器&#34;&gt;&lt;a href=&#34;#%e5%8f%af%e9%80%89%e9%85%8d%e7%bd%aearm%e8%bd%ac%e8%af%91%e5%99%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;[可选]配置ARM转译器
 &lt;/h3&gt;&lt;p&gt;大部分安卓应用都只有ARM版，这也意味着无法在X86的电脑上运行，这时就需要安装ARM转译器了。&lt;/p&gt;
 &lt;p&gt;然而，明日方舟居然支持X86，我们可以通过压缩工具解压方舟的安装包，可以看到&lt;code&gt;lib&lt;/code&gt;下有&lt;code&gt;x86&lt;/code&gt;目录。这也意味着如果只是用来玩方舟的话，完全不需要配置ARM转译。&lt;/p&gt;
 &lt;p&gt;同时，根据大佬的教程配置好转译器后，方舟反而会闪退，所以完全不用做此步😥。如果需要安装arm应用，可以看上面大佬的教程来做。&lt;/p&gt;
 &lt;p&gt;我后面可能会考虑使用libhoudini来作为ReDroid的转译器。&lt;/p&gt;
-&lt;h3 id=&#34;启动镜像&#34;&gt;
-    &lt;a href=&#34;#%e5%90%af%e5%8a%a8%e9%95%9c%e5%83%8f&#34;&gt;#&lt;/a&gt;
-    启动镜像
+&lt;h3 id=&#34;启动镜像&#34;&gt;&lt;a href=&#34;#%e5%90%af%e5%8a%a8%e9%95%9c%e5%83%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;启动镜像
 &lt;/h3&gt;&lt;p&gt;我这里就使用不包含ARM转译器的ReDroid继续了。通过下面的命令即可部署ReDroid：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -129,7 +121,7 @@
 &lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447.png&#34;
 	width=&#34;1340&#34;
 	height=&#34;928&#34;
-	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu14650617500943951546.png 480w, https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu6649746242982691437.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu_3d7c40e95c733123.png 480w, https://lbqaq.top/p/redroid-maa/IMAGE/image-20230617164434447_hu_8f37323fcbd91ffd.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;运行截图&#34;
@@ -140,9 +132,7 @@
 		data-flex-basis=&#34;346px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h3 id=&#34;安装应用及开关机&#34;&gt;
-    &lt;a href=&#34;#%e5%ae%89%e8%a3%85%e5%ba%94%e7%94%a8%e5%8f%8a%e5%bc%80%e5%85%b3%e6%9c%ba&#34;&gt;#&lt;/a&gt;
-    安装应用及开关机
+&lt;h3 id=&#34;安装应用及开关机&#34;&gt;&lt;a href=&#34;#%e5%ae%89%e8%a3%85%e5%ba%94%e7%94%a8%e5%8f%8a%e5%bc%80%e5%85%b3%e6%9c%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;安装应用及开关机
 &lt;/h3&gt;&lt;p&gt;向ReDroid安装应用，只需要使用adb即可&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -163,13 +153,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo docker start redroid11 &lt;span class=&#34;c1&#34;&gt;#开机&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;maa配置&#34;&gt;
-    &lt;a href=&#34;#maa%e9%85%8d%e7%bd%ae&#34;&gt;#&lt;/a&gt;
-    MAA配置
+&lt;/div&gt;&lt;h2 id=&#34;maa配置&#34;&gt;&lt;a href=&#34;#maa%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MAA配置
 &lt;/h2&gt;&lt;p&gt;MAA作为自动化的挂机&lt;del&gt;长草&lt;/del&gt;神器，肯定是要安排上的。&lt;/p&gt;
-&lt;h3 id=&#34;安装maa&#34;&gt;
-    &lt;a href=&#34;#%e5%ae%89%e8%a3%85maa&#34;&gt;#&lt;/a&gt;
-    安装MAA
+&lt;h3 id=&#34;安装maa&#34;&gt;&lt;a href=&#34;#%e5%ae%89%e8%a3%85maa&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;安装MAA
 &lt;/h3&gt;&lt;p&gt;&lt;del&gt;Arch用户直接aur安装即可&lt;/del&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -181,9 +167,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;我使用yay安装时，会安装许多用不到的库，而且会因为依赖错误而无法安装。故还是去&lt;a class=&#34;link&#34; href=&#34;https://maa.plus/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;官网&lt;/a&gt;下载压缩包解压使用。&lt;/p&gt;
-&lt;h3 id=&#34;配置maa&#34;&gt;
-    &lt;a href=&#34;#%e9%85%8d%e7%bd%aemaa&#34;&gt;#&lt;/a&gt;
-    配置MAA
+&lt;h3 id=&#34;配置maa&#34;&gt;&lt;a href=&#34;#%e9%85%8d%e7%bd%aemaa&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;配置MAA
 &lt;/h3&gt;&lt;p&gt;我们需要修改&lt;code&gt;./MAA-v{版本号}-linux-{架构}/Python/&lt;/code&gt; 目录下的 &lt;code&gt;sample.py&lt;/code&gt; 文件&lt;/p&gt;
 &lt;p&gt;首先需要配置adb连接，由于我们之前已经安装过adb了，这里直接替换地址即可：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;

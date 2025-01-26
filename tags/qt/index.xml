@@ -6,7 +6,7 @@
         <description>Recent content in Qt on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Thu, 03 Jun 2021 15:44:17 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/qt/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 19 Jun 2021 10:10:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/qt/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Qt构建qsqlmysql.dll</title>
         <link>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</link>
         <pubDate>Thu, 03 Jun 2021 15:44:17 +0800</pubDate>
@@ -14,9 +14,7 @@
         <guid>https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/</guid>
         <description>&lt;img src="https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/89217963.webp" alt="Featured image of post Qt构建qsqlmysql.dll" /&gt;&lt;p&gt;这篇文章我打算来介绍一下如何构建qsqlmysql.dll，由于版权原因，在新版的Qt里是不自带该dll的，这样对我们编写数据库程序会很麻烦。&lt;del&gt;（你用ODBC？那没事了）&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;我在网上也查了很多资料，但根据步骤来总是会报错，提示没有&lt;code&gt;mysql.h&lt;/code&gt;这个头文件。下面就记录一下我成功编译的过程。&lt;/p&gt;
-&lt;h2 id=&#34;基于cmake的步骤&#34;&gt;
-    &lt;a href=&#34;#%e5%9f%ba%e4%ba%8ecmake%e7%9a%84%e6%ad%a5%e9%aa%a4&#34;&gt;#&lt;/a&gt;
-    基于cmake的步骤
+&lt;h2 id=&#34;基于cmake的步骤&#34;&gt;&lt;a href=&#34;#%e5%9f%ba%e4%ba%8ecmake%e7%9a%84%e6%ad%a5%e9%aa%a4&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;基于cmake的步骤
 &lt;/h2&gt;&lt;p&gt;在6.1之后的Qt版本中，Qt公司删除了qmake而更换成了cmake的方式来构建项目文件，下面就是我总结的使用cmake生成的方法。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
 &lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
@@ -24,7 +22,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1.png&#34;
 	width=&#34;922&#34;
 	height=&#34;928&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hu7821641842471549917.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hu7869599864489052641.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hu_c3e2a86462e0bd6b.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/1_hu_74ff6cff5fe4dcc2.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;配置文件夹&#34;
@@ -40,7 +38,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2.png&#34;
 	width=&#34;500&#34;
 	height=&#34;360&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hu500003321167129245.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hu15435701780960009169.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hu_f131fe1572fbc047.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/2_hu_f3f2fb0137562c1e.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;选择编译器&#34;
@@ -55,7 +53,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3.png&#34;
 	width=&#34;920&#34;
 	height=&#34;889&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_hu5835377477361412204.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_hu3255559089195245175.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_hu_e62add914b93c6ab.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/3_hu_2744fc6fb221bd88.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;选择生成模块&#34;
@@ -70,7 +68,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4.png&#34;
 	width=&#34;922&#34;
 	height=&#34;928&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu17495375575451956837.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu16016863335148347745.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu_4d12fe9c9a31361f.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/4_hu_79c714ebe366bc66.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;配置成功&#34;
@@ -85,7 +83,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5.png&#34;
 	width=&#34;1461&#34;
 	height=&#34;855&#34;
-	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu7280532903166949565.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu1408954072625104694.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu_6570cf59c40893e7.png 480w, https://lbqaq.top/p/qt%E6%9E%84%E5%BB%BAqsqlmysql.dll/IMAGE/5_hu_a9d9b336aeab66ab.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;编译成功&#34;
@@ -98,9 +96,7 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;没有报错，说明生成成功。&lt;/p&gt;
 &lt;p&gt;8.最后打开目录&lt;code&gt;D:\Qt\6.1.1\Src\qtbase\src\plugins\sqldrivers\build\plugins\sqldrivers&lt;/code&gt;，就可以看到生成好的&lt;code&gt;qsqlmysql.dll&lt;/code&gt;了。&lt;/p&gt;
-&lt;h2 id=&#34;基于qmake的步骤&#34;&gt;
-    &lt;a href=&#34;#%e5%9f%ba%e4%ba%8eqmake%e7%9a%84%e6%ad%a5%e9%aa%a4&#34;&gt;#&lt;/a&gt;
-    基于qmake的步骤
+&lt;h2 id=&#34;基于qmake的步骤&#34;&gt;&lt;a href=&#34;#%e5%9f%ba%e4%ba%8eqmake%e7%9a%84%e6%ad%a5%e9%aa%a4&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;基于qmake的步骤
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 路径的前段部分(软件的安装位置)每个人可能都不一样，但是路径的后段部分应该是一样的，请自行修改。&lt;/p&gt;
 &lt;p&gt;1.准备好Qt的源代码，如果没有可以在Qt的安装目录打开&lt;code&gt;MaintenanceTool.exe&lt;/code&gt;启动Qt组件管理，在里面勾选&lt;code&gt;Src&lt;/code&gt;把源码下载下来。&lt;/p&gt;
 &lt;p&gt;2.进入&lt;code&gt;D:\Qt\6.0.3\Src\qtbase\src\plugins\sqldrivers&lt;/code&gt;目录下，打开&lt;code&gt;sqldrivers.pro&lt;/code&gt;这个文件。&lt;/p&gt;

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/rime-sync/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="我的rime：打造多端同步的本地输入法">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="我的rime：打造多端同步的本地输入法">
 <meta property='og:description' content="利用rclone和云盘，构建一套多端统一的输入法体验">
 <meta property='og:url' content='https://lbqaq.top/p/rime-sync/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -401,9 +401,7 @@
     <p>身边的人总是提到，为什么我上一秒提到的东西，马上就出现在了相关搜索中呢？一个很大的可能性就是你的输入法暴露了。有研究指出<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>，目前市面上许多输入法都存在安全隐私漏洞。输入法作为我们平时用到最多的系统级应用，我不想自己的隐私被其泄露。所以，我寻找到了一款纯本地的全平台输入法——rime输入法<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>。它的优势就是简洁、无广告、不联网，不过对应的缺点就是没有云输入，一些比较新的词不好打出来，还有就是配置比较麻烦。</p>
 <p>然而，我们可以通过使用别人预先设计好的配置来缓解这个问题。我选择了雾凇拼音<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>这个开源的方案来实现，它的优势就是自己维护了一套常用的词库，同时配置好了一些默认的输入的方案，我就在它的方案上进行优化，打造一套属于自己的输入体验。</p>
 <p>由于我现在输入的方式是小鹤双拼，所以我的方案也全部是基于双拼打造的，全拼的话可以参考雾凇拼音的文档来配置。（在这强烈安利双拼的输入方式，学习成本不高但收益很高，能很大程度的改善你输入的体验👍）</p>
-<h2 id="基本配置">
-    <a href="#%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae">#</a>
-    基本配置
+<h2 id="基本配置"><a href="#%e5%9f%ba%e6%9c%ac%e9%85%8d%e7%bd%ae" class="header-anchor"></a>基本配置
 </h2><p>rime输入法通过<code>.yaml</code>文件来管理配置，并支持以<code>patch</code>的形式对其进行修改。所以，我们只需要编写<code>*.custom.yaml</code>文件就可以在别人的框架上构建自己的输入法了。由于配置文件在全端都是通用的，这里就先介绍共同的配置，每个平台独立的配置在后面再介绍。</p>
 <p>rime的配置入口是<code>default.yaml</code>，所以我们先从它开始修改。创建<code>default.custom.yaml</code>，并填入下面的内容：</p>
 <div class="highlight"><div class="chroma">
@@ -460,12 +458,8 @@
 </div><p>这样就配置完成了，还是很简单的。</p>
 <p>同步的话，我同样使用的是跨平台的软件rclone，如果要使用它，需要先配置好远端。</p>
 <p>通过执行<code>rclone config</code>并按照指示添加即可。之后，我分别介绍每个平台的具体配置和同步设置。</p>
-<h2 id="详细配置">
-    <a href="#%e8%af%a6%e7%bb%86%e9%85%8d%e7%bd%ae">#</a>
-    详细配置
-</h2><h3 id="win">
-    <a href="#win">#</a>
-    Win
+<h2 id="详细配置"><a href="#%e8%af%a6%e7%bb%86%e9%85%8d%e7%bd%ae" class="header-anchor"></a>详细配置
+</h2><h3 id="win"><a href="#win" class="header-anchor"></a>Win
 </h3><p>win下的客户端叫小狼毫，下载安装好后就可以进行配置了。配置目录为<code>%APPDATA%\Rime</code>，我直接将里面的文件清空，然后使用<code>git</code>将雾凇拼音的仓库整个克隆进来。接着将上面“基本配置”中提到的三个文件创建好。由于默认的皮肤我不是很喜欢，所以我找了一个微软拼音的皮肤来使用。</p>
 <p>创建<code>weasel.custom.yaml</code>并填入下面的内容：</p>
 <div class="highlight"><div class="chroma">
@@ -585,9 +579,7 @@
 </span></span><span class="line"><span class="cl">rclone sync <span class="nv">%remote_path%</span> <span class="nv">%sync_path%</span> -P --exclude <span class="nv">%device_name%</span>/**
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="android">
-    <a href="#android">#</a>
-    Android
+</div><h3 id="android"><a href="#android" class="header-anchor"></a>Android
 </h3><p>安卓端的应用是fcitx5-android<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>，下载软件本体和rime插件后就可以进行配置了。安卓端的配置文件位于<code>/sdcard/Android/data/org.fcitx.fcitx5.android/files/data/rime</code>，我们直接将电脑端的配置文件复制进去就可以了，需要注意的是，<code>installation.yaml</code>里面的<code>installation_id</code>要改成不同的值。</p>
 <p>同步的话，rclone并没有官方的安卓客户端。不过，我们可以使用termux——一款运行于Android 系统的开源终端模拟器<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup>，并在里面安装rclone来使用。</p>
 <p>下载并安装好后，首先进行换源：</p>
@@ -643,9 +635,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里由于我们是使用root身份来执行的，所以需要额外设置<code>PATH</code>并手动指定配置文件的路径</p>
-<h2 id="体验">
-    <a href="#%e4%bd%93%e9%aa%8c">#</a>
-    体验
+<h2 id="体验"><a href="#%e4%bd%93%e9%aa%8c" class="header-anchor"></a>体验
 </h2><p>日常使用rime输入法已经有大半年了，测试下来与云输入法基本没有什么区别，一些比较新的词打一遍也能被词库学习到。配合上多端同步，使用还是非常方便的。此外，雾凇拼音还内置了一些便捷功能，例如：</p>
 <ul>
 <li>symbols：全拼 <code>v</code> 开头、双拼大写 <code>V</code> 开头</li>
@@ -656,9 +646,7 @@
 <li>农历指定日期：大写 <code>N</code> 开头，如 <code>N20240210</code> 得到「二〇二四年正月初一」。</li>
 </ul>
 <p>如果是比较在乎个人隐私的用户，我是比较推荐使用这样一款不联网的本地输入法的。</p>
-<h2 id="参考文献">
-    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae">#</a>
-    参考文献
+<h2 id="参考文献"><a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="header-anchor"></a>参考文献
 </h2><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -732,7 +720,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -742,6 +731,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -784,14 +774,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -880,7 +870,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

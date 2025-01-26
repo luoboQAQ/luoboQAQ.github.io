@@ -6,16 +6,14 @@
         <description>Recent content in Swagger on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Thu, 09 Sep 2021 15:09:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/swagger/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 10 Sep 2021 15:09:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/swagger/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Swagger3初体验</title>
         <link>https://lbqaq.top/p/swagger/</link>
         <pubDate>Thu, 09 Sep 2021 15:09:04 +0800</pubDate>
         
         <guid>https://lbqaq.top/p/swagger/</guid>
         <description>&lt;img src="https://lbqaq.top/p/swagger/92079701.webp" alt="Featured image of post Swagger3初体验" /&gt;&lt;p&gt;最近做项目需要前后端分离，所以需要接口文档给前端方便联调。手写文档是不可能的，这时就需要使用Swagger了。网上的教程大部分版本都在2.x甚至是1.x，很少有3.0的教程，我个人就是喜欢用最新版，所以我就来分享一下我使用Swagger3的体验和坑吧。&lt;/p&gt;
-&lt;h2 id=&#34;配置&#34;&gt;
-    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae&#34;&gt;#&lt;/a&gt;
-    配置
+&lt;h2 id=&#34;配置&#34;&gt;&lt;a href=&#34;#%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;配置
 &lt;/h2&gt;&lt;p&gt;这里就分享springboot版本的方法了，现在的项目应该都用springboot创建了吧。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -109,37 +107,35 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这样一个带有个人信息的配置页就做好了。&lt;/p&gt;
-&lt;h2 id=&#34;注解&#34;&gt;
-    &lt;a href=&#34;#%e6%b3%a8%e8%a7%a3&#34;&gt;#&lt;/a&gt;
-    注解
+&lt;h2 id=&#34;注解&#34;&gt;&lt;a href=&#34;#%e6%b3%a8%e8%a7%a3&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;注解
 &lt;/h2&gt;&lt;p&gt;首先是2.0版本的注解，当然新版本也同样通用。&lt;/p&gt;
 &lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;Swagger注解&lt;/th&gt;
-          &lt;th style=&#34;text-align: left&#34;&gt;简单说明&lt;/th&gt;
+          &lt;th&gt;Swagger注解&lt;/th&gt;
+          &lt;th&gt;简单说明&lt;/th&gt;
       &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
       &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;@Api(tags = &amp;ldquo;xxx模块说明&amp;rdquo;)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;作用在模块类上&lt;/td&gt;
+          &lt;td&gt;@Api(tags = &amp;ldquo;xxx模块说明&amp;rdquo;)&lt;/td&gt;
+          &lt;td&gt;作用在模块类上&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;@ApiOperation(&amp;ldquo;xxx接口说明&amp;rdquo;)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;作用在接口方法上&lt;/td&gt;
+          &lt;td&gt;@ApiOperation(&amp;ldquo;xxx接口说明&amp;rdquo;)&lt;/td&gt;
+          &lt;td&gt;作用在接口方法上&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;@ApiModel(&amp;ldquo;xxxPOJO说明&amp;rdquo;)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;作用在模型类上：如VO、BO&lt;/td&gt;
+          &lt;td&gt;@ApiModel(&amp;ldquo;xxxPOJO说明&amp;rdquo;)&lt;/td&gt;
+          &lt;td&gt;作用在模型类上：如VO、BO&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;@ApiModelProperty(value = &amp;ldquo;xxx属性说明&amp;rdquo;,hidden = true)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;作用在类方法和属性上，hidden设置为true可以隐藏该属性&lt;/td&gt;
+          &lt;td&gt;@ApiModelProperty(value = &amp;ldquo;xxx属性说明&amp;rdquo;,hidden = true)&lt;/td&gt;
+          &lt;td&gt;作用在类方法和属性上，hidden设置为true可以隐藏该属性&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;@ApiParam(&amp;ldquo;xxx参数说明&amp;rdquo;)&lt;/td&gt;
-          &lt;td style=&#34;text-align: left&#34;&gt;作用在参数、方法和字段上，类似@ApiModelProperty&lt;/td&gt;
+          &lt;td&gt;@ApiParam(&amp;ldquo;xxx参数说明&amp;rdquo;)&lt;/td&gt;
+          &lt;td&gt;作用在参数、方法和字段上，类似@ApiModelProperty&lt;/td&gt;
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;

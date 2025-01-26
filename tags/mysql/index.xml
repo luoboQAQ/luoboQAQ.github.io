@@ -13,9 +13,7 @@
         
         <guid>https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/</guid>
         <description>&lt;img src="https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/90561040.webp" alt="Featured image of post MySQL8开启远程访问" /&gt;&lt;p&gt;最近把服务器重装成Ubuntu了，所以要重装MySQL，没想到在这里踩了好几个坑，在这里记录下来备忘。&lt;/p&gt;
-&lt;h2 id=&#34;安装&#34;&gt;
-    &lt;a href=&#34;#%e5%ae%89%e8%a3%85&#34;&gt;#&lt;/a&gt;
-    安装
+&lt;h2 id=&#34;安装&#34;&gt;&lt;a href=&#34;#%e5%ae%89%e8%a3%85&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;安装
 &lt;/h2&gt;&lt;p&gt;这其实很简单，直接通过Ubuntu的包管理器直接安装就行了（我把系统转为Ubuntu也有这方面的原因）。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -26,13 +24,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;通过这条命令安装的MySQL的root账号是没有密码的，所以只要输入&lt;code&gt;mysql&lt;/code&gt;就直接可以进入了&lt;/p&gt;
-&lt;h2 id=&#34;开启远程访问&#34;&gt;
-    &lt;a href=&#34;#%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae&#34;&gt;#&lt;/a&gt;
-    开启远程访问
+&lt;h2 id=&#34;开启远程访问&#34;&gt;&lt;a href=&#34;#%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;开启远程访问
 &lt;/h2&gt;&lt;p&gt;这里就是本文的重点了，我在这里花了很多时间😇&lt;/p&gt;
-&lt;h3 id=&#34;设定mysql的监听端口&#34;&gt;
-    &lt;a href=&#34;#%e8%ae%be%e5%ae%9amysql%e7%9a%84%e7%9b%91%e5%90%ac%e7%ab%af%e5%8f%a3&#34;&gt;#&lt;/a&gt;
-    设定MySQL的监听端口
+&lt;h3 id=&#34;设定mysql的监听端口&#34;&gt;&lt;a href=&#34;#%e8%ae%be%e5%ae%9amysql%e7%9a%84%e7%9b%91%e5%90%ac%e7%ab%af%e5%8f%a3&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;设定MySQL的监听端口
 &lt;/h3&gt;&lt;p&gt;通过apt安装的MySQL默认是只监听本地的端口的，我们要修改使其监听所有ip地址的请求。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -48,9 +42,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;systemctl restart mysql
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;设置root账号密码并开启远程访问&#34;&gt;
-    &lt;a href=&#34;#%e8%ae%be%e7%bd%aeroot%e8%b4%a6%e5%8f%b7%e5%af%86%e7%a0%81%e5%b9%b6%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae&#34;&gt;#&lt;/a&gt;
-    设置root账号密码并开启远程访问
+&lt;/div&gt;&lt;h3 id=&#34;设置root账号密码并开启远程访问&#34;&gt;&lt;a href=&#34;#%e8%ae%be%e7%bd%aeroot%e8%b4%a6%e5%8f%b7%e5%af%86%e7%a0%81%e5%b9%b6%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;设置root账号密码并开启远程访问
 &lt;/h3&gt;&lt;p&gt;默认root账号是没有密码的，这当然是不行的，我们需要给一个密码&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

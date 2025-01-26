@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="WSL2+WT配置小结">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="WSL2+WT配置小结">
 <meta property='og:description' content="WSL2+Windows Terminal安装、配置小结">
 <meta property='og:url' content='https://lbqaq.top/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -410,15 +410,13 @@
     
     
     <p>1202年了，是时候抛弃老旧的cmd窗口和臃肿的VM虚拟机了，来试试巨硬推出的WSL2+Windows Terminal(～￣▽￣)～。</p>
-<h2 id="起因">
-    <a href="#%e8%b5%b7%e5%9b%a0">#</a>
-    起因
+<h2 id="起因"><a href="#%e8%b5%b7%e5%9b%a0" class="header-anchor"></a>起因
 </h2><p>在知乎上刷到了一篇<a class="link" href="https://www.zhihu.com/question/324218869/answer/1019888224"  target="_blank" rel="noopener"
     >回答</a>，是关于Windows编程的体验的。在这篇文章中提到了WSL2和Windows Terminal，我一下就被那精美的界面吸引了（<del>管他好不好用，好看就完事了</del>）。正好现在在上操作系统这门课，需要使用Linux进行实验，这还说什么，直接开冲。</p>
 <p><img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749.png"
 	width="1461"
 	height="855"
-	srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_hu10640813298662658771.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_hu17924433167729387410.png 1024w"
+	srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_hu_ec73f127b55282ab.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408155330749_hu_52cbf65adfa0c7c9.png 1024w"
 	loading="lazy"
 	
 		alt="精美的界面"
@@ -429,21 +427,15 @@
 		data-flex-basis="410px"
 	
 ></p>
-<h2 id="wsl2安装">
-    <a href="#wsl2%e5%ae%89%e8%a3%85">#</a>
-    WSL2安装
+<h2 id="wsl2安装"><a href="#wsl2%e5%ae%89%e8%a3%85" class="header-anchor"></a>WSL2安装
 </h2><p>安装其实很简单，按照微软的教程一步一步做就完事了。</p>
-<h3 id="0前置条件">
-    <a href="#0%e5%89%8d%e7%bd%ae%e6%9d%a1%e4%bb%b6">#</a>
-    0.前置条件
+<h3 id="0前置条件"><a href="#0%e5%89%8d%e7%bd%ae%e6%9d%a1%e4%bb%b6" class="header-anchor"></a>0.前置条件
 </h3><p>想要用WSL2，首先你得是 Windows 10，而且还有版本号要求。</p>
 <ul>
 <li>对于 x64 系统：版本 1903 或更高版本，采用 内部版本 18362 或更高版本。</li>
 <li>对于 ARM64 系统：版本 2004 或更高版本，采用 内部版本 19041 或更高版本。</li>
 </ul>
-<h3 id="1-开启wsl服务">
-    <a href="#1-%e5%bc%80%e5%90%afwsl%e6%9c%8d%e5%8a%a1">#</a>
-    1. 开启WSL服务
+<h3 id="1-开启wsl服务"><a href="#1-%e5%bc%80%e5%90%afwsl%e6%9c%8d%e5%8a%a1" class="header-anchor"></a>1. 开启WSL服务
 </h3><p>在Powershell(管理员)中输入下面的命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -453,9 +445,7 @@
 <pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span><span class="p">.</span><span class="py">exe</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">enable-feature</span> <span class="p">/</span><span class="n">featurename</span><span class="err">:</span><span class="nb">Microsoft-Windows</span><span class="n">-Subsystem-Linux</span> <span class="p">/</span><span class="n">all</span> <span class="p">/</span><span class="n">norestart</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="2-启用虚拟机服务">
-    <a href="#2-%e5%90%af%e7%94%a8%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%9c%8d%e5%8a%a1">#</a>
-    2. 启用虚拟机服务
+</div><h3 id="2-启用虚拟机服务"><a href="#2-%e5%90%af%e7%94%a8%e8%99%9a%e6%8b%9f%e6%9c%ba%e6%9c%8d%e5%8a%a1" class="header-anchor"></a>2. 启用虚拟机服务
 </h3><p>在Powershell(管理员)中输入下面的命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -466,17 +456,13 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>重新启动</strong> 计算机，以完成 WSL 安装并更新到 WSL 2。</p>
-<h3 id="3-下载-linux-内核更新包">
-    <a href="#3-%e4%b8%8b%e8%bd%bd-linux-%e5%86%85%e6%a0%b8%e6%9b%b4%e6%96%b0%e5%8c%85">#</a>
-    3. 下载 Linux 内核更新包
+<h3 id="3-下载-linux-内核更新包"><a href="#3-%e4%b8%8b%e8%bd%bd-linux-%e5%86%85%e6%a0%b8%e6%9b%b4%e6%96%b0%e5%8c%85" class="header-anchor"></a>3. 下载 Linux 内核更新包
 </h3><p>下载最新包并安装：</p>
 <ul>
 <li><a class="link" href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"  target="_blank" rel="noopener"
     >适用于 x64 计算机的 WSL2 Linux 内核更新包</a></li>
 </ul>
-<h3 id="4-将-wsl-2-设置为默认版本">
-    <a href="#4-%e5%b0%86-wsl-2-%e8%ae%be%e7%bd%ae%e4%b8%ba%e9%bb%98%e8%ae%a4%e7%89%88%e6%9c%ac">#</a>
-    4. 将 WSL 2 设置为默认版本
+<h3 id="4-将-wsl-2-设置为默认版本"><a href="#4-%e5%b0%86-wsl-2-%e8%ae%be%e7%bd%ae%e4%b8%ba%e9%bb%98%e8%ae%a4%e7%89%88%e6%9c%ac" class="header-anchor"></a>4. 将 WSL 2 设置为默认版本
 </h3><p>在Powershell中输入下面的命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -486,21 +472,15 @@
 <pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">wsl</span> <span class="p">-</span><span class="n">-set-default-version</span> <span class="mf">2</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="5安装-linux">
-    <a href="#5%e5%ae%89%e8%a3%85-linux">#</a>
-    5.安装 Linux
+</div><h3 id="5安装-linux"><a href="#5%e5%ae%89%e8%a3%85-linux" class="header-anchor"></a>5.安装 Linux
 </h3><ol>
 <li>打开 <a class="link" href="https://aka.ms/wslstore"  target="_blank" rel="noopener"
     >Microsoft Store</a>，并选择你偏好的 Linux 分发版并点击<code>获取</code>进行安装。</li>
 <li>等安装好后，打开并设置用户名和密码。</li>
 </ol>
 <p>到此WSL2就安装完事了。</p>
-<h2 id="windows-terminal安装">
-    <a href="#windows-terminal%e5%ae%89%e8%a3%85">#</a>
-    Windows Terminal安装
-</h2><h3 id="1-下载和安装">
-    <a href="#1-%e4%b8%8b%e8%bd%bd%e5%92%8c%e5%ae%89%e8%a3%85">#</a>
-    1. 下载和安装
+<h2 id="windows-terminal安装"><a href="#windows-terminal%e5%ae%89%e8%a3%85" class="header-anchor"></a>Windows Terminal安装
+</h2><h3 id="1-下载和安装"><a href="#1-%e4%b8%8b%e8%bd%bd%e5%92%8c%e5%ae%89%e8%a3%85" class="header-anchor"></a>1. 下载和安装
 </h3><ul>
 <li>
 <p>从<a class="link" href="https://aka.ms/terminal"  target="_blank" rel="noopener"
@@ -511,14 +491,12 @@
     >Github</a>上下载</p>
 </li>
 </ul>
-<h3 id="2-配置">
-    <a href="#2-%e9%85%8d%e7%bd%ae">#</a>
-    2. 配置
+<h3 id="2-配置"><a href="#2-%e9%85%8d%e7%bd%ae" class="header-anchor"></a>2. 配置
 </h3><p>为了让<code>Windows Terminal</code>看起来更好看一些，我们还要对其进行一些配置。</p>
 <p><img src="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131.png"
 	width="837"
 	height="794"
-	srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu3025910784356134692.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu5953326361112033986.png 1024w"
+	srcset="/p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu_5ad9c70454b9b798.png 480w, /p/wsl2-wt%E9%85%8D%E7%BD%AE%E5%B0%8F%E7%BB%93/IMAGE/image-20210408154322131_hu_9262ea296782b6da.png 1024w"
 	loading="lazy"
 	
 		alt="设置"
@@ -731,18 +709,12 @@
 <li><code>initialRows</code> - 初始窗口高度，同样因人而异，因屏幕而异，自己根据视觉效果调整大小</li>
 <li><code>startingDirectory</code> - Ubuntu的默认打开路径，把其中的<code>luobo</code>换成你自己的用户名。</li>
 </ul>
-<h2 id="wslvscode">
-    <a href="#wslvscode">#</a>
-    WSL+VSCode
+<h2 id="wslvscode"><a href="#wslvscode" class="header-anchor"></a>WSL+VSCode
 </h2><p>毕竟都是微软家的软件，直接就能通过VSCode来远程编辑Linux里的文件。vim太难上手？我直接在Windows里编程(雾)。</p>
 <p>只要在项目目录里键入<code>code .</code>，就会自动跳到Windows里的VSCode里了。</p>
-<h2 id="小结">
-    <a href="#%e5%b0%8f%e7%bb%93">#</a>
-    小结
+<h2 id="小结"><a href="#%e5%b0%8f%e7%bb%93" class="header-anchor"></a>小结
 </h2><p>WSL+Windows Terminal+VSCode，将三者配合起来，我觉得可以实现1+1+1&gt;3的功能，毕竟，谁不喜欢颜值高的软件呢ヾ(≧▽≦*)o</p>
-<h2 id="参考链接">
-    <a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5">#</a>
-    参考链接
+<h2 id="参考链接"><a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor"></a>参考链接
 </h2><ul>
 <li><a class="link" href="https://docs.microsoft.com/zh-cn/windows/wsl/install-win10"  target="_blank" rel="noopener"
     >微软官方WSL2教程</a></li>
@@ -805,7 +777,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -815,6 +788,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -857,14 +831,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -953,7 +927,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

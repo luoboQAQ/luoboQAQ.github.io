@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/init-xposed/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="从零开始编写Xposed模块">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="从零开始编写Xposed模块">
 <meta property='og:description' content="记录第一次编写Xposed模块的步骤">
 <meta property='og:url' content='https://lbqaq.top/p/init-xposed/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -421,15 +421,11 @@
     
     <p>之前写过一篇关于<a class="link" href="https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/"  target="_blank" rel="noopener"
     >Magisk模块</a>的编写的文章，不过Magisk修改的都是比较偏系统的，一般情况下用的并不是很多。于是我便把目光转向Xposed，毕竟会Hook真的太酷辣😎</p>
-<h2 id="xposed的基本概念">
-    <a href="#xposed%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5">#</a>
-    Xposed的基本概念
+<h2 id="xposed的基本概念"><a href="#xposed%e7%9a%84%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="header-anchor"></a>Xposed的基本概念
 </h2><p>提到Xposed，爱玩机的用户都应该听过他的大名，作为一款可以在不修改APK的情况下影响程序运行的框架，可以基于它可以制作出许多功能强大的模块，且在功能不冲突的情况下同时运作。微信防撤回、步数修改、去广告、美化&hellip;&hellip;.他能实现许许多多的功能，可以说没有它玩机的世界将会少很多的乐趣。</p>
 <p>它的原理就是通过替换系统原本的<code>app_process</code>，加载一个额外的jar包，从而实现对zygote进程及其创建的Dalvik/ART虚拟机的劫持。</p>
 <p>没听懂？没关系，<del>我也不懂</del>。目前我们只要关注如何使用即可了，至于原理可以先放一放。</p>
-<h2 id="环境准备">
-    <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87">#</a>
-    环境准备
+<h2 id="环境准备"><a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87" class="header-anchor"></a>环境准备
 </h2><p>在开始之前，我们需要：</p>
 <ul>
 <li>一台可以安装Xposed框架的手机（推荐LSPosed、Android 10+）</li>
@@ -442,17 +438,11 @@
 <li>一个可以查看布局的App，如：开发者助手</li>
 </ul>
 <p>这次我打算从一个实例出发：小明手机上装了一些恶意软件，我们需要通过Xposed进行Hook，不让小明启动这些软件。</p>
-<h2 id="准备工作">
-    <a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c">#</a>
-    准备工作
-</h2><h3 id="创建项目引入依赖">
-    <a href="#%e5%88%9b%e5%bb%ba%e9%a1%b9%e7%9b%ae%e5%bc%95%e5%85%a5%e4%be%9d%e8%b5%96">#</a>
-    创建项目&amp;引入依赖
+<h2 id="准备工作"><a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="header-anchor"></a>准备工作
+</h2><h3 id="创建项目引入依赖"><a href="#%e5%88%9b%e5%bb%ba%e9%a1%b9%e7%9b%ae%e5%bc%95%e5%85%a5%e4%be%9d%e8%b5%96" class="header-anchor"></a>创建项目&amp;引入依赖
 </h3><p>首先在IDEA选择新建项目，可以看到生成器下有Android这项，我们选择它。</p>
 <p>第一次选择时可能会要求你下载安卓的SDK，按照指示一步一步进行就好。</p>
-<h4 id="java">
-    <a href="#java">#</a>
-    Java
+<h4 id="java"><a href="#java" class="header-anchor"></a>Java
 </h4><p>我们选择创建一个<code>No Activity</code>，语言选择<code>Java</code>，SDK选默认的<code>API 24</code>就可。</p>
 <p>然后，我们需要引入Xposed的库，不过它并没有上传到MavenCentral上，所以我们需要在<code>settings.gradle</code>里修改一下(gradle 7.0+)</p>
 <p>打开<code>settings.gradle</code>，添加一行代码</p>
@@ -520,7 +510,7 @@
 <p><img src="/p/init-xposed/IMAGE/1.jpg"
 	width="864"
 	height="956"
-	srcset="/p/init-xposed/IMAGE/1_hu14875471462142454837.jpg 480w, /p/init-xposed/IMAGE/1_hu16076167425478605431.jpg 1024w"
+	srcset="/p/init-xposed/IMAGE/1_hu_844a5e10eae581d7.jpg 480w, /p/init-xposed/IMAGE/1_hu_a27c19c76dcb8ce0.jpg 1024w"
 	loading="lazy"
 	
 		alt="推荐应用效果"
@@ -532,9 +522,7 @@
 	
 ></p>
 <p>最后，我们在Run那里编辑一下启动配置，勾选<code>Always install with package manager</code>并且将<code>Launch Options</code>改成<code>Nothing</code></p>
-<h4 id="kotlin">
-    <a href="#kotlin">#</a>
-    Kotlin
+<h4 id="kotlin"><a href="#kotlin" class="header-anchor"></a>Kotlin
 </h4><p>创建项目的部分和Java的设置没有什么区别，只不过是需要将语言切换一下。新版本的Android Studio将原来的打包语言换成了Kotlin，所以我们的设置有一些不一样的地方。<a class="link" href="#20240915" >2024.09.15更新</a></p>
 <p>原来的<code>settings.gradle</code>变为<code>settings.gradle.kts</code></p>
 <div class="highlight"><div class="chroma">
@@ -572,9 +560,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="声明模块">
-    <a href="#%e5%a3%b0%e6%98%8e%e6%a8%a1%e5%9d%97">#</a>
-    声明模块
+</div><h3 id="声明模块"><a href="#%e5%a3%b0%e6%98%8e%e6%a8%a1%e5%9d%97" class="header-anchor"></a>声明模块
 </h3><p>接下来就是要声明我们是一个Xposed模块，方便框架发现。</p>
 <p>在<code>./app/src/main/AndroidManifest.xml</code>里，我们将<code>&lt;application ... /&gt;</code>改成以下形式（注意，是改成！就是把结尾的<code>/&gt;</code>换成<code>&gt; &lt;/application&gt;</code>）</p>
 <div class="highlight"><div class="chroma">
@@ -622,12 +608,8 @@
 </div><p>然后在<code>src/main</code>目录下创建一个文件夹名叫<code>assets</code>，并且创建一个文件叫<code>xposed_init</code>，<strong>注意，它没有后缀名！！</strong>。</p>
 <p>接着我们需要创建一个入口类，名叫<code>MainHook</code>（或者随便你想取什么名字都行），创建好后回到我们的<code>xposed_init</code>里并用文本文件的方式打开它，输入我们刚刚创建的类的完整路径。如：<code>top.lbqaq.nosese.MainHook</code>，同时<strong>注意大小写</strong>。</p>
 <p>完成以上步骤后，我们就可以正式开始编写Xposed模块了。</p>
-<h2 id="模块编写">
-    <a href="#%e6%a8%a1%e5%9d%97%e7%bc%96%e5%86%99">#</a>
-    模块编写
-</h2><h3 id="mainhook">
-    <a href="#mainhook">#</a>
-    MainHook
+<h2 id="模块编写"><a href="#%e6%a8%a1%e5%9d%97%e7%bc%96%e5%86%99" class="header-anchor"></a>模块编写
+</h2><h3 id="mainhook"><a href="#mainhook" class="header-anchor"></a>MainHook
 </h3><p>在<code>MainHook</code>里，我们需要实现Xposed的IXposedHookLoadPackage接口，以便执行Hook操作。将以下内容替换原来的类</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -705,9 +687,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>到这里，我们的准备工作已经完成，安装模块并在框架中激活它！</p>
-<h3 id="阻止应用启动">
-    <a href="#%e9%98%bb%e6%ad%a2%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8">#</a>
-    阻止应用启动
+<h3 id="阻止应用启动"><a href="#%e9%98%bb%e6%ad%a2%e5%ba%94%e7%94%a8%e5%90%af%e5%8a%a8" class="header-anchor"></a>阻止应用启动
 </h3><p>接下来，我们需要反编译程序来找到需要Hook的点。根据实例的要求，我们需要阻止小明启动某些应用。那么，我们只需要Hook启动函数，让其无法运行即可。</p>
 <p>在此之前，我们要先了解Android的四大组件之一——&ldquo;Activity(活动)&rdquo;</p>
 <blockquote>
@@ -716,38 +696,38 @@
 <div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th style="text-align: left">函数名称</th>
-          <th style="text-align: left">描述</th>
+          <th>函数名称</th>
+          <th>描述</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">onCreate()</td>
-          <td style="text-align: left">一个Activity启动后第一个被调用的函数，常用来在此方法中进行Activity的一些初始化操作。例如创建View，绑定数据，注册监听，加载参数等。</td>
+          <td>onCreate()</td>
+          <td>一个Activity启动后第一个被调用的函数，常用来在此方法中进行Activity的一些初始化操作。例如创建View，绑定数据，注册监听，加载参数等。</td>
       </tr>
       <tr>
-          <td style="text-align: left">onStart()</td>
-          <td style="text-align: left">当Activity显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
+          <td>onStart()</td>
+          <td>当Activity显示在屏幕上时，此方法被调用但此时还无法进行与用户的交互操作。</td>
       </tr>
       <tr>
-          <td style="text-align: left">onResume()</td>
-          <td style="text-align: left">这个方法在onStart()之后调用，也就是在Activity准备好与用户进行交互的时候调用，此时的Activity一定位于Activity栈顶，处于运行状态。</td>
+          <td>onResume()</td>
+          <td>这个方法在onStart()之后调用，也就是在Activity准备好与用户进行交互的时候调用，此时的Activity一定位于Activity栈顶，处于运行状态。</td>
       </tr>
       <tr>
-          <td style="text-align: left">onPause()</td>
-          <td style="text-align: left">这个方法是在系统准备去启动或者恢复另外一个Activity的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
+          <td>onPause()</td>
+          <td>这个方法是在系统准备去启动或者恢复另外一个Activity的时候调用，通常在这个方法中执行一些释放资源的方法，以及保存一些关键数据。</td>
       </tr>
       <tr>
-          <td style="text-align: left">onStop()</td>
-          <td style="text-align: left">这个方法是在Activity完全不可见的时候调用的。</td>
+          <td>onStop()</td>
+          <td>这个方法是在Activity完全不可见的时候调用的。</td>
       </tr>
       <tr>
-          <td style="text-align: left">onDestroy()</td>
-          <td style="text-align: left">这个方法在Activity销毁之前调用，之后Activity的状态为销毁状态。</td>
+          <td>onDestroy()</td>
+          <td>这个方法在Activity销毁之前调用，之后Activity的状态为销毁状态。</td>
       </tr>
       <tr>
-          <td style="text-align: left">onRestart()</td>
-          <td style="text-align: left">当Activity从停止stop状态恢进入start状态时调用状态。</td>
+          <td>onRestart()</td>
+          <td>当Activity从停止stop状态恢进入start状态时调用状态。</td>
       </tr>
   </tbody>
 </table></div>
@@ -755,7 +735,7 @@
 <p><img src="/p/init-xposed/IMAGE/activity_lifecycle.png"
 	width="513"
 	height="663"
-	srcset="/p/init-xposed/IMAGE/activity_lifecycle_hu10391291397713530138.png 480w, /p/init-xposed/IMAGE/activity_lifecycle_hu3207422893502716230.png 1024w"
+	srcset="/p/init-xposed/IMAGE/activity_lifecycle_hu_dee1c1ccebe80832.png 480w, /p/init-xposed/IMAGE/activity_lifecycle_hu_5724e3eb302afd88.png 1024w"
 	loading="lazy"
 	
 		alt="Activity生命周期"
@@ -771,7 +751,7 @@
 <p><img src="/p/init-xposed/IMAGE/2.jpg"
 	width="432"
 	height="960"
-	srcset="/p/init-xposed/IMAGE/2_hu15762718106563491444.jpg 480w, /p/init-xposed/IMAGE/2_hu2608676794459930772.jpg 1024w"
+	srcset="/p/init-xposed/IMAGE/2_hu_52b78cececac8714.jpg 480w, /p/init-xposed/IMAGE/2_hu_15ac3d3dccafb44b.jpg 1024w"
 	loading="lazy"
 	
 		alt="布局查看"
@@ -786,7 +766,7 @@
 <p><img src="/p/init-xposed/IMAGE/image-20230721100655336.png"
 	width="1790"
 	height="1004"
-	srcset="/p/init-xposed/IMAGE/image-20230721100655336_hu5741093480517300737.png 480w, /p/init-xposed/IMAGE/image-20230721100655336_hu17948777699139049007.png 1024w"
+	srcset="/p/init-xposed/IMAGE/image-20230721100655336_hu_730d6091497d831b.png 480w, /p/init-xposed/IMAGE/image-20230721100655336_hu_a03e790876a820cf.png 1024w"
 	loading="lazy"
 	
 		alt="jadx-gui反编译"
@@ -798,9 +778,7 @@
 	
 ></p>
 <p>然而，这个程序居然没有😥，说明它没有重写该方法，那该如何做呢？这时就可以用第二种方法了。</p>
-<h3 id="遍历所有类下的所有方法">
-    <a href="#%e9%81%8d%e5%8e%86%e6%89%80%e6%9c%89%e7%b1%bb%e4%b8%8b%e7%9a%84%e6%89%80%e6%9c%89%e6%96%b9%e6%b3%95">#</a>
-    遍历所有类下的所有方法
+<h3 id="遍历所有类下的所有方法"><a href="#%e9%81%8d%e5%8e%86%e6%89%80%e6%9c%89%e7%b1%bb%e4%b8%8b%e7%9a%84%e6%89%80%e6%9c%89%e6%96%b9%e6%b3%95" class="header-anchor"></a>遍历所有类下的所有方法
 </h3><p>从标题就能看出来，我直接把你所有能Hook的方法全部读出来，那不就随便我挑了嘛。</p>
 <p>我们知道，Java程序都运行在jvm虚拟机中，jvm虚拟机通过ClassLoader动态装载所需的class。那么，我们直接Hook ClassLoader ，不就知道你有哪些方法被加载进来了。</p>
 <div class="highlight"><div class="chroma">
@@ -911,9 +889,7 @@
 <p>这是由于如果选择较前的方法，有些变量还没初始化完成，这时调用<code>finish()</code>可能会报错。</p></div>
 
 
-<h3 id="hook-activity">
-    <a href="#hook-activity">#</a>
-    Hook activity
+<h3 id="hook-activity"><a href="#hook-activity" class="header-anchor"></a>Hook activity
 </h3><p>我们使用最基础的hook方式，即Xposed自带的<code>XposedHelpers.findAndHookMethod</code>，使用方法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1075,16 +1051,14 @@
 </span></span><span class="line"><span class="cl">          
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="修改内部参数">
-    <a href="#%e4%bf%ae%e6%94%b9%e5%86%85%e9%83%a8%e5%8f%82%e6%95%b0">#</a>
-    修改内部参数
+</div><h3 id="修改内部参数"><a href="#%e4%bf%ae%e6%94%b9%e5%86%85%e9%83%a8%e5%8f%82%e6%95%b0" class="header-anchor"></a>修改内部参数
 </h3><p>虽然一股脑关闭程序非常简单，但小明不乐意了。对于<code>ceui.lisa.pixiv</code>来说，只有长按头像才会触发，直接一刀切实在是太粗暴了。没问题，直接安排上。</p>
 <p>首先我们要定位到这个切换的方法究竟在哪？仔细观察，每次切换都会弹出一个颜文字的Toast，我们就从此处切入。这两个颜文字分别为<code>ԅ(♡﹃♡ԅ)</code>和<code>X﹏X</code>。</p>
 <p>我们使用jadx-gui反编译程序，全局搜索，直接就找到了所在位置。</p>
 <p><img src="/p/init-xposed/IMAGE/image-20230721141436862.png"
 	width="793"
 	height="493"
-	srcset="/p/init-xposed/IMAGE/image-20230721141436862_hu9363832006972823948.png 480w, /p/init-xposed/IMAGE/image-20230721141436862_hu12720441762740438369.png 1024w"
+	srcset="/p/init-xposed/IMAGE/image-20230721141436862_hu_181bd4c880565686.png 480w, /p/init-xposed/IMAGE/image-20230721141436862_hu_e8c62698746d232f.png 1024w"
 	loading="lazy"
 	
 		alt="全局搜索"
@@ -1099,7 +1073,7 @@
 <p><img src="/p/init-xposed/IMAGE/image-20230721141535571.png"
 	width="1788"
 	height="996"
-	srcset="/p/init-xposed/IMAGE/image-20230721141535571_hu9329098984249989763.png 480w, /p/init-xposed/IMAGE/image-20230721141535571_hu10072178060606616894.png 1024w"
+	srcset="/p/init-xposed/IMAGE/image-20230721141535571_hu_aeda4e86ca43434e.png 480w, /p/init-xposed/IMAGE/image-20230721141535571_hu_3083de029044a583.png 1024w"
 	loading="lazy"
 	
 		alt="具体代码"
@@ -1185,9 +1159,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>至此，一个简单的Xposed模块就写好了。</p>
-<h2 id="配置文件读取">
-    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96">#</a>
-    配置文件读取
+<h2 id="配置文件读取"><a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96" class="header-anchor"></a>配置文件读取
 </h2><p>现在的模块往往还会搭配一个UI来实现配置文件的设置，在安卓开发中，常用<code>SharedPreferences</code>来实现配置的保存。随着google的更新，现在的配置文件无法设置<code>MODE_WORLD_READABLE</code>的权限，即只允许本应用读取。虽然Xposed本身提供了<code>XSharedPreferences</code>来读取配置文件，然而模块是依附于宿主程序所执行的，它的访问权限和宿主一致，所以无法访问到我们的配置文件。<a class="link" href="#20240915" >2024.09.15更新</a></p>
 <p>好在目前常用的框架LSPosed提供了<a class="link" href="https://github.com/LSPosed/LSPosed/wiki/New-XSharedPreferences"  target="_blank" rel="noopener"
     >New XSharedPreferences</a>，我们只需要指定xposedAPI的最低版本≥93就可以了。</p>
@@ -1210,22 +1182,14 @@
 <pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">val</span> <span class="py">xsp</span> <span class="p">=</span> <span class="n">XSharedPreferences</span><span class="p">(</span><span class="s2">&#34;top.lbqaq.nosese&#34;</span><span class="p">,</span><span class="s2">&#34;config&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="结语">
-    <a href="#%e7%bb%93%e8%af%ad">#</a>
-    结语
+</div><h2 id="结语"><a href="#%e7%bb%93%e8%af%ad" class="header-anchor"></a>结语
 </h2><p>完整的项目代码可以在<a class="link" href="https://github.com/luoboQAQ/nosese"  target="_blank" rel="noopener"
     >Github仓库</a>中查看，通过这次的编写，我发现Xposed实际上还是一个工具，想要实现去广告等功能，都是通过反编译来找到突破口，有了Hook的目标后才需要Xposed。</p>
 <p>所以，之后的学习还是要以安卓逆向为主，只有打好基本功，才能写出优秀的代码。</p>
-<h2 id="后续更新">
-    <a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0">#</a>
-    后续更新
-</h2><h3 id="20240915">
-    <a href="#20240915">#</a>
-    2024.09.15
+<h2 id="后续更新"><a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0" class="header-anchor"></a>后续更新
+</h2><h3 id="20240915"><a href="#20240915" class="header-anchor"></a>2024.09.15
 </h3><p>将项目使用了目前流行的Kotlin重构了一波，并添加了UI和模块的配置读取的内容</p>
-<h2 id="参考文献">
-    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae">#</a>
-    参考文献
+<h2 id="参考文献"><a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="header-anchor"></a>参考文献
 </h2><ul>
 <li>
 <p><a class="link" href="https://www.52pojie.cn/thread-1740944-1-1.html"  target="_blank" rel="noopener"
@@ -1302,7 +1266,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1312,6 +1277,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -1387,14 +1353,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1483,7 +1449,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -16,9 +16,7 @@
 &lt;p&gt;在之前&lt;a class=&#34;link&#34; href=&#34;https://lbqaq.top/p/ax6000/#%E9%85%8D%E7%BD%AEwireguard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;配置实验室路由器&lt;/a&gt;时，我已经配置过了WireGuard。通过在电脑上安装WireGuard，每次开机时启动一下就可以连入实验室的局域网了。似乎这样已经可以了，但是，如果我想在其他设备上访问实验室，就要重复上面的步骤，这实在是太麻烦了。同时，实验室想要访问位于家里的设备也无法实现。&lt;/p&gt;
 &lt;p&gt;于是，我决定通过折腾一波路由器，来实现无感知的异地组网。&lt;/p&gt;
-&lt;h2 id=&#34;准备工作&#34;&gt;
-    &lt;a href=&#34;#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c&#34;&gt;#&lt;/a&gt;
-    准备工作
+&lt;h2 id=&#34;准备工作&#34;&gt;&lt;a href=&#34;#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;准备工作
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;2台刷好OpenWrt的路由器，并保证拥有WireGuard包&lt;/p&gt;
@@ -59,17 +57,13 @@
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2 id=&#34;具体操作&#34;&gt;
-    &lt;a href=&#34;#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c&#34;&gt;#&lt;/a&gt;
-    具体操作
-&lt;/h2&gt;&lt;h3 id=&#34;接口配置&#34;&gt;
-    &lt;a href=&#34;#%e6%8e%a5%e5%8f%a3%e9%85%8d%e7%bd%ae&#34;&gt;#&lt;/a&gt;
-    接口配置
+&lt;h2 id=&#34;具体操作&#34;&gt;&lt;a href=&#34;#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;具体操作
+&lt;/h2&gt;&lt;h3 id=&#34;接口配置&#34;&gt;&lt;a href=&#34;#%e6%8e%a5%e5%8f%a3%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;接口配置
 &lt;/h3&gt;&lt;p&gt;我们首先从实验室的路由器开始配置。登入OpenWrt后台，依次点击网络——接口——添加新接口，选择协议为&lt;code&gt;WireGuard VPN&lt;/code&gt;，名称这里随意。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/1.png&#34;
 	width=&#34;698&#34;
 	height=&#34;241&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu9784353562475032419.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu8436133588967625446.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu_53b3b15b32bbb04.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu_4f127e7470372986.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;添加新接口&#34;
@@ -84,7 +78,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/2.png&#34;
 	width=&#34;805&#34;
 	height=&#34;788&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu18118814757866967224.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu386917478657268608.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu_7838dc690eb0e131.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu_738f92cb3b8d01a4.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;接口详细配置&#34;
@@ -177,7 +171,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/3.png&#34;
 	width=&#34;1042&#34;
 	height=&#34;870&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu2205473461414856247.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu9676918426130217976.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu_2ab2cdb953ce9df0.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu_db8112180e8f3abb.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;对端配置&#34;
@@ -196,15 +190,13 @@
 &lt;li&gt;Keep-Alive使用默认值25即可。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;这样我们的WireGuard就算配置好了。&lt;/p&gt;
-&lt;h3 id=&#34;防火墙配置&#34;&gt;
-    &lt;a href=&#34;#%e9%98%b2%e7%81%ab%e5%a2%99%e9%85%8d%e7%bd%ae&#34;&gt;#&lt;/a&gt;
-    防火墙配置
+&lt;h3 id=&#34;防火墙配置&#34;&gt;&lt;a href=&#34;#%e9%98%b2%e7%81%ab%e5%a2%99%e9%85%8d%e7%bd%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;防火墙配置
 &lt;/h3&gt;&lt;p&gt;依次点击网络——防火墙，选择添加。&lt;/p&gt;
 &lt;p&gt;这里大部分人（包括之前的我）会说直接将WireGuard接口放入LAN中，不过这样还是不太优雅，所以我们还是创建一个新区域。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/4.png&#34;
 	width=&#34;1700&#34;
 	height=&#34;845&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu12104561334326000249.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu2362571343135021943.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu_a4d8298fc44bd5ac.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu_cb62f3d86f398bd.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;防火墙配置&#34;
@@ -225,7 +217,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/5.png&#34;
 	width=&#34;709&#34;
 	height=&#34;642&#34;
-	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu18266595638606010818.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu3998678084137206360.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu_bfdf419a8159e588.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu_58611f170f28856.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;路由端口配置&#34;
@@ -238,9 +230,7 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;由于WireGuard是基于UDP的，我们只需要放行UDP流量即可。端口为之前表中填写的。&lt;/p&gt;
 &lt;p&gt;至此，我们的配置就算完成了，另一台路由器也是同样的配置方法，我就不赘述了。&lt;/p&gt;
-&lt;h2 id=&#34;踩坑和一些注意事项&#34;&gt;
-    &lt;a href=&#34;#%e8%b8%a9%e5%9d%91%e5%92%8c%e4%b8%80%e4%ba%9b%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9&#34;&gt;#&lt;/a&gt;
-    踩坑和一些注意事项
+&lt;h2 id=&#34;踩坑和一些注意事项&#34;&gt;&lt;a href=&#34;#%e8%b8%a9%e5%9d%91%e5%92%8c%e4%b8%80%e4%ba%9b%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;踩坑和一些注意事项
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;两端都要配置端点主机&lt;/p&gt;
@@ -254,9 +244,7 @@
 &lt;p&gt;可能是为了安全考虑吧，这样只能手动重启端口来让其重新解析，还有其他自动化的方法不过我就没有研究了&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;参考文献&#34;&gt;
-    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae&#34;&gt;#&lt;/a&gt;
-    参考文献
+&lt;h2 id=&#34;参考文献&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考文献
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1r3411G796&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;【老湿基】WireGuard 异地组网手把手教学 | 从入门到精通 | 局域网融合_哔哩哔哩&lt;/a&gt;&lt;/li&gt;

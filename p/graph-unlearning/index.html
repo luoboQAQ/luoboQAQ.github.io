@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/graph-unlearning/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="Graph Unlearning">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="Graph Unlearning">
 <meta property='og:description' content="《图遗忘学习》阅读笔记">
 <meta property='og:url' content='https://lbqaq.top/p/graph-unlearning/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -410,7 +410,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 10 分钟
+                    阅读时长: 11 分钟
                 </time>
             </div>
         
@@ -425,35 +425,25 @@
     <section class="article-content">
     
     
-    <h2 id="介绍">
-    <a href="#%e4%bb%8b%e7%bb%8d">#</a>
-    介绍
+    <h2 id="介绍"><a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor"></a>介绍
 </h2><p>数据保护最近引起了越来越多的关注，并且已经提出了一些法规来保护个人用户的隐私。在这些法规中，提到了「被遗忘权」，它赋予数据主体从存储数据的实体中删除其数据的权利。这也意味着在机器学习中，模型提供者有义务消除其所有者要求被遗忘的数据的任何影响，即遗忘学习。</p>
 <p>最简单和有效的遗忘学习方法就是移除对应的样本后重新训练模型，然而当底层数据集很大时，这种方法在计算上可能令人望而却步。目前通用的遗忘学习方法是SISA (Sharded, Isolated, Sliced, and Aggregated) ——将训练集分为shards, shards中分为slices, 对于每个slice训练之后记录model parameters,  每个数据点被划分到不同的shards和slices中, unlearn时就是排除掉对应数据点然后retrain对应的shard和slices,  以空间开销换取训练的时间开销。</p>
 <p>对于图像和文本数据，分割数据没有什么问题。然而，对于图来说，GNN依赖于图结构信息，像在SISA中那样将节点随机划分为子图可能会严重损坏生成的模型。对此，作者提出了GraphEraser，以实现GNN中的遗忘学习。</p>
 <p>作者将图遗忘学习分为node unlearning「节点遗忘学习」和edge unlearning「边遗忘学习」，提出了两种图分割策略。第一种侧重于graph structural information「图结构信息」，另一种则是同时考虑graph structural and node feature information「图结构和节点特征信息」。</p>
 <p>为了同时考虑图结构和节点特征信息，作者将节点特征和图结构转化为嵌入向量，然后将其聚类为不同的shards。但是由于现实世界图的结构特性，传统的群落检测和聚类方法划分会导致分片大小不平衡，而大部分需要被撤销的数据都在最大的分区，从而导致效率低下。作者提出了两种分割算法和一种聚合算法以解决此问题。</p>
-<h3 id="贡献">
-    <a href="#%e8%b4%a1%e7%8c%ae">#</a>
-    贡献
+<h3 id="贡献"><a href="#%e8%b4%a1%e7%8c%ae" class="header-anchor"></a>贡献
 </h3><ul>
 <li>第一次提出了在GNN模型上的遗忘学习方法</li>
 <li>提出了两种算法以平衡图分割块大小</li>
 <li>提出了一种基于学习的聚合方法</li>
 </ul>
-<h2 id="问题构造">
-    <a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0">#</a>
-    问题构造
-</h2><h3 id="问题定义">
-    <a href="#%e9%97%ae%e9%a2%98%e5%ae%9a%e4%b9%89">#</a>
-    问题定义
+<h2 id="问题构造"><a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor"></a>问题构造
+</h2><h3 id="问题定义"><a href="#%e9%97%ae%e9%a2%98%e5%ae%9a%e4%b9%89" class="header-anchor"></a>问题定义
 </h3><p><strong>节点遗忘学习</strong></p>
 <p>对于GNN模型$F_o$，每个数据主体的数据对应于GNN训练图$G_o$中的一个节点。数据主体$u$要删除其所有数据，则意味着从GNN的训练图中遗忘学习$u$的节点特征以及其于其他节点的链接。以社交网络为例，节点遗忘学习意味着需要从目标GNN的训练图中删除用户的个人资料信息和社交关系。</p>
 <p><strong>边遗忘学习</strong></p>
 <p>数据主体$u$要删除其节点于另一个节点$v$之间的一条边缘。仍然以社交网络为例，边缘遗忘意味着社交网络用户想要隐藏他们与另一个人的关系。</p>
-<h3 id="评估指标">
-    <a href="#%e8%af%84%e4%bc%b0%e6%8c%87%e6%a0%87">#</a>
-    评估指标
+<h3 id="评估指标"><a href="#%e8%af%84%e4%bc%b0%e6%8c%87%e6%a0%87" class="header-anchor"></a>评估指标
 </h3><ul>
 <li>unlearning efficiency「遗忘学习效率」：与在训练的时间有关，时间要尽可能短。</li>
 <li>model utility「模型效用」：与准确性有关，越高越好。</li>
@@ -463,9 +453,7 @@
 <li>G1: Balanced Shards「均衡分片」：每个分片中的节点数量相似。这样，每个分片的再训练时间是相似的，从而提高了整个图遗忘学习过程的效率。</li>
 <li>G2: Comparable Model Utility「可比模型效用」：图结构信息是决定GNN性能的主要因素，每个分片都应保留图的结构属性。</li>
 </ul>
-<h3 id="grapheraser框架构造">
-    <a href="#grapheraser%e6%a1%86%e6%9e%b6%e6%9e%84%e9%80%a0">#</a>
-    GraphEraser框架构造
+<h3 id="grapheraser框架构造"><a href="#grapheraser%e6%a1%86%e6%9e%b6%e6%9e%84%e9%80%a0" class="header-anchor"></a>GraphEraser框架构造
 </h3><p>作者将GraphEraser框架分为三个阶段：</p>
 <ul>
 <li>Balanced Graph Partition「平衡图分区」：将训练图划分为不相交的分片</li>
@@ -476,7 +464,7 @@
 <p><img src="/p/graph-unlearning/IMAGE/image-20230910155749458.png"
 	width="1609"
 	height="546"
-	srcset="/p/graph-unlearning/IMAGE/image-20230910155749458_hu15896439797861107875.png 480w, /p/graph-unlearning/IMAGE/image-20230910155749458_hu10872871499578118473.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230910155749458_hu_afc1e13c416b6b72.png 480w, /p/graph-unlearning/IMAGE/image-20230910155749458_hu_6fcb945e6404318f.png 1024w"
 	loading="lazy"
 	
 		alt="GraphEraser框架图"
@@ -487,9 +475,7 @@
 		data-flex-basis="707px"
 	
 ></p>
-<h2 id="平衡图分割">
-    <a href="#%e5%b9%b3%e8%a1%a1%e5%9b%be%e5%88%86%e5%89%b2">#</a>
-    平衡图分割
+<h2 id="平衡图分割"><a href="#%e5%b9%b3%e8%a1%a1%e5%9b%be%e5%88%86%e5%89%b2" class="header-anchor"></a>平衡图分割
 </h2><p>作者提出了三种图分区策略：</p>
 <ul>
 <li>
@@ -505,7 +491,7 @@
 <p><img src="/p/graph-unlearning/IMAGE/image-20230911095231520.png"
 	width="970"
 	height="376"
-	srcset="/p/graph-unlearning/IMAGE/image-20230911095231520_hu14454043532534378712.png 480w, /p/graph-unlearning/IMAGE/image-20230911095231520_hu10341016637336066149.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230911095231520_hu_6fc11e1147f5d99b.png 480w, /p/graph-unlearning/IMAGE/image-20230911095231520_hu_d2a05acf1ae949d6.png 1024w"
 	loading="lazy"
 	
 		alt="在Cora数据集上使用传统划分区域的大小"
@@ -519,15 +505,13 @@
 </li>
 </ul>
 <p>接下来，作者便介绍了对应的平衡图分区算法。</p>
-<h3 id="社区发现算法">
-    <a href="#%e7%a4%be%e5%8c%ba%e5%8f%91%e7%8e%b0%e7%ae%97%e6%b3%95">#</a>
-    社区发现算法
+<h3 id="社区发现算法"><a href="#%e7%a4%be%e5%8c%ba%e5%8f%91%e7%8e%b0%e7%ae%97%e6%b3%95" class="header-anchor"></a>社区发现算法
 </h3><p>对于策略1，主要依赖的就是此算法。作者基于Label Propagation Algorithm (LPA)「标签传播算法」来设计图分区算法。在本文中，shard就是community。</p>
 <p><strong>标签传播算法</strong></p>
 <p><img src="/p/graph-unlearning/IMAGE/image-20230911105605800.png"
 	width="898"
 	height="358"
-	srcset="/p/graph-unlearning/IMAGE/image-20230911105605800_hu4802054835925855424.png 480w, /p/graph-unlearning/IMAGE/image-20230911105605800_hu11406509825124809597.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230911105605800_hu_1a8b28a41da05111.png 480w, /p/graph-unlearning/IMAGE/image-20230911105605800_hu_adaf0536ba7d5e5.png 1024w"
 	loading="lazy"
 	
 		alt="LPA工作流程"
@@ -548,7 +532,7 @@
 <p><img src="/p/graph-unlearning/IMAGE/image-20230911142423655.png"
 	width="1005"
 	height="1271"
-	srcset="/p/graph-unlearning/IMAGE/image-20230911142423655_hu1303488085078722225.png 480w, /p/graph-unlearning/IMAGE/image-20230911142423655_hu10988323262877062045.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230911142423655_hu_6cd374f3aae8569a.png 480w, /p/graph-unlearning/IMAGE/image-20230911142423655_hu_92b8b6b78d535d99.png 1024w"
 	loading="lazy"
 	
 		alt="BLPA算法"
@@ -568,9 +552,7 @@
 <p>之后不断迭代，直到分片不更改或达到最大迭代$T$</p>
 <p>算法的时间复杂度为$O(n·d_{ave})$，$n$为节点数，$d_{ave}$为训练图的平均节点数。</p>
 <p>作者无法从理论上证明其收敛性，不过通过实验表示$T=30$时几乎是收敛的。</p>
-<h3 id="嵌入式聚类算法">
-    <a href="#%e5%b5%8c%e5%85%a5%e5%bc%8f%e8%81%9a%e7%b1%bb%e7%ae%97%e6%b3%95">#</a>
-    嵌入式聚类算法
+<h3 id="嵌入式聚类算法"><a href="#%e5%b5%8c%e5%85%a5%e5%bc%8f%e8%81%9a%e7%b1%bb%e7%ae%97%e6%b3%95" class="header-anchor"></a>嵌入式聚类算法
 </h3><p>对于策略2，作者使用预训练的GNN模型来获取所有节点嵌入，然后对生成的节点嵌入执行聚类。</p>
 <p>思路是将GNN模型的所有节点投影到空间中，再使用K-Means进行聚类。同样也会导致分块的不平均这个问题。</p>
 <p>对此，作者提出了Balanced Embedding k-means (BEKM)。定义preference「偏好值」为节点嵌入和所有节点分片对的分片质心之间的欧氏距离。</p>
@@ -578,7 +560,7 @@
 <p><img src="/p/graph-unlearning/IMAGE/image-20230912153952657.png"
 	width="998"
 	height="1447"
-	srcset="/p/graph-unlearning/IMAGE/image-20230912153952657_hu908806465079591798.png 480w, /p/graph-unlearning/IMAGE/image-20230912153952657_hu4198692732832566578.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230912153952657_hu_97849e8d384ef55b.png 480w, /p/graph-unlearning/IMAGE/image-20230912153952657_hu_918b0ba534c5b6d2.png 1024w"
 	loading="lazy"
 	
 		alt="BEKM算法"
@@ -597,27 +579,22 @@
 </ol>
 <p>同样，不断重复直到分片不更改或达到最大迭代$T$</p>
 <p>算法的时间复杂度为$O(k·n)$，$n$个节点,$k$个分片。</p>
-<h2 id="基于学习的聚合">
-    <a href="#%e5%9f%ba%e4%ba%8e%e5%ad%a6%e4%b9%a0%e7%9a%84%e8%81%9a%e5%90%88">#</a>
-    基于学习的聚合
+<h2 id="基于学习的聚合"><a href="#%e5%9f%ba%e4%ba%8e%e5%ad%a6%e4%b9%a0%e7%9a%84%e8%81%9a%e5%90%88" class="header-anchor"></a>基于学习的聚合
 </h2><p>目前常见的聚合方式有两种：</p>
 <ul>
 <li>MajAggr：每个分片模型预测一个标签，取最多预测的标签</li>
 <li>MeanAggr：收集所有分片模型的后验向量，然后求平均值，得到聚合后验，选取最高后验值。</li>
 </ul>
 <p>作者提出了一种基于学习的聚合方法LBAggr，为每个分片模型分配一个重要性分数，通过以下损失函数进行学习：</p>
-<p>$$\min _{\alpha} \underset{w \in \mathcal{G}_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum_{i=0}^{m} \alpha_{i} \cdot \mathcal{F}_{i}\left(X_{w}, \mathcal{N}_{w}\right), y\right)\right]+\lambda \sum_{i=0}^{m}\left|\alpha_{i}\right|$$</p>
-<p>其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。</p>
+$$\min \_{\alpha} \underset{w \in \mathcal{G}\_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum\_{i=0}^{m} \alpha\_{i} \cdot \mathcal{F}\_{i}\left(X\_{w}, \mathcal{N}\_{w}\right), y\right)\right]+\lambda \sum\_{i=0}^{m}\left\|\alpha\_{i}\right\|$$<p>其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。</p>
 <p>作者通过梯度下降来找到最优的$\alpha$，从而解决最优化问题。然而，直接梯度下降会导致$\alpha$为负数。为了解决此问题，作者使用softmax 函数在每次迭代中进行归一化处理。</p>
 <p>为了提升运行速度，作者指出可以使用训练图中 10% 的节点进行重新训练。</p>
-<h2 id="grapheraser">
-    <a href="#grapheraser">#</a>
-    GraphEraser
+<h2 id="grapheraser"><a href="#grapheraser" class="header-anchor"></a>GraphEraser
 </h2><p>将上面提到的方法集合在一起，就得到了此算法。当某些节点或边缘被数据所有者撤销时，只需要重新训练相应的分片模型即可。</p>
 <p><img src="/p/graph-unlearning/IMAGE/image-20230912202314840.png"
 	width="1029"
 	height="1020"
-	srcset="/p/graph-unlearning/IMAGE/image-20230912202314840_hu12488143237999130009.png 480w, /p/graph-unlearning/IMAGE/image-20230912202314840_hu5859489566784134755.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230912202314840_hu_72e08d63c3131ee4.png 480w, /p/graph-unlearning/IMAGE/image-20230912202314840_hu_282650750a810a6b.png 1024w"
 	loading="lazy"
 	
 		alt="GraphEraser"
@@ -628,9 +605,7 @@
 		data-flex-basis="242px"
 	
 ></p>
-<h2 id="评估">
-    <a href="#%e8%af%84%e4%bc%b0">#</a>
-    评估
+<h2 id="评估"><a href="#%e8%af%84%e4%bc%b0" class="header-anchor"></a>评估
 </h2><p><strong>数据集</strong></p>
 <p>作者采用了五个常用的图像数据集，分别为Cora, Citeseer, Pubmed, CS和Physics。</p>
 <p><strong>模型</strong></p>
@@ -652,13 +627,11 @@
 <p>片中节点最大个数$\delta$设为$\left \lceil \frac{n}{k} \right \rceil $</p>
 <p>最大迭代次数$T$设为30</p>
 <p>BLPA对应社区发现算法；BEKM对应嵌入式聚类算法</p>
-<h3 id="遗忘学习效率评估">
-    <a href="#%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%95%88%e7%8e%87%e8%af%84%e4%bc%b0">#</a>
-    遗忘学习效率评估
+<h3 id="遗忘学习效率评估"><a href="#%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%95%88%e7%8e%87%e8%af%84%e4%bc%b0" class="header-anchor"></a>遗忘学习效率评估
 </h3><p><img src="/p/graph-unlearning/IMAGE/image-20230921185539675.png"
 	width="1733"
 	height="464"
-	srcset="/p/graph-unlearning/IMAGE/image-20230921185539675_hu5437348730144948944.png 480w, /p/graph-unlearning/IMAGE/image-20230921185539675_hu6579276063467371212.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921185539675_hu_6f3a611eb1d0d762.png 480w, /p/graph-unlearning/IMAGE/image-20230921185539675_hu_96450a638557c16b.png 1024w"
 	loading="lazy"
 	
 		alt="遗忘学习效率"
@@ -673,7 +646,7 @@
 <p><img src="/p/graph-unlearning/IMAGE/image-20230921185950025.png"
 	width="991"
 	height="358"
-	srcset="/p/graph-unlearning/IMAGE/image-20230921185950025_hu8900040259416569014.png 480w, /p/graph-unlearning/IMAGE/image-20230921185950025_hu3566956039706723341.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921185950025_hu_cb8af87f07830d8c.png 480w, /p/graph-unlearning/IMAGE/image-20230921185950025_hu_489c8bf421efc731.png 1024w"
 	loading="lazy"
 	
 		alt="每个步骤所花费的时间"
@@ -685,13 +658,11 @@
 	
 ></p>
 <p>相对于Random，时间略长是因为存在更长的图分割成本。BLPA 和 BEKM 都需要多次迭代以保留结构信息。但一旦完成图分割，就会将其固定下来。从这个意义上说，我们可以容忍这种代价，因为它只执行一次。</p>
-<h3 id="模型效用评分">
-    <a href="#%e6%a8%a1%e5%9e%8b%e6%95%88%e7%94%a8%e8%af%84%e5%88%86">#</a>
-    模型效用评分
+<h3 id="模型效用评分"><a href="#%e6%a8%a1%e5%9e%8b%e6%95%88%e7%94%a8%e8%af%84%e5%88%86" class="header-anchor"></a>模型效用评分
 </h3><p><img src="/p/graph-unlearning/IMAGE/image-20230921193316971.png"
 	width="1960"
 	height="799"
-	srcset="/p/graph-unlearning/IMAGE/image-20230921193316971_hu7085080371858675198.png 480w, /p/graph-unlearning/IMAGE/image-20230921193316971_hu18034203147647708905.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921193316971_hu_3d1f0efb28430581.png 480w, /p/graph-unlearning/IMAGE/image-20230921193316971_hu_e1ccddf03fd2d90f.png 1024w"
 	loading="lazy"
 	
 		alt="不同遗忘学习方法模型效用"
@@ -707,16 +678,14 @@
 <p>对此，作者提出了一个方法选择的技巧：可以首先比较MLP和GNN的F1分数，如果MLP和GNN之间的F1分数差距很小，随机方法可能是一个不错的选择，因为它更容易实现，并且可以实现与BLPA和BEKM相当的模型效用。否则，BLPA和BEKM是更好的选择，因为更好的模型实用程序。</p>
 <p>如果 GNN 遵循 GCN 结构，则可以选择BLPA，否则可以采用 BEKM。这是因为 GCN 模型需要节点度信息来进行归一化，而BLPA 可以保留更多的局部结构信息，从而更好地保留节点度。</p>
 <p>BEKM 在 Cora 数据集和 GIN 模型上的 F1 得分为 0.801，而 Scratch 的相应 F1 得分为 0.787。作者认为有两种可能的原因：抽样往往可以消除数据集中的一些“噪声”；其次，GraphEraser通过聚合所有子模型的结果来进行最终预测，从这个意义上说，GraphEraser执行集成，这是提高模型性能的另一种方法。</p>
-<h3 id="lbaggr-的效果">
-    <a href="#lbaggr-%e7%9a%84%e6%95%88%e6%9e%9c">#</a>
-    LBAggr 的效果
+<h3 id="lbaggr-的效果"><a href="#lbaggr-%e7%9a%84%e6%95%88%e6%9e%9c" class="header-anchor"></a>LBAggr 的效果
 </h3><p>有效，可以提升F1分数。</p>
 <p>比较不同的GNN模型，GCN从LBAggr中受益最大，而GIN受益最少。在模型效用方面，GraphEraser-BLPA方法从LBAggr中受益最大。我们推测这是因为BLPA划分方法可以捕获局部结构信息，同时丢失训练图的一些全局结构信息。</p>
 <p>为了进一步提高忘却效率，可以使用训练图中的一小部分节点来学习重要性分数。这样做可以有效地减少 LBAggr 的遗忘学习时间。使用 10% 的节点和使用固定数量的 1，000 个节点都可以实现与使用所有节点相当的模型效用。</p>
 <p><img src="/p/graph-unlearning/IMAGE/image-20230921194318907.png"
 	width="971"
 	height="561"
-	srcset="/p/graph-unlearning/IMAGE/image-20230921194318907_hu18146036763332282315.png 480w, /p/graph-unlearning/IMAGE/image-20230921194318907_hu5398190883214002905.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921194318907_hu_92b016a23587b81c.png 480w, /p/graph-unlearning/IMAGE/image-20230921194318907_hu_71f9c13474b1d5.png 1024w"
 	loading="lazy"
 	
 		alt="LBAggr 的效果"
@@ -727,13 +696,11 @@
 		data-flex-basis="415px"
 	
 ></p>
-<h3 id="和其他遗忘学习方法对比">
-    <a href="#%e5%92%8c%e5%85%b6%e4%bb%96%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%96%b9%e6%b3%95%e5%af%b9%e6%af%94">#</a>
-    和其他遗忘学习方法对比
+<h3 id="和其他遗忘学习方法对比"><a href="#%e5%92%8c%e5%85%b6%e4%bb%96%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%96%b9%e6%b3%95%e5%af%b9%e6%af%94" class="header-anchor"></a>和其他遗忘学习方法对比
 </h3><p><img src="/p/graph-unlearning/IMAGE/image-20230921200838804.png"
 	width="2011"
 	height="1003"
-	srcset="/p/graph-unlearning/IMAGE/image-20230921200838804_hu15874331885348103675.png 480w, /p/graph-unlearning/IMAGE/image-20230921200838804_hu3677444859931627312.png 1024w"
+	srcset="/p/graph-unlearning/IMAGE/image-20230921200838804_hu_baf7ab0c311bd774.png 480w, /p/graph-unlearning/IMAGE/image-20230921200838804_hu_b15c3db71f522390.png 1024w"
 	loading="lazy"
 	
 		alt="遗忘学习对比"
@@ -801,7 +768,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -811,6 +779,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -934,14 +903,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1030,7 +999,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

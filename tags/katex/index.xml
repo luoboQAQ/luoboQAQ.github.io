@@ -6,7 +6,7 @@
         <description>Recent content in KaTeX on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 02 Jan 2023 22:19:15 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/katex/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 20 Jul 2023 16:50:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/katex/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>让Hugo优雅的显示公式</title>
         <link>https://lbqaq.top/p/latex-in-hugo/</link>
         <pubDate>Mon, 02 Jan 2023 22:19:15 +0800</pubDate>
@@ -14,13 +14,11 @@
         <guid>https://lbqaq.top/p/latex-in-hugo/</guid>
         <description>&lt;img src="https://lbqaq.top/p/latex-in-hugo/103706981.webp" alt="Featured image of post 让Hugo优雅的显示公式" /&gt;&lt;p&gt;继上文《&lt;a class=&#34;link&#34; href=&#34;https://lbqaq.top/p/latex-in-ppt/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;在PowerPoint里优雅的插入LaTeX公式&lt;/a&gt;》后，没想到我又遇到了LaTeX相关的问题，这次是我博客无法正确的显示公式了。当然，最简单和粗暴的方法就是直接转成图片，但本着能折腾就折腾的精神，还是研究了一下如何优雅的解决。&lt;/p&gt;
-&lt;h2 id=&#34;问题复现&#34;&gt;
-    &lt;a href=&#34;#%e9%97%ae%e9%a2%98%e5%a4%8d%e7%8e%b0&#34;&gt;#&lt;/a&gt;
-    问题复现
+&lt;h2 id=&#34;问题复现&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e5%a4%8d%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题复现
 &lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926.png&#34;
 	width=&#34;875&#34;
 	height=&#34;69&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hu8309421124594993370.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hu10777054506721596345.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hu_cbab972e177861d4.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926_hu_8731ba20f343636b.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;错误的公式渲染&#34;
@@ -35,7 +33,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149.png&#34;
 	width=&#34;1055&#34;
 	height=&#34;31&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu17822205802302379728.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu4043560878079832817.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu_f9c7f6f1af2ce325.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213750149_hu_90df279da84943fa.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;hugo转义后的代码&#34;
@@ -53,7 +51,7 @@
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440.png&#34;
 	width=&#34;388&#34;
 	height=&#34;508&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu6147440670692919311.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu15131685169280282024.png 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu_91e32029ec0a2faa.png 480w, https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102214222440_hu_a3db618d1a460bf.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;喜多可爱捏&#34;
@@ -67,9 +65,7 @@
 &lt;p&gt;没错，官方并没有给出好的解决方案，只有在文档中稍微提到了一嘴，你可以使用&lt;code&gt;pandoc&lt;/code&gt;来进行Markdown的转义。&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 &lt;p&gt;🤔本来用你就是图你的生成速度快，这调用其他程序后，这速度不就慢了没优势了吗。&lt;/p&gt;
 &lt;p&gt;没办法，还是自己动手解决吧。&lt;/p&gt;
-&lt;h2 id=&#34;解决方案&#34;&gt;
-    &lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88&#34;&gt;#&lt;/a&gt;
-    解决方案
+&lt;h2 id=&#34;解决方案&#34;&gt;&lt;a href=&#34;#%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;解决方案
 &lt;/h2&gt;&lt;p&gt;在搜索过后，网上给出的解决方案是在下划线前面加上&lt;code&gt;\&lt;/code&gt;，避免被Hugo进行转义。但是如果在写文档的时候就加上的话，就会导致本地公式无法正确渲染，所以边写边加是肯定不可能了。写完后手动添加，如果是一两个还好，但下划线在LaTeX里实在是太常用了，所以手工修改也不现实。&lt;/p&gt;
 &lt;p&gt;于是，我便决定写个小程序来自动修改。&lt;del&gt;由于天天Apex大脑退化严重&lt;/del&gt;，我实在想不到什么比较好的字符串处理方法，只好用遍历大法。（这既视感，编译原理：……，什么……在想我的事情……？）&lt;/p&gt;
 &lt;p&gt;不玩梗了，直接上代码：&lt;/p&gt;
@@ -286,9 +282,7 @@
 &lt;p&gt;这样每次写好文章，只要将其拖到该程序上就能自动转换完成了。&lt;/p&gt;
 &lt;p&gt;这样就能确保本地查看编辑和网页都可以正确显示公式了。缺点则是每个有公式的文件都会多保存一份，不过文本文件并不是很大，所以也无伤大雅。&lt;/p&gt;
 &lt;p&gt;当然，这个程序还有优化的空间，比如自动对含有公式的文章进行处理等等。不过看这我文章更新的速度🕊️，手动拖一下还是可以接受的。&lt;/p&gt;
-&lt;h2 id=&#34;更新记录&#34;&gt;
-    &lt;a href=&#34;#%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95&#34;&gt;#&lt;/a&gt;
-    更新记录
+&lt;h2 id=&#34;更新记录&#34;&gt;&lt;a href=&#34;#%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;更新记录
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;2023.7.20：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;增加对&lt;code&gt;\{&lt;/code&gt;和&lt;code&gt;\}&lt;/code&gt;的处理&lt;/li&gt;

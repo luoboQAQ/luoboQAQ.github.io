@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="简易Magisk模块的制作">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="简易Magisk模块的制作">
 <meta property='og:description' content="从零开始尝试自制Magisk模块">
 <meta property='og:url' content='https://lbqaq.top/p/%E7%AE%80%E6%98%93magisk%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%B6%E4%BD%9C/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -403,14 +403,10 @@
     <section class="article-content">
     
     
-    <h2 id="前言">
-    <a href="#%e5%89%8d%e8%a8%80">#</a>
-    前言
+    <h2 id="前言"><a href="#%e5%89%8d%e8%a8%80" class="header-anchor"></a>前言
 </h2><p>说到搞机，那肯定绕不开大名鼎鼎的<a class="link" href="https://github.com/topjohnwu/Magisk"  target="_blank" rel="noopener"
     >Magisk</a>。就我来说，<code>root</code>完后做的第一件事，就是安装各种各样的模块，但是，我却从来没有研究过Magisk的内容。同时，现在也有许多心怀不轨的人制作锁机模块骗人刷入。所以，了解Magisk模块的一些基本内容就显得比较重要了。</p>
-<h2 id="认识magisk模块">
-    <a href="#%e8%ae%a4%e8%af%86magisk%e6%a8%a1%e5%9d%97">#</a>
-    认识Magisk模块
+<h2 id="认识magisk模块"><a href="#%e8%ae%a4%e8%af%86magisk%e6%a8%a1%e5%9d%97" class="header-anchor"></a>认识Magisk模块
 </h2><p>根据官方的文档，一个典型的Magisk模块的目录应该如下所示：<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -447,9 +443,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以看出来，<code>META-INF</code>目录是由官方提供，并不需要我们进行修改。</p>
-<h3 id="moduleprop">
-    <a href="#moduleprop">#</a>
-    module.prop
+<h3 id="moduleprop"><a href="#moduleprop" class="header-anchor"></a>module.prop
 </h3><p>这个文件是模块的标识信息，模块的基本信息就存放在这里，文件的格式如下。<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -475,94 +469,90 @@
 <div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th style="text-align: left">名称</th>
-          <th style="text-align: left">说明</th>
+          <th>名称</th>
+          <th>说明</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">id</td>
-          <td style="text-align: left">模块的唯一标识符，需符合该正则表达式<code>^[a-zA-Z][a-zA-Z0-9._-]+$</code></td>
+          <td>id</td>
+          <td>模块的唯一标识符，需符合该正则表达式<code>^[a-zA-Z][a-zA-Z0-9._-]+$</code></td>
       </tr>
       <tr>
-          <td style="text-align: left">name</td>
-          <td style="text-align: left">模块名称</td>
+          <td>name</td>
+          <td>模块名称</td>
       </tr>
       <tr>
-          <td style="text-align: left">version</td>
-          <td style="text-align: left">模块版本号</td>
+          <td>version</td>
+          <td>模块版本号</td>
       </tr>
       <tr>
-          <td style="text-align: left">versionCode</td>
-          <td style="text-align: left">模块版本标识，必须为整数，用于更新</td>
+          <td>versionCode</td>
+          <td>模块版本标识，必须为整数，用于更新</td>
       </tr>
       <tr>
-          <td style="text-align: left">author</td>
-          <td style="text-align: left">作者信息</td>
+          <td>author</td>
+          <td>作者信息</td>
       </tr>
       <tr>
-          <td style="text-align: left">description</td>
-          <td style="text-align: left">模块描述</td>
+          <td>description</td>
+          <td>模块描述</td>
       </tr>
       <tr>
-          <td style="text-align: left">updateJson</td>
-          <td style="text-align: left">更新信息链接，现在Magisk移除了内部的更新功能，这个属性应该是无用了</td>
+          <td>updateJson</td>
+          <td>更新信息链接，现在Magisk移除了内部的更新功能，这个属性应该是无用了</td>
       </tr>
   </tbody>
 </table></div>
-<h3 id="system文件夹">
-    <a href="#system%e6%96%87%e4%bb%b6%e5%a4%b9">#</a>
-    system文件夹
+<h3 id="system文件夹"><a href="#system%e6%96%87%e4%bb%b6%e5%a4%b9" class="header-anchor"></a>system文件夹
 </h3><p>Magisk的一个主要作用就是对系统文件进行注入或替换，只要将文件按顺序放入此目录中即可。例如我想修改hosts文件，只需要将修改好的hosts文件放入<code>system/etc</code>这个目录下，Magisk就会自动将其替换了。</p>
 <p>如果要替换<code>/vendor</code>、<code>/product</code>或<code>/system_ext</code>中的文件，只需将它们分别放在<code>system/vendor</code>、<code>system/product</code>和<code>system/system_ext</code>下。Magisk就会自动替换完成。</p>
-<h3 id="customizesh">
-    <a href="#customizesh">#</a>
-    customize.sh
+<h3 id="customizesh"><a href="#customizesh" class="header-anchor"></a>customize.sh
 </h3><p>这是自定义模块安装过程，如果只是简单的替换文件就不需要用到它。但是，很多时候我们并不是仅需替换文件，还需要执行一些脚本，这里就需要使用到它了。</p>
 <p>根据官方文档，这里支持以下的环境变量：</p>
 <div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th style="text-align: left">变量名</th>
-          <th style="text-align: left">作用</th>
+          <th>变量名</th>
+          <th>作用</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">MAGISK_VER (string)</td>
-          <td style="text-align: left">当前安装的Magisk的版本字符串（例如v20.0）</td>
+          <td>MAGISK_VER (string)</td>
+          <td>当前安装的Magisk的版本字符串（例如v20.0）</td>
       </tr>
       <tr>
-          <td style="text-align: left">MAGISK_VER_CODE (int)</td>
-          <td style="text-align: left">当前安装的Magisk的版本代码（例如20000）</td>
+          <td>MAGISK_VER_CODE (int)</td>
+          <td>当前安装的Magisk的版本代码（例如20000）</td>
       </tr>
       <tr>
-          <td style="text-align: left">BOOTMODE (bool)</td>
-          <td style="text-align: left">如果模块正在Magisk应用程序中安装，则为true</td>
+          <td>BOOTMODE (bool)</td>
+          <td>如果模块正在Magisk应用程序中安装，则为true</td>
       </tr>
       <tr>
-          <td style="text-align: left">MODPATH (path)</td>
-          <td style="text-align: left">安装模块文件的路径</td>
+          <td>MODPATH (path)</td>
+          <td>安装模块文件的路径</td>
       </tr>
       <tr>
-          <td style="text-align: left">TMPDIR (path)</td>
-          <td style="text-align: left">可以临时存储文件的位置</td>
+          <td>TMPDIR (path)</td>
+          <td>可以临时存储文件的位置</td>
       </tr>
       <tr>
-          <td style="text-align: left">ZIPFILE (path)</td>
-          <td style="text-align: left">您的模块的安装zip</td>
+          <td>ZIPFILE (path)</td>
+          <td>您的模块的安装zip</td>
       </tr>
       <tr>
-          <td style="text-align: left">ARCH (string)</td>
-          <td style="text-align: left">设备的CPU架构，值可以是<code>arm</code>、<code>arm 64</code>、<code>x86</code>或<code>x64</code></td>
+          <td>ARCH (string)</td>
+          <td>设备的CPU架构，值可以是<code>arm</code>、<code>arm 64</code>、<code>x86</code>或<code>x64</code></td>
       </tr>
       <tr>
-          <td style="text-align: left">IS64BIT (bool)</td>
-          <td style="text-align: left">如果<code>$ARCH</code>为<code>arm 64</code>或<code>x64</code>，则为true</td>
+          <td>IS64BIT (bool)</td>
+          <td>如果<code>$ARCH</code>为<code>arm 64</code>或<code>x64</code>，则为true</td>
       </tr>
       <tr>
-          <td style="text-align: left">API (int)</td>
-          <td style="text-align: left">设备的API级别（Android版本）（例如，Android 5.0为21）</td>
+          <td>API (int)</td>
+          <td>设备的API级别（Android版本）（例如，Android 5.0为21）</td>
       </tr>
   </tbody>
 </table></div>
@@ -572,12 +562,8 @@
 <li><code>abort &lt;msg&gt;</code>：将错误消息打印到控制台并终止安装</li>
 <li><code>set_perm</code>和<code>set_perm_recursive</code>：修改文件权限</li>
 </ul>
-<h2 id="实践">
-    <a href="#%e5%ae%9e%e8%b7%b5">#</a>
-    实践
-</h2><h3 id="修改系统hosts">
-    <a href="#%e4%bf%ae%e6%94%b9%e7%b3%bb%e7%bb%9fhosts">#</a>
-    修改系统Hosts
+<h2 id="实践"><a href="#%e5%ae%9e%e8%b7%b5" class="header-anchor"></a>实践
+</h2><h3 id="修改系统hosts"><a href="#%e4%bf%ae%e6%94%b9%e7%b3%bb%e7%bb%9fhosts" class="header-anchor"></a>修改系统Hosts
 </h3><p>我一开始想研究Magisk的契机，就是想要修改我手机的Hosts文件。一开始按百度的教程做，但没有效果，后来就尝试了一下Magisk模块，直接就成功了。</p>
 <p>有了前面知识的铺垫，想要实现这个功能就非常简单了，下面列出我们程序的目录树。</p>
 <div class="highlight"><div class="chroma">
@@ -628,9 +614,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如此看来，如果只要替换文件，基本没有任何难度。</p>
-<h3 id="使用dnscrypt-proxy实现doh">
-    <a href="#%e4%bd%bf%e7%94%a8dnscrypt-proxy%e5%ae%9e%e7%8e%b0doh">#</a>
-    使用dnscrypt-proxy实现DoH
+<h3 id="使用dnscrypt-proxy实现doh"><a href="#%e4%bd%bf%e7%94%a8dnscrypt-proxy%e5%ae%9e%e7%8e%b0doh" class="header-anchor"></a>使用dnscrypt-proxy实现DoH
 </h3><p>这部分我正在研究，等研究明白了就补上🕊️。</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -687,7 +671,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -697,6 +682,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -772,14 +758,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -868,7 +854,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/mydns/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="自建DNS实现分流及广告过滤">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="自建DNS实现分流及广告过滤">
 <meta property='og:description' content="使用mosdns+AdGuardHome自建加密DNS">
 <meta property='og:url' content='https://lbqaq.top/p/mydns/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -417,7 +417,7 @@
 <p><img src="/p/mydns/IMAGE/1.png"
 	width="867"
 	height="525"
-	srcset="/p/mydns/IMAGE/1_hu14283506407411138646.png 480w, /p/mydns/IMAGE/1_hu2349485563373448155.png 1024w"
+	srcset="/p/mydns/IMAGE/1_hu_d6c273767696e3aa.png 480w, /p/mydns/IMAGE/1_hu_3e97931572d37a18.png 1024w"
 	loading="lazy"
 	
 		alt="DNS污染"
@@ -430,9 +430,7 @@
 ></p>
 <p>一开始使用的是AdGuardHome，然而在我看到了<a class="link" href="https://github.com/XIU2/CloudflareSpeedTest"  target="_blank" rel="noopener"
     >CloudflareSpeedTest</a>这个项目后，就萌生了ip重定向这个需求，为此我又套了一层mosdns（经典为醋包饺子）。既然上了mosdns，就干脆做配上分流吧，于是现在的这套方案就形成了。虽然我的这些需求一个mosdns就可以解决，但AdGuardHome的前端ui、更方便的广告过滤、数据统计这些功能是mosdns所没有的。</p>
-<h2 id="2328新方案">
-    <a href="#2328%e6%96%b0%e6%96%b9%e6%a1%88">#</a>
-    23.2.8新方案
+<h2 id="2328新方案"><a href="#2328%e6%96%b0%e6%96%b9%e6%a1%88" class="header-anchor"></a>23.2.8新方案
 </h2><p>由于CloudFlare的优选IP在不同设备上速度都不同，所以在设备本地搭建更优。于是，我现在将mosdns从服务器上移到了本地。当然，在路由器上部署要更好，但我家的路由器性能太弱了，就算了。同时，去广告就交给mosdns，这样就无需使用两个软件进行套娃了。</p>
 <p>mosdns在这段时间也更新了V5版本，原先的配置文件也无法使用了，正好做出V5可用的配置。</p>
 <p>在该配置文件中，需要用上以下项目提供的域名/IP文件：</p>
@@ -646,9 +644,7 @@
 </div>
 </div><p>此配置文件参考了<a class="link" href="https://github.com/IrineSistiana/mosdns/discussions/562#discussioncomment-4676699"  target="_blank" rel="noopener"
     >该回答</a></p>
-<h2 id="方案设计">
-    <a href="#%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1">#</a>
-    方案设计
+<h2 id="方案设计"><a href="#%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1" class="header-anchor"></a>方案设计
 </h2><p>首先由AdGuardHome接受请求，判断是否为广告域名:</p>
 <ul>
 <li>是：直接拦截，结束流程</li>
@@ -664,12 +660,8 @@
 <li>是：修改响应为优选的IP</li>
 <li>否：不进行操作</li>
 </ul>
-<h2 id="系统搭建">
-    <a href="#%e7%b3%bb%e7%bb%9f%e6%90%ad%e5%bb%ba">#</a>
-    系统搭建
-</h2><h3 id="搭建mosdns">
-    <a href="#%e6%90%ad%e5%bb%bamosdns">#</a>
-    搭建mosdns
+<h2 id="系统搭建"><a href="#%e7%b3%bb%e7%bb%9f%e6%90%ad%e5%bb%ba" class="header-anchor"></a>系统搭建
+</h2><h3 id="搭建mosdns"><a href="#%e6%90%ad%e5%bb%bamosdns" class="header-anchor"></a>搭建mosdns
 </h3><p>如何安装和配置mosdns，官方文档已经写的非常详细了，直接看<a class="link" href="https://irine-sistiana.gitbook.io/mosdns-wiki/"  target="_blank" rel="noopener"
     >文档</a>就好了。</p>
 <p>配置文件主要参考了<a class="link" href="https://github.com/pmkol/easymosdns"  target="_blank" rel="noopener"
@@ -918,9 +910,7 @@
     >Loyalsoldier/v2ray-rules-dat</a>，将<code>geosite.dat</code>使用<code>mosdns v2dat unpack-domain </code>解包得到。</p>
 <p><del>这里我没有启用mosdns的缓存，因为我在AdGuardHome里启用，就不重复缓存了。如果你是直接使用mosdns，那么就可以启用缓存。</del></p>
 <p>事实上，还是要开启mosdns的缓存，以此来减小DNS查询的延时。</p>
-<h3 id="搭建adguardhome">
-    <a href="#%e6%90%ad%e5%bb%baadguardhome">#</a>
-    搭建AdGuardHome
+<h3 id="搭建adguardhome"><a href="#%e6%90%ad%e5%bb%baadguardhome" class="header-anchor"></a>搭建AdGuardHome
 </h3><p>这里我为了方便，就直接使用了docker，其实可以不用的说</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -960,9 +950,7 @@
 <p>我推荐启用<code>CHN: anti-AD</code>，这个列表还是很不错的</p>
 </li>
 </ul>
-<h3 id="nginx反代配置">
-    <a href="#nginx%e5%8f%8d%e4%bb%a3%e9%85%8d%e7%bd%ae">#</a>
-    Nginx反代配置
+<h3 id="nginx反代配置"><a href="#nginx%e5%8f%8d%e4%bb%a3%e9%85%8d%e7%bd%ae" class="header-anchor"></a>Nginx反代配置
 </h3><p>这里为了避免DoH被滥用，我修改了默认的路径，同时将默认路径返回444（中断连接）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1048,17 +1036,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="客户端配置">
-    <a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e9%85%8d%e7%bd%ae">#</a>
-    客户端配置
-</h2><h3 id="windows">
-    <a href="#windows">#</a>
-    Windows
+</div><h2 id="客户端配置"><a href="#%e5%ae%a2%e6%88%b7%e7%ab%af%e9%85%8d%e7%bd%ae" class="header-anchor"></a>客户端配置
+</h2><h3 id="windows"><a href="#windows" class="header-anchor"></a>Windows
 </h3><p>在win11 22H2中，在 设置——网络和Internet中 就可以设置加密DNS，输入服务器ip地址后选择手动模板就可以输入DoH地址了。</p>
 <p><img src="/p/mydns/IMAGE/image-20221203092246859.png"
 	width="375"
 	height="561"
-	srcset="/p/mydns/IMAGE/image-20221203092246859_hu17750582117456445823.png 480w, /p/mydns/IMAGE/image-20221203092246859_hu14781131493851963524.png 1024w"
+	srcset="/p/mydns/IMAGE/image-20221203092246859_hu_b209c38fd80bcb2b.png 480w, /p/mydns/IMAGE/image-20221203092246859_hu_83bf3cb291191510.png 1024w"
 	loading="lazy"
 	
 		alt="手动设置DoH"
@@ -1079,14 +1063,10 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>随后直接将你服务器的ip设置成DNS服务器就可以了，系统会自动使用DoH进行请求。</p>
-<h3 id="android">
-    <a href="#android">#</a>
-    Android
+<h3 id="android"><a href="#android" class="header-anchor"></a>Android
 </h3><p>安卓系统从9开始支持DoT，只要在连接与共享——私人DNS填入服务器的域名即可。</p>
 <p>根据谷歌的公告，从13开始，安卓开始支持DoH。在此之前，想要使用DoH就只能依靠第三方软件了。</p>
-<h2 id="后记">
-    <a href="#%e5%90%8e%e8%ae%b0">#</a>
-    后记
+<h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
 </h2><p>单独使用AdGuardHome的情况下，开启缓存平均处理时间是5ms；AdGuardHome+mosdns目前是11ms。</p>
 <p>折腾了两层解析，只是为了实现CloudFlare的IP优选，速度果然不出所料的慢了一点（当然也可能是缓存还没完全）。就当是学习了，正常使用留其一即可。_(:з)∠)_</p>
 <p>通过这次折腾，对DNS的认识更加深了一步，<del>也水了一篇博客</del>。</p>
@@ -1148,7 +1128,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1158,6 +1139,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -1305,14 +1287,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1401,7 +1383,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="初探区间求和问题">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="初探区间求和问题">
 <meta property='og:description' content="记录我对前缀和、差分、树状数组的认识">
 <meta property='og:url' content='https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -425,17 +425,12 @@
 <li>数组区间修改，单点查询：<strong>差分</strong>、线段树；</li>
 <li>数组区间修改，区间查询：<strong>线段树</strong>。</li>
 </ul>
-<h2 id="前缀和">
-    <a href="#%e5%89%8d%e7%bc%80%e5%92%8c">#</a>
-    前缀和
+<h2 id="前缀和"><a href="#%e5%89%8d%e7%bc%80%e5%92%8c" class="header-anchor"></a>前缀和
 </h2><p>前缀和的作用就是为了帮助我们快速求某一段的和，是「差分」的逆运算。</p>
 <p><strong>前缀和数组的每一位记录的是当前位置距离起点位置，这连续一段的和区间和。</strong></p>
-<h3 id="一维前缀和">
-    <a href="#%e4%b8%80%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c">#</a>
-    一维前缀和
+<h3 id="一维前缀和"><a href="#%e4%b8%80%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c" class="header-anchor"></a>一维前缀和
 </h3><p>假设有一个一维数组$x$和该数组的一维前缀和数组$y$，则$x$和$y$满足以下关系：</p>
-<p>$$y_0=x_0、y_1=x_0+x_1、y_2=x_0+x_1+x_2、&hellip;&hellip;、y_n=x_0+x_1+&hellip;+x_n$$</p>
-<p>所以我们可以通过 $y_n=y_{n-1}+x_n$ 这个公式计算出前缀和，代码实现如下：</p>
+$$y_0=x_0、y_1=x_0+x_1、y_2=x_0+x_1+x_2、......、y_n=x_0+x_1+...+x_n$$<p>所以我们可以通过 $y_n=y_{n-1}+x_n$ 这个公式计算出前缀和，代码实现如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -466,15 +461,13 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样当我们想求区间$[a,b]$之和时只需要计算$y[b+1]-y[a]$即可。</p>
-<h3 id="二维前缀和">
-    <a href="#%e4%ba%8c%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c">#</a>
-    二维前缀和
+<h3 id="二维前缀和"><a href="#%e4%ba%8c%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c" class="header-anchor"></a>二维前缀和
 </h3><p>有一个二维数组$a$和该数组的二维前缀和数组$b$（其同样是个二维数组)</p>
 <p>右侧标注橙色的二维前缀和元素，其值是左侧的原二维数组中标注橙色的所有元素的和。</p>
 <p><img src="/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1.jpg"
 	width="899"
 	height="457"
-	srcset="/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu13136669883163695317.jpg 480w, /p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu2559946729523029379.jpg 1024w"
+	srcset="/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu_574bdaff6d014dba.jpg 480w, /p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu_43235969b02099c0.jpg 1024w"
 	loading="lazy"
 	
 		alt="二维前缀和"
@@ -486,8 +479,7 @@
 	
 ></p>
 <p>二维前缀和实际上就是一个矩阵内值的和，而矩阵又可以由两个行数或列数少一的子矩阵组合后，删去重合部分再加上右下角的值来构成，也就是以下式子：</p>
-<p>$$b_{x,y}=b_{x-1,y}+b_{x,y-1}-b_{x-1,y-1}+a_{x,y}$$</p>
-<p>详细的代码如下：</p>
+$$b_{x,y}=b_{x-1,y}+b_{x,y-1}-b_{x-1,y-1}+a_{x,y}$$<p>详细的代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -521,19 +513,13 @@
 </div><p>通过二维前缀和，我们可以很方便的计算出给定矩阵的和，即上面求前缀和的逆运算。假设所求矩阵的左上角点为$(x1,y1)$，右下角点为$(x2,y2)$，则有公式：</p>
 <p>$sum=B[y2][x2]+B[y1-1][x1-1]-B[y1-1][x2]-B[y2][x1-1]$</p>
 <p>这里结合图形会更好理解一点。</p>
-<h3 id="例题">
-    <a href="#%e4%be%8b%e9%a2%98">#</a>
-    例题
+<h3 id="例题"><a href="#%e4%be%8b%e9%a2%98" class="header-anchor"></a>例题
 </h3><p>力扣<a class="link" href="https://leetcode-cn.com/problems/range-sum-query-immutable/"  target="_blank" rel="noopener"
     >303. 区域和检索 - 数组不可变</a></p>
 <p>就是一维前缀和的模板题，直接上模板即可做出。</p>
-<h2 id="差分">
-    <a href="#%e5%b7%ae%e5%88%86">#</a>
-    差分
+<h2 id="差分"><a href="#%e5%b7%ae%e5%88%86" class="header-anchor"></a>差分
 </h2><p>差分是一种处理数据的巧妙而简单的方法，它应用于区间的修改和询问问题。如果我们要经常对数组A某个区间内的所有元素做相同的加减操作，如果一个一个修改效率很差，但是使用差分数组后，这个操作的时间复杂度就能降到$\Omicron(1)$,当所有的修改操作结束后，再利用差分数组，计算出新的A。</p>
-<h3 id="一维差分">
-    <a href="#%e4%b8%80%e7%bb%b4%e5%b7%ae%e5%88%86">#</a>
-    一维差分
+<h3 id="一维差分"><a href="#%e4%b8%80%e7%bb%b4%e5%b7%ae%e5%88%86" class="header-anchor"></a>一维差分
 </h3><p>我们定义原数组为$a[]$、差分数组为$D[]$，则有计算公式：$D[k]=a[k]-a[k-1]$,即原数组$a[]$的相邻元素的差。从定义我们可以推出$a[k]=D[0]+D[1]+&hellip;+D[k]$。也就是说$a[]$是$D[]$的前缀和，所以「差分」和「前缀和」就是一组逆运算。</p>
 <p>当我们想要对区间$[L,R]$每个元素加上$d$，则只要进行下面的两步操作：</p>
 <div class="highlight"><div class="chroma">
@@ -548,12 +534,9 @@
 </div>
 </div><p>当所有修改都完成时，我们可以通过复杂度为$\Omicron(n)$的操作计算出新的$a[]$</p>
 <p>当然，差分也不是万能的，它只能解决 <strong>区间修改+单点查询</strong> 这类问题。当遇到需要多次查询的问题，比如有$m$次修改，$k$次查询，此时修改的复杂度为$\Omicron(m)$,查询的复杂度为$\Omicron(kn)$，总复杂度为$\Omicron(m+kn)$，和暴力法$\Omicron(mn+k)$的复杂度一致了。</p>
-<h3 id="二维差分">
-    <a href="#%e4%ba%8c%e7%bb%b4%e5%b7%ae%e5%88%86">#</a>
-    二维差分
+<h3 id="二维差分"><a href="#%e4%ba%8c%e7%bb%b4%e5%b7%ae%e5%88%86" class="header-anchor"></a>二维差分
 </h3><p>从一维差分可以很容易的推广到二维差分，我们可以通过下面的公式计算$D[][]$：</p>
-<p>$$D[i][j]=a[i][j]-a[i-1][j]-a[i][j-1]+a[i-1][j-1]$$</p>
-<p>我们想修改坐标点$(x1,y1)$~$(x2,y2)$定义的区间，则需要修改矩阵的四个点：</p>
+$$D[i][j]=a[i][j]-a[i-1][j]-a[i][j-1]+a[i-1][j-1]$$<p>我们想修改坐标点$(x1,y1)$~$(x2,y2)$定义的区间，则需要修改矩阵的四个点：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -569,15 +552,10 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>前缀和$a[][]$的计算可以用下面的公式：</p>
-<p>$$a[i][j]=D[i][j]+a[i-1][j]+a[i][j-1]-a[i-1][j-1]$$</p>
-<p>在计算$a[][]$时，我们可以不新开一个数组，而是以用过的$D[][]$作为$a[][]$，以此来节约空间。使用的话只需要将上面式子中的$a$全部换为$D$</p>
-<h2 id="树状数组">
-    <a href="#%e6%a0%91%e7%8a%b6%e6%95%b0%e7%bb%84">#</a>
-    树状数组
+$$a[i][j]=D[i][j]+a[i-1][j]+a[i][j-1]-a[i-1][j-1]$$<p>在计算$a[][]$时，我们可以不新开一个数组，而是以用过的$D[][]$作为$a[][]$，以此来节约空间。使用的话只需要将上面式子中的$a$全部换为$D$</p>
+<h2 id="树状数组"><a href="#%e6%a0%91%e7%8a%b6%e6%95%b0%e7%bb%84" class="header-anchor"></a>树状数组
 </h2><p>树状数组的优点在于查询和修改的时间复杂度都为$\Omicron(logn)$，且比线段树好写。</p>
-<h3 id="单点修改区间查询">
-    <a href="#%e5%8d%95%e7%82%b9%e4%bf%ae%e6%94%b9%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2">#</a>
-    单点修改、区间查询
+<h3 id="单点修改区间查询"><a href="#%e5%8d%95%e7%82%b9%e4%bf%ae%e6%94%b9%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2" class="header-anchor"></a>单点修改、区间查询
 </h3><p>树状数组的原理由于时间有限，这里就不展开说了（之后有空再补上😇），先上模板：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -637,9 +615,7 @@
 <p>由此就解决了<strong>单点修改、区间查询</strong>的问题，我们想要得到区间$(a,b)$的和，只需使用<code>getsum(b) - getsum(a - 1)</code>。</p>
 <p>例题：<a class="link" href="https://www.luogu.com.cn/problem/P3374"  target="_blank" rel="noopener"
     >P3374【模板】树状数组 1</a></p>
-<h3 id="区间修改单点查询">
-    <a href="#%e5%8c%ba%e9%97%b4%e4%bf%ae%e6%94%b9%e5%8d%95%e7%82%b9%e6%9f%a5%e8%af%a2">#</a>
-    区间修改、单点查询
+<h3 id="区间修改单点查询"><a href="#%e5%8c%ba%e9%97%b4%e4%bf%ae%e6%94%b9%e5%8d%95%e7%82%b9%e6%9f%a5%e8%af%a2" class="header-anchor"></a>区间修改、单点查询
 </h3><p>在上面的差分中我们分析了，如果有多次查询，仅仅使用差分的时间复杂度就和暴力差不多了。这时，我们可以采用树状数组+差分的方法。</p>
 <p>我们将上面模板中的原始数组改为差分数组。由差分的性质可知，当我们修改一个区间时，只需要修改区间的两个端点即可，此时区间修改的问题便被转化成了单点修改的问题。同时，树状数组前n项和也就变成了原数组第n项的值。</p>
 <p>例题：<a class="link" href="https://www.luogu.com.cn/problem/P3368"  target="_blank" rel="noopener"
@@ -704,9 +680,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="参考资料">
-    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99">#</a>
-    参考资料
+</div><h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
 </h2><ul>
 <li><a class="link" href="https://zhuanlan.zhihu.com/p/117569086"  target="_blank" rel="noopener"
     >【朝夕的ACM笔记】算法基础-前缀和</a></li>
@@ -777,7 +751,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -787,6 +762,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -886,14 +862,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -982,7 +958,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

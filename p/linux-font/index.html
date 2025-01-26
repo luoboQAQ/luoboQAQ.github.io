@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/linux-font/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="fontconfig：Linux下的字体配置">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="fontconfig：Linux下的字体配置">
 <meta property='og:description' content="配置Linux环境下的字体，解决字体样式错误、异形字、全角引号以及合成字体">
 <meta property='og:url' content='https://lbqaq.top/p/linux-font/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -424,9 +424,7 @@
     <section class="article-content">
     
     
-    <h2 id="字体的分类">
-    <a href="#%e5%ad%97%e4%bd%93%e7%9a%84%e5%88%86%e7%b1%bb">#</a>
-    字体的分类
+    <h2 id="字体的分类"><a href="#%e5%ad%97%e4%bd%93%e7%9a%84%e5%88%86%e7%b1%bb" class="header-anchor"></a>字体的分类
 </h2><p>字体的数量可以说是成千上万，但一般在电脑上显示的基本为以下这三类<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>：</p>
 <ul>
 <li>
@@ -443,9 +441,7 @@
 </li>
 </ul>
 <p>我们要做的字体配置主要就是针对上面这三类字体。</p>
-<h2 id="选字体">
-    <a href="#%e9%80%89%e5%ad%97%e4%bd%93">#</a>
-    选字体
+<h2 id="选字体"><a href="#%e9%80%89%e5%ad%97%e4%bd%93" class="header-anchor"></a>选字体
 </h2><p>有了目标，下面就是选一个自己喜欢的字体了。不过，对于中文字体，目前现在 Linux 上常用的、在维护的开源中文字体就一套——“思源黑体”和“思源宋体”，同时被 <a class="link" href="https://en.wikipedia.org/wiki/Noto_fonts"  target="_blank" rel="noopener"
     >Noto</a> 和<a class="link" href="https://en.wikipedia.org/wiki/Source_Han_Sans"  target="_blank" rel="noopener"
     >思源</a>两个项目收录。Noto 系列字体是 Google 主导的，思源系列字体是 Adobe 主导的。<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
@@ -471,25 +467,17 @@
 <p>在 Windows 下，我们可以选择合成字体，即将各类字体打包到一起。例如<a class="link" href="https://github.com/be5invis/Sarasa-Gothic"  target="_blank" rel="noopener"
     >更纱黑体</a>就是由思源黑体和西文字体 Iosevka 整合而来的。这种字体的好处就是方便，直接选择使用即可。但是缺点也是显而易见，就是打包太麻烦了，引入 Iosevka 要打一次包，想要支持 Nerd Fonts，又要打一次包。如果是别人帮你提供好的合成字体那还好说， 从网上下载、从软件仓库安装就完事了，自己打包的话真的工作量巨大。</p>
 <p>而在 Liunx 下，我们只需要配置 fontconfig 就好了，无论想怎么搭配都可以实现，听起来是不是特别酷😎。可惜的是，有一些程序对 fontconfig 支持并不完善，这就达不到我们想要的效果。（说的就是你，Chrome😠）</p>
-<h2 id="fontconfig">
-    <a href="#fontconfig">#</a>
-    fontconfig
+<h2 id="fontconfig"><a href="#fontconfig" class="header-anchor"></a>fontconfig
 </h2><p>在我们开始正式配置前，还是有必要了解一些基本的知识。这里我就简单介绍一下，如果想要深入了解的话可以看看双猫大佬的<a class="link" href="https://catcat.cc/post/2020-10-31/"  target="_blank" rel="noopener"
     >这篇文章</a>，里面详细介绍了Linux fontconfig 的字体匹配机制。</p>
-<h3 id="字体的属性">
-    <a href="#%e5%ad%97%e4%bd%93%e7%9a%84%e5%b1%9e%e6%80%a7">#</a>
-    字体的属性
+<h3 id="字体的属性"><a href="#%e5%ad%97%e4%bd%93%e7%9a%84%e5%b1%9e%e6%80%a7" class="header-anchor"></a>字体的属性
 </h3><p>字体有很多属性，常用的有字族（family）、倾斜（slant）、字重（weight）。后两者合一起叫样式（style）。</p>
 <p>字族就是它的名字啦。一个字体文件，可以提供多个字体族名 (family)。比如 Arch Linux 用户在安装 wqy-microhei 后，系统端增加了  wqy-microhei.ttc 这个字体文件，分别提供「WenQuanYi Micro  Hei」「文泉驛微米黑」,「文泉驿微米黑」三个字体族名，它们是一个意思。我们可以运行 fontconfig 提供的命令行工具 fc-list  去查看系统上已安装的字体已经它们对应的字体族名。</p>
 <p>倾斜就是斜不斜，英文叫「Roman」「Italic」或者「Oblique」，Italic 是专门的斜体写法（更接近手写样式）， Oblique 是把常规写法倾斜一下完事。</p>
 <p>字重就更简单了，就是笔划的粗细。常见的有 Regular、Normal、Medium、Bold、Semibold、Black、Thin、Light、Extralight 等。</p>
-<h3 id="通用字族名">
-    <a href="#%e9%80%9a%e7%94%a8%e5%ad%97%e6%97%8f%e5%90%8d">#</a>
-    通用字族名
+<h3 id="通用字族名"><a href="#%e9%80%9a%e7%94%a8%e5%ad%97%e6%97%8f%e5%90%8d" class="header-anchor"></a>通用字族名
 </h3><p>很多时候，程序并不在乎用户具体使用的是哪款字体，像很多网站的 CSS  那样把各个平台的常见字体全部列出来太傻了，又容易出问题。所以，人们发明了「通用字族名」，也就是 sans-serif (sans)、serif 和 monospace (mono) 这些。它们不是真实存在的字体，而是分别指示程序去使用无衬线、衬线、等宽字体。那么桌面程序又是如何知道具体使用哪些字体呢？它只需要去查询  fontconfig 就行了。由于它们必定要经过 fontconfig 的查询流程后才能使用字体，所以我们可以通过 fontconfig  的配置去精准控制程序使用的字体。</p>
-<h3 id="如何调试">
-    <a href="#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95">#</a>
-    如何调试
+<h3 id="如何调试"><a href="#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95" class="header-anchor"></a>如何调试
 </h3><p>传入环境变量<code>FC_DEBUG=4</code>即可，例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -534,9 +522,7 @@
 <p>第二部分，在 Add Rule 之后，迎来了最关键的、我们应当关心的 FcConfigSubstitute Pattern，它包含了 font  pattern。(s) 和 (w) 分别代表强弱绑定；prgname 代表程序名，此时就是 fc-match。至于 lang，由于没有对  fc-match 指定语言，所以默认是 en。</p>
 <p>接下来有很多条 FcConfigSubstitute editPattern，代表对 font pattern 的替换操作。但是必须当规则匹配的时候，也就是 Rule Set 不是 No match 的情况下，才执行  FcConfigSubstitute editPattern。那么，又应该怎么看 FcConfigSubstitute editPattern  呢？主要看 family，因为 family 代表着字体匹配顺序。它就是配置文件中的<code>&lt;edit target=&quot;pattern&quot;&gt;</code>操作。</p>
 <p>最后应该关心 FcConfigSubstitute donePattern，这是 fontconfig 执行完字体替换后的结果。</p>
-<h3 id="配置文件">
-    <a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6">#</a>
-    配置文件
+<h3 id="配置文件"><a href="#%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6" class="header-anchor"></a>配置文件
 </h3><p>整个配置文件由如下几个部分依次拼接而成：</p>
 <ol>
 <li>目录设置(<code>&lt;dir&gt;</code>, <code>&lt;cachedir&gt;</code>, <code>&lt;include&gt;</code>)</li>
@@ -583,15 +569,11 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这里的<code>&lt;test&gt;</code>就是条件判断，<code>mode=&quot;prepend&quot;</code>指在前添加，<code>binding=&quot;strong&quot;</code>则是强绑定</p>
-<h2 id="开始配置">
-    <a href="#%e5%bc%80%e5%a7%8b%e9%85%8d%e7%bd%ae">#</a>
-    开始配置
+<h2 id="开始配置"><a href="#%e5%bc%80%e5%a7%8b%e9%85%8d%e7%bd%ae" class="header-anchor"></a>开始配置
 </h2><p>我们的思路就是就是修改默认的字族，让其成为我们想要指定的字体。然后将所有程序的字体配置改为通用字体族名：sans-serif，serif，monospace。</p>
 <p>我们的配置都放在此目录中<code>~/.config/fontconfig/fonts.conf</code>，我的完整配置在<a class="link" href="https://github.com/luoboQAQ/dotconfig/tree/main/fontconfig"  target="_blank" rel="noopener"
     >此仓库</a>中。</p>
-<h3 id="设置默认字体">
-    <a href="#%e8%ae%be%e7%bd%ae%e9%bb%98%e8%ae%a4%e5%ad%97%e4%bd%93">#</a>
-    设置默认字体
+<h3 id="设置默认字体"><a href="#%e8%ae%be%e7%bd%ae%e9%bb%98%e8%ae%a4%e5%ad%97%e4%bd%93" class="header-anchor"></a>设置默认字体
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -706,16 +688,14 @@
 </div>
 </div><p>对 system-ui，sans-serif，serif，monospace 设置优先显示的字体。在这里我让 system-ui  默认为无衬线。注意，system-ui 必须在最前。由于 fontconfig 对 font pattern 的操作是按顺序执行的，所以必须先让 system-ui 能优先以 sans-serif 显示，然后才是对 sans-serif 的操作。</p>
 <p>所有的 Noto CJK 字体都以 SC 结尾，因为我希望在没指定语言的默认情况下，以简体中文显示中文字形。</p>
-<h3 id="设置异形字">
-    <a href="#%e8%ae%be%e7%bd%ae%e5%bc%82%e5%bd%a2%e5%ad%97">#</a>
-    设置异形字
+<h3 id="设置异形字"><a href="#%e8%ae%be%e7%bd%ae%e5%bc%82%e5%bd%a2%e5%ad%97" class="header-anchor"></a>设置异形字
 </h3><p>什么是异形字？Noto Sans CJK 中的异体字，是在 <strong>相同的</strong> Unicode 码位下，不同的语言会使用不同的字形。</p>
 <p>可以在双猫大佬的<a class="link" href="https://catcat.cc/raw/fontconfig.html#%E5%BC%82%E4%BD%93%E5%AD%97"  target="_blank" rel="noopener"
     >这个测试网站</a>中看到，不同的语言环境下，这些字的显示是不同的。</p>
 <p><img src="/p/linux-font/IMAGE/font_glyph_variants.png"
 	width="250"
 	height="280"
-	srcset="/p/linux-font/IMAGE/font_glyph_variants_hu12592833877181918506.png 480w, /p/linux-font/IMAGE/font_glyph_variants_hu10498546035939031622.png 1024w"
+	srcset="/p/linux-font/IMAGE/font_glyph_variants_hu_748a2ef604a61235.png 480w, /p/linux-font/IMAGE/font_glyph_variants_hu_92a7f637e7b2aeb8.png 1024w"
 	loading="lazy"
 	
 		alt="异形字"
@@ -758,9 +738,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>在字体匹配时，将 Noto Sans CJK SC 替换成 Noto Sans CJK JP。除了 ，你还需要照葫芦画瓢分别指定 zh-TW、zh-HK、ja、ko，以及对宋体和等宽字体进行重复的步骤。在此我就不重复了。</p>
-<h3 id="解决全角引号">
-    <a href="#%e8%a7%a3%e5%86%b3%e5%85%a8%e8%a7%92%e5%bc%95%e5%8f%b7">#</a>
-    解决全角引号
+<h3 id="解决全角引号"><a href="#%e8%a7%a3%e5%86%b3%e5%85%a8%e8%a7%92%e5%bc%95%e5%8f%b7" class="header-anchor"></a>解决全角引号
 </h3><p>英文中的单引号有两种，<code>'</code>(U+0027) 和<code>’</code>(U+2019)。可能会觉得前一种出现在英文文本中，后一种出现在中文文本中，并且宽度和中文等宽。然而，英语世界中的一些人在英文文章中也是会使用后一种的。所以，字体在显示后一种引号的时候，究竟是和英文字母一样窄，还是该和中文字体等宽呢？如果在英文文章中显示成全宽字符则会显得突兀。</p>
 <p>比如，思源黑体其实也包含了拉丁字母的字形，可以完全使用思源黑体去显示西文。此时，后一种单引号的宽度会显示成中文字形的宽度。导致即使在全英文环境中，单引号也会突兀地在文本中过宽。</p>
 <p>同样地，<code>‘</code>(U+2018) <code>“</code>(U+201C) <code>”</code>(U+201D) 也有类似的情况。</p>
@@ -770,7 +748,7 @@
 <p><img src="/p/linux-font/IMAGE/font_quote.png"
 	width="280"
 	height="85"
-	srcset="/p/linux-font/IMAGE/font_quote_hu5472066240467584003.png 480w, /p/linux-font/IMAGE/font_quote_hu10023710041586463648.png 1024w"
+	srcset="/p/linux-font/IMAGE/font_quote_hu_c4b7d90fcc11c9b2.png 480w, /p/linux-font/IMAGE/font_quote_hu_4db44c4d82d44826.png 1024w"
 	loading="lazy"
 	
 		alt="全角引号"
@@ -812,9 +790,7 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/match&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="覆盖西文字体">
-    <a href="#%e8%a6%86%e7%9b%96%e8%a5%bf%e6%96%87%e5%ad%97%e4%bd%93">#</a>
-    覆盖西文字体
+</div><h3 id="覆盖西文字体"><a href="#%e8%a6%86%e7%9b%96%e8%a5%bf%e6%96%87%e5%ad%97%e4%bd%93" class="header-anchor"></a>覆盖西文字体
 </h3><p>如果去观察 Noto Sans CJK 这个中文字体，会发现它的西文部分的字形其实和 Noto Sans 不一样，虽然它们都以 Noto 自称。中文字体携带的英文字符有可能十分糟糕，特别是 Windows 自带的 SimHei，也就是中易黑体，它的英文相当糟糕。另外，微软雅黑的字重实在是太少了，对于设计师来说很不友好。而各种流行的英文字体支持很多字重。</p>
 <p>Noto Sans CJK 的英文还是比较不错的，为了字体的样式统一，这里就不修改sans-serif和seri了。主要将编程用的等宽字体换成Fira Code。</p>
 <div class="highlight"><div class="chroma">
@@ -850,9 +826,7 @@
 </div><p>这里为什么要多加一句判断呢？这是因为有些程序居然只使用 font pattern 结果中的首个字体，比如 Chrome（以及衍生的Chromium），虽然 Chrome 接受了我们指定的西文字体，但是它忽略了紧接其后的中文字体，即使配置采用了强绑定！然后中文字体又不知道它 fallback  到哪去了，可能会出现你想要的中文字体，也可能不是。</p>
 <p>这里是 msedge 主要是我平时都用 edge 而不是 Chrome。可惜由于 Chromium 在 Linux 上小问题实在是太多了，还是老老实实的用 firefox 吧。</p>
 <p>在所有情况下，除了程序名为 msedge 的情况下，优先使用 Fira Code 显示西文，再用 Noto Sans Mono CJK  显示中文。虽然我不能让 msedge 使用 Fira Code，但它一定能用上 Noto Sans Mono CJK 显示中文。</p>
-<h3 id="替换任意字体">
-    <a href="#%e6%9b%bf%e6%8d%a2%e4%bb%bb%e6%84%8f%e5%ad%97%e4%bd%93">#</a>
-    替换任意字体
+<h3 id="替换任意字体"><a href="#%e6%9b%bf%e6%8d%a2%e4%bb%bb%e6%84%8f%e5%ad%97%e4%bd%93" class="header-anchor"></a>替换任意字体
 </h3><p>当系统里已经安装了一些不需要的字体，但又不想删除或者屏蔽它怎么办呢？替换掉 font pattern 就可以了。</p>
 <p>我这里则是用来替换思源字体，毕竟它就是 Noto 嘛</p>
 <div class="highlight"><div class="chroma">
@@ -877,9 +851,7 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/match&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="字体渲染参数">
-    <a href="#%e5%ad%97%e4%bd%93%e6%b8%b2%e6%9f%93%e5%8f%82%e6%95%b0">#</a>
-    字体渲染参数
+</div><h3 id="字体渲染参数"><a href="#%e5%ad%97%e4%bd%93%e6%b8%b2%e6%9f%93%e5%8f%82%e6%95%b0" class="header-anchor"></a>字体渲染参数
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -938,12 +910,8 @@
 <li><code>rgba</code>：LCD 子像素的排列顺序，rgb</li>
 </ul>
 <p>这里就直接抄作业了。</p>
-<h2 id="遇到的问题">
-    <a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98">#</a>
-    遇到的问题
-</h2><h3 id="全角引号设置无效">
-    <a href="#%e5%85%a8%e8%a7%92%e5%bc%95%e5%8f%b7%e8%ae%be%e7%bd%ae%e6%97%a0%e6%95%88">#</a>
-    全角引号设置无效
+<h2 id="遇到的问题"><a href="#%e9%81%87%e5%88%b0%e7%9a%84%e9%97%ae%e9%a2%98" class="header-anchor"></a>遇到的问题
+</h2><h3 id="全角引号设置无效"><a href="#%e5%85%a8%e8%a7%92%e5%bc%95%e5%8f%b7%e8%ae%be%e7%bd%ae%e6%97%a0%e6%95%88" class="header-anchor"></a>全角引号设置无效
 </h3><p>一开始我遇到了这个问题，无论怎么设置都是半角，经过排查以及网友的留言后发现，这是由于系统变量中的<code>LANG</code>为<code>en_US.utf-8</code>，这会导致传递给 fontconfig 的 lang 是 <code>lang: zh-cn(s) &quot;en&quot;(w)</code>。于是就一直匹配西文字体。</p>
 <p>解决办法有两个，一个是直接修改<code>LANG</code>环境变量为<code>zh_CN.UTF-8</code>，我目前采用的就是这种形式。</p>
 <p>或者就是默认渲染英文，当网页声明是中文时再换字体，相关配置如下：</p>
@@ -1002,13 +970,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样如果网页声明了<code>lang=zh-cn</code>，就会用<code>Noto Sans CJK SC</code>字体进行覆盖，也就实现了全宽引号。假如网页没有声明<code>lang</code>或者错误地声明了<code>lang=en</code>，这时就会出现半角引号+汉字的组合了。</p>
-<h2 id="不能解决的问题">
-    <a href="#%e4%b8%8d%e8%83%bd%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98">#</a>
-    不能解决的问题
+<h2 id="不能解决的问题"><a href="#%e4%b8%8d%e8%83%bd%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="header-anchor"></a>不能解决的问题
 </h2><p>Linux 不强迫程序必须使用特定的依赖，而是程序主动选择了约定俗成的依赖。老话重谈，程序可以自由选择完全遵守 fontconfig，也可以选择部分使用 fontconfig 的配置，或者完全不遵守它。这也导致了对一些程序无法实现字体的修改。以及上面提到的 chrome 对 fontconfig 并不是很好，或许面对这种程序，就需要合成字体的出场了。</p>
-<h2 id="参考文献">
-    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae">#</a>
-    参考文献
+<h2 id="参考文献"><a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="header-anchor"></a>参考文献
 </h2><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -1072,7 +1036,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1082,6 +1047,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -1181,14 +1147,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1277,7 +1243,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

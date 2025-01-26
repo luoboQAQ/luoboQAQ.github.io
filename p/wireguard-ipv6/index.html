@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/wireguard-ipv6/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="使用WireGuard+ipv6进行异地组网">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="使用WireGuard+ipv6进行异地组网">
 <meta property='og:description' content="借助WireGuard实现无缝访问异地局域网">
 <meta property='og:url' content='https://lbqaq.top/p/wireguard-ipv6/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -410,9 +410,7 @@
 <p>在之前<a class="link" href="https://lbqaq.top/p/ax6000/#%E9%85%8D%E7%BD%AEwireguard"  target="_blank" rel="noopener"
     >配置实验室路由器</a>时，我已经配置过了WireGuard。通过在电脑上安装WireGuard，每次开机时启动一下就可以连入实验室的局域网了。似乎这样已经可以了，但是，如果我想在其他设备上访问实验室，就要重复上面的步骤，这实在是太麻烦了。同时，实验室想要访问位于家里的设备也无法实现。</p>
 <p>于是，我决定通过折腾一波路由器，来实现无感知的异地组网。</p>
-<h2 id="准备工作">
-    <a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c">#</a>
-    准备工作
+<h2 id="准备工作"><a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="header-anchor"></a>准备工作
 </h2><ul>
 <li>
 <p>2台刷好OpenWrt的路由器，并保证拥有WireGuard包</p>
@@ -453,17 +451,13 @@
       </tr>
   </tbody>
 </table></div>
-<h2 id="具体操作">
-    <a href="#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c">#</a>
-    具体操作
-</h2><h3 id="接口配置">
-    <a href="#%e6%8e%a5%e5%8f%a3%e9%85%8d%e7%bd%ae">#</a>
-    接口配置
+<h2 id="具体操作"><a href="#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c" class="header-anchor"></a>具体操作
+</h2><h3 id="接口配置"><a href="#%e6%8e%a5%e5%8f%a3%e9%85%8d%e7%bd%ae" class="header-anchor"></a>接口配置
 </h3><p>我们首先从实验室的路由器开始配置。登入OpenWrt后台，依次点击网络——接口——添加新接口，选择协议为<code>WireGuard VPN</code>，名称这里随意。</p>
 <p><img src="/p/wireguard-ipv6/IMAGE/1.png"
 	width="698"
 	height="241"
-	srcset="/p/wireguard-ipv6/IMAGE/1_hu9784353562475032419.png 480w, /p/wireguard-ipv6/IMAGE/1_hu8436133588967625446.png 1024w"
+	srcset="/p/wireguard-ipv6/IMAGE/1_hu_53b3b15b32bbb04.png 480w, /p/wireguard-ipv6/IMAGE/1_hu_4f127e7470372986.png 1024w"
 	loading="lazy"
 	
 		alt="添加新接口"
@@ -478,7 +472,7 @@
 <p><img src="/p/wireguard-ipv6/IMAGE/2.png"
 	width="805"
 	height="788"
-	srcset="/p/wireguard-ipv6/IMAGE/2_hu18118814757866967224.png 480w, /p/wireguard-ipv6/IMAGE/2_hu386917478657268608.png 1024w"
+	srcset="/p/wireguard-ipv6/IMAGE/2_hu_7838dc690eb0e131.png 480w, /p/wireguard-ipv6/IMAGE/2_hu_738f92cb3b8d01a4.png 1024w"
 	loading="lazy"
 	
 		alt="接口详细配置"
@@ -571,7 +565,7 @@
 <p><img src="/p/wireguard-ipv6/IMAGE/3.png"
 	width="1042"
 	height="870"
-	srcset="/p/wireguard-ipv6/IMAGE/3_hu2205473461414856247.png 480w, /p/wireguard-ipv6/IMAGE/3_hu9676918426130217976.png 1024w"
+	srcset="/p/wireguard-ipv6/IMAGE/3_hu_2ab2cdb953ce9df0.png 480w, /p/wireguard-ipv6/IMAGE/3_hu_db8112180e8f3abb.png 1024w"
 	loading="lazy"
 	
 		alt="对端配置"
@@ -590,15 +584,13 @@
 <li>Keep-Alive使用默认值25即可。</li>
 </ul>
 <p>这样我们的WireGuard就算配置好了。</p>
-<h3 id="防火墙配置">
-    <a href="#%e9%98%b2%e7%81%ab%e5%a2%99%e9%85%8d%e7%bd%ae">#</a>
-    防火墙配置
+<h3 id="防火墙配置"><a href="#%e9%98%b2%e7%81%ab%e5%a2%99%e9%85%8d%e7%bd%ae" class="header-anchor"></a>防火墙配置
 </h3><p>依次点击网络——防火墙，选择添加。</p>
 <p>这里大部分人（包括之前的我）会说直接将WireGuard接口放入LAN中，不过这样还是不太优雅，所以我们还是创建一个新区域。</p>
 <p><img src="/p/wireguard-ipv6/IMAGE/4.png"
 	width="1700"
 	height="845"
-	srcset="/p/wireguard-ipv6/IMAGE/4_hu12104561334326000249.png 480w, /p/wireguard-ipv6/IMAGE/4_hu2362571343135021943.png 1024w"
+	srcset="/p/wireguard-ipv6/IMAGE/4_hu_a4d8298fc44bd5ac.png 480w, /p/wireguard-ipv6/IMAGE/4_hu_cb62f3d86f398bd.png 1024w"
 	loading="lazy"
 	
 		alt="防火墙配置"
@@ -619,7 +611,7 @@
 <p><img src="/p/wireguard-ipv6/IMAGE/5.png"
 	width="709"
 	height="642"
-	srcset="/p/wireguard-ipv6/IMAGE/5_hu18266595638606010818.png 480w, /p/wireguard-ipv6/IMAGE/5_hu3998678084137206360.png 1024w"
+	srcset="/p/wireguard-ipv6/IMAGE/5_hu_bfdf419a8159e588.png 480w, /p/wireguard-ipv6/IMAGE/5_hu_58611f170f28856.png 1024w"
 	loading="lazy"
 	
 		alt="路由端口配置"
@@ -632,9 +624,7 @@
 ></p>
 <p>由于WireGuard是基于UDP的，我们只需要放行UDP流量即可。端口为之前表中填写的。</p>
 <p>至此，我们的配置就算完成了，另一台路由器也是同样的配置方法，我就不赘述了。</p>
-<h2 id="踩坑和一些注意事项">
-    <a href="#%e8%b8%a9%e5%9d%91%e5%92%8c%e4%b8%80%e4%ba%9b%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">#</a>
-    踩坑和一些注意事项
+<h2 id="踩坑和一些注意事项"><a href="#%e8%b8%a9%e5%9d%91%e5%92%8c%e4%b8%80%e4%ba%9b%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor"></a>踩坑和一些注意事项
 </h2><ul>
 <li>
 <p>两端都要配置端点主机</p>
@@ -648,9 +638,7 @@
 <p>可能是为了安全考虑吧，这样只能手动重启端口来让其重新解析，还有其他自动化的方法不过我就没有研究了</p>
 </li>
 </ul>
-<h2 id="参考文献">
-    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae">#</a>
-    参考文献
+<h2 id="参考文献"><a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="header-anchor"></a>参考文献
 </h2><ul>
 <li><a class="link" href="https://www.bilibili.com/video/BV1r3411G796"  target="_blank" rel="noopener"
     >【老湿基】WireGuard 异地组网手把手教学 | 从入门到精通 | 局域网融合_哔哩哔哩</a></li>
@@ -703,7 +691,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -713,6 +702,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -860,14 +850,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -956,7 +946,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="使用Webhooks实现自动部署">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="使用Webhooks实现自动部署">
 <meta property='og:description' content="使用Github Webhooks来实现自动部署">
 <meta property='og:url' content='https://lbqaq.top/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -403,14 +403,12 @@
     <p>每次写完博客，需要在本地编译，然后再手动通过WinSCP送到服务器上。作为一个懒人，这上面几步下来还是觉得麻烦，而且每次编译又会生成一顿不需要的文件，于是便决定整点自动化的流程，直接解放双手。</p>
 <p>因为我的博客在没买服务器之前都是托管在Github上的，于是自然而然地就想到了Webhook，在每次Push后自动发送消息给服务器，让其自动拉取代码。</p>
 <p>网上的教程大多都是在本地编译，然而我觉得既然要懒，就一懒到底吧，编译也直接通过Github Actions来完成就行了。</p>
-<h2 id="流程">
-    <a href="#%e6%b5%81%e7%a8%8b">#</a>
-    流程
+<h2 id="流程"><a href="#%e6%b5%81%e7%a8%8b" class="header-anchor"></a>流程
 </h2><p>需要2个Github仓库（1个应该也可以），一个存放网站的源码，一个是存放编译好的html文件。整个工作流程就如下图所示：</p>
 <p><img src="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1.png"
 	width="391"
 	height="292"
-	srcset="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu12539542682261012051.png 480w, /p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu2360906359279881095.png 1024w"
+	srcset="/p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu_fdb453ad721a742b.png 480w, /p/%E4%BD%BF%E7%94%A8webhooks%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/IMAGE/1_hu_562adbcccc12bc7a.png 1024w"
 	loading="lazy"
 	
 		alt="流程图"
@@ -421,12 +419,8 @@
 		data-flex-basis="321px"
 	
 ></p>
-<h2 id="步骤">
-    <a href="#%e6%ad%a5%e9%aa%a4">#</a>
-    步骤
-</h2><h3 id="设置脚本">
-    <a href="#%e8%ae%be%e7%bd%ae%e8%84%9a%e6%9c%ac">#</a>
-    设置脚本
+<h2 id="步骤"><a href="#%e6%ad%a5%e9%aa%a4" class="header-anchor"></a>步骤
+</h2><h3 id="设置脚本"><a href="#%e8%ae%be%e7%bd%ae%e8%84%9a%e6%9c%ac" class="header-anchor"></a>设置脚本
 </h3><p>首先要写一个shell脚本，功能很简单就是自动拉取代码。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -440,9 +434,7 @@
 </span></span><span class="line"><span class="cl">git pull
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="创建webhook服务后端">
-    <a href="#%e5%88%9b%e5%bb%bawebhook%e6%9c%8d%e5%8a%a1%e5%90%8e%e7%ab%af">#</a>
-    创建webhook服务后端
+</div><h3 id="创建webhook服务后端"><a href="#%e5%88%9b%e5%bb%bawebhook%e6%9c%8d%e5%8a%a1%e5%90%8e%e7%ab%af" class="header-anchor"></a>创建webhook服务后端
 </h3><p>这里就直接使用NodeJS来创建，使用的原因很简单，因为已经有现成的插件可以使用了。</p>
 <p>首先安装依赖</p>
 <div class="highlight"><div class="chroma">
@@ -537,9 +529,7 @@
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">pm2 start webhook.js
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="nginx设置反代">
-    <a href="#nginx%e8%ae%be%e7%bd%ae%e5%8f%8d%e4%bb%a3">#</a>
-    Nginx设置反代
+</div><h3 id="nginx设置反代"><a href="#nginx%e8%ae%be%e7%bd%ae%e5%8f%8d%e4%bb%a3" class="header-anchor"></a>Nginx设置反代
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -552,16 +542,12 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="配置github-webhook">
-    <a href="#%e9%85%8d%e7%bd%aegithub-webhook">#</a>
-    配置Github Webhook
+</div><h3 id="配置github-webhook"><a href="#%e9%85%8d%e7%bd%aegithub-webhook" class="header-anchor"></a>配置Github Webhook
 </h3><p>在 html仓库的 <code>Settings</code> - <code>webhooks</code> 设置中创建一个新的 webhook。</p>
 <p>将Content Type 设置为 <code>application/json</code>，secret 设置成与 <code>webhook.js</code> 中的相同。</p>
 <p>trigeer选择<code>Just the push event. </code>。</p>
 <p>完成后Github会自动发起一个测试请求，如果返回为<code>200</code>说明配置完成，</p>
-<h3 id="配置自动编译">
-    <a href="#%e9%85%8d%e7%bd%ae%e8%87%aa%e5%8a%a8%e7%bc%96%e8%af%91">#</a>
-    配置自动编译
+<h3 id="配置自动编译"><a href="#%e9%85%8d%e7%bd%ae%e8%87%aa%e5%8a%a8%e7%bc%96%e8%af%91" class="header-anchor"></a>配置自动编译
 </h3><p>在源代码仓库的<code>.github/workflows</code>目录下创建<code>deploy.yml</code>，并填入以下内容。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -632,9 +618,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>注意要将最后的<code>repository-name</code>换为你自己的仓库，同时需要申请和配置Github Token，这里我就不展开了。</p>
-<h2 id="参考">
-    <a href="#%e5%8f%82%e8%80%83">#</a>
-    参考
+<h2 id="参考"><a href="#%e5%8f%82%e8%80%83" class="header-anchor"></a>参考
 </h2><ul>
 <li><a class="link" href="https://jimmysong.io/blog/github-webhook-website-auto-deploy/"  target="_blank" rel="noopener"
     >使用 GitHub Webhook 实现静态网站自动化部署</a></li>
@@ -693,7 +677,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -703,6 +688,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -745,14 +731,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -841,7 +827,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="shiro整合JWT">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="shiro整合JWT">
 <meta property='og:description' content="记录项目中JWT身份认证">
 <meta property='og:url' content='https://lbqaq.top/p/shiro%E6%95%B4%E5%90%88jwt/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -408,9 +408,7 @@
     
     
     <p>在我现在在做的项目中需要进行身份和权限认证，在网上找了些教程，推荐都是使用JWT来进行身份认证，于是便决定使用此方法来实现。<del>（然而用完了才发现JWT也有缺点）</del></p>
-<h2 id="何为jwt">
-    <a href="#%e4%bd%95%e4%b8%bajwt">#</a>
-    何为JWT
+<h2 id="何为jwt"><a href="#%e4%bd%95%e4%b8%bajwt" class="header-anchor"></a>何为JWT
 </h2><p>所谓JWT，全称是JSON Web Token。下面是从<a class="link" href="https://jwt.io"  target="_blank" rel="noopener"
     >官网</a>摘抄的定义：</p>
 <blockquote>
@@ -443,9 +441,7 @@
 </li>
 </ul>
 <p>当然，在载荷中还可以存放自定义的信息，在本项目中使用官方提供的就足以了，故不展开。</p>
-<h2 id="认证流程">
-    <a href="#%e8%ae%a4%e8%af%81%e6%b5%81%e7%a8%8b">#</a>
-    认证流程
+<h2 id="认证流程"><a href="#%e8%ae%a4%e8%af%81%e6%b5%81%e7%a8%8b" class="header-anchor"></a>认证流程
 </h2><ul>
 <li>用户使用用户名密码来请求服务器</li>
 <li>服务器进行验证用户的信息</li>
@@ -456,7 +452,7 @@
 <p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1.jpeg"
 	width="640"
 	height="352"
-	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu6506427339610644883.jpeg 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu10431928135686577704.jpeg 1024w"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu_ed1b7d01d2aa541c.jpeg 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/1_hu_5966f25138f58dac.jpeg 1024w"
 	loading="lazy"
 	
 		alt="JWT认证流程图"
@@ -467,12 +463,8 @@
 		data-flex-basis="436px"
 	
 ></p>
-<h2 id="具体实现">
-    <a href="#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0">#</a>
-    具体实现
-</h2><h3 id="导入依赖包">
-    <a href="#%e5%af%bc%e5%85%a5%e4%be%9d%e8%b5%96%e5%8c%85">#</a>
-    导入依赖包
+<h2 id="具体实现"><a href="#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>具体实现
+</h2><h3 id="导入依赖包"><a href="#%e5%af%bc%e5%85%a5%e4%be%9d%e8%b5%96%e5%8c%85" class="header-anchor"></a>导入依赖包
 </h3><p>第一步当然是导入相关依赖了，使用Maven进行包管理。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -504,9 +496,7 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="封装jwt工具类">
-    <a href="#%e5%b0%81%e8%a3%85jwt%e5%b7%a5%e5%85%b7%e7%b1%bb">#</a>
-    封装JWT工具类
+</div><h3 id="封装jwt工具类"><a href="#%e5%b0%81%e8%a3%85jwt%e5%b7%a5%e5%85%b7%e7%b1%bb" class="header-anchor"></a>封装JWT工具类
 </h3><p>这里主要实现JWT的生成、验证、提取用户名三个功能</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -688,9 +678,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="配置shiro">
-    <a href="#%e9%85%8d%e7%bd%aeshiro">#</a>
-    配置Shiro
+</div><h3 id="配置shiro"><a href="#%e9%85%8d%e7%bd%aeshiro" class="header-anchor"></a>配置Shiro
 </h3><p>这里的<code>ShiroConfig.java</code>与一般Shiro项目的配置有以下几点不同：</p>
 <ul>
 <li>禁用Session</li>
@@ -831,9 +819,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="自定义token">
-    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89token">#</a>
-    自定义Token
+</div><h3 id="自定义token"><a href="#%e8%87%aa%e5%ae%9a%e4%b9%89token" class="header-anchor"></a>自定义Token
 </h3><p>由于使用了JWT当token，自然要写自定义的Token</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -875,9 +861,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="自定义过滤器">
-    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e8%bf%87%e6%bb%a4%e5%99%a8">#</a>
-    自定义过滤器
+</div><h3 id="自定义过滤器"><a href="#%e8%87%aa%e5%ae%9a%e4%b9%89%e8%bf%87%e6%bb%a4%e5%99%a8" class="header-anchor"></a>自定义过滤器
 </h3><p>由于使用了JWT，所以不能使用shiro中自带的过滤器，而是自定义自己的过滤器 <code>JWTFilter</code>，<code>JWTFilter</code> 继承了 <code>BasicHttpAuthenticationFilter</code>，并部分原方法进行了重写</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1015,9 +999,7 @@
 <li>如果带有 token，执行 shiro 的 login() 方法，将 token 提交到 Realm 中进行检验；如果没有 token，说明当前状态为游客状态（或者其他一些不需要进行认证的接口）</li>
 <li>如果在 token 校验的过程中出现错误，如 token 校验失败，那么我会将该请求视为认证不通过，则重定向到 <code>/unauthorized/**</code></li>
 </ol>
-<h3 id="自定义realm">
-    <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89realm">#</a>
-    自定义Realm
+<h3 id="自定义realm"><a href="#%e8%87%aa%e5%ae%9a%e4%b9%89realm" class="header-anchor"></a>自定义Realm
 </h3><p>这里主要是进行身份认证和权限认证</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1140,9 +1122,7 @@
 </div><p>这里有个细节，在Controller中要求进行身份认证时，Shiro会自动把上面<code>doGetAuthenticationInfo</code>方法中返回的Info存起来。这样我们就可以在Controller中调用这里面的值了。</p>
 <p><code>userName</code>可以通过<code>(String) SecurityUtils.getSubject().getPrincipal()</code>取出来</p>
 <p><code>userId</code>可以通过<code>SecurityUtils.getSubject().getPrincipals().getRealmNames().iterator().next()</code>取出来。当然，这里根据Shiro的设计，<code>SimpleAuthenticationInfo</code>的第三个构造参数应该填入<code>RealmName</code>，用来区分用户该使用哪一个Realm进行验证的。但我这个项目就只有一个Realm，所以在这里就偷了个懒，就没按官方标准来了。</p>
-<h3 id="异常处理">
-    <a href="#%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86">#</a>
-    异常处理
+<h3 id="异常处理"><a href="#%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86" class="header-anchor"></a>异常处理
 </h3><p>第一个是专门处理身份认证时的异常</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1207,9 +1187,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="解决中文报错">
-    <a href="#%e8%a7%a3%e5%86%b3%e4%b8%ad%e6%96%87%e6%8a%a5%e9%94%99">#</a>
-    解决中文报错
+</div><h3 id="解决中文报错"><a href="#%e8%a7%a3%e5%86%b3%e4%b8%ad%e6%96%87%e6%8a%a5%e9%94%99" class="header-anchor"></a>解决中文报错
 </h3><p>在Shiro1.7版本之后增加了url校验，如果有中文字符就不通过。然而我们项目里返回错误信息就是通过url来实现的。参考<a class="link" href="https://blog.csdn.net/qq_35598240/article/details/110310638"  target="_blank" rel="noopener"
     >这篇文章</a>知道，需要自己重写<code>ShiroFilterFactoryBean</code>来实现关闭url校验</p>
 <div class="highlight"><div class="chroma">
@@ -1244,17 +1222,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="开始使用">
-    <a href="#%e5%bc%80%e5%a7%8b%e4%bd%bf%e7%94%a8">#</a>
-    开始使用
+</div><h3 id="开始使用"><a href="#%e5%bc%80%e5%a7%8b%e4%bd%bf%e7%94%a8" class="header-anchor"></a>开始使用
 </h3><ul>
 <li>身份认证在Controller上添加<code>@RequiresAuthentication</code></li>
 <li>角色认证在Controller上添加<code>@RequiresRoles(&quot;xxx&quot;)</code></li>
 <li>权限认证在Controller上添加<code>@RequiresPermissions(&quot;xxx&quot;)</code></li>
 </ul>
-<h2 id="测试">
-    <a href="#%e6%b5%8b%e8%af%95">#</a>
-    测试
+<h2 id="测试"><a href="#%e6%b5%8b%e8%af%95" class="header-anchor"></a>测试
 </h2><p>测试接口的代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1303,7 +1277,7 @@
 </div><p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223.png"
 	width="423"
 	height="338"
-	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu16166606490586363759.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu12890762763785097169.png 1024w"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu_a74605a0c168cce2.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009111928223_hu_67c9824431d55542.png 1024w"
 	loading="lazy"
 	
 		alt="游客访问，不带Token"
@@ -1317,7 +1291,7 @@
 <p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855.png"
 	width="412"
 	height="350"
-	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hu15212657367374252563.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hu570664726161204438.png 1024w"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hu_d5e065a26c74daec.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112720855_hu_f5c66bddcfdfad51.png 1024w"
 	loading="lazy"
 	
 		alt="不带token访问"
@@ -1331,7 +1305,7 @@
 <p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761.png"
 	width="471"
 	height="345"
-	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu16363701133687694499.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu11791542610648042877.png 1024w"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu_3312dd260fd642b8.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112759761_hu_4cc9502b49bb2fff.png 1024w"
 	loading="lazy"
 	
 		alt="带上token"
@@ -1345,7 +1319,7 @@
 <p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784.png"
 	width="421"
 	height="329"
-	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_hu6668165521172411014.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_hu17376326882718754669.png 1024w"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_hu_3bc6b44670bd84a.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112832784_hu_c6920d117eb6f7a.png 1024w"
 	loading="lazy"
 	
 		alt="带上错误的token"
@@ -1359,7 +1333,7 @@
 <p><img src="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544.png"
 	width="427"
 	height="337"
-	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu8024143400615306022.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu10566234157336414253.png 1024w"
+	srcset="/p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu_ca78986187303302.png 480w, /p/shiro%E6%95%B4%E5%90%88jwt/IMAGE/image-20211009112929544_hu_5a594b57586652f8.png 1024w"
 	loading="lazy"
 	
 		alt="访问无权限的接口"
@@ -1370,18 +1344,14 @@
 		data-flex-basis="304px"
 	
 ></p>
-<h2 id="参考文章">
-    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0">#</a>
-    参考文章
+<h2 id="参考文章"><a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0" class="header-anchor"></a>参考文章
 </h2><ul>
 <li><a class="link" href="https://www.jianshu.com/p/3c51832f1051"  target="_blank" rel="noopener"
     >教你 Shiro + SpringBoot 整合 JWT</a></li>
 <li><a class="link" href="https://blog.csdn.net/pengjunlee/article/details/95600843"  target="_blank" rel="noopener"
     >Shiro步步为营&ndash;如何优雅地与JWT集成</a></li>
 </ul>
-<h2 id="更新日志">
-    <a href="#%e6%9b%b4%e6%96%b0%e6%97%a5%e5%bf%97">#</a>
-    更新日志
+<h2 id="更新日志"><a href="#%e6%9b%b4%e6%96%b0%e6%97%a5%e5%bf%97" class="header-anchor"></a>更新日志
 </h2><p><strong>2021.11.7：</strong></p>
 <ul>
 <li>增加解决跳转时的跨域请求</li>
@@ -1445,7 +1415,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1455,6 +1426,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -1497,14 +1469,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1593,7 +1565,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

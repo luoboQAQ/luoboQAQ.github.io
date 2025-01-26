@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/using-grounded-dino-label-data/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="利用Grounding DINO自动标注数据">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="利用Grounding DINO自动标注数据">
 <meta property='og:description' content="使用Grounding DINO构建自己的YOLO TXT格式训练集">
 <meta property='og:url' content='https://lbqaq.top/p/using-grounded-dino-label-data/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -394,9 +394,7 @@
     
     <p>最近需要构建属于自己的YOLO训练数据集，如果手动标注2k张图片这工作量太大了，于是就寻找有什么可以自动标注的方法。碰巧的是， 知乎正好推荐了一篇相关的文章，里面介绍了<a class="link" href="https://github.com/IDEA-Research/GroundingDINO"  target="_blank" rel="noopener"
     >Grounding DINO</a>这个项目完美符合我的需求。那就不用多说了，直接修改他来实现我所需的功能。</p>
-<h2 id="需求">
-    <a href="#%e9%9c%80%e6%b1%82">#</a>
-    需求
+<h2 id="需求"><a href="#%e9%9c%80%e6%b1%82" class="header-anchor"></a>需求
 </h2><p>首先要明确一下我的需求：</p>
 <ul>
 <li>能根据prompt实现画框标注</li>
@@ -404,9 +402,7 @@
 <li>能将识别的结果保存为YOLO TXT格式</li>
 </ul>
 <p>这个项目可以实现第一个功能，但对于第二和第三个功能就需要我自己来实现了。</p>
-<h2 id="实现">
-    <a href="#%e5%ae%9e%e7%8e%b0">#</a>
-    实现
+<h2 id="实现"><a href="#%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>实现
 </h2><p>Grounding DINO可以在CPU上运行，不过为了效率考虑，最好还是运行在GPU上，为此我所有的代码都在Colab上实现。</p>
 <p><a class="link" href="https://colab.research.google.com/drive/1SkxCR5Qi6fvLe1DNnwGgayPe5GpQ7a5l?usp=sharing"  target="_blank" rel="noopener"
     ><img src="https://colab.research.google.com/assets/colab-badge.svg"
@@ -545,9 +541,7 @@
 </div><p>我们的代码会自动遍历文件夹下面所有的<code>.png</code>格式的文件，并调用Grounding DINO进行标注。在这段代码中，<code>face</code>的<code>class_id</code>为<code>0</code>，<code>phone</code>的<code>class_id</code>为<code>1</code>。</p>
 <p>特别的，参考<a class="link" href="https://github.com/IDEA-Research/GroundingDINO/issues/26#issuecomment-1501045766"  target="_blank" rel="noopener"
     >这篇issue</a>，我们的prompt使用了<code>.</code>分割，这是为了避免不同顺序对结果的影响。</p>
-<h2 id="测试">
-    <a href="#%e6%b5%8b%e8%af%95">#</a>
-    测试
+<h2 id="测试"><a href="#%e6%b5%8b%e8%af%95" class="header-anchor"></a>测试
 </h2><p>由于拿到的数据是txt格式，人类很难识别，所以我们可以借助<code>cv2</code>将识别的结果在图片中框出，直接写个小脚本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -680,7 +674,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -690,6 +685,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -732,14 +728,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -828,7 +824,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

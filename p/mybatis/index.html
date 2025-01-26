@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/mybatis/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="MyBatis学习笔记">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="MyBatis学习笔记">
 <meta property='og:description' content="记录学习MyBatis时的一些心得体会">
 <meta property='og:url' content='https://lbqaq.top/p/mybatis/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -466,21 +466,15 @@
 <p>下面的内容都是基于<a class="link" href="https://space.bilibili.com/95256449"  target="_blank" rel="noopener"
     >遇见狂神说</a>的<a class="link" href="https://www.bilibili.com/video/BV1NE411Q7Nx"  target="_blank" rel="noopener"
     >MyBatis视频教程</a>而来，在此感谢能提供这么优秀的教程。</p>
-<h2 id="简介">
-    <a href="#%e7%ae%80%e4%bb%8b">#</a>
-    简介
+<h2 id="简介"><a href="#%e7%ae%80%e4%bb%8b" class="header-anchor"></a>简介
 </h2><ul>
 <li>MyBatis的作用用我自己的话说，就是不用自己手动搞JDBC了，省事，行！</li>
 <li>MyBatis作用于持久层——DAO层 【DAO (Data Access Object)  数据访问对象】，通俗点说就是用来操作数据库的层</li>
 <li>选择MyBatis的最大原因还是用的人多，为后面的Spring打基础_(:з)∠)_</li>
 </ul>
-<h2 id="第一个mybatis程序">
-    <a href="#%e7%ac%ac%e4%b8%80%e4%b8%aamybatis%e7%a8%8b%e5%ba%8f">#</a>
-    第一个MyBatis程序
+<h2 id="第一个mybatis程序"><a href="#%e7%ac%ac%e4%b8%80%e4%b8%aamybatis%e7%a8%8b%e5%ba%8f" class="header-anchor"></a>第一个MyBatis程序
 </h2><p><strong>思路流程：搭建环境&ndash;&gt;导入MyBatis&mdash;&gt;编写代码&mdash;&gt;测试</strong></p>
-<h3 id="具体代码">
-    <a href="#%e5%85%b7%e4%bd%93%e4%bb%a3%e7%a0%81">#</a>
-    具体代码
+<h3 id="具体代码"><a href="#%e5%85%b7%e4%bd%93%e4%bb%a3%e7%a0%81" class="header-anchor"></a>具体代码
 </h3><ol>
 <li>
 <p>创建Maven项目</p>
@@ -1057,9 +1051,7 @@
 </div>
 </div></li>
 </ol>
-<h3 id="注意事项">
-    <a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9">#</a>
-    注意事项
+<h3 id="注意事项"><a href="#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor"></a>注意事项
 </h3><ul>
 <li>
 <p>如果<code>Mapper.xml</code>创建在<code>java</code>目录里而不是<code>resouces</code>里，需要在Maven配置里配置过滤，否则会保错</p>
@@ -1163,14 +1155,10 @@
 </ul>
 </li>
 </ul>
-<h2 id="配置解析">
-    <a href="#%e9%85%8d%e7%bd%ae%e8%a7%a3%e6%9e%90">#</a>
-    配置解析
+<h2 id="配置解析"><a href="#%e9%85%8d%e7%bd%ae%e8%a7%a3%e6%9e%90" class="header-anchor"></a>配置解析
 </h2><p><a class="link" href="https://mybatis.org/mybatis-3/zh/configuration.html"  target="_blank" rel="noopener"
     >官方文档</a></p>
-<h3 id="核心配置">
-    <a href="#%e6%a0%b8%e5%bf%83%e9%85%8d%e7%bd%ae">#</a>
-    核心配置
+<h3 id="核心配置"><a href="#%e6%a0%b8%e5%bf%83%e9%85%8d%e7%bd%ae" class="header-anchor"></a>核心配置
 </h3><p>MyBatis官方给出的配置项有以下这么多：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1207,14 +1195,10 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们需要关注的就是<code>properties（属性）</code>、<code>settings（设置）</code>、<code>typeAliases（类型别名）</code>、<code>plugins（插件）</code>、<code>environments（环境配置）</code>、<code>mappers（映射器）</code>这几项配置，其余的可以忽略（基本用不到）</p>
-<h3 id="properties">
-    <a href="#properties">#</a>
-    properties
+<h3 id="properties"><a href="#properties" class="header-anchor"></a>properties
 </h3><p>数据库这些属性都是可外部配置且可动态替换的，既可以在典型的 Java 属性文件中配置，亦可通过 properties 元素的子元素来传递。</p>
 <p>说白了，就是能将数据库那些配置项从核心配置中剥离出来，降低耦合。</p>
-<h4 id="用法">
-    <a href="#%e7%94%a8%e6%b3%95">#</a>
-    用法
+<h4 id="用法"><a href="#%e7%94%a8%e6%b3%95" class="header-anchor"></a>用法
 </h4><ol>
 <li>
 <p>在<code>resources</code>目录下创建<code>db.properties</code>，填入下面的内容</p>
@@ -1256,9 +1240,7 @@
 </div><p>正常情况下，只需要用<code>&lt;properties resource=&quot;db.properties&quot;/&gt;</code>这短短一句就行了，上面的代码是用来测试优先级的</p>
 </li>
 </ol>
-<h3 id="settings">
-    <a href="#settings">#</a>
-    settings
+<h3 id="settings"><a href="#settings" class="header-anchor"></a>settings
 </h3><p>这里存放的是MyBatis的一些设置项，具体的内容在<a class="link" href="https://mybatis.org/mybatis-3/zh/configuration.html#settings"  target="_blank" rel="noopener"
     >官方文档</a>上可以查看</p>
 <p>常用的设置项有以下几个：</p>
@@ -1292,14 +1274,10 @@
       </tr>
   </tbody>
 </table></div>
-<h3 id="typealiases">
-    <a href="#typealiases">#</a>
-    typeAliases
+<h3 id="typealiases"><a href="#typealiases" class="header-anchor"></a>typeAliases
 </h3><p>类型别名是为 Java 类型设置一个短的名字。它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余。</p>
 <p>也就是在<code>resultType</code>和<code>parameterType</code>中不需要写那么长的类名了</p>
-<h4 id="用法-1">
-    <a href="#%e7%94%a8%e6%b3%95-1">#</a>
-    用法
+<h4 id="用法-1"><a href="#%e7%94%a8%e6%b3%95-1" class="header-anchor"></a>用法
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1323,9 +1301,7 @@
 </div><p>有两种方法，第一种就是手动指定别名，第二种就是通过<code>package</code>标签自动扫描包下所有的类</p>
 <p>在第二种方法下，默认别名是类名全小写（当然首字母大写也同样可用）</p>
 <p>如果在类前加上<code>@Alias</code>注解，则别名就为手动设定的内容。</p>
-<h3 id="plugins">
-    <a href="#plugins">#</a>
-    plugins
+<h3 id="plugins"><a href="#plugins" class="header-anchor"></a>plugins
 </h3><p>这里是配置mybatis的插件的地方，常用的插件有以下几个：</p>
 <ul>
 <li><a class="link" href="https://pagehelper.github.io/"  target="_blank" rel="noopener"
@@ -1335,9 +1311,7 @@
 <li>&hellip; &hellip;</li>
 </ul>
 <p>这里是就不展开这些插件了，以后有需要再看</p>
-<h3 id="environments">
-    <a href="#environments">#</a>
-    environments
+<h3 id="environments"><a href="#environments" class="header-anchor"></a>environments
 </h3><p>配置MyBatis的多套运行环境，将SQL映射到多个不同的数据库上，必须指定其中一个为默认运行环境（通过default指定）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1382,9 +1356,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="mappers">
-    <a href="#mappers">#</a>
-    mappers
+<h3 id="mappers"><a href="#mappers" class="header-anchor"></a>mappers
 </h3><p>用于告诉MyBatis我们写的xml文件到底在哪，<strong>每个xml文件都需要绑定！</strong></p>
 <p>常用的有以下几种方法：</p>
 <div class="highlight"><div class="chroma">
@@ -1441,12 +1413,8 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/mappers&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="resultmap">
-    <a href="#resultmap">#</a>
-    ResultMap
-</h2><h3 id="属性名和字段名不一致">
-    <a href="#%e5%b1%9e%e6%80%a7%e5%90%8d%e5%92%8c%e5%ad%97%e6%ae%b5%e5%90%8d%e4%b8%8d%e4%b8%80%e8%87%b4">#</a>
-    属性名和字段名不一致
+</div><h2 id="resultmap"><a href="#resultmap" class="header-anchor"></a>ResultMap
+</h2><h3 id="属性名和字段名不一致"><a href="#%e5%b1%9e%e6%80%a7%e5%90%8d%e5%92%8c%e5%ad%97%e6%ae%b5%e5%90%8d%e4%b8%8d%e4%b8%80%e8%87%b4" class="header-anchor"></a>属性名和字段名不一致
 </h3><p>在实际开发中，会遇到类的属性名和数据库的字段名不一致，这时MyBatis的自动匹配将无法产生作用，这时可以使用<code>ResultMap</code>来解决这个问题。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1480,13 +1448,9 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/mapper&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="多对一">
-    <a href="#%e5%a4%9a%e5%af%b9%e4%b8%80">#</a>
-    多对一
+</div><h3 id="多对一"><a href="#%e5%a4%9a%e5%af%b9%e4%b8%80" class="header-anchor"></a>多对一
 </h3><p>在开发时常常会有这样的需求，比如多个学生都被一个老师教，下面将对该实例具体展开来了解多对一如何处理。</p>
-<h4 id="环境搭建">
-    <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba">#</a>
-    环境搭建
+<h4 id="环境搭建"><a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-anchor"></a>环境搭建
 </h4><ol>
 <li>
 <p>添加Lombok插件</p>
@@ -1564,9 +1528,7 @@
 </div>
 </div></li>
 </ol>
-<h4 id="按查询嵌套处理">
-    <a href="#%e6%8c%89%e6%9f%a5%e8%af%a2%e5%b5%8c%e5%a5%97%e5%a4%84%e7%90%86">#</a>
-    按查询嵌套处理
+<h4 id="按查询嵌套处理"><a href="#%e6%8c%89%e6%9f%a5%e8%af%a2%e5%b5%8c%e5%a5%97%e5%a4%84%e7%90%86" class="header-anchor"></a>按查询嵌套处理
 </h4><p>思路：</p>
 <ol>
 <li>
@@ -1654,9 +1616,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个还是比较难以理解的，一般我选择用第二种方法</p>
-<h4 id="按结果嵌套处理">
-    <a href="#%e6%8c%89%e7%bb%93%e6%9e%9c%e5%b5%8c%e5%a5%97%e5%a4%84%e7%90%86">#</a>
-    按结果嵌套处理
+<h4 id="按结果嵌套处理"><a href="#%e6%8c%89%e7%bb%93%e6%9e%9c%e5%b5%8c%e5%a5%97%e5%a4%84%e7%90%86" class="header-anchor"></a>按结果嵌套处理
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1692,13 +1652,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这种就比较好理解了，难度主要在sql部分，好在之前数据库学的还行，这种方法还是比较适合我。</p>
-<h3 id="一对多">
-    <a href="#%e4%b8%80%e5%af%b9%e5%a4%9a">#</a>
-    一对多
+<h3 id="一对多"><a href="#%e4%b8%80%e5%af%b9%e5%a4%9a" class="header-anchor"></a>一对多
 </h3><p>一个老师会教多个学生。</p>
-<h4 id="环境搭建-1">
-    <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba-1">#</a>
-    环境搭建
+<h4 id="环境搭建-1"><a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba-1" class="header-anchor"></a>环境搭建
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1743,9 +1699,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="按结果嵌套查询">
-    <a href="#%e6%8c%89%e7%bb%93%e6%9e%9c%e5%b5%8c%e5%a5%97%e6%9f%a5%e8%af%a2">#</a>
-    按结果嵌套查询
+</div><h4 id="按结果嵌套查询"><a href="#%e6%8c%89%e7%bb%93%e6%9e%9c%e5%b5%8c%e5%a5%97%e6%9f%a5%e8%af%a2" class="header-anchor"></a>按结果嵌套查询
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1789,9 +1743,7 @@
 </div><p><code>JavaType</code>和<code>ofType</code>都是用来指定对象类型的。</p>
 <p><code>JavaType</code>是用来指定<code>pojo</code>中属性的类型。</p>
 <p><code>ofType</code>指定的是映射到list集合属性中<code>pojo</code>的类型。</p>
-<h4 id="按查询嵌套">
-    <a href="#%e6%8c%89%e6%9f%a5%e8%af%a2%e5%b5%8c%e5%a5%97">#</a>
-    按查询嵌套
+<h4 id="按查询嵌套"><a href="#%e6%8c%89%e6%9f%a5%e8%af%a2%e5%b5%8c%e5%a5%97" class="header-anchor"></a>按查询嵌套
 </h4><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1820,13 +1772,9 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/select&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="日志工厂">
-    <a href="#%e6%97%a5%e5%bf%97%e5%b7%a5%e5%8e%82">#</a>
-    日志工厂
+</div><h2 id="日志工厂"><a href="#%e6%97%a5%e5%bf%97%e5%b7%a5%e5%8e%82" class="header-anchor"></a>日志工厂
 </h2><p>如果一个数据库相关的操作出现了问题，我们可以根据输出的SQL语句快速排查问题。可见打印出SQL语句是十分重要的。（还记得之前项目综合实践为了搞日志忙了半天，结果还是没搞出来😭）</p>
-<h3 id="标准日志">
-    <a href="#%e6%a0%87%e5%87%86%e6%97%a5%e5%bf%97">#</a>
-    标准日志
+<h3 id="标准日志"><a href="#%e6%a0%87%e5%87%86%e6%97%a5%e5%bf%97" class="header-anchor"></a>标准日志
 </h3><p>在MyBatis里自带了通过控制台打印的日志功能，如果项目并不是很复杂，用它就足够了。</p>
 <p>只需要在设置里设置启用就可以了。</p>
 <div class="highlight"><div class="chroma">
@@ -1841,9 +1789,7 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/settings&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="log4j">
-    <a href="#log4j">#</a>
-    log4j
+</div><h3 id="log4j"><a href="#log4j" class="header-anchor"></a>log4j
 </h3><p>log4j相比标准日志，那不知道高到哪里去了，具体的功能我就不写了，毕竟一百度就能出来了。</p>
 <p><strong>使用步骤：</strong></p>
 <ol>
@@ -1974,9 +1920,7 @@
 </div>
 </div></li>
 </ol>
-<h2 id="使用注解开发">
-    <a href="#%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e5%bc%80%e5%8f%91">#</a>
-    使用注解开发
+<h2 id="使用注解开发"><a href="#%e4%bd%bf%e7%94%a8%e6%b3%a8%e8%a7%a3%e5%bc%80%e5%8f%91" class="header-anchor"></a>使用注解开发
 </h2><p>MyBatis最初配置信息是基于 XML ,映射语句(SQL)也是定义在 XML 中的。</p>
 <p>而到MyBatis 3提供了新的基于注解的配置。不幸的是，Java 注解的的表达力和灵活性十分有限。最强大的 MyBatis 映射并不能用注解来构建。</p>
 <p>在注解开发中，主要使用这几个注解：<code>@select ()</code>、<code>@update ()</code>、<code>@Insert ()</code>、<code>@delete ()</code></p>
@@ -2039,9 +1983,7 @@
 <li>如果参数是 JavaBean ， 则不能使用@Param。</li>
 <li>不使用@Param注解时，参数只能有一个，并且是JavaBean。</li>
 </ul>
-<h2 id="动态sql">
-    <a href="#%e5%8a%a8%e6%80%81sql">#</a>
-    动态SQL
+<h2 id="动态sql"><a href="#%e5%8a%a8%e6%80%81sql" class="header-anchor"></a>动态SQL
 </h2><p><strong>动态SQL指的是根据不同的查询条件 , 生成不同的sql语句。</strong></p>
 <p>主要使用这几个标签：<code>if</code>、<code>choose</code>、<code>where</code>、<code>set</code>、<code>foreach</code></p>
 <div class="highlight"><div class="chroma">
@@ -2186,9 +2128,7 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/mapper&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="sql片段">
-    <a href="#sql%e7%89%87%e6%ae%b5">#</a>
-    SQL片段
+</div><h3 id="sql片段"><a href="#sql%e7%89%87%e6%ae%b5" class="header-anchor"></a>SQL片段
 </h3><p>有时候可能某个 sql 语句我们用的特别多，为了增加代码的重用性，简化代码，我们需要将这些代码抽取出来，然后使用时直接调用。</p>
 <p><strong>提取SQL片段：</strong></p>
 <div class="highlight"><div class="chroma">
@@ -2239,12 +2179,8 @@
 </div><p>注意：</p>
 <p>①、最好基于 单表来定义 sql 片段，提高片段的可重用性</p>
 <p>②、在 sql 片段中不要包括 where</p>
-<h2 id="缓存">
-    <a href="#%e7%bc%93%e5%ad%98">#</a>
-    缓存
-</h2><h3 id="简介-1">
-    <a href="#%e7%ae%80%e4%bb%8b-1">#</a>
-    简介
+<h2 id="缓存"><a href="#%e7%bc%93%e5%ad%98" class="header-anchor"></a>缓存
+</h2><h3 id="简介-1"><a href="#%e7%ae%80%e4%bb%8b-1" class="header-anchor"></a>简介
 </h3><p>1、什么是缓存 [ Cache ]？</p>
 <ul>
 <li>存在内存中的临时数据。</li>
@@ -2258,9 +2194,7 @@
 <ul>
 <li>经常查询并且不经常改变的数据。</li>
 </ul>
-<h3 id="mybatis缓存">
-    <a href="#mybatis%e7%bc%93%e5%ad%98">#</a>
-    MyBatis缓存
+<h3 id="mybatis缓存"><a href="#mybatis%e7%bc%93%e5%ad%98" class="header-anchor"></a>MyBatis缓存
 </h3><ul>
 <li>
 <p>MyBatis包含一个非常强大的查询缓存特性，它可以非常方便地定制和配置缓存。缓存可以极大的提升查询效率。</p>
@@ -2276,26 +2210,20 @@
 </ul>
 </li>
 </ul>
-<h3 id="一级缓存">
-    <a href="#%e4%b8%80%e7%ba%a7%e7%bc%93%e5%ad%98">#</a>
-    一级缓存
+<h3 id="一级缓存"><a href="#%e4%b8%80%e7%ba%a7%e7%bc%93%e5%ad%98" class="header-anchor"></a>一级缓存
 </h3><p>一级缓存也叫本地缓存：</p>
 <ul>
 <li>与数据库同一次会话期间查询到的数据会放在本地缓存中。</li>
 <li>以后如果需要获取相同的数据，直接从缓存中拿，没必须再去查询数据库；</li>
 </ul>
-<h4 id="一级缓存失效的四种情况">
-    <a href="#%e4%b8%80%e7%ba%a7%e7%bc%93%e5%ad%98%e5%a4%b1%e6%95%88%e7%9a%84%e5%9b%9b%e7%a7%8d%e6%83%85%e5%86%b5">#</a>
-    一级缓存失效的四种情况
+<h4 id="一级缓存失效的四种情况"><a href="#%e4%b8%80%e7%ba%a7%e7%bc%93%e5%ad%98%e5%a4%b1%e6%95%88%e7%9a%84%e5%9b%9b%e7%a7%8d%e6%83%85%e5%86%b5" class="header-anchor"></a>一级缓存失效的四种情况
 </h4><ol>
 <li>sqlSession不同</li>
 <li>sqlSession相同，查询条件不同</li>
 <li>sqlSession相同，两次查询之间执行了增删改操作！</li>
 <li>sqlSession相同，手动清除一级缓存</li>
 </ol>
-<h3 id="二级缓存">
-    <a href="#%e4%ba%8c%e7%ba%a7%e7%bc%93%e5%ad%98">#</a>
-    二级缓存
+<h3 id="二级缓存"><a href="#%e4%ba%8c%e7%ba%a7%e7%bc%93%e5%ad%98" class="header-anchor"></a>二级缓存
 </h3><ul>
 <li>
 <p>二级缓存也叫全局缓存，一级缓存作用域太低了，所以诞生了二级缓存</p>
@@ -2315,9 +2243,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="使用方法">
-    <a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95">#</a>
-    使用方法
+<h4 id="使用方法"><a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="header-anchor"></a>使用方法
 </h4><ol>
 <li>
 <p>开启全局缓存 <code>mybatis-config.xml</code></p>
@@ -2416,7 +2342,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -2426,6 +2353,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -2525,14 +2453,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -2621,7 +2549,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

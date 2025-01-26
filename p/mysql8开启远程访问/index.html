@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="MySQL8开启远程访问">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="MySQL8开启远程访问">
 <meta property='og:description' content="MySQL8.0开启远程访问账户">
 <meta property='og:url' content='https://lbqaq.top/p/mysql8%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -74,7 +74,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -397,9 +397,7 @@
     
     
     <p>最近把服务器重装成Ubuntu了，所以要重装MySQL，没想到在这里踩了好几个坑，在这里记录下来备忘。</p>
-<h2 id="安装">
-    <a href="#%e5%ae%89%e8%a3%85">#</a>
-    安装
+<h2 id="安装"><a href="#%e5%ae%89%e8%a3%85" class="header-anchor"></a>安装
 </h2><p>这其实很简单，直接通过Ubuntu的包管理器直接安装就行了（我把系统转为Ubuntu也有这方面的原因）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -410,13 +408,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过这条命令安装的MySQL的root账号是没有密码的，所以只要输入<code>mysql</code>就直接可以进入了</p>
-<h2 id="开启远程访问">
-    <a href="#%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae">#</a>
-    开启远程访问
+<h2 id="开启远程访问"><a href="#%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae" class="header-anchor"></a>开启远程访问
 </h2><p>这里就是本文的重点了，我在这里花了很多时间😇</p>
-<h3 id="设定mysql的监听端口">
-    <a href="#%e8%ae%be%e5%ae%9amysql%e7%9a%84%e7%9b%91%e5%90%ac%e7%ab%af%e5%8f%a3">#</a>
-    设定MySQL的监听端口
+<h3 id="设定mysql的监听端口"><a href="#%e8%ae%be%e5%ae%9amysql%e7%9a%84%e7%9b%91%e5%90%ac%e7%ab%af%e5%8f%a3" class="header-anchor"></a>设定MySQL的监听端口
 </h3><p>通过apt安装的MySQL默认是只监听本地的端口的，我们要修改使其监听所有ip地址的请求。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -432,9 +426,7 @@
 </span></span><span class="line"><span class="cl">systemctl restart mysql
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="设置root账号密码并开启远程访问">
-    <a href="#%e8%ae%be%e7%bd%aeroot%e8%b4%a6%e5%8f%b7%e5%af%86%e7%a0%81%e5%b9%b6%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae">#</a>
-    设置root账号密码并开启远程访问
+</div><h3 id="设置root账号密码并开启远程访问"><a href="#%e8%ae%be%e7%bd%aeroot%e8%b4%a6%e5%8f%b7%e5%af%86%e7%a0%81%e5%b9%b6%e5%bc%80%e5%90%af%e8%bf%9c%e7%a8%8b%e8%ae%bf%e9%97%ae" class="header-anchor"></a>设置root账号密码并开启远程访问
 </h3><p>默认root账号是没有密码的，这当然是不行的，我们需要给一个密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -493,7 +485,8 @@
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -503,6 +496,7 @@
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -545,14 +539,14 @@
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -641,7 +635,7 @@
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

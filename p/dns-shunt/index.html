@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lbqaq.top/p/dns-shunt/'>
 
-<link rel="stylesheet" href="/scss/style.min.a7a25432a3c7313316757102b76e1f609d79b1f8491d775d1e303a6cfeb96f47.css"><meta property='og:title' content="基于DNS的分流方案">
+<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="基于DNS的分流方案">
 <meta property='og:description' content="使用小猫和mosdns优雅的实现分流">
 <meta property='og:url' content='https://lbqaq.top/p/dns-shunt/'>
 <meta property='og:site_name' content='luoboQAQ'>
@@ -79,7 +79,7 @@
                     
                     
                         
-                        <img src="/img/Mint_hu9543541767599624945.jpg" width="300"
+                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -426,9 +426,7 @@
     
     <p>最近将路由器上的工具换为小猫，使用默认的redir-host模式虽然能用，但总是出现各种各样奇怪的问题，再加上小猫官方已经删除了redir-host模式，于是我便想找到一个基于fake-ip的分流方式。通过在互联网上检索发现，找到了这篇文章——《<a class="link" href="https://songchenwen.com/tproxy-split-by-dns"  target="_blank" rel="noopener"
     >基于 DNS 的内网透明代理分流方案</a>》。仔细研读下来，完美符合我的需求，然而，我使用的是内存捉襟见肘的硬路由，并没有足够的空间装下AdGuardHome+mosdns+小猫三员大将。于是，我便在他方案的基础上删除了AdGuardHome，优化出了现在的方案。</p>
-<h2 id="实现效果">
-    <a href="#%e5%ae%9e%e7%8e%b0%e6%95%88%e6%9e%9c">#</a>
-    实现效果
+<h2 id="实现效果"><a href="#%e5%ae%9e%e7%8e%b0%e6%95%88%e6%9e%9c" class="header-anchor"></a>实现效果
 </h2><p>和原来的方案一样，我就直接粘贴了。</p>
 <ol>
 <li>基于DNS的流量分流，国内流量绕过小猫核心</li>
@@ -439,18 +437,12 @@
 <li>兼容BT/PT应用，无需特殊配置也不会消耗代理流量</li>
 <li>可以松切换内网设备是否走代理</li>
 </ol>
-<h2 id="遇到问题">
-    <a href="#%e9%81%87%e5%88%b0%e9%97%ae%e9%a2%98">#</a>
-    遇到问题
+<h2 id="遇到问题"><a href="#%e9%81%87%e5%88%b0%e9%97%ae%e9%a2%98" class="header-anchor"></a>遇到问题
 </h2><p>在按照原来的方案构建并删去AdGuardHome后，可以实现大部分的功能。然而在我的使用中，却遇到了一个关键的问题：<strong>无法区分流量来源</strong>——由于mosdns是作为Dnsmasq的上游来使用的，所以无法识别请求的客户端，故无法实现是否走代理。</p>
 <p>为此，我尝试将mosdns代替dnsmasq来监听53端口，结果又遇到了一个新的问题：<strong>所有的请求都返回fake-ip</strong>——由于dns存在主机名解析功能，导致请求被错误的发往小猫的DNS端口，从而返回了fake-ip。</p>
-<h2 id="方案设计">
-    <a href="#%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1">#</a>
-    方案设计
+<h2 id="方案设计"><a href="#%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1" class="header-anchor"></a>方案设计
 </h2><p>为了解决这两个问题，我重新设计了DNS解析的流程，从而得到了现在的这一套方案。</p>
-<h3 id="dns分流">
-    <a href="#dns%e5%88%86%e6%b5%81">#</a>
-    DNS分流
+<h3 id="dns分流"><a href="#dns%e5%88%86%e6%b5%81" class="header-anchor"></a>DNS分流
 </h3><pre class="mermaid" align=center>graph TB
 client[DNS 请求] -- 防火墙劫持 -->  mosdns
 	mosdns -- 需要代理的设备 --> query[按规则进行DNS查询]
@@ -467,27 +459,19 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
     drop_ipv6 --> fake[Fake IP]
   </pre>
   <p>经过DNS分流后，所有需要代理的域名都分配到了Fake IP，无需代理的域名都是由运营商DNS返回的最优结果。小猫的DNS在Fake IP模式下可以无需请求网络直接返回结果，所以整体的DNS响应速度非常快。在处理Fake IP的流量时，小猫会把hostname发送到远端进行DNS解析，也就自然不存在DNS污染的问题了。</p>
-<h3 id="修复地址解析错误">
-    <a href="#%e4%bf%ae%e5%a4%8d%e5%9c%b0%e5%9d%80%e8%a7%a3%e6%9e%90%e9%94%99%e8%af%af">#</a>
-    修复地址解析错误
+<h3 id="修复地址解析错误"><a href="#%e4%bf%ae%e5%a4%8d%e5%9c%b0%e5%9d%80%e8%a7%a3%e6%9e%90%e9%94%99%e8%af%af" class="header-anchor"></a>修复地址解析错误
 </h3><p>由于dns存在主机名解析功能，会导致请求错误的转发。正所谓“头痛医头，脚痛医脚”，最简单和无脑的方法就是直接关闭这个功能：</p>
 <p>在<code>网络</code>-<code>DHCP/DNS</code>-<code>高级设置</code>里，将<code>本地域名</code>里的值删除。（未测试，不确定🤔）</p>
 <p>但是我们都使用了mosdns了，为什么不好好的利用它那强大的规则呢。所以，我们可以将有关主机名解析的流量全部转发到dnsmasq，这样就不会出问题了。</p>
-<h3 id="区分流量来源">
-    <a href="#%e5%8c%ba%e5%88%86%e6%b5%81%e9%87%8f%e6%9d%a5%e6%ba%90">#</a>
-    区分流量来源
+<h3 id="区分流量来源"><a href="#%e5%8c%ba%e5%88%86%e6%b5%81%e9%87%8f%e6%9d%a5%e6%ba%90" class="header-anchor"></a>区分流量来源
 </h3><p>一开始，mosdns是作为dnsmasq的上游的，所以所有的请求来源都是本地，这就导致了我们无法控制mosdns，让其为不需要代理的设备分配真实的IP。所以，我们将所有dns请求通过防火墙劫持到mosdns上，就能知道设备的来源的ip了。关于防火墙的写法，我参考了<a class="link" href="https://github.com/rufengsuixing/luci-app-adguardhome/blob/master/root/etc/init.d/AdGuardHome#L59"  target="_blank" rel="noopener"
     >luci-app-adguardhome的开源代码</a>。</p>
 <p>但是这样还有一个问题，由于我们配置了ipv6，所以请求的客户端地址很大可能也是ipv6的。由于ipv6地址支持无状态分配，这就导致请求的地址会一直变动，这也导致无法为特定客户端实现分流。这里我选择了最简单和无脑的方法——直接关闭ipv6的DNS服务。通过查询Openwrt的官方文档，我们发现官方提供了<a class="link" href="https://openwrt.org/docs/guide-user/base-system/dhcp_configuration?s#disabling_ipv6_dns_for_odhcpd"  target="_blank" rel="noopener"
     >关闭ipv6 DNS服务的方法</a>。这样就可以让客户端始终通过ipv4来请求了。确保了这一点，我们的防火墙也只用劫持ipv4的流量了。</p>
-<h2 id="具体配置">
-    <a href="#%e5%85%b7%e4%bd%93%e9%85%8d%e7%bd%ae">#</a>
-    具体配置
+<h2 id="具体配置"><a href="#%e5%85%b7%e4%bd%93%e9%85%8d%e7%bd%ae" class="header-anchor"></a>具体配置
 </h2><p>上面都在讲思路，终于轮到具体的配置了。我们现在只需要小猫和<a class="link" href="https://github.com/sbwml/luci-app-mosdns"  target="_blank" rel="noopener"
     >luci-app-mosdns</a>这两个包就好了。</p>
-<h3 id="小猫">
-    <a href="#%e5%b0%8f%e7%8c%ab">#</a>
-    小猫
+<h3 id="小猫"><a href="#%e5%b0%8f%e7%8c%ab" class="header-anchor"></a>小猫
 </h3><ul>
 <li><strong><code>插件设置</code></strong> - <strong><code>模式设置</code></strong> - <strong><code>运行模式</code></strong>： 切换到 <strong><code>Fake-IP（增强）模式</code></strong></li>
 <li><strong><code>插件设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>本地 DNS 劫持</code></strong> 选择 <strong><code>禁用</code></strong></li>
@@ -701,9 +685,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span><span class="line"><span class="cl"><span class="k">fi</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="mosdns">
-    <a href="#mosdns">#</a>
-    Mosdns
+</div><h3 id="mosdns"><a href="#mosdns" class="header-anchor"></a>Mosdns
 </h3><p>选自定义配置文件，关闭<code>DNS 转发</code>的勾，然后我就直接贴配置了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1162,16 +1144,10 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>由于某个地址需要小猫才能访问，同时我们没有劫持路由器的dns查询，所以需要先手动查一下ip再下载。</p>
-<h2 id="后记">
-    <a href="#%e5%90%8e%e8%ae%b0">#</a>
-    后记
+<h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
 </h2><p>这也是一个大工程了，前前后后也花了好多天，不过做完后使用起来还是非常丝滑和顺畅的，最重要的是自己折腾出来这是在是太酷了🤓。这里还是要感谢方案的原作者和开源项目作者，我从中学到了许多🙏。</p>
-<h2 id="后续更新">
-    <a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0">#</a>
-    后续更新
-</h2><h3 id="20240829">
-    <a href="#20240829">#</a>
-    2024.08.29
+<h2 id="后续更新"><a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0" class="header-anchor"></a>后续更新
+</h2><h3 id="20240829"><a href="#20240829" class="header-anchor"></a>2024.08.29
 </h3><p>在使用时，会发现Google Play商店不能正常下载或更新应用。在<a class="link" href="https://www.yetpage.com/archives/278"  target="_blank" rel="noopener"
     >《大陆用户 Google Play 商店无法下载或更新应用的原因分析与解决办法》</a>这篇文章中，作者指出了这是由于国内版商店的api请求链接和下载链接分别通过直连和代理导致的问题，解决方案就是让请求都从代理出去。</p>
 <p>具体而言，我们需要将下面这几个域名添加到代理规则中</p>
@@ -1212,9 +1188,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样就可以正常的使用Play商店了</p>
-<h3 id="20240926">
-    <a href="#20240926">#</a>
-    2024.09.26
+<h3 id="20240926"><a href="#20240926" class="header-anchor"></a>2024.09.26
 </h3><p>将路由器刷到了最新的immortalWrt，防火墙从iptables升级到了nftables，所以原来的命令不能用了，需要使用新的命令。</p>
 
 </section>
@@ -1276,7 +1250,8 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
                 >
             </script><script>
     window.addEventListener("DOMContentLoaded", () => {
-        renderMathInElement(document.body, {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
             delimiters: [
                 { left: "$$", right: "$$", display: true },
                 { left: "$", right: "$", display: false },
@@ -1286,6 +1261,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
             ignoredClasses: ["gist"]
         });})
 </script>
+
     
 </article>
 
@@ -1433,14 +1409,14 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
         
             2020 - 
         
-        2024 luoboQAQ
+        2025 luoboQAQ
     </section>
     
     <section class="powerby">
         
             <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1529,7 +1505,7 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
                 src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

@@ -6,16 +6,14 @@
         <description>Recent content in 算法 on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 04 Apr 2022 22:54:54 +0800</lastBuildDate><atom:link href="https://lbqaq.top/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 04 Apr 2022 23:00:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>二分查找是个啥啊</title>
         <link>https://lbqaq.top/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%98%AF%E4%B8%AA%E5%95%A5%E5%95%8A/</link>
         <pubDate>Mon, 04 Apr 2022 22:54:54 +0800</pubDate>
         
         <guid>https://lbqaq.top/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%98%AF%E4%B8%AA%E5%95%A5%E5%95%8A/</guid>
         <description>&lt;img src="https://lbqaq.top/p/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%98%AF%E4%B8%AA%E5%95%A5%E5%95%8A/89247070.webp" alt="Featured image of post 二分查找是个啥啊" /&gt;&lt;p&gt;打了两次力扣的周赛，都败在了第三题上，而且都是二分查找的题目。这下不能忍了，必须来总结一波。&lt;/p&gt;
-&lt;h2 id=&#34;第一次二分查找&#34;&gt;
-    &lt;a href=&#34;#%e7%ac%ac%e4%b8%80%e6%ac%a1%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
-    第一次二分查找
+&lt;h2 id=&#34;第一次二分查找&#34;&gt;&lt;a href=&#34;#%e7%ac%ac%e4%b8%80%e6%ac%a1%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;第一次二分查找
 &lt;/h2&gt;&lt;p&gt;二分查找是用来在一个有序数组中查找某一元素的算法。它的工作原理如下：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;它每次考察数组当前部分的中间元素，如果中间元素刚好是要找的，就结束搜索过程；如果中间元素小于所查找的值，那么左侧的只会更小，不会有所查找的元素，只需到右侧查找；如果中间元素大于所查找的值同理，只需到左侧查找。&lt;/p&gt;
@@ -64,9 +62,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;在上面的代码中，我们每次搜索的是[left,right]这个闭区间，所以在while中要使用&lt;code&gt;&amp;lt;=&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;但是，这样的算法还是存在一些缺陷。比如对于条件&lt;code&gt;nums = [1,2,2,2,3],target=2&lt;/code&gt;，使用上面的算法返回的下标是&lt;code&gt;2&lt;/code&gt;。虽然答案是正确的，但我们想要得到&lt;code&gt;target&lt;/code&gt;的左侧边界或右侧边界就不能使用上面的算法了。虽然可以先查出结果再向左或右线性搜索，但这样时间复杂度就被提高了。&lt;/p&gt;
-&lt;h3 id=&#34;寻找左侧边界的二分查找&#34;&gt;
-    &lt;a href=&#34;#%e5%af%bb%e6%89%be%e5%b7%a6%e4%be%a7%e8%be%b9%e7%95%8c%e7%9a%84%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
-    寻找左侧边界的二分查找
+&lt;h3 id=&#34;寻找左侧边界的二分查找&#34;&gt;&lt;a href=&#34;#%e5%af%bb%e6%89%be%e5%b7%a6%e4%be%a7%e8%be%b9%e7%95%8c%e7%9a%84%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;寻找左侧边界的二分查找
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -122,9 +118,7 @@
 &lt;p&gt;那么，这个模板为什么能找到左边界呢？关键在于&lt;code&gt;nums[mid] == target&lt;/code&gt;这种情况的处理：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;right = mid;&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;我们找到 target 时没有立即返回，而是缩小「搜索区间」的上界 &lt;code&gt;right&lt;/code&gt;，在区间 &lt;code&gt;[left, mid)&lt;/code&gt;中继续搜索，即不断向左收缩，达到锁定左侧边界的目的。&lt;/p&gt;
-&lt;h3 id=&#34;寻找右侧边界的二分查找&#34;&gt;
-    &lt;a href=&#34;#%e5%af%bb%e6%89%be%e5%8f%b3%e4%be%a7%e8%be%b9%e7%95%8c%e7%9a%84%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
-    寻找右侧边界的二分查找
+&lt;h3 id=&#34;寻找右侧边界的二分查找&#34;&gt;&lt;a href=&#34;#%e5%af%bb%e6%89%be%e5%8f%b3%e4%be%a7%e8%be%b9%e7%95%8c%e7%9a%84%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;寻找右侧边界的二分查找
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -170,13 +164,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;由于我们对 &lt;code&gt;left&lt;/code&gt;的更新必须是 &lt;code&gt;left = mid + 1&lt;/code&gt;，这就导致了 while 循环结束时，&lt;code&gt;nums[left]&lt;/code&gt;一定不等于 &lt;code&gt;target&lt;/code&gt;了，而 &lt;code&gt;nums[left-1]&lt;/code&gt;可能是 &lt;code&gt;targe&lt;/code&gt;。所以我们在返回结果时要进行&lt;code&gt;-1&lt;/code&gt;操作。&lt;/p&gt;
-&lt;h2 id=&#34;第二次二分查找&#34;&gt;
-    &lt;a href=&#34;#%e7%ac%ac%e4%ba%8c%e6%ac%a1%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
-    第二次二分查找
+&lt;h2 id=&#34;第二次二分查找&#34;&gt;&lt;a href=&#34;#%e7%ac%ac%e4%ba%8c%e6%ac%a1%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;第二次二分查找
 &lt;/h2&gt;&lt;p&gt;虽说上面的模板已经够好了，但是有些题目并不是只考一个二分，如果照着敲一遍模板还是比较费时的。这是就不得不祭出&lt;code&gt;&amp;lt;algorithm&amp;gt;&lt;/code&gt;里的两个内置函数了：&lt;/p&gt;
-&lt;h3 id=&#34;lower_bound&#34;&gt;
-    &lt;a href=&#34;#lower_bound&#34;&gt;#&lt;/a&gt;
-    lower_bound
+&lt;h3 id=&#34;lower_bound&#34;&gt;&lt;a href=&#34;#lower_bound&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;lower_bound
 &lt;/h3&gt;&lt;p&gt;返回指向范围 &lt;code&gt;[first, last)&lt;/code&gt; 中首个&lt;strong&gt;不小于&lt;/strong&gt;（即大于或等于） &lt;code&gt;value&lt;/code&gt; 的元素的&lt;strong&gt;迭代器&lt;/strong&gt;，或若找不到这种元素则返回 &lt;code&gt;last&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;仔细考虑一下，就会发现这就是上面提到的寻找左侧边界的二分查找，一下就把原来那么长的代码变成了一行，太香了。（但是上面的模板还是要掌握，有些题目是无法调库）&lt;/p&gt;
 &lt;p&gt;使用举例：&lt;/p&gt;
@@ -199,9 +189,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;一个小细节，&lt;code&gt;lower_bound&lt;/code&gt;返回的是迭代器，所以lower的真实类型是&lt;code&gt;vector&amp;lt;int&amp;gt;::iterator&lt;/code&gt;，太长了所以我们用的时候还是使用&lt;code&gt;auto&lt;/code&gt;让编译器来补全QuQ。&lt;/p&gt;
-&lt;h3 id=&#34;upper_bound&#34;&gt;
-    &lt;a href=&#34;#upper_bound&#34;&gt;#&lt;/a&gt;
-    upper_bound
+&lt;h3 id=&#34;upper_bound&#34;&gt;&lt;a href=&#34;#upper_bound&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;upper_bound
 &lt;/h3&gt;&lt;p&gt;返回指向范围 &lt;code&gt;[first, last)&lt;/code&gt; 中首个&lt;strong&gt;大于&lt;/strong&gt; &lt;code&gt;value&lt;/code&gt; 的元素的&lt;strong&gt;迭代器&lt;/strong&gt;，或若找不到这种元素则返回 &lt;code&gt;last&lt;/code&gt; 。&lt;/p&gt;
 &lt;p&gt;其实就是上面寻找右侧边界的二分查找，只不过我们进行了&lt;code&gt;-1&lt;/code&gt;操作而该函数没有而已。&lt;/p&gt;
 &lt;p&gt;使用举例：&lt;/p&gt;
@@ -223,9 +211,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;终极二分查找&#34;&gt;
-    &lt;a href=&#34;#%e7%bb%88%e6%9e%81%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34;&gt;#&lt;/a&gt;
-    终极二分查找
+&lt;/div&gt;&lt;h2 id=&#34;终极二分查找&#34;&gt;&lt;a href=&#34;#%e7%bb%88%e6%9e%81%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;终极二分查找
 &lt;/h2&gt;&lt;p&gt;上面的都是对一个数组进行二分查找，我们也可以把思路放开一点，对&lt;strong&gt;答案&lt;/strong&gt;进行二分查找。我们都知道暴力法就是枚举答案然后检验枚举的值是否正确，当答案满足单调性时，我们就可以将枚举换为二分，这样能大大降低时间复杂度。&lt;/p&gt;
 &lt;p&gt;放两道例题，就是引言里我说的周赛题&lt;/p&gt;
 &lt;ul&gt;
@@ -234,9 +220,7 @@
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/problems/maximum-candies-allocated-to-k-children/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;5219. 每个小孩最多能分到多少糖果 - 力扣（LeetCode）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;参考资料&#34;&gt;
-    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34;&gt;#&lt;/a&gt;
-    参考资料
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考资料
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://oi-wiki.org/basic/binary&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;二分 - OI Wiki&lt;/a&gt;&lt;/li&gt;
@@ -251,13 +235,9 @@
         <pubDate>Sun, 03 Apr 2022 09:45:04 +0800</pubDate>
         
         <guid>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/95490521.webp" alt="Featured image of post 进制转换和位运算" /&gt;&lt;h2 id=&#34;进制转换&#34;&gt;
-    &lt;a href=&#34;#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2&#34;&gt;#&lt;/a&gt;
-    进制转换
+        <description>&lt;img src="https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/95490521.webp" alt="Featured image of post 进制转换和位运算" /&gt;&lt;h2 id=&#34;进制转换&#34;&gt;&lt;a href=&#34;#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;进制转换
 &lt;/h2&gt;&lt;p&gt;在数学中，不止只有我们常见的10进制，最近刷了几道关于进制转换的题目，在这里做个总结和记录吧。&lt;/p&gt;
-&lt;h3 id=&#34;基本概念&#34;&gt;
-    &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5&#34;&gt;#&lt;/a&gt;
-    基本概念
+&lt;h3 id=&#34;基本概念&#34;&gt;&lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;基本概念
 &lt;/h3&gt;&lt;p&gt;首先我们要先了解进制的基本概念，这里我直接从LeetCode官方这里引用了。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;任何一种进位计数制都有一个基数，基数为 X 的进位计数制称为 X 进制，表示每一个数位上的数运算时都是逢 X 进一。&lt;/p&gt;
@@ -268,13 +248,9 @@
 &lt;p&gt;八进制的 $720.5$ 可以写成如下形式：&lt;/p&gt;
 &lt;p&gt;$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1}$&lt;/p&gt;
 &lt;p&gt;用我自己的话来说，就是&lt;code&gt;数值*权重&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;进制转换的一般思路&#34;&gt;
-    &lt;a href=&#34;#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2%e7%9a%84%e4%b8%80%e8%88%ac%e6%80%9d%e8%b7%af&#34;&gt;#&lt;/a&gt;
-    进制转换的一般思路
+&lt;h3 id=&#34;进制转换的一般思路&#34;&gt;&lt;a href=&#34;#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2%e7%9a%84%e4%b8%80%e8%88%ac%e6%80%9d%e8%b7%af&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;进制转换的一般思路
 &lt;/h3&gt;&lt;p&gt;一般来说，我们习惯将进制转换成十进制，这样便于理解和手算。当然，我们也可以不通过十进制作为中间态过度，比如我们熟悉的二进制和十六进制的转换。&lt;/p&gt;
-&lt;h4 id=&#34;非十进制转十进制&#34;&gt;
-    &lt;a href=&#34;#%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e5%8d%81%e8%bf%9b%e5%88%b6&#34;&gt;#&lt;/a&gt;
-    非十进制转十进制
+&lt;h4 id=&#34;非十进制转十进制&#34;&gt;&lt;a href=&#34;#%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e5%8d%81%e8%bf%9b%e5%88%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;非十进制转十进制
 &lt;/h4&gt;&lt;p&gt;将非十进制数转成十进制数，只要将每个数位的加权和即可。&lt;/p&gt;
 &lt;p&gt;例如，将八进制数 $720.5_{(8)}$ 转成十进制：&lt;/p&gt;
 &lt;p&gt;$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1} = 464.625$&lt;/p&gt;
@@ -307,9 +283,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h4 id=&#34;十进制转非十进制&#34;&gt;
-    &lt;a href=&#34;#%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6&#34;&gt;#&lt;/a&gt;
-    十进制转非十进制
+&lt;/div&gt;&lt;h4 id=&#34;十进制转非十进制&#34;&gt;&lt;a href=&#34;#%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;十进制转非十进制
 &lt;/h4&gt;&lt;p&gt;首先我们先来看手算，将十进制数转成 X 进制数，需要对整数部分和小数部分分别转换。&lt;/p&gt;
 &lt;p&gt;对于整数部分，转换方式是将十进制数的整数部分每次除以 X 直到变成 0，并记录每次的余数，&lt;strong&gt;反向&lt;/strong&gt;遍历每次的余数即可得到 X 进制表示。&lt;/p&gt;
 &lt;p&gt;对于小数部分，转换方式是将十进制数的小数部分每次乘以 X 直到变成 0，并记录每次的整数部分，正序遍历每次的整数部分即可得到 X 进制表示。&lt;/p&gt;
@@ -332,9 +306,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;负进制&#34;&gt;
-    &lt;a href=&#34;#%e8%b4%9f%e8%bf%9b%e5%88%b6&#34;&gt;#&lt;/a&gt;
-    负进制
+&lt;/div&gt;&lt;h3 id=&#34;负进制&#34;&gt;&lt;a href=&#34;#%e8%b4%9f%e8%bf%9b%e5%88%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;负进制
 &lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P1017&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;[NOIP2000 提高组] 进制转换&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在洛谷的这道题中，我们遇到了一个新的概念：负进制&lt;/p&gt;
@@ -377,9 +349,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;位运算&#34;&gt;
-    &lt;a href=&#34;#%e4%bd%8d%e8%bf%90%e7%ae%97&#34;&gt;#&lt;/a&gt;
-    位运算
+&lt;/div&gt;&lt;h2 id=&#34;位运算&#34;&gt;&lt;a href=&#34;#%e4%bd%8d%e8%bf%90%e7%ae%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;位运算
 &lt;/h2&gt;&lt;p&gt;位运算的基本概念在组成原理这些课上已经讲过不知道多少遍了，这里就只提一下我觉得重要的点。&lt;/p&gt;
 &lt;p&gt;位运算共有6种，分别是：与(&lt;code&gt;&amp;amp;&lt;/code&gt;)、或(&lt;code&gt;|&lt;/code&gt;)、异或(&lt;code&gt;^&lt;/code&gt;)、取反(&lt;code&gt;~&lt;/code&gt;)、左移(&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;)和右移(&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;)。&lt;/p&gt;
 &lt;p&gt;这里要特别注意一下右移运算，它分为逻辑右移和算术右移：&lt;/p&gt;
@@ -391,9 +361,7 @@
 &lt;p&gt;在学习和刷题时，我们容易发现，左移运算对应乘法运算。将一个数左移 $k$ 位，等价于将这个数乘以 $2^k$。例如，$29$ 左移 $2$ 位的结果是 $116$，等价于 $29 \times 4$。&lt;/p&gt;
 &lt;p&gt;算术右移运算对应除法运算。将一个数右移 $k$ 位，相当于将这个数除以 $2^k$。例如，$50$ 右移 $2$ 位的结果是 $12$，等价于 $50 / 4$，结果向下取整。&lt;/p&gt;
 &lt;p&gt;这里要注意，对于负数，整数除法是向 $0$ 取整，右移运算是向下取整，两者就不相同了。例如，$(-50)&amp;raquo;2$的结果是 $−13$，而 $(-50) / 4$ 的结果是$-12$，两者是不相等的。&lt;/p&gt;
-&lt;h2 id=&#34;参考资料&#34;&gt;
-    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34;&gt;#&lt;/a&gt;
-    参考资料
+&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考资料
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/leetbook/read/bit-manipulation-and-math/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;位运算和数学 - LeetBook&lt;/a&gt;&lt;/li&gt;
@@ -414,17 +382,12 @@
 &lt;li&gt;数组区间修改，单点查询：&lt;strong&gt;差分&lt;/strong&gt;、线段树；&lt;/li&gt;
 &lt;li&gt;数组区间修改，区间查询：&lt;strong&gt;线段树&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;前缀和&#34;&gt;
-    &lt;a href=&#34;#%e5%89%8d%e7%bc%80%e5%92%8c&#34;&gt;#&lt;/a&gt;
-    前缀和
+&lt;h2 id=&#34;前缀和&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e7%bc%80%e5%92%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前缀和
 &lt;/h2&gt;&lt;p&gt;前缀和的作用就是为了帮助我们快速求某一段的和，是「差分」的逆运算。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;前缀和数组的每一位记录的是当前位置距离起点位置，这连续一段的和区间和。&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;一维前缀和&#34;&gt;
-    &lt;a href=&#34;#%e4%b8%80%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c&#34;&gt;#&lt;/a&gt;
-    一维前缀和
+&lt;h3 id=&#34;一维前缀和&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一维前缀和
 &lt;/h3&gt;&lt;p&gt;假设有一个一维数组$x$和该数组的一维前缀和数组$y$，则$x$和$y$满足以下关系：&lt;/p&gt;
-&lt;p&gt;$$y_0=x_0、y_1=x_0+x_1、y_2=x_0+x_1+x_2、&amp;hellip;&amp;hellip;、y_n=x_0+x_1+&amp;hellip;+x_n$$&lt;/p&gt;
-&lt;p&gt;所以我们可以通过 $y_n=y_{n-1}+x_n$ 这个公式计算出前缀和，代码实现如下：&lt;/p&gt;
+$$y_0=x_0、y_1=x_0+x_1、y_2=x_0+x_1+x_2、......、y_n=x_0+x_1+...+x_n$$&lt;p&gt;所以我们可以通过 $y_n=y_{n-1}+x_n$ 这个公式计算出前缀和，代码实现如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -455,15 +418,13 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;这样当我们想求区间$[a,b]$之和时只需要计算$y[b+1]-y[a]$即可。&lt;/p&gt;
-&lt;h3 id=&#34;二维前缀和&#34;&gt;
-    &lt;a href=&#34;#%e4%ba%8c%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c&#34;&gt;#&lt;/a&gt;
-    二维前缀和
+&lt;h3 id=&#34;二维前缀和&#34;&gt;&lt;a href=&#34;#%e4%ba%8c%e7%bb%b4%e5%89%8d%e7%bc%80%e5%92%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;二维前缀和
 &lt;/h3&gt;&lt;p&gt;有一个二维数组$a$和该数组的二维前缀和数组$b$（其同样是个二维数组)&lt;/p&gt;
 &lt;p&gt;右侧标注橙色的二维前缀和元素，其值是左侧的原二维数组中标注橙色的所有元素的和。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1.jpg&#34;
 	width=&#34;899&#34;
 	height=&#34;457&#34;
-	srcset=&#34;https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu13136669883163695317.jpg 480w, https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu2559946729523029379.jpg 1024w&#34;
+	srcset=&#34;https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu_574bdaff6d014dba.jpg 480w, https://lbqaq.top/p/%E5%88%9D%E6%8E%A2%E5%8C%BA%E9%97%B4%E6%B1%82%E5%92%8C%E9%97%AE%E9%A2%98/IMAGE/1_hu_43235969b02099c0.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;二维前缀和&#34;
@@ -475,8 +436,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;二维前缀和实际上就是一个矩阵内值的和，而矩阵又可以由两个行数或列数少一的子矩阵组合后，删去重合部分再加上右下角的值来构成，也就是以下式子：&lt;/p&gt;
-&lt;p&gt;$$b_{x,y}=b_{x-1,y}+b_{x,y-1}-b_{x-1,y-1}+a_{x,y}$$&lt;/p&gt;
-&lt;p&gt;详细的代码如下：&lt;/p&gt;
+$$b_{x,y}=b_{x-1,y}+b_{x,y-1}-b_{x-1,y-1}+a_{x,y}$$&lt;p&gt;详细的代码如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -510,19 +470,13 @@
 &lt;/div&gt;&lt;p&gt;通过二维前缀和，我们可以很方便的计算出给定矩阵的和，即上面求前缀和的逆运算。假设所求矩阵的左上角点为$(x1,y1)$，右下角点为$(x2,y2)$，则有公式：&lt;/p&gt;
 &lt;p&gt;$sum=B[y2][x2]+B[y1-1][x1-1]-B[y1-1][x2]-B[y2][x1-1]$&lt;/p&gt;
 &lt;p&gt;这里结合图形会更好理解一点。&lt;/p&gt;
-&lt;h3 id=&#34;例题&#34;&gt;
-    &lt;a href=&#34;#%e4%be%8b%e9%a2%98&#34;&gt;#&lt;/a&gt;
-    例题
+&lt;h3 id=&#34;例题&#34;&gt;&lt;a href=&#34;#%e4%be%8b%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;例题
 &lt;/h3&gt;&lt;p&gt;力扣&lt;a class=&#34;link&#34; href=&#34;https://leetcode-cn.com/problems/range-sum-query-immutable/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;303. 区域和检索 - 数组不可变&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;就是一维前缀和的模板题，直接上模板即可做出。&lt;/p&gt;
-&lt;h2 id=&#34;差分&#34;&gt;
-    &lt;a href=&#34;#%e5%b7%ae%e5%88%86&#34;&gt;#&lt;/a&gt;
-    差分
+&lt;h2 id=&#34;差分&#34;&gt;&lt;a href=&#34;#%e5%b7%ae%e5%88%86&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;差分
 &lt;/h2&gt;&lt;p&gt;差分是一种处理数据的巧妙而简单的方法，它应用于区间的修改和询问问题。如果我们要经常对数组A某个区间内的所有元素做相同的加减操作，如果一个一个修改效率很差，但是使用差分数组后，这个操作的时间复杂度就能降到$\Omicron(1)$,当所有的修改操作结束后，再利用差分数组，计算出新的A。&lt;/p&gt;
-&lt;h3 id=&#34;一维差分&#34;&gt;
-    &lt;a href=&#34;#%e4%b8%80%e7%bb%b4%e5%b7%ae%e5%88%86&#34;&gt;#&lt;/a&gt;
-    一维差分
+&lt;h3 id=&#34;一维差分&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e7%bb%b4%e5%b7%ae%e5%88%86&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一维差分
 &lt;/h3&gt;&lt;p&gt;我们定义原数组为$a[]$、差分数组为$D[]$，则有计算公式：$D[k]=a[k]-a[k-1]$,即原数组$a[]$的相邻元素的差。从定义我们可以推出$a[k]=D[0]+D[1]+&amp;hellip;+D[k]$。也就是说$a[]$是$D[]$的前缀和，所以「差分」和「前缀和」就是一组逆运算。&lt;/p&gt;
 &lt;p&gt;当我们想要对区间$[L,R]$每个元素加上$d$，则只要进行下面的两步操作：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -537,12 +491,9 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;当所有修改都完成时，我们可以通过复杂度为$\Omicron(n)$的操作计算出新的$a[]$&lt;/p&gt;
 &lt;p&gt;当然，差分也不是万能的，它只能解决 &lt;strong&gt;区间修改+单点查询&lt;/strong&gt; 这类问题。当遇到需要多次查询的问题，比如有$m$次修改，$k$次查询，此时修改的复杂度为$\Omicron(m)$,查询的复杂度为$\Omicron(kn)$，总复杂度为$\Omicron(m+kn)$，和暴力法$\Omicron(mn+k)$的复杂度一致了。&lt;/p&gt;
-&lt;h3 id=&#34;二维差分&#34;&gt;
-    &lt;a href=&#34;#%e4%ba%8c%e7%bb%b4%e5%b7%ae%e5%88%86&#34;&gt;#&lt;/a&gt;
-    二维差分
+&lt;h3 id=&#34;二维差分&#34;&gt;&lt;a href=&#34;#%e4%ba%8c%e7%bb%b4%e5%b7%ae%e5%88%86&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;二维差分
 &lt;/h3&gt;&lt;p&gt;从一维差分可以很容易的推广到二维差分，我们可以通过下面的公式计算$D[][]$：&lt;/p&gt;
-&lt;p&gt;$$D[i][j]=a[i][j]-a[i-1][j]-a[i][j-1]+a[i-1][j-1]$$&lt;/p&gt;
-&lt;p&gt;我们想修改坐标点$(x1,y1)$~$(x2,y2)$定义的区间，则需要修改矩阵的四个点：&lt;/p&gt;
+$$D[i][j]=a[i][j]-a[i-1][j]-a[i][j-1]+a[i-1][j-1]$$&lt;p&gt;我们想修改坐标点$(x1,y1)$~$(x2,y2)$定义的区间，则需要修改矩阵的四个点：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -558,15 +509,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;前缀和$a[][]$的计算可以用下面的公式：&lt;/p&gt;
-&lt;p&gt;$$a[i][j]=D[i][j]+a[i-1][j]+a[i][j-1]-a[i-1][j-1]$$&lt;/p&gt;
-&lt;p&gt;在计算$a[][]$时，我们可以不新开一个数组，而是以用过的$D[][]$作为$a[][]$，以此来节约空间。使用的话只需要将上面式子中的$a$全部换为$D$&lt;/p&gt;
-&lt;h2 id=&#34;树状数组&#34;&gt;
-    &lt;a href=&#34;#%e6%a0%91%e7%8a%b6%e6%95%b0%e7%bb%84&#34;&gt;#&lt;/a&gt;
-    树状数组
+$$a[i][j]=D[i][j]+a[i-1][j]+a[i][j-1]-a[i-1][j-1]$$&lt;p&gt;在计算$a[][]$时，我们可以不新开一个数组，而是以用过的$D[][]$作为$a[][]$，以此来节约空间。使用的话只需要将上面式子中的$a$全部换为$D$&lt;/p&gt;
+&lt;h2 id=&#34;树状数组&#34;&gt;&lt;a href=&#34;#%e6%a0%91%e7%8a%b6%e6%95%b0%e7%bb%84&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;树状数组
 &lt;/h2&gt;&lt;p&gt;树状数组的优点在于查询和修改的时间复杂度都为$\Omicron(logn)$，且比线段树好写。&lt;/p&gt;
-&lt;h3 id=&#34;单点修改区间查询&#34;&gt;
-    &lt;a href=&#34;#%e5%8d%95%e7%82%b9%e4%bf%ae%e6%94%b9%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2&#34;&gt;#&lt;/a&gt;
-    单点修改、区间查询
+&lt;h3 id=&#34;单点修改区间查询&#34;&gt;&lt;a href=&#34;#%e5%8d%95%e7%82%b9%e4%bf%ae%e6%94%b9%e5%8c%ba%e9%97%b4%e6%9f%a5%e8%af%a2&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;单点修改、区间查询
 &lt;/h3&gt;&lt;p&gt;树状数组的原理由于时间有限，这里就不展开说了（之后有空再补上😇），先上模板：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -626,9 +572,7 @@
 &lt;p&gt;由此就解决了&lt;strong&gt;单点修改、区间查询&lt;/strong&gt;的问题，我们想要得到区间$(a,b)$的和，只需使用&lt;code&gt;getsum(b) - getsum(a - 1)&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;例题：&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P3374&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;P3374【模板】树状数组 1&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&#34;区间修改单点查询&#34;&gt;
-    &lt;a href=&#34;#%e5%8c%ba%e9%97%b4%e4%bf%ae%e6%94%b9%e5%8d%95%e7%82%b9%e6%9f%a5%e8%af%a2&#34;&gt;#&lt;/a&gt;
-    区间修改、单点查询
+&lt;h3 id=&#34;区间修改单点查询&#34;&gt;&lt;a href=&#34;#%e5%8c%ba%e9%97%b4%e4%bf%ae%e6%94%b9%e5%8d%95%e7%82%b9%e6%9f%a5%e8%af%a2&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;区间修改、单点查询
 &lt;/h3&gt;&lt;p&gt;在上面的差分中我们分析了，如果有多次查询，仅仅使用差分的时间复杂度就和暴力差不多了。这时，我们可以采用树状数组+差分的方法。&lt;/p&gt;
 &lt;p&gt;我们将上面模板中的原始数组改为差分数组。由差分的性质可知，当我们修改一个区间时，只需要修改区间的两个端点即可，此时区间修改的问题便被转化成了单点修改的问题。同时，树状数组前n项和也就变成了原数组第n项的值。&lt;/p&gt;
 &lt;p&gt;例题：&lt;a class=&#34;link&#34; href=&#34;https://www.luogu.com.cn/problem/P3368&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -693,9 +637,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;参考资料&#34;&gt;
-    &lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34;&gt;#&lt;/a&gt;
-    参考资料
+&lt;/div&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考资料
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/117569086&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;【朝夕的ACM笔记】算法基础-前缀和&lt;/a&gt;&lt;/li&gt;

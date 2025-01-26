@@ -6,16 +6,14 @@
         <description>Recent content in Docker on luoboQAQ</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sun, 03 Sep 2023 14:10:14 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 22 Nov 2023 13:24:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/docker/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>浪潮人工智能平台使用心得</title>
         <link>https://lbqaq.top/p/langchao/</link>
         <pubDate>Sun, 03 Sep 2023 14:10:14 +0800</pubDate>
         
         <guid>https://lbqaq.top/p/langchao/</guid>
         <description>&lt;img src="https://lbqaq.top/p/langchao/102879503.webp" alt="Featured image of post 浪潮人工智能平台使用心得" /&gt;&lt;p&gt;随着学习的深入，对算力的要求越来越高。但我实验室的电脑并没有配置显卡，所以便需要使用学院的服务器。成功拿到账号后，却发现这个平台并没有我想象的那么好用😇为了达到最舒适的使用体验，开搞！&lt;/p&gt;
-&lt;h2 id=&#34;配置开发镜像&#34;&gt;
-    &lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e5%bc%80%e5%8f%91%e9%95%9c%e5%83%8f&#34;&gt;#&lt;/a&gt;
-    配置开发镜像
+&lt;h2 id=&#34;配置开发镜像&#34;&gt;&lt;a href=&#34;#%e9%85%8d%e7%bd%ae%e5%bc%80%e5%8f%91%e9%95%9c%e5%83%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;配置开发镜像
 &lt;/h2&gt;&lt;p&gt;平台里虽然预置了一些开发环境，但仍然缺少一些需要的软件，每次连入后再重新安装实在是不优雅。那么最好的方案就是配置好一套环境，直接拉取就能使用。在我之前，已经有位大佬构建了一套开发环境并进行了分享，可是镜像大小达到了惊人的18.4G😯（容量大说明功能多，此处并没有贬低的意思）。我个人比较喜欢Arch的哲学，即Keep It Simple, Stupid（对应中文为“保持简单，且一目了然”）。为此，我决定构建一个最小化的开发环境且可以开箱即用。&lt;/p&gt;
 &lt;p&gt;通过探究发现，这个平台上所有的开发环境都是一个Docker容器。所以，我们只要构建好镜像并上传就OK了。构建镜像有两种方式，一种是进入容器手动配置然后使用&lt;code&gt;docker commit ...&lt;/code&gt;保存修改；另一种则是使用&lt;code&gt;Dockerfile&lt;/code&gt;。为了便于维护和修改，我选择了第二种。&lt;/p&gt;
 &lt;p&gt;接下来就是明确需求了，我对其的要求有几点：&lt;/p&gt;
@@ -180,9 +178,7 @@
 &lt;li&gt;设置别名：&lt;code&gt;conda&lt;/code&gt;-&amp;gt;&lt;code&gt;micromamba&lt;/code&gt;，方便日常使用&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;由于服务器没有网络，需要我们手动上传镜像，使用命令&lt;code&gt;docker save -o [TAGS]&lt;/code&gt;打包成tar包并上传至系统中。&lt;/p&gt;
-&lt;h2 id=&#34;小结&#34;&gt;
-    &lt;a href=&#34;#%e5%b0%8f%e7%bb%93&#34;&gt;#&lt;/a&gt;
-    小结
+&lt;h2 id=&#34;小结&#34;&gt;&lt;a href=&#34;#%e5%b0%8f%e7%bb%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;小结
 &lt;/h2&gt;&lt;p&gt;希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。&lt;/p&gt;
 </description>
         </item>

@@ -573,8 +573,7 @@
 <h2 id="value类型转换算子"><a href="#value%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2%e7%ae%97%e5%ad%90" class="header-anchor"></a>Value类型转换算子
 </h2><h3 id="map"><a href="#map" class="header-anchor"></a>map
 </h3><blockquote>
-<p>def map[U: ClassTag](f: <strong>T =&gt; U</strong> ): RDD[U]</p>
-</blockquote>
+<p>def map[U: ClassTag](f: <strong>T =&gt; U</strong> ): RDD[U]</p></blockquote>
 <p>将处理的数据逐条进行映射转换，这里的转换可以是类型的转换，也可以是值的转换。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -605,8 +604,7 @@
 </div><p>注意要认识最后的简写形式。</p>
 <h3 id="mappartiotions"><a href="#mappartiotions" class="header-anchor"></a>mapPartiotions
 </h3><blockquote>
-<p>def mapPartitions[U: ClassTag]( f: <strong>Iterator[T] =&gt; Iterator[U]</strong>,preservesPartitioning: Boolean = false): RDD[U]</p>
-</blockquote>
+<p>def mapPartitions[U: ClassTag]( f: <strong>Iterator[T] =&gt; Iterator[U]</strong>,preservesPartitioning: Boolean = false): RDD[U]</p></blockquote>
 <p><strong>以分区为单位</strong>进行数据转换操作，但是会将整个分区的数据加载到内存进行引用，由于存在对象的引用，因此处理完的数据不会被释放掉。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -658,8 +656,7 @@
 </ul>
 <h3 id="mappartitionwithindex"><a href="#mappartitionwithindex" class="header-anchor"></a>mapPartitionWithIndex
 </h3><blockquote>
-<p>def mapPartitionsWithIndex[U: ClassTag]( f: (<strong>Int, Iterator[T]) =&gt; Iterator[U]</strong> ,preservesPartitioning: Boolean = false): RDD[U]</p>
-</blockquote>
+<p>def mapPartitionsWithIndex[U: ClassTag]( f: (<strong>Int, Iterator[T]) =&gt; Iterator[U]</strong> ,preservesPartitioning: Boolean = false): RDD[U]</p></blockquote>
 <p>将待处理的数据以分区为单位发送到计算节点进行处理，这里的处理是指可以进行任意的处理，哪怕是过滤数据，在处理时同时可以获取当前分区索引。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -703,8 +700,7 @@
 </div><p>在上面的程序中，我们对第0个分区进行抛弃，对第1个分区进行保留。如所示，程序仅输出了第1分区里的内容。</p>
 <h3 id="flatmap"><a href="#flatmap" class="header-anchor"></a>flatMap
 </h3><blockquote>
-<p>def flatMap[U: ClassTag](f: <strong>T =&gt; TraversableOnce[U]</strong>): RDD[U]</p>
-</blockquote>
+<p>def flatMap[U: ClassTag](f: <strong>T =&gt; TraversableOnce[U]</strong>): RDD[U]</p></blockquote>
 <p>将处理的数据进行扁平化后再进行映射处理，所以算子也称之为扁平映射</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -779,8 +775,7 @@
 <h2 id="重新分区与数据筛选"><a href="#%e9%87%8d%e6%96%b0%e5%88%86%e5%8c%ba%e4%b8%8e%e6%95%b0%e6%8d%ae%e7%ad%9b%e9%80%89" class="header-anchor"></a>重新分区与数据筛选
 </h2><h3 id="coalesce"><a href="#coalesce" class="header-anchor"></a>coalesce
 </h3><blockquote>
-<p>def coalesce(numPartitions: Int, shuffle: Boolean = false, partitionCoalescer: Option[PartitionCoalescer] = Option.empty) (implicit ord: Ordering[T] = null): RDD[T]</p>
-</blockquote>
+<p>def coalesce(numPartitions: Int, shuffle: Boolean = false, partitionCoalescer: Option[PartitionCoalescer] = Option.empty) (implicit ord: Ordering[T] = null): RDD[T]</p></blockquote>
 <p>根据数据量缩减分区，用于大数据集过滤后，提高小数据集的执行效率。</p>
 <p>当 spark 程序中，存在过多的小任务的时候，可以通过 coalesce 方法，收缩合并分区，减少分区的个数，减小任务调度成本。</p>
 <p>coalesce方法默认情况下不会将分区的数据打乱重新组合，只是将多个分区合并为1一个分区。</p>
@@ -803,8 +798,7 @@
 </div><p>上面代码的含义是将3个分区缩减成2个，可见成功执行，一个分区里有2个数，而另一个分区里有4个数。</p>
 <h3 id="repartition"><a href="#repartition" class="header-anchor"></a>repartition
 </h3><blockquote>
-<p>def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]</p>
-</blockquote>
+<p>def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]</p></blockquote>
 <p>该操作内部其实执行的是 coalesce 操作，参数 shuffle 的默认值为 true。无论是将分区数多的RDD 转换为分区数少的RDD，还是将分区数少的 RDD 转换为分区数多的RDD，repartition 操作都可以完成，因为无论如何都会经 shuffle 过程。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -825,8 +819,7 @@
 </div><p>由于参数 shuffle 的值为 true，将分区的数据打乱重新组合以保证不会出现数据倾斜</p>
 <h3 id="distinct"><a href="#distinct" class="header-anchor"></a>distinct
 </h3><blockquote>
-<p>def distinct()(implicit ord: Ordering[T] = null): RDD[T]</p>
-</blockquote>
+<p>def distinct()(implicit ord: Ordering[T] = null): RDD[T]</p></blockquote>
 <p>将数据集中重复的数据去重</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -846,8 +839,7 @@
 </div>
 </div><h3 id="filter"><a href="#filter" class="header-anchor"></a>filter
 </h3><blockquote>
-<p>def filter(f: T =&gt; Boolean): RDD[T]</p>
-</blockquote>
+<p>def filter(f: T =&gt; Boolean): RDD[T]</p></blockquote>
 <p>将数据根据指定的规则进行筛选过滤，符合规则的数据保留，不符合规则的数据丢弃。当数据进行筛选过滤后，分区不变，但是分区内的数据可能不均衡</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -908,8 +900,7 @@
 </div><p>在上面的代码中，按奇偶数进行分组</p>
 <h3 id="sortby"><a href="#sortby" class="header-anchor"></a>sortBy
 </h3><blockquote>
-<p>def sortBy[K] ( f: (T) =&gt; K,   ascending: Boolean =  true,   numPartitions: Int = this.partitions.length) (implicit ord: Ordering[K], ctag: ClassTag[K]): RDD[T]</p>
-</blockquote>
+<p>def sortBy[K] ( f: (T) =&gt; K,   ascending: Boolean =  true,   numPartitions: Int = this.partitions.length) (implicit ord: Ordering[K], ctag: ClassTag[K]): RDD[T]</p></blockquote>
 <p>该操作用于排序数据。在排序之前，可以将数据通过 f 函数进行处理，之后按照 f 函数处理的结果进行排序，默认为升序排列。排序后新产生的 RDD 的分区数与原RDD 的分区数一致。中间存在 shuffle 的过程</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -955,8 +946,7 @@
 </div><h2 id="集合类型算子操作"><a href="#%e9%9b%86%e5%90%88%e7%b1%bb%e5%9e%8b%e7%ae%97%e5%ad%90%e6%93%8d%e4%bd%9c" class="header-anchor"></a>集合类型算子操作
 </h2><h3 id="intersection"><a href="#intersection" class="header-anchor"></a>intersection
 </h3><blockquote>
-<p>def intersection(other: RDD[T]): RDD[T]</p>
-</blockquote>
+<p>def intersection(other: RDD[T]): RDD[T]</p></blockquote>
 <p>对源RDD 和参数RDD 求交集后返回一个新的RDD</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -978,8 +968,7 @@
 </div>
 </div><h3 id="union"><a href="#union" class="header-anchor"></a>union
 </h3><blockquote>
-<p>def union(other: RDD[T]): RDD[T]</p>
-</blockquote>
+<p>def union(other: RDD[T]): RDD[T]</p></blockquote>
 <p>对源RDD 和参数RDD 求并集后返回一个新的RDD</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1001,8 +990,7 @@
 </div>
 </div><h3 id="subtract"><a href="#subtract" class="header-anchor"></a>subtract
 </h3><blockquote>
-<p>def subtract(other: RDD[T]): RDD[T]</p>
-</blockquote>
+<p>def subtract(other: RDD[T]): RDD[T]</p></blockquote>
 <p>以一个 RDD 元素为主，去除两个 RDD 中重复元素，将其他元素保留下来。求差集</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1024,8 +1012,7 @@
 </div>
 </div><h3 id="zip"><a href="#zip" class="header-anchor"></a>zip
 </h3><blockquote>
-<p>def zip[U: ClassTag](other: RDD[U]): RDD[(T, U)]</p>
-</blockquote>
+<p>def zip[U: ClassTag](other: RDD[U]): RDD[(T, U)]</p></blockquote>
 <p>将两个 RDD 中的元素，以键值对的形式进行合并。其中，键值对中的Key 为第 1 个 RDD中的元素，Value 为第 2 个 RDD 中的相同位置的元素。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1050,8 +1037,7 @@
 <h2 id="key-value类型算子"><a href="#key-value%e7%b1%bb%e5%9e%8b%e7%ae%97%e5%ad%90" class="header-anchor"></a>Key-Value类型算子
 </h2><h3 id="reducebykey"><a href="#reducebykey" class="header-anchor"></a>reduceByKey
 </h3><blockquote>
-<p>def reduceByKey(func: (V, V) =&gt; V): RDD[(K, V)]</p>
-</blockquote>
+<p>def reduceByKey(func: (V, V) =&gt; V): RDD[(K, V)]</p></blockquote>
 <p>可以将数据按照相同的Key 对Value 进行聚合，聚合操作是两两进行聚合的。reduceByKey中如果key的数据只有一个，是不会参与运算的。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1087,8 +1073,7 @@
 </div><p>在上面的代码中，根据参数_+_，即表示将两个value进行相加。</p>
 <h3 id="groupbykey"><a href="#groupbykey" class="header-anchor"></a>groupByKey
 </h3><blockquote>
-<p>def groupByKey(): <strong>RDD[(K, Iterable[V])]</strong></p>
-</blockquote>
+<p>def groupByKey(): <strong>RDD[(K, Iterable[V])]</strong></p></blockquote>
 <p>将数据源的数据根据 key， 对 value 进行分组，将数据源中相同key的数据分在一个组中，行成一个对偶元祖，元组中的第一个元素就是key，元组中的第二个元素就行相同key的value的集合。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1124,8 +1109,7 @@
 ></p>
 <h3 id="aggregatebykey"><a href="#aggregatebykey" class="header-anchor"></a>aggregateByKey
 </h3><blockquote>
-<p>def aggregateByKey[U: ClassTag](zeroValue: U)(seqOp: (U, V) =&gt; U, combOp: (U, U) =&gt; U): RDD[(K, U)]</p>
-</blockquote>
+<p>def aggregateByKey[U: ClassTag](zeroValue: U)(seqOp: (U, V) =&gt; U, combOp: (U, U) =&gt; U): RDD[(K, U)]</p></blockquote>
 <p>将数据根据不同的规则进行分区内计算和分区间计算。</p>
 <p>aggregateByKey存在函数柯里化，有两个参数列表。</p>
 <p>第一个参数列表，需要传递一个参数，表示初始值。主要用于当碰见第一个key的时候，和value进行分区内计算。</p>
@@ -1178,8 +1162,7 @@
 ></p>
 <h3 id="foldbykey"><a href="#foldbykey" class="header-anchor"></a>foldByKey
 </h3><blockquote>
-<p>def foldByKey(zeroValue: V)(func: (V, V) =&gt; V): RDD[(K, V)]</p>
-</blockquote>
+<p>def foldByKey(zeroValue: V)(func: (V, V) =&gt; V): RDD[(K, V)]</p></blockquote>
 <p>当分区内计算规则和分区间计算规则相同时，aggregateByKey 就可以简化为foldByKey</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1205,8 +1188,7 @@
 </div>
 </div><h3 id="combinebykey"><a href="#combinebykey" class="header-anchor"></a>combineByKey
 </h3><blockquote>
-<p>def combineByKey[C]( createCombiner: V =&gt; C, mergeValue: (C, V) =&gt; C, mergeCombiners: (C, C) =&gt; C): RDD[(K, C)]</p>
-</blockquote>
+<p>def combineByKey[C]( createCombiner: V =&gt; C, mergeValue: (C, V) =&gt; C, mergeCombiners: (C, C) =&gt; C): RDD[(K, C)]</p></blockquote>
 <p>对key-value 型 rdd 进行聚集操作的聚集函数（aggregation function）。类似于aggregate()，combineByKey()允许用户返回值的类型与输入不一致。</p>
 <p>combineByKey方法需要三个参数</p>
 <ul>
@@ -1279,8 +1261,7 @@
 ></p>
 <h3 id="join"><a href="#join" class="header-anchor"></a>join
 </h3><blockquote>
-<p>def join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]</p>
-</blockquote>
+<p>def join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]</p></blockquote>
 <p>在类型为(K,V)和(K,W)的RDD 上调用，返回一个相同 key 对应的所有元素连接在一起的(K,(V,W))的RDD</p>
 <p>两个RDD中的元素对进行笛卡尔乘积性质的匹配，但只会打印出匹配成功的。</p>
 <div class="highlight"><div class="chroma">
@@ -1329,8 +1310,7 @@
 </div>
 </div><h3 id="leftouterjoin"><a href="#leftouterjoin" class="header-anchor"></a>leftOuterJoin
 </h3><blockquote>
-<p>def leftOuterJoin[W](other: RDD[(K, W)]): <strong>RDD[(K, (V, Option[W]))]</strong></p>
-</blockquote>
+<p>def leftOuterJoin[W](other: RDD[(K, W)]): <strong>RDD[(K, (V, Option[W]))]</strong></p></blockquote>
 <p>类似于 SQL 语句的左外连接，根据左边第一个元素将两个RDD连接起来，和join算子类似，但这个可以支持key不匹配的情况。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1413,8 +1393,7 @@
 </div><h2 id="行动算子"><a href="#%e8%a1%8c%e5%8a%a8%e7%ae%97%e5%ad%90" class="header-anchor"></a>行动算子
 </h2><h3 id="reduce"><a href="#reduce" class="header-anchor"></a>reduce
 </h3><blockquote>
-<p>def reduce(f: (T, T) =&gt; T): T</p>
-</blockquote>
+<p>def reduce(f: (T, T) =&gt; T): T</p></blockquote>
 <p>聚集RDD 中的所有元素，先聚合分区内数据，再聚合分区间数据</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1435,8 +1414,7 @@
 </div><p>在上面的例子中，10=1+2+3+4</p>
 <h3 id="collect"><a href="#collect" class="header-anchor"></a>collect
 </h3><blockquote>
-<p>def collect(): Array[T]</p>
-</blockquote>
+<p>def collect(): Array[T]</p></blockquote>
 <p>在驱动程序中，方法会将不同分区的数据按照分区顺序采集到Driver端内存中，形成数组。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1456,8 +1434,7 @@
 </div>
 </div><h3 id="first"><a href="#first" class="header-anchor"></a>first
 </h3><blockquote>
-<p>def first(): T</p>
-</blockquote>
+<p>def first(): T</p></blockquote>
 <p>返回RDD 中的第一个元素</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1475,8 +1452,7 @@
 </div>
 </div><h3 id="take"><a href="#take" class="header-anchor"></a>take
 </h3><blockquote>
-<p>def take(num: Int): Array[T]</p>
-</blockquote>
+<p>def take(num: Int): Array[T]</p></blockquote>
 <p>返回一个由RDD 的前 n 个元素组成的数组</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1496,8 +1472,7 @@
 </div>
 </div><h3 id="takeordered"><a href="#takeordered" class="header-anchor"></a>takeOrdered
 </h3><blockquote>
-<p>def takeOrdered(num: Int)(implicit ord: Ordering[T]): Array[T]</p>
-</blockquote>
+<p>def takeOrdered(num: Int)(implicit ord: Ordering[T]): Array[T]</p></blockquote>
 <p>返回该 RDD 排序后的前 n 个元素组成的数组</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1515,8 +1490,7 @@
 </div>
 </div><h3 id="aggregate"><a href="#aggregate" class="header-anchor"></a>aggregate
 </h3><blockquote>
-<p>def aggregate[U: ClassTag](zeroValue: U)(seqOp: (U, T) =&gt; U, combOp: (U, U) =&gt; U): U</p>
-</blockquote>
+<p>def aggregate[U: ClassTag](zeroValue: U)(seqOp: (U, T) =&gt; U, combOp: (U, U) =&gt; U): U</p></blockquote>
 <p>分区的数据通过初始值和分区内的数据进行聚合，然后再和初始值进行分区间的数据聚合；即，初始值不仅参与分区内计算，同时也参与分区间计算。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1562,8 +1536,7 @@
 </div>
 </div><h3 id="fold"><a href="#fold" class="header-anchor"></a>fold
 </h3><blockquote>
-<p>def fold(zeroValue: T)(op: (T, T) =&gt; T): T</p>
-</blockquote>
+<p>def fold(zeroValue: T)(op: (T, T) =&gt; T): T</p></blockquote>
 <p>折叠操作，aggregate的简化版操作</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1581,8 +1554,7 @@
 </div>
 </div><h3 id="countbykey"><a href="#countbykey" class="header-anchor"></a>countByKey
 </h3><blockquote>
-<p>def countByKey(): Map[K, Long]</p>
-</blockquote>
+<p>def countByKey(): Map[K, Long]</p></blockquote>
 <p>统计每种 key 的个数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1819,8 +1791,7 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
 </div><h2 id="算子补充"><a href="#%e7%ae%97%e5%ad%90%e8%a1%a5%e5%85%85" class="header-anchor"></a>算子补充
 </h2><h3 id="glom"><a href="#glom" class="header-anchor"></a>glom
 </h3><blockquote>
-<p>def glom(): RDD[Array[T]]</p>
-</blockquote>
+<p>def glom(): RDD[Array[T]]</p></blockquote>
 <p>将<strong>同一个分区的数据</strong>直接转换为一个<strong>相同类型的内存数组</strong>进行处理，分区不变</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1840,8 +1811,7 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
 </div>
 </div><h3 id="sample"><a href="#sample" class="header-anchor"></a>sample
 </h3><blockquote>
-<p>def sample( withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]</p>
-</blockquote>
+<p>def sample( withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]</p></blockquote>
 <p>根据指定的规则从数据集中抽取数据</p>
 <ul>
 <li>第1个参数withReplacement表示：抽取后是否将数据返回，true（放回），false（丢弃）</li>
@@ -1882,14 +1852,12 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
 </div>
 </div><h3 id="partitionby"><a href="#partitionby" class="header-anchor"></a>partitionBy
 </h3><blockquote>
-<p>def partitionBy(partitioner: Partitioner): RDD[(K, V)]</p>
-</blockquote>
+<p>def partitionBy(partitioner: Partitioner): RDD[(K, V)]</p></blockquote>
 <p>将数据按照指定的Partitioner规则 重新进行重新分区。Spark 默认的分区器是HashPartitioner</p>
 <p>太冷门了，应该不考，就不放代码了</p>
 <h3 id="cogroup"><a href="#cogroup" class="header-anchor"></a>cogroup
 </h3><blockquote>
-<p>def cogroup[W](other: RDD[(K, W)]): RDD[(K, (Iterable[V], Iterable[W]))]</p>
-</blockquote>
+<p>def cogroup[W](other: RDD[(K, W)]): RDD[(K, (Iterable[V], Iterable[W]))]</p></blockquote>
 <p>在类型为(K,V)和(K,W)的RDD 上调用，返回一个(K,(Iterable&lt;V&gt;,Iterable&lt;W&gt;))类型的 RDD</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1920,13 +1888,11 @@ aggregateByKey组内计算和组间计算数据格式一样</li>
 </div><p>下面都是行动算子</p>
 <h3 id="count"><a href="#count" class="header-anchor"></a>count
 </h3><blockquote>
-<p>def count(): Long</p>
-</blockquote>
+<p>def count(): Long</p></blockquote>
 <p>返回RDD 中元素的个数</p>
 <h3 id="saveastextfile"><a href="#saveastextfile" class="header-anchor"></a>saveAsTextFile
 </h3><blockquote>
-<p>def saveAsTextFile(path: String): Unit</p>
-</blockquote>
+<p>def saveAsTextFile(path: String): Unit</p></blockquote>
 <p>保存成 Text 文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

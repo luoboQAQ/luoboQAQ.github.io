@@ -99,8 +99,7 @@
 &lt;h2 id=&#34;value类型转换算子&#34;&gt;&lt;a href=&#34;#value%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2%e7%ae%97%e5%ad%90&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Value类型转换算子
 &lt;/h2&gt;&lt;h3 id=&#34;map&#34;&gt;&lt;a href=&#34;#map&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;map
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def map[U: ClassTag](f: &lt;strong&gt;T =&amp;gt; U&lt;/strong&gt; ): RDD[U]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def map[U: ClassTag](f: &lt;strong&gt;T =&amp;gt; U&lt;/strong&gt; ): RDD[U]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将处理的数据逐条进行映射转换，这里的转换可以是类型的转换，也可以是值的转换。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -131,8 +130,7 @@
 &lt;/div&gt;&lt;p&gt;注意要认识最后的简写形式。&lt;/p&gt;
 &lt;h3 id=&#34;mappartiotions&#34;&gt;&lt;a href=&#34;#mappartiotions&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;mapPartiotions
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def mapPartitions[U: ClassTag]( f: &lt;strong&gt;Iterator[T] =&amp;gt; Iterator[U]&lt;/strong&gt;,preservesPartitioning: Boolean = false): RDD[U]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def mapPartitions[U: ClassTag]( f: &lt;strong&gt;Iterator[T] =&amp;gt; Iterator[U]&lt;/strong&gt;,preservesPartitioning: Boolean = false): RDD[U]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;以分区为单位&lt;/strong&gt;进行数据转换操作，但是会将整个分区的数据加载到内存进行引用，由于存在对象的引用，因此处理完的数据不会被释放掉。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -184,8 +182,7 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;mappartitionwithindex&#34;&gt;&lt;a href=&#34;#mappartitionwithindex&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;mapPartitionWithIndex
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def mapPartitionsWithIndex[U: ClassTag]( f: (&lt;strong&gt;Int, Iterator[T]) =&amp;gt; Iterator[U]&lt;/strong&gt; ,preservesPartitioning: Boolean = false): RDD[U]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def mapPartitionsWithIndex[U: ClassTag]( f: (&lt;strong&gt;Int, Iterator[T]) =&amp;gt; Iterator[U]&lt;/strong&gt; ,preservesPartitioning: Boolean = false): RDD[U]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将待处理的数据以分区为单位发送到计算节点进行处理，这里的处理是指可以进行任意的处理，哪怕是过滤数据，在处理时同时可以获取当前分区索引。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -229,8 +226,7 @@
 &lt;/div&gt;&lt;p&gt;在上面的程序中，我们对第0个分区进行抛弃，对第1个分区进行保留。如所示，程序仅输出了第1分区里的内容。&lt;/p&gt;
 &lt;h3 id=&#34;flatmap&#34;&gt;&lt;a href=&#34;#flatmap&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;flatMap
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def flatMap[U: ClassTag](f: &lt;strong&gt;T =&amp;gt; TraversableOnce[U]&lt;/strong&gt;): RDD[U]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def flatMap[U: ClassTag](f: &lt;strong&gt;T =&amp;gt; TraversableOnce[U]&lt;/strong&gt;): RDD[U]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将处理的数据进行扁平化后再进行映射处理，所以算子也称之为扁平映射&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -305,8 +301,7 @@
 &lt;h2 id=&#34;重新分区与数据筛选&#34;&gt;&lt;a href=&#34;#%e9%87%8d%e6%96%b0%e5%88%86%e5%8c%ba%e4%b8%8e%e6%95%b0%e6%8d%ae%e7%ad%9b%e9%80%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;重新分区与数据筛选
 &lt;/h2&gt;&lt;h3 id=&#34;coalesce&#34;&gt;&lt;a href=&#34;#coalesce&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;coalesce
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def coalesce(numPartitions: Int, shuffle: Boolean = false, partitionCoalescer: Option[PartitionCoalescer] = Option.empty) (implicit ord: Ordering[T] = null): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def coalesce(numPartitions: Int, shuffle: Boolean = false, partitionCoalescer: Option[PartitionCoalescer] = Option.empty) (implicit ord: Ordering[T] = null): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;根据数据量缩减分区，用于大数据集过滤后，提高小数据集的执行效率。&lt;/p&gt;
 &lt;p&gt;当 spark 程序中，存在过多的小任务的时候，可以通过 coalesce 方法，收缩合并分区，减少分区的个数，减小任务调度成本。&lt;/p&gt;
 &lt;p&gt;coalesce方法默认情况下不会将分区的数据打乱重新组合，只是将多个分区合并为1一个分区。&lt;/p&gt;
@@ -329,8 +324,7 @@
 &lt;/div&gt;&lt;p&gt;上面代码的含义是将3个分区缩减成2个，可见成功执行，一个分区里有2个数，而另一个分区里有4个数。&lt;/p&gt;
 &lt;h3 id=&#34;repartition&#34;&gt;&lt;a href=&#34;#repartition&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;repartition
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;该操作内部其实执行的是 coalesce 操作，参数 shuffle 的默认值为 true。无论是将分区数多的RDD 转换为分区数少的RDD，还是将分区数少的 RDD 转换为分区数多的RDD，repartition 操作都可以完成，因为无论如何都会经 shuffle 过程。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -351,8 +345,7 @@
 &lt;/div&gt;&lt;p&gt;由于参数 shuffle 的值为 true，将分区的数据打乱重新组合以保证不会出现数据倾斜&lt;/p&gt;
 &lt;h3 id=&#34;distinct&#34;&gt;&lt;a href=&#34;#distinct&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;distinct
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def distinct()(implicit ord: Ordering[T] = null): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def distinct()(implicit ord: Ordering[T] = null): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将数据集中重复的数据去重&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -372,8 +365,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;filter&#34;&gt;&lt;a href=&#34;#filter&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;filter
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def filter(f: T =&amp;gt; Boolean): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def filter(f: T =&amp;gt; Boolean): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将数据根据指定的规则进行筛选过滤，符合规则的数据保留，不符合规则的数据丢弃。当数据进行筛选过滤后，分区不变，但是分区内的数据可能不均衡&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -434,8 +426,7 @@
 &lt;/div&gt;&lt;p&gt;在上面的代码中，按奇偶数进行分组&lt;/p&gt;
 &lt;h3 id=&#34;sortby&#34;&gt;&lt;a href=&#34;#sortby&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;sortBy
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def sortBy[K] ( f: (T) =&amp;gt; K,   ascending: Boolean =  true,   numPartitions: Int = this.partitions.length) (implicit ord: Ordering[K], ctag: ClassTag[K]): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def sortBy[K] ( f: (T) =&amp;gt; K,   ascending: Boolean =  true,   numPartitions: Int = this.partitions.length) (implicit ord: Ordering[K], ctag: ClassTag[K]): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;该操作用于排序数据。在排序之前，可以将数据通过 f 函数进行处理，之后按照 f 函数处理的结果进行排序，默认为升序排列。排序后新产生的 RDD 的分区数与原RDD 的分区数一致。中间存在 shuffle 的过程&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -481,8 +472,7 @@
 &lt;/div&gt;&lt;h2 id=&#34;集合类型算子操作&#34;&gt;&lt;a href=&#34;#%e9%9b%86%e5%90%88%e7%b1%bb%e5%9e%8b%e7%ae%97%e5%ad%90%e6%93%8d%e4%bd%9c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;集合类型算子操作
 &lt;/h2&gt;&lt;h3 id=&#34;intersection&#34;&gt;&lt;a href=&#34;#intersection&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;intersection
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def intersection(other: RDD[T]): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def intersection(other: RDD[T]): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;对源RDD 和参数RDD 求交集后返回一个新的RDD&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -504,8 +494,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;union&#34;&gt;&lt;a href=&#34;#union&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;union
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def union(other: RDD[T]): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def union(other: RDD[T]): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;对源RDD 和参数RDD 求并集后返回一个新的RDD&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -527,8 +516,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;subtract&#34;&gt;&lt;a href=&#34;#subtract&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;subtract
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def subtract(other: RDD[T]): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def subtract(other: RDD[T]): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;以一个 RDD 元素为主，去除两个 RDD 中重复元素，将其他元素保留下来。求差集&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -550,8 +538,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;zip&#34;&gt;&lt;a href=&#34;#zip&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;zip
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def zip[U: ClassTag](other: RDD[U]): RDD[(T, U)]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def zip[U: ClassTag](other: RDD[U]): RDD[(T, U)]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将两个 RDD 中的元素，以键值对的形式进行合并。其中，键值对中的Key 为第 1 个 RDD中的元素，Value 为第 2 个 RDD 中的相同位置的元素。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -576,8 +563,7 @@
 &lt;h2 id=&#34;key-value类型算子&#34;&gt;&lt;a href=&#34;#key-value%e7%b1%bb%e5%9e%8b%e7%ae%97%e5%ad%90&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Key-Value类型算子
 &lt;/h2&gt;&lt;h3 id=&#34;reducebykey&#34;&gt;&lt;a href=&#34;#reducebykey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;reduceByKey
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def reduceByKey(func: (V, V) =&amp;gt; V): RDD[(K, V)]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def reduceByKey(func: (V, V) =&amp;gt; V): RDD[(K, V)]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;可以将数据按照相同的Key 对Value 进行聚合，聚合操作是两两进行聚合的。reduceByKey中如果key的数据只有一个，是不会参与运算的。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -613,8 +599,7 @@
 &lt;/div&gt;&lt;p&gt;在上面的代码中，根据参数_+_，即表示将两个value进行相加。&lt;/p&gt;
 &lt;h3 id=&#34;groupbykey&#34;&gt;&lt;a href=&#34;#groupbykey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;groupByKey
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def groupByKey(): &lt;strong&gt;RDD[(K, Iterable[V])]&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def groupByKey(): &lt;strong&gt;RDD[(K, Iterable[V])]&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将数据源的数据根据 key， 对 value 进行分组，将数据源中相同key的数据分在一个组中，行成一个对偶元祖，元组中的第一个元素就是key，元组中的第二个元素就行相同key的value的集合。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -650,8 +635,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;aggregatebykey&#34;&gt;&lt;a href=&#34;#aggregatebykey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;aggregateByKey
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def aggregateByKey[U: ClassTag](zeroValue: U)(seqOp: (U, V) =&amp;gt; U, combOp: (U, U) =&amp;gt; U): RDD[(K, U)]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def aggregateByKey[U: ClassTag](zeroValue: U)(seqOp: (U, V) =&amp;gt; U, combOp: (U, U) =&amp;gt; U): RDD[(K, U)]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将数据根据不同的规则进行分区内计算和分区间计算。&lt;/p&gt;
 &lt;p&gt;aggregateByKey存在函数柯里化，有两个参数列表。&lt;/p&gt;
 &lt;p&gt;第一个参数列表，需要传递一个参数，表示初始值。主要用于当碰见第一个key的时候，和value进行分区内计算。&lt;/p&gt;
@@ -704,8 +688,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;foldbykey&#34;&gt;&lt;a href=&#34;#foldbykey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;foldByKey
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def foldByKey(zeroValue: V)(func: (V, V) =&amp;gt; V): RDD[(K, V)]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def foldByKey(zeroValue: V)(func: (V, V) =&amp;gt; V): RDD[(K, V)]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;当分区内计算规则和分区间计算规则相同时，aggregateByKey 就可以简化为foldByKey&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -731,8 +714,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;combinebykey&#34;&gt;&lt;a href=&#34;#combinebykey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;combineByKey
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def combineByKey[C]( createCombiner: V =&amp;gt; C, mergeValue: (C, V) =&amp;gt; C, mergeCombiners: (C, C) =&amp;gt; C): RDD[(K, C)]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def combineByKey[C]( createCombiner: V =&amp;gt; C, mergeValue: (C, V) =&amp;gt; C, mergeCombiners: (C, C) =&amp;gt; C): RDD[(K, C)]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;对key-value 型 rdd 进行聚集操作的聚集函数（aggregation function）。类似于aggregate()，combineByKey()允许用户返回值的类型与输入不一致。&lt;/p&gt;
 &lt;p&gt;combineByKey方法需要三个参数&lt;/p&gt;
 &lt;ul&gt;
@@ -805,8 +787,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;join&#34;&gt;&lt;a href=&#34;#join&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;join
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def join[W](other: RDD[(K, W)]): RDD[(K, (V, W))]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在类型为(K,V)和(K,W)的RDD 上调用，返回一个相同 key 对应的所有元素连接在一起的(K,(V,W))的RDD&lt;/p&gt;
 &lt;p&gt;两个RDD中的元素对进行笛卡尔乘积性质的匹配，但只会打印出匹配成功的。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -855,8 +836,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;leftouterjoin&#34;&gt;&lt;a href=&#34;#leftouterjoin&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;leftOuterJoin
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def leftOuterJoin[W](other: RDD[(K, W)]): &lt;strong&gt;RDD[(K, (V, Option[W]))]&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def leftOuterJoin[W](other: RDD[(K, W)]): &lt;strong&gt;RDD[(K, (V, Option[W]))]&lt;/strong&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;类似于 SQL 语句的左外连接，根据左边第一个元素将两个RDD连接起来，和join算子类似，但这个可以支持key不匹配的情况。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -939,8 +919,7 @@
 &lt;/div&gt;&lt;h2 id=&#34;行动算子&#34;&gt;&lt;a href=&#34;#%e8%a1%8c%e5%8a%a8%e7%ae%97%e5%ad%90&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;行动算子
 &lt;/h2&gt;&lt;h3 id=&#34;reduce&#34;&gt;&lt;a href=&#34;#reduce&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;reduce
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def reduce(f: (T, T) =&amp;gt; T): T&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def reduce(f: (T, T) =&amp;gt; T): T&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;聚集RDD 中的所有元素，先聚合分区内数据，再聚合分区间数据&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -961,8 +940,7 @@
 &lt;/div&gt;&lt;p&gt;在上面的例子中，10=1+2+3+4&lt;/p&gt;
 &lt;h3 id=&#34;collect&#34;&gt;&lt;a href=&#34;#collect&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;collect
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def collect(): Array[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def collect(): Array[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在驱动程序中，方法会将不同分区的数据按照分区顺序采集到Driver端内存中，形成数组。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -982,8 +960,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;first&#34;&gt;&lt;a href=&#34;#first&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;first
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def first(): T&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def first(): T&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;返回RDD 中的第一个元素&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1001,8 +978,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;take&#34;&gt;&lt;a href=&#34;#take&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;take
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def take(num: Int): Array[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def take(num: Int): Array[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;返回一个由RDD 的前 n 个元素组成的数组&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1022,8 +998,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;takeordered&#34;&gt;&lt;a href=&#34;#takeordered&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;takeOrdered
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def takeOrdered(num: Int)(implicit ord: Ordering[T]): Array[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def takeOrdered(num: Int)(implicit ord: Ordering[T]): Array[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;返回该 RDD 排序后的前 n 个元素组成的数组&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1041,8 +1016,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;aggregate&#34;&gt;&lt;a href=&#34;#aggregate&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;aggregate
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def aggregate[U: ClassTag](zeroValue: U)(seqOp: (U, T) =&amp;gt; U, combOp: (U, U) =&amp;gt; U): U&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def aggregate[U: ClassTag](zeroValue: U)(seqOp: (U, T) =&amp;gt; U, combOp: (U, U) =&amp;gt; U): U&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;分区的数据通过初始值和分区内的数据进行聚合，然后再和初始值进行分区间的数据聚合；即，初始值不仅参与分区内计算，同时也参与分区间计算。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1088,8 +1062,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;fold&#34;&gt;&lt;a href=&#34;#fold&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;fold
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def fold(zeroValue: T)(op: (T, T) =&amp;gt; T): T&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def fold(zeroValue: T)(op: (T, T) =&amp;gt; T): T&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;折叠操作，aggregate的简化版操作&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1107,8 +1080,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;countbykey&#34;&gt;&lt;a href=&#34;#countbykey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;countByKey
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def countByKey(): Map[K, Long]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def countByKey(): Map[K, Long]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;统计每种 key 的个数&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1345,8 +1317,7 @@ aggregateByKey组内计算和组间计算数据格式一样&lt;/li&gt;
 &lt;/div&gt;&lt;h2 id=&#34;算子补充&#34;&gt;&lt;a href=&#34;#%e7%ae%97%e5%ad%90%e8%a1%a5%e5%85%85&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;算子补充
 &lt;/h2&gt;&lt;h3 id=&#34;glom&#34;&gt;&lt;a href=&#34;#glom&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;glom
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def glom(): RDD[Array[T]]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def glom(): RDD[Array[T]]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将&lt;strong&gt;同一个分区的数据&lt;/strong&gt;直接转换为一个&lt;strong&gt;相同类型的内存数组&lt;/strong&gt;进行处理，分区不变&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1366,8 +1337,7 @@ aggregateByKey组内计算和组间计算数据格式一样&lt;/li&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;sample&#34;&gt;&lt;a href=&#34;#sample&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;sample
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def sample( withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def sample( withReplacement: Boolean, fraction: Double, seed: Long = Utils.random.nextLong): RDD[T]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;根据指定的规则从数据集中抽取数据&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;第1个参数withReplacement表示：抽取后是否将数据返回，true（放回），false（丢弃）&lt;/li&gt;
@@ -1408,14 +1378,12 @@ aggregateByKey组内计算和组间计算数据格式一样&lt;/li&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;partitionby&#34;&gt;&lt;a href=&#34;#partitionby&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;partitionBy
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def partitionBy(partitioner: Partitioner): RDD[(K, V)]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def partitionBy(partitioner: Partitioner): RDD[(K, V)]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;将数据按照指定的Partitioner规则 重新进行重新分区。Spark 默认的分区器是HashPartitioner&lt;/p&gt;
 &lt;p&gt;太冷门了，应该不考，就不放代码了&lt;/p&gt;
 &lt;h3 id=&#34;cogroup&#34;&gt;&lt;a href=&#34;#cogroup&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;cogroup
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def cogroup[W](other: RDD[(K, W)]): RDD[(K, (Iterable[V], Iterable[W]))]&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def cogroup[W](other: RDD[(K, W)]): RDD[(K, (Iterable[V], Iterable[W]))]&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在类型为(K,V)和(K,W)的RDD 上调用，返回一个(K,(Iterable&amp;lt;V&amp;gt;,Iterable&amp;lt;W&amp;gt;))类型的 RDD&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1446,13 +1414,11 @@ aggregateByKey组内计算和组间计算数据格式一样&lt;/li&gt;
 &lt;/div&gt;&lt;p&gt;下面都是行动算子&lt;/p&gt;
 &lt;h3 id=&#34;count&#34;&gt;&lt;a href=&#34;#count&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;count
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def count(): Long&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def count(): Long&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;返回RDD 中元素的个数&lt;/p&gt;
 &lt;h3 id=&#34;saveastextfile&#34;&gt;&lt;a href=&#34;#saveastextfile&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;saveAsTextFile
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;def saveAsTextFile(path: String): Unit&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;def saveAsTextFile(path: String): Unit&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;保存成 Text 文件&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

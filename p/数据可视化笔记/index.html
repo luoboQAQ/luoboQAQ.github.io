@@ -1,840 +1,134 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="数据挖掘中数据可视化的学习笔记">
-<title>数据可视化笔记</title>
-
-<link rel='canonical' href='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/'>
-
-<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="数据可视化笔记">
-<meta property='og:description' content="数据挖掘中数据可视化的学习笔记">
-<meta property='og:url' content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/'>
-<meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='PCA' /><meta property='article:tag' content='EVD' /><meta property='article:tag' content='SVD' /><meta property='article:published_time' content='2022-05-17T22:45:18&#43;08:00'/><meta property='article:modified_time' content='2022-05-17T22:45:18&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp' />
-<meta name="twitter:title" content="数据可视化笔记">
-<meta name="twitter:description" content="数据挖掘中数据可视化的学习笔记"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
-  src="https://umami.lbqaq.top/bpnwxrgz.js">
-  </script>
-
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<style>
-   
-  :root {
-    --sys-font-family: -apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;
-    --code-font-family: "JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;
-    --article-font-family: "LXGW WenKai", sans-serif;
-    --base-font-family: "LXGW WenKai", var(--sys-font-family), sans-serif;
-  }
-</style>
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-            
-            <figure class="site-avatar">
-                <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
-                </a>
-                
-                    <span class="emoji">🌞</span>
-                
-            </figure>
-            
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
-            <h2 class="site-description">快乐学习每一天</h2>
-        </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/luoboQAQ'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://lbqaq.top/index.xml'
-                        target="_blank"
-                        title="RSS订阅"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="5" cy="19" r="1" />
-  <path d="M4 4a16 16 0 0 1 16 16" />
-  <path d="M4 11a9 9 0 0 1 9 9" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://pan.lbqaq.top'
-                        target="_blank"
-                        title="我的个人云盘"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
-</svg>
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
-        
-        
-        
-        <li >
-            <a href='/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
-
-
-
-                
-                <span>主页</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>关于</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>文章</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>查询</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/links/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>友链</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>暗色模式</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#主成分分析pca">主成分分析(PCA)</a>
-      <ol>
-        <li><a href="#基本思想">基本思想</a></li>
-        <li><a href="#特征值分解evd">特征值分解(EVD)</a></li>
-        <li><a href="#奇异值分解svd">奇异值分解(SVD)</a></li>
-        <li><a href="#算法过程">算法过程</a></li>
-        <li><a href="#编程实现">编程实现</a></li>
-      </ol>
-    </li>
-    <li><a href="#matlab三维数据绘图">MATLAB三维数据绘图</a>
-      <ol>
-        <li><a href="#三维线">三维线</a></li>
-        <li><a href="#三维图形绘制及等高线">三维图形绘制及等高线</a></li>
-      </ol>
-    </li>
-    <li><a href="#参考资料">参考资料</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
-            <main class="main full-width">
-    <article class="has-image main-article">
-    <header class="article-header">
-        <div class="article-image">
-            <a href="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/">
-                <img src="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp"
-                        
-                        width="1447" 
-                        height="1023" 
-                        loading="lazy"
-                        alt="Featured image of post 数据可视化笔记" />
-                
-            </a>
-        </div>
-    
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/" >
-                数据挖掘
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/">数据可视化笔记</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            数据挖掘中数据可视化的学习笔记
-        </h3>
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2022-05-17</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    阅读时长: 5 分钟
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
-
-    <section class="article-content">
-    
-    
-    <h2 id="主成分分析pca"><a href="#%e4%b8%bb%e6%88%90%e5%88%86%e5%88%86%e6%9e%90pca" class="header-anchor"></a>主成分分析(PCA)
-</h2><h3 id="基本思想"><a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3" class="header-anchor"></a>基本思想
-</h3><p>PCA顾名思义，就是找出数据里最主要的方面，用数据里最主要的方面来代替原始数据。具体的，假如我们的数据集是n维的，共有m个数据$(x^{(1)},x^{(2)},&hellip;,x^{(m)})$。我们希望将这m个数据的维度从n维降到n&rsquo;维，希望这m个n&rsquo;维的数据集尽可能的代表原始数据集。</p>
-<p>通过计算数据矩阵的协方差矩阵，然后得到协方差矩阵的特征值特征向量，选择特征值最大(即方差最大)的k个特征所对应的特征向量组成的矩阵。这样就可以将数据矩阵转换到新的空间当中，实现数据特征的降维。</p>
-<p>由于得到协方差矩阵的特征值特征向量有两种方法：特征值分解协方差矩阵、奇异值分解协方差矩阵，所以PCA算法有两种实现方法：基于特征值分解协方差矩阵实现PCA算法、基于SVD分解协方差矩阵实现PCA算法。</p>
-<h3 id="特征值分解evd"><a href="#%e7%89%b9%e5%be%81%e5%80%bc%e5%88%86%e8%a7%a3evd" class="header-anchor"></a>特征值分解(EVD)
-</h3><p>特征值和特征向量的定义如下：</p>
-$$
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="数据挖掘中数据可视化的学习笔记"><title>数据可视化笔记</title>
+<link rel=canonical href=https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/><link rel=stylesheet href=/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css><meta property='og:title' content="数据可视化笔记"><meta property='og:description' content="数据挖掘中数据可视化的学习笔记"><meta property='og:url' content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/'><meta property='og:site_name' content='luoboQAQ'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='PCA'><meta property='article:tag' content='EVD'><meta property='article:tag' content='SVD'><meta property='article:published_time' content='2022-05-17T22:45:18+08:00'><meta property='article:modified_time' content='2022-05-17T22:45:18+08:00'><meta property='og:image' content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp'><meta name=twitter:title content="数据可视化笔记"><meta name=twitter:description content="数据挖掘中数据可视化的学习笔记"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://lbqaq.top/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp'><script async defer data-website-id=5a23d952-27c7-4abd-b8f0-c69397b25b55 data-cache=true src=https://umami.lbqaq.top/bpnwxrgz.js></script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><style>:root{--sys-font-family:-apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;--code-font-family:"JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;--article-font-family:"LXGW WenKai", sans-serif;--base-font-family:"LXGW WenKai", var(--sys-font-family), sans-serif}</style></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/Mint_hu_90cbcbb19cfdb02a.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌞</span></figure><div class=site-meta><h1 class=site-name><a href=/>luoboQAQ</a></h1><h2 class=site-description>快乐学习每一天</h2></div></header><ol class=menu-social><li><a href=https://github.com/luoboQAQ target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://lbqaq.top/index.xml target=_blank title=RSS订阅 rel=me><svg class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li><li><a href=https://pan.lbqaq.top target=_blank title=我的个人云盘 rel=me><svg class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 18a4.6 4.4.0 010-9 5 4.5.0 0111 2h1a3.5 3.5.0 010 7H7"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文章</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>查询</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>友链</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#主成分分析pca>主成分分析(PCA)</a><ol><li><a href=#基本思想>基本思想</a></li><li><a href=#特征值分解evd>特征值分解(EVD)</a></li><li><a href=#奇异值分解svd>奇异值分解(SVD)</a></li><li><a href=#算法过程>算法过程</a></li><li><a href=#编程实现>编程实现</a></li></ol></li><li><a href=#matlab三维数据绘图>MATLAB三维数据绘图</a><ol><li><a href=#三维线>三维线</a></li><li><a href=#三维图形绘制及等高线>三维图形绘制及等高线</a></li></ol></li><li><a href=#参考资料>参考资料</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/><img src=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/94861285.webp width=1447 height=1023 loading=lazy alt="Featured image of post 数据可视化笔记"></a></div><div class=article-details><header class=article-category><a href=/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/>数据挖掘</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/>数据可视化笔记</a></h2><h3 class=article-subtitle>数据挖掘中数据可视化的学习笔记</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2022-05-17</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><h2 id=主成分分析pca><a href=#%e4%b8%bb%e6%88%90%e5%88%86%e5%88%86%e6%9e%90pca class=header-anchor></a>主成分分析(PCA)</h2><h3 id=基本思想><a href=#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3 class=header-anchor></a>基本思想</h3><p>PCA顾名思义，就是找出数据里最主要的方面，用数据里最主要的方面来代替原始数据。具体的，假如我们的数据集是n维的，共有m个数据$(x^{(1)},x^{(2)},&mldr;,x^{(m)})$。我们希望将这m个数据的维度从n维降到n&rsquo;维，希望这m个n&rsquo;维的数据集尽可能的代表原始数据集。</p><p>通过计算数据矩阵的协方差矩阵，然后得到协方差矩阵的特征值特征向量，选择特征值最大(即方差最大)的k个特征所对应的特征向量组成的矩阵。这样就可以将数据矩阵转换到新的空间当中，实现数据特征的降维。</p><p>由于得到协方差矩阵的特征值特征向量有两种方法：特征值分解协方差矩阵、奇异值分解协方差矩阵，所以PCA算法有两种实现方法：基于特征值分解协方差矩阵实现PCA算法、基于SVD分解协方差矩阵实现PCA算法。</p><h3 id=特征值分解evd><a href=#%e7%89%b9%e5%be%81%e5%80%bc%e5%88%86%e8%a7%a3evd class=header-anchor></a>特征值分解(EVD)</h3><p>特征值和特征向量的定义如下：</p>$$
 Ax=\lambda x
-$$<p>其中A是一个$n \times n$的实对称矩阵，$x$是一个$n$维向量，则我们说$\lambda$是矩阵A的一个特征值，而$x$是矩阵A的特征值$\lambda$所对应的特征向量。</p>
-<p>求出特征值和特征向量有什么好处呢？ 就是我们可以将矩阵A特征分解。如果我们求出了矩阵A的$n$个特征值$\lambda_1 \leq \lambda_2 \leq &hellip; \leq \lambda_n$,以及这$n$个特征值所对应的特征向量${q_1,q_2,&hellip;q_n}$，如果这$n$个特征向量线性无关，那么矩阵A就可以用下式的特征分解表示：$A=Q\Sigma Q^{-1}$ 。</p>
-<p>其中，Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的，这些特征值所对应的特征向量就是描述这个矩阵变化方向（从主要的变化到次要的变化排列）。也就是说矩阵A的信息可以由其特征值和特征向量表示。</p>
-<p>注意到要进行特征分解，矩阵A必须为方阵。那么如果A不是方阵，即行和列不相同时，我们还可以对矩阵进行分解吗？答案是可以，此时我们的SVD登场了。</p>
-<h3 id="奇异值分解svd"><a href="#%e5%a5%87%e5%bc%82%e5%80%bc%e5%88%86%e8%a7%a3svd" class="header-anchor"></a>奇异值分解(SVD)
-</h3><p>SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。假设我们的矩阵A是一个$m \times n$的矩阵，那么我们定义矩阵A的SVD为：</p>
-$$
+$$<p>其中A是一个$n \times n$的实对称矩阵，$x$是一个$n$维向量，则我们说$\lambda$是矩阵A的一个特征值，而$x$是矩阵A的特征值$\lambda$所对应的特征向量。</p><p>求出特征值和特征向量有什么好处呢？ 就是我们可以将矩阵A特征分解。如果我们求出了矩阵A的$n$个特征值$\lambda_1 \leq \lambda_2 \leq &mldr; \leq \lambda_n$,以及这$n$个特征值所对应的特征向量${q_1,q_2,&mldr;q_n}$，如果这$n$个特征向量线性无关，那么矩阵A就可以用下式的特征分解表示：$A=Q\Sigma Q^{-1}$ 。</p><p>其中，Q是这个矩阵A的特征向量组成的矩阵，Σ是一个对角矩阵，每一个对角线元素就是一个特征值，里面的特征值是由大到小排列的，这些特征值所对应的特征向量就是描述这个矩阵变化方向（从主要的变化到次要的变化排列）。也就是说矩阵A的信息可以由其特征值和特征向量表示。</p><p>注意到要进行特征分解，矩阵A必须为方阵。那么如果A不是方阵，即行和列不相同时，我们还可以对矩阵进行分解吗？答案是可以，此时我们的SVD登场了。</p><h3 id=奇异值分解svd><a href=#%e5%a5%87%e5%bc%82%e5%80%bc%e5%88%86%e8%a7%a3svd class=header-anchor></a>奇异值分解(SVD)</h3><p>SVD也是对矩阵进行分解，但是和特征分解不同，SVD并不要求要分解的矩阵为方阵。假设我们的矩阵A是一个$m \times n$的矩阵，那么我们定义矩阵A的SVD为：</p>$$
 A = U\Sigma V^T
-$$<p>其中U是一个$m \times m$的矩阵，$\Sigma$是一个$m \times n$的矩阵，除了主对角线上的元素以外全为0，主对角线上的每个元素都称为奇异值，V是一个$n \times n$的矩阵。</p>
-<p>计算方法：</p>
-<ul>
-<li>我们将A的转置和A做矩阵乘法，那么会得到$n \times n$的一个方阵$A^TA$。对其进行特征值分解，得到n个特征值和对应的n个特征向量$v$了。将$A^TA$的所有特征向量张成一个$n \times n$的矩阵V，就是我们SVD公式里面的V矩阵了。</li>
-<li>对$AA^T$进行特征值分解，得到m个特征值和对应的m个特征向量$u$了。将$AA^T$的所有特征向量张成一个$m \times m$的矩阵U，就是我们SVD公式里面的U矩阵了。一般我们将U中的每个特征向量叫做A的左奇异向量。</li>
-<li>由于奇异值矩阵$\Sigma$除了对角线上是奇异值其他位置都是0，那我们只需要求出每个奇异值$\sigma$就可以了。求解奇异值可以用$\sigma_i = Av_i / u_i$或$\sigma_i = \sqrt{\lambda_i}$</li>
-</ul>
-<h3 id="算法过程"><a href="#%e7%ae%97%e6%b3%95%e8%bf%87%e7%a8%8b" class="header-anchor"></a>算法过程
-</h3><p>输入：n维样本集$D=(x^{(1)}, x^{(2)},&hellip;,x^{(m)})$，要降维到的维数n'.</p>
-<p>输出：降维后的样本集$D'$</p>
-<ol>
-<li>对所有的样本进行中心化： $x^{(i)} = x^{(i)} - \frac{1}{m}\sum\limits_{j=1}^{m} x^{(j)}$</li>
-<li>计算样本的协方差矩阵$XX^T$</li>
-<li>对矩阵$XX^T$进行特征值分解</li>
-<li>取出最大的n&rsquo;个特征值对应的特征向量$(w_1,w_2,&hellip;,w_{n&rsquo;})$, 将所有的特征向量标准化后，组成特征向量矩阵W。</li>
-<li>对样本集中的每一个样本$x^{(i)}$,转化为新的样本$z^{(i)}=W^Tx^{(i)}$</li>
-<li>得到输出样本集$D&rsquo; =(z^{(1)}, z^{(2)},&hellip;,z^{(m)})$</li>
-</ol>
-<p>上面是采用EVD，如果采用SVD，在第二第三步时就用SVD进行解决。</p>
-<h3 id="编程实现"><a href="#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>编程实现
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="n">load</span> <span class="n">fisheriris</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">X</span> <span class="p">=</span> <span class="n">meas</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c">%% 中心化</span>
-</span></span><span class="line"><span class="cl"><span class="n">meanX</span> <span class="p">=</span> <span class="nb">ones</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">centredX</span> <span class="p">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">meanX</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 直接调用cov直接计算协方差矩阵即可</span>
-</span></span><span class="line"><span class="cl"><span class="n">C</span> <span class="p">=</span> <span class="n">cov</span><span class="p">(</span><span class="n">centredX</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">%% 特征值分解</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">W</span><span class="p">,</span> <span class="n">Lambda</span><span class="p">]</span> <span class="p">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">C</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 提取特征值</span>
-</span></span><span class="line"><span class="cl"><span class="n">ev</span> <span class="p">=</span> <span class="p">(</span><span class="nb">diag</span><span class="p">(</span><span class="n">Lambda</span><span class="p">))</span><span class="o">&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c">% eig计算出的特征值是升序的，这里手动倒序（W同理）</span>
-</span></span><span class="line"><span class="cl"><span class="n">ev</span> <span class="p">=</span> <span class="n">ev</span><span class="p">(:,</span> <span class="k">end</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">);</span> 
-</span></span><span class="line"><span class="cl"><span class="n">W</span> <span class="p">=</span> <span class="n">W</span><span class="p">(:,</span> <span class="k">end</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 提取前两个主成分的特征向量</span>
-</span></span><span class="line"><span class="cl"><span class="n">Wr</span> <span class="p">=</span> <span class="n">W</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 新坐标空间的数据点</span>
-</span></span><span class="line"><span class="cl"><span class="n">Tr</span> <span class="p">=</span> <span class="n">centredX</span> <span class="o">*</span> <span class="n">Wr</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="c">%% 作图</span>
-</span></span><span class="line"><span class="cl"><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">scatter</span><span class="p">(</span><span class="n">Tr</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span> <span class="n">Tr</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span> <span class="mi">130</span><span class="p">,</span> <span class="n">categorical</span><span class="p">(</span><span class="n">species</span><span class="p">),</span> <span class="s">&#39;.&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">colormap</span><span class="p">(</span><span class="n">winter</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Principal Component 1&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Principal Component 2&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">%% SVD分解</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 可以检验，W和V完全相同（向量的正负号不影响）</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">U</span><span class="p">,</span> <span class="n">Sigma</span><span class="p">,</span> <span class="n">V</span><span class="p">]</span> <span class="p">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 提取前两个主成分的特征向量</span>
-</span></span><span class="line"><span class="cl"><span class="n">Vr</span> <span class="p">=</span> <span class="n">V</span><span class="p">(:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="c">% 新坐标空间的数据点</span>
-</span></span><span class="line"><span class="cl"><span class="n">Tr</span> <span class="p">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">Vr</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl"><span class="c">%% 作图</span>
-</span></span><span class="line"><span class="cl"><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">scatter</span><span class="p">(</span><span class="n">Tr</span><span class="p">(:,</span><span class="mi">1</span><span class="p">),</span> <span class="n">Tr</span><span class="p">(:,</span><span class="mi">2</span><span class="p">),</span> <span class="mi">130</span><span class="p">,</span> <span class="n">categorical</span><span class="p">(</span><span class="n">species</span><span class="p">),</span> <span class="s">&#39;.&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">colormap</span><span class="p">(</span><span class="n">winter</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;Principal Component 1&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Principal Component 2&#39;</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><img src="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/1.png"
-	width="700"
-	height="520"
-	srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/1_hu_a1a58ea06265ff3f.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/1_hu_954cdfabde3de4ff.png 1024w"
-	loading="lazy"
-	
-		alt="EVD"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="134"
-		data-flex-basis="323px"
-	
-></p>
-<p><img src="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/2.png"
-	width="700"
-	height="522"
-	srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/2_hu_3001bb6c1b98cd86.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/2_hu_3f72ca4bbb4946c4.png 1024w"
-	loading="lazy"
-	
-		alt="SVD"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="134"
-		data-flex-basis="321px"
-	
-></p>
-<h2 id="matlab三维数据绘图"><a href="#matlab%e4%b8%89%e7%bb%b4%e6%95%b0%e6%8d%ae%e7%bb%98%e5%9b%be" class="header-anchor"></a>MATLAB三维数据绘图
-</h2><h3 id="三维线"><a href="#%e4%b8%89%e7%bb%b4%e7%ba%bf" class="header-anchor"></a>三维线
-</h3><p>使用<code>plot3()</code>函数即可绘制三维线,输入应为三个向量</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="n">turns</span> <span class="p">=</span> <span class="mi">40</span><span class="o">*</span><span class="nb">pi</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">t</span> <span class="p">=</span> <span class="nb">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">turns</span><span class="p">,</span><span class="mi">4000</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="p">=</span> <span class="nb">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="n">turns</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">./</span><span class="n">turns</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="p">=</span> <span class="nb">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.*</span><span class="p">(</span><span class="n">turns</span><span class="o">-</span><span class="n">t</span><span class="p">)</span><span class="o">./</span><span class="n">turns</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">z</span> <span class="p">=</span> <span class="n">t</span><span class="o">./</span><span class="n">turns</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">plot3</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">grid</span> <span class="n">on</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">axis</span> <span class="n">square</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><img src="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/3.png"
-	width="554"
-	height="413"
-	srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/3_hu_9ac90ee5cbd27c82.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/3_hu_99d52054e396951d.png 1024w"
-	loading="lazy"
-	
-		alt="螺旋线"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="134"
-		data-flex-basis="321px"
-	
-></p>
-<h3 id="三维图形绘制及等高线"><a href="#%e4%b8%89%e7%bb%b4%e5%9b%be%e5%bd%a2%e7%bb%98%e5%88%b6%e5%8f%8a%e7%ad%89%e9%ab%98%e7%ba%bf" class="header-anchor"></a>三维图形绘制及等高线
-</h3><p>我们可以通过使用<code>mesh()</code>命令绘制三维面，使用<code>contour()</code>命令可以绘制三维图形的等高线。
-与之前的命令一样，我们也可以通过向其传递不同的参数来改变图形的细节。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="n">x</span> <span class="p">=</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">:</span><span class="mf">0.2</span><span class="p">:</span><span class="mf">3.5</span><span class="p">;</span> <span class="n">y</span> <span class="p">=</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">:</span><span class="mf">0.2</span><span class="p">:</span><span class="mf">3.5</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span> <span class="p">=</span> <span class="nb">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">Z</span> <span class="p">=</span> <span class="mf">10.</span><span class="o">*</span><span class="n">X</span><span class="o">.*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">X</span><span class="o">.^</span><span class="mi">2</span><span class="o">-</span><span class="n">Y</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">grid</span> <span class="n">on</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">axis</span> <span class="n">square</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">mesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="n">contour</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">,</span><span class="s">&#39;ShowText&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">,</span> <span class="s">&#39;LevelStep&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><img src="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/4.png"
-	width="554"
-	height="335"
-	srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/4_hu_bff03da187e6f27c.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/4_hu_69d6101b538eef74.png 1024w"
-	loading="lazy"
-	
-		alt="三维图形绘制及等高线"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="165"
-		data-flex-basis="396px"
-	
-></p>
-<p>三维图形绘制及等高线</p>
-<h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
-</h2><ul>
-<li><a class="link" href="https://zhuanlan.zhihu.com/p/37777074"  target="_blank" rel="noopener"
-    >主成分分析（PCA）原理详解 - 知乎</a></li>
-<li><a class="link" href="https://www.cnblogs.com/pinard/p/6251584.html"  target="_blank" rel="noopener"
-    >奇异值分解(SVD)原理与在降维中的应用 - 刘建平Pinard - 博客园</a></li>
-</ul>
-
-</section>
-
-
-    <footer class="article-footer">
-    
-    <section class="article-tags">
-        
-            <a href="/tags/pca/">PCA</a>
-        
-            <a href="/tags/evd/">EVD</a>
-        
-            <a href="/tags/svd/">SVD</a>
-        
-    </section>
-
-
-    
-    <section class="article-copyright">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
-</svg>
-
-
-
-        <span>Licensed under CC BY-NC-SA 4.0</span>
-    </section>
-    </footer>
-
-
-    
-        <link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"crossorigin="anonymous"
-            ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"crossorigin="anonymous"
-                defer
-                >
-            </script><script>
-    window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
-
-    
-</article>
-
-    
-
-    
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-            <div class="article-image">
-                <img src="/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/98259515.80d66336683193280f34d36beb46fd91.webp" 
-                        width="1414" 
-                        height="1000" 
-                        loading="lazy"
-                        alt="Featured image of post 特征工程学习笔记"
-                        
-                        data-hash="md5-gNZjNmgxkygPNNNr60b9kQ==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">特征工程学习笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-            <div class="article-image">
-                <img src="/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.ad1a6ba33c608214a1fc147775fe1b05.webp" 
-                        width="1882" 
-                        height="1217" 
-                        loading="lazy"
-                        alt="Featured image of post 回归分析学习笔记"
-                        
-                        data-hash="md5-rRprozxgghSh/BR3df4bBQ==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">回归分析学习笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-            <div class="article-image">
-                <img src="/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/86368113.9c11189c2428cb1eed0c920f0292a1f8.webp" 
-                        width="3893" 
-                        height="2500" 
-                        loading="lazy"
-                        alt="Featured image of post 分类算法学习笔记"
-                        
-                        data-hash="md5-nBEYnCQoyx7tDJIPApKh&#43;A==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">分类算法学习笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        
-        
-            <div class="article-image">
-                <img src="/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.d2f9ff1606e3b06124ed2ee081a6ad2a.webp" 
-                        width="1883" 
-                        height="1257" 
-                        loading="lazy"
-                        alt="Featured image of post 聚类算法学习笔记"
-                        
-                        data-hash="md5-0vn/FgbjsGEk7S7ggaatKg==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">聚类算法学习笔记</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
-     
-    
-        
-    <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet'/>
-<div id="waline" class="waline-container"></div>
-<style>
-    .waline-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-        --waline-font-size: var(--article-font-size);
-    }
-    .waline-container .wl-count {
-        color: var(--card-text-color-main);
-    }
-</style><script type="module">
+$$<p>其中U是一个$m \times m$的矩阵，$\Sigma$是一个$m \times n$的矩阵，除了主对角线上的元素以外全为0，主对角线上的每个元素都称为奇异值，V是一个$n \times n$的矩阵。</p><p>计算方法：</p><ul><li>我们将A的转置和A做矩阵乘法，那么会得到$n \times n$的一个方阵$A^TA$。对其进行特征值分解，得到n个特征值和对应的n个特征向量$v$了。将$A^TA$的所有特征向量张成一个$n \times n$的矩阵V，就是我们SVD公式里面的V矩阵了。</li><li>对$AA^T$进行特征值分解，得到m个特征值和对应的m个特征向量$u$了。将$AA^T$的所有特征向量张成一个$m \times m$的矩阵U，就是我们SVD公式里面的U矩阵了。一般我们将U中的每个特征向量叫做A的左奇异向量。</li><li>由于奇异值矩阵$\Sigma$除了对角线上是奇异值其他位置都是0，那我们只需要求出每个奇异值$\sigma$就可以了。求解奇异值可以用$\sigma_i = Av_i / u_i$或$\sigma_i = \sqrt{\lambda_i}$</li></ul><h3 id=算法过程><a href=#%e7%ae%97%e6%b3%95%e8%bf%87%e7%a8%8b class=header-anchor></a>算法过程</h3><p>输入：n维样本集$D=(x^{(1)}, x^{(2)},&mldr;,x^{(m)})$，要降维到的维数n'.</p><p>输出：降维后的样本集$D'$</p><ol><li>对所有的样本进行中心化： $x^{(i)} = x^{(i)} - \frac{1}{m}\sum\limits_{j=1}^{m} x^{(j)}$</li><li>计算样本的协方差矩阵$XX^T$</li><li>对矩阵$XX^T$进行特征值分解</li><li>取出最大的n&rsquo;个特征值对应的特征向量$(w_1,w_2,&mldr;,w_{n&rsquo;})$, 将所有的特征向量标准化后，组成特征向量矩阵W。</li><li>对样本集中的每一个样本$x^{(i)}$,转化为新的样本$z^{(i)}=W^Tx^{(i)}$</li><li>得到输出样本集$D&rsquo; =(z^{(1)}, z^{(2)},&mldr;,z^{(m)})$</li></ol><p>上面是采用EVD，如果采用SVD，在第二第三步时就用SVD进行解决。</p><h3 id=编程实现><a href=#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0 class=header-anchor></a>编程实现</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-matlab data-lang=matlab><span class=line><span class=cl><span class=n>load</span> <span class=n>fisheriris</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>X</span> <span class=p>=</span> <span class=n>meas</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c>%% 中心化</span>
+</span></span><span class=line><span class=cl><span class=n>meanX</span> <span class=p>=</span> <span class=nb>ones</span><span class=p>(</span><span class=nb>size</span><span class=p>(</span><span class=n>X</span><span class=p>,</span><span class=mi>1</span><span class=p>),</span> <span class=mi>1</span><span class=p>)</span> <span class=o>*</span> <span class=n>mean</span><span class=p>(</span><span class=n>X</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>centredX</span> <span class=p>=</span> <span class=n>X</span> <span class=o>-</span> <span class=n>meanX</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c>% 直接调用cov直接计算协方差矩阵即可</span>
+</span></span><span class=line><span class=cl><span class=n>C</span> <span class=p>=</span> <span class=n>cov</span><span class=p>(</span><span class=n>centredX</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>%% 特征值分解</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=n>W</span><span class=p>,</span> <span class=n>Lambda</span><span class=p>]</span> <span class=p>=</span> <span class=n>eig</span><span class=p>(</span><span class=n>C</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>% 提取特征值</span>
+</span></span><span class=line><span class=cl><span class=n>ev</span> <span class=p>=</span> <span class=p>(</span><span class=nb>diag</span><span class=p>(</span><span class=n>Lambda</span><span class=p>))</span><span class=o>&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c>% eig计算出的特征值是升序的，这里手动倒序（W同理）</span>
+</span></span><span class=line><span class=cl><span class=n>ev</span> <span class=p>=</span> <span class=n>ev</span><span class=p>(:,</span> <span class=k>end</span><span class=p>:</span><span class=o>-</span><span class=mi>1</span><span class=p>:</span><span class=mi>1</span><span class=p>);</span> 
+</span></span><span class=line><span class=cl><span class=n>W</span> <span class=p>=</span> <span class=n>W</span><span class=p>(:,</span> <span class=k>end</span><span class=p>:</span><span class=o>-</span><span class=mi>1</span><span class=p>:</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>% 提取前两个主成分的特征向量</span>
+</span></span><span class=line><span class=cl><span class=n>Wr</span> <span class=p>=</span> <span class=n>W</span><span class=p>(:,</span> <span class=mi>1</span><span class=p>:</span><span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>% 新坐标空间的数据点</span>
+</span></span><span class=line><span class=cl><span class=n>Tr</span> <span class=p>=</span> <span class=n>centredX</span> <span class=o>*</span> <span class=n>Wr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=c>%% 作图</span>
+</span></span><span class=line><span class=cl><span class=n>figure</span><span class=p>(</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>scatter</span><span class=p>(</span><span class=n>Tr</span><span class=p>(:,</span><span class=mi>1</span><span class=p>),</span> <span class=n>Tr</span><span class=p>(:,</span><span class=mi>2</span><span class=p>),</span> <span class=mi>130</span><span class=p>,</span> <span class=n>categorical</span><span class=p>(</span><span class=n>species</span><span class=p>),</span> <span class=s>&#39;.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>colormap</span><span class=p>(</span><span class=n>winter</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>xlabel</span><span class=p>(</span><span class=s>&#39;Principal Component 1&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>ylabel</span><span class=p>(</span><span class=s>&#39;Principal Component 2&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>%% SVD分解</span>
+</span></span><span class=line><span class=cl><span class=c>% 可以检验，W和V完全相同（向量的正负号不影响）</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=n>U</span><span class=p>,</span> <span class=n>Sigma</span><span class=p>,</span> <span class=n>V</span><span class=p>]</span> <span class=p>=</span> <span class=n>svd</span><span class=p>(</span><span class=n>X</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>% 提取前两个主成分的特征向量</span>
+</span></span><span class=line><span class=cl><span class=n>Vr</span> <span class=p>=</span> <span class=n>V</span><span class=p>(:,</span> <span class=mi>1</span><span class=p>:</span><span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=c>% 新坐标空间的数据点</span>
+</span></span><span class=line><span class=cl><span class=n>Tr</span> <span class=p>=</span> <span class=n>X</span> <span class=o>*</span> <span class=n>Vr</span><span class=p>;</span> 
+</span></span><span class=line><span class=cl><span class=c>%% 作图</span>
+</span></span><span class=line><span class=cl><span class=n>figure</span><span class=p>(</span><span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>scatter</span><span class=p>(</span><span class=n>Tr</span><span class=p>(:,</span><span class=mi>1</span><span class=p>),</span> <span class=n>Tr</span><span class=p>(:,</span><span class=mi>2</span><span class=p>),</span> <span class=mi>130</span><span class=p>,</span> <span class=n>categorical</span><span class=p>(</span><span class=n>species</span><span class=p>),</span> <span class=s>&#39;.&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>colormap</span><span class=p>(</span><span class=n>winter</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>xlabel</span><span class=p>(</span><span class=s>&#39;Principal Component 1&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>ylabel</span><span class=p>(</span><span class=s>&#39;Principal Component 2&#39;</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><img src=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/1.png width=700 height=520 srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/1_hu_a1a58ea06265ff3f.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/1_hu_954cdfabde3de4ff.png 1024w" loading=lazy alt=EVD class=gallery-image data-flex-grow=134 data-flex-basis=323px></p><p><img src=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/2.png width=700 height=522 srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/2_hu_3001bb6c1b98cd86.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/2_hu_3f72ca4bbb4946c4.png 1024w" loading=lazy alt=SVD class=gallery-image data-flex-grow=134 data-flex-basis=321px></p><h2 id=matlab三维数据绘图><a href=#matlab%e4%b8%89%e7%bb%b4%e6%95%b0%e6%8d%ae%e7%bb%98%e5%9b%be class=header-anchor></a>MATLAB三维数据绘图</h2><h3 id=三维线><a href=#%e4%b8%89%e7%bb%b4%e7%ba%bf class=header-anchor></a>三维线</h3><p>使用<code>plot3()</code>函数即可绘制三维线,输入应为三个向量</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-matlab data-lang=matlab><span class=line><span class=cl><span class=n>turns</span> <span class=p>=</span> <span class=mi>40</span><span class=o>*</span><span class=nb>pi</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>t</span> <span class=p>=</span> <span class=nb>linspace</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=n>turns</span><span class=p>,</span><span class=mi>4000</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>x</span> <span class=p>=</span> <span class=nb>cos</span><span class=p>(</span><span class=n>t</span><span class=p>)</span><span class=o>.*</span><span class=p>(</span><span class=n>turns</span><span class=o>-</span><span class=n>t</span><span class=p>)</span><span class=o>./</span><span class=n>turns</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>y</span> <span class=p>=</span> <span class=nb>sin</span><span class=p>(</span><span class=n>t</span><span class=p>)</span><span class=o>.*</span><span class=p>(</span><span class=n>turns</span><span class=o>-</span><span class=n>t</span><span class=p>)</span><span class=o>./</span><span class=n>turns</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>z</span> <span class=p>=</span> <span class=n>t</span><span class=o>./</span><span class=n>turns</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>plot3</span><span class=p>(</span><span class=n>x</span><span class=p>,</span><span class=n>y</span><span class=p>,</span><span class=n>z</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>grid</span> <span class=n>on</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>axis</span> <span class=n>square</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p><img src=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/3.png width=554 height=413 srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/3_hu_9ac90ee5cbd27c82.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/3_hu_99d52054e396951d.png 1024w" loading=lazy alt=螺旋线 class=gallery-image data-flex-grow=134 data-flex-basis=321px></p><h3 id=三维图形绘制及等高线><a href=#%e4%b8%89%e7%bb%b4%e5%9b%be%e5%bd%a2%e7%bb%98%e5%88%b6%e5%8f%8a%e7%ad%89%e9%ab%98%e7%ba%bf class=header-anchor></a>三维图形绘制及等高线</h3><p>我们可以通过使用<code>mesh()</code>命令绘制三维面，使用<code>contour()</code>命令可以绘制三维图形的等高线。
+与之前的命令一样，我们也可以通过向其传递不同的参数来改变图形的细节。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-matlab data-lang=matlab><span class=line><span class=cl><span class=n>x</span> <span class=p>=</span> <span class=o>-</span><span class=mf>3.5</span><span class=p>:</span><span class=mf>0.2</span><span class=p>:</span><span class=mf>3.5</span><span class=p>;</span> <span class=n>y</span> <span class=p>=</span> <span class=o>-</span><span class=mf>3.5</span><span class=p>:</span><span class=mf>0.2</span><span class=p>:</span><span class=mf>3.5</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>[</span><span class=n>X</span><span class=p>,</span><span class=n>Y</span><span class=p>]</span> <span class=p>=</span> <span class=nb>meshgrid</span><span class=p>(</span><span class=n>x</span><span class=p>,</span><span class=n>y</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>Z</span> <span class=p>=</span> <span class=mf>10.</span><span class=o>*</span><span class=n>X</span><span class=o>.*</span><span class=nb>exp</span><span class=p>(</span><span class=o>-</span><span class=n>X</span><span class=o>.^</span><span class=mi>2</span><span class=o>-</span><span class=n>Y</span><span class=o>.^</span><span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>grid</span> <span class=n>on</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>axis</span> <span class=n>square</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>subplot</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>mesh</span><span class=p>(</span><span class=n>X</span><span class=p>,</span><span class=n>Y</span><span class=p>,</span><span class=n>Z</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>subplot</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span><span class=mi>2</span><span class=p>,</span><span class=mi>2</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>contour</span><span class=p>(</span><span class=n>X</span><span class=p>,</span><span class=n>Y</span><span class=p>,</span><span class=n>Z</span><span class=p>,</span><span class=s>&#39;ShowText&#39;</span><span class=p>,</span> <span class=s>&#39;on&#39;</span><span class=p>,</span> <span class=s>&#39;LevelStep&#39;</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p><img src=/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/4.png width=554 height=335 srcset="/p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/4_hu_bff03da187e6f27c.png 480w, /p/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AC%94%E8%AE%B0/IMAGE/4_hu_69d6101b538eef74.png 1024w" loading=lazy alt=三维图形绘制及等高线 class=gallery-image data-flex-grow=165 data-flex-basis=396px></p><p>三维图形绘制及等高线</p><h2 id=参考资料><a href=#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99 class=header-anchor></a>参考资料</h2><ul><li><a class=link href=https://zhuanlan.zhihu.com/p/37777074 target=_blank rel=noopener>主成分分析（PCA）原理详解 - 知乎</a></li><li><a class=link href=https://www.cnblogs.com/pinard/p/6251584.html target=_blank rel=noopener>奇异值分解(SVD)原理与在降维中的应用 - 刘建平Pinard - 博客园</a></li></ul></section><footer class=article-footer><section class=article-tags><a href=/tags/pca/>PCA</a>
+<a href=/tags/evd/>EVD</a>
+<a href=/tags/svd/>SVD</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><div class=article-image><img src=/p/%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/98259515.80d66336683193280f34d36beb46fd91.webp width=1414 height=1000 loading=lazy alt="Featured image of post 特征工程学习笔记" data-hash="md5-gNZjNmgxkygPNNNr60b9kQ=="></div><div class=article-details><h2 class=article-title>特征工程学习笔记</h2></div></a></article><article class=has-image><a href=/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><div class=article-image><img src=/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.ad1a6ba33c608214a1fc147775fe1b05.webp width=1882 height=1217 loading=lazy alt="Featured image of post 回归分析学习笔记" data-hash="md5-rRprozxgghSh/BR3df4bBQ=="></div><div class=article-details><h2 class=article-title>回归分析学习笔记</h2></div></a></article><article class=has-image><a href=/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><div class=article-image><img src=/p/%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/86368113.9c11189c2428cb1eed0c920f0292a1f8.webp width=3893 height=2500 loading=lazy alt="Featured image of post 分类算法学习笔记" data-hash="md5-nBEYnCQoyx7tDJIPApKh+A=="></div><div class=article-details><h2 class=article-title>分类算法学习笔记</h2></div></a></article><article class=has-image><a href=/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/><div class=article-image><img src=/p/%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/97701948.d2f9ff1606e3b06124ed2ee081a6ad2a.webp width=1883 height=1257 loading=lazy alt="Featured image of post 聚类算法学习笔记" data-hash="md5-0vn/FgbjsGEk7S7ggaatKg=="></div><div class=article-details><h2 class=article-title>聚类算法学习笔记</h2></div></a></article></div></div></aside><link href=//unpkg.com/@waline/client@v3/dist/waline.css rel=stylesheet><div id=waline class=waline-container></div><style>.waline-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding);--waline-font-size:var(--article-font-size)}.waline-container .wl-count{color:var(--card-text-color-main)}</style><script type=module>
     import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
     setTimeout(function () {
@@ -843,132 +137,11 @@ $$<p>其中U是一个$m \times m$的矩阵，$\Sigma$是一个$m \times n$的矩
     }, 300);
 
 
-</script>
-
-    
-
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2020 - 
-        
-        2025 luoboQAQ
-    </section>
-    
-    <section class="powerby">
-        
-            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
-    </section>
-</footer>
-
-
-    
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    
-    <div class="pswp__bg"></div>
-
-    
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
-
-            </main>
-        </div>
-        <script 
-                src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-
-        const customFont2 = document.createElement('link');
-        customFont2.href = "https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css";
-
-        customFont2.type = "text/css";
-        customFont2.rel = "stylesheet";
-
-        document.head.appendChild(customFont2);        
-    }());
-</script>
-
-    </body>
-</html>
+</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 luoboQAQ</section><section class=powerby><a href=https://umami.lbqaq.top/share/gbMqUqkF/Blog>访问统计</a><br><a href=https://beian.miit.gov.cn>苏ICP备2021037116号</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e);const t=document.createElement("link");t.href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css",t.type="text/css",t.rel="stylesheet",document.head.appendChild(t)})()</script></body></html>

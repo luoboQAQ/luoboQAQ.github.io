@@ -1,449 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="使用小猫和mosdns优雅的实现分流">
-<title>基于DNS的分流方案</title>
-
-<link rel='canonical' href='https://lbqaq.top/p/dns-shunt/'>
-
-<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="基于DNS的分流方案">
-<meta property='og:description' content="使用小猫和mosdns优雅的实现分流">
-<meta property='og:url' content='https://lbqaq.top/p/dns-shunt/'>
-<meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='教程' /><meta property='article:tag' content='DNS' /><meta property='article:tag' content='openwrt' /><meta property='article:tag' content='mosdns' /><meta property='article:published_time' content='2024-03-22T20:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-26T20:09:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp' />
-<meta name="twitter:title" content="基于DNS的分流方案">
-<meta name="twitter:description" content="使用小猫和mosdns优雅的实现分流"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/dns-shunt/115597971.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
-  src="https://umami.lbqaq.top/bpnwxrgz.js">
-  </script>
-
-
-<script src="https://npm.elemecdn.com/mermaid@latest/dist/mermaid.min.js"></script>
-<script>
-  mermaid.initialize({ startOnLoad: true });
-</script>
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<style>
-   
-  :root {
-    --sys-font-family: -apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;
-    --code-font-family: "JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;
-    --article-font-family: "LXGW WenKai", sans-serif;
-    --base-font-family: "LXGW WenKai", var(--sys-font-family), sans-serif;
-  }
-</style>
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-            
-            <figure class="site-avatar">
-                <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
-                </a>
-                
-                    <span class="emoji">🌞</span>
-                
-            </figure>
-            
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
-            <h2 class="site-description">快乐学习每一天</h2>
-        </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/luoboQAQ'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://lbqaq.top/index.xml'
-                        target="_blank"
-                        title="RSS订阅"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="5" cy="19" r="1" />
-  <path d="M4 4a16 16 0 0 1 16 16" />
-  <path d="M4 11a9 9 0 0 1 9 9" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://pan.lbqaq.top'
-                        target="_blank"
-                        title="我的个人云盘"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
-</svg>
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
-        
-        
-        
-        <li >
-            <a href='/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
-
-
-
-                
-                <span>主页</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>关于</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>文章</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>查询</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/links/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>友链</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>暗色模式</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#实现效果">实现效果</a></li>
-    <li><a href="#遇到问题">遇到问题</a></li>
-    <li><a href="#方案设计">方案设计</a>
-      <ol>
-        <li><a href="#dns分流">DNS分流</a></li>
-        <li><a href="#修复地址解析错误">修复地址解析错误</a></li>
-        <li><a href="#区分流量来源">区分流量来源</a></li>
-      </ol>
-    </li>
-    <li><a href="#具体配置">具体配置</a>
-      <ol>
-        <li><a href="#小猫">小猫</a></li>
-        <li><a href="#mosdns">Mosdns</a></li>
-      </ol>
-    </li>
-    <li><a href="#后记">后记</a></li>
-    <li><a href="#后续更新">后续更新</a>
-      <ol>
-        <li><a href="#20240829">2024.08.29</a></li>
-        <li><a href="#20240926">2024.09.26</a></li>
-      </ol>
-    </li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
-            <main class="main full-width">
-    <article class="has-image main-article">
-    <header class="article-header">
-        <div class="article-image">
-            <a href="/p/dns-shunt/">
-                <img src="/p/dns-shunt/115597971.webp"
-                        
-                        width="2000" 
-                        height="1400" 
-                        loading="lazy"
-                        alt="Featured image of post 基于DNS的分流方案" />
-                
-            </a>
-        </div>
-    
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="/categories/%E7%BD%91%E7%BB%9C/" >
-                网络
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/dns-shunt/">基于DNS的分流方案</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            使用小猫和mosdns优雅的实现分流
-        </h3>
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2024-03-22</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    阅读时长: 9 分钟
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
-
-    <section class="article-content">
-    
-    
-    <p>最近将路由器上的工具换为小猫，使用默认的redir-host模式虽然能用，但总是出现各种各样奇怪的问题，再加上小猫官方已经删除了redir-host模式，于是我便想找到一个基于fake-ip的分流方式。通过在互联网上检索发现，找到了这篇文章——《<a class="link" href="https://songchenwen.com/tproxy-split-by-dns"  target="_blank" rel="noopener"
-    >基于 DNS 的内网透明代理分流方案</a>》。仔细研读下来，完美符合我的需求，然而，我使用的是内存捉襟见肘的硬路由，并没有足够的空间装下AdGuardHome+mosdns+小猫三员大将。于是，我便在他方案的基础上删除了AdGuardHome，优化出了现在的方案。</p>
-<h2 id="实现效果"><a href="#%e5%ae%9e%e7%8e%b0%e6%95%88%e6%9e%9c" class="header-anchor"></a>实现效果
-</h2><p>和原来的方案一样，我就直接粘贴了。</p>
-<ol>
-<li>基于DNS的流量分流，国内流量绕过小猫核心</li>
-<li>用Fake-IP模式来解决DNS污染的问题，但限制Fake-IP的范围，不需要代理的域名仍返回正常IP</li>
-<li>不用再费心找无污染的DNS服务器，使用运营商提供的DNS也没问题</li>
-<li>因为彻底解决了DNS污染，可以放心缓存DNS请求结果</li>
-<li>完美兼容IPv6。国内流量可正常使用IPv6服务。只要代理有IPv6出口，那国外也可正常使用。</li>
-<li>兼容BT/PT应用，无需特殊配置也不会消耗代理流量</li>
-<li>可以松切换内网设备是否走代理</li>
-</ol>
-<h2 id="遇到问题"><a href="#%e9%81%87%e5%88%b0%e9%97%ae%e9%a2%98" class="header-anchor"></a>遇到问题
-</h2><p>在按照原来的方案构建并删去AdGuardHome后，可以实现大部分的功能。然而在我的使用中，却遇到了一个关键的问题：<strong>无法区分流量来源</strong>——由于mosdns是作为Dnsmasq的上游来使用的，所以无法识别请求的客户端，故无法实现是否走代理。</p>
-<p>为此，我尝试将mosdns代替dnsmasq来监听53端口，结果又遇到了一个新的问题：<strong>所有的请求都返回fake-ip</strong>——由于dns存在主机名解析功能，导致请求被错误的发往小猫的DNS端口，从而返回了fake-ip。</p>
-<h2 id="方案设计"><a href="#%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1" class="header-anchor"></a>方案设计
-</h2><p>为了解决这两个问题，我重新设计了DNS解析的流程，从而得到了现在的这一套方案。</p>
-<h3 id="dns分流"><a href="#dns%e5%88%86%e6%b5%81" class="header-anchor"></a>DNS分流
-</h3><pre class="mermaid" align=center>graph TB
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="使用小猫和mosdns优雅的实现分流"><title>基于DNS的分流方案</title>
+<link rel=canonical href=https://lbqaq.top/p/dns-shunt/><link rel=stylesheet href=/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css><meta property='og:title' content="基于DNS的分流方案"><meta property='og:description' content="使用小猫和mosdns优雅的实现分流"><meta property='og:url' content='https://lbqaq.top/p/dns-shunt/'><meta property='og:site_name' content='luoboQAQ'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='教程'><meta property='article:tag' content='DNS'><meta property='article:tag' content='openwrt'><meta property='article:tag' content='mosdns'><meta property='article:published_time' content='2024-03-22T20:47:00+08:00'><meta property='article:modified_time' content='2024-09-26T20:09:00+08:00'><meta property='og:image' content='https://lbqaq.top/p/dns-shunt/115597971.webp'><meta name=twitter:title content="基于DNS的分流方案"><meta name=twitter:description content="使用小猫和mosdns优雅的实现分流"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://lbqaq.top/p/dns-shunt/115597971.webp'><script async defer data-website-id=5a23d952-27c7-4abd-b8f0-c69397b25b55 data-cache=true src=https://umami.lbqaq.top/bpnwxrgz.js></script><script src=https://npm.elemecdn.com/mermaid@latest/dist/mermaid.min.js></script><script>mermaid.initialize({startOnLoad:!0})</script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><style>:root{--sys-font-family:-apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;--code-font-family:"JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;--article-font-family:"LXGW WenKai", sans-serif;--base-font-family:"LXGW WenKai", var(--sys-font-family), sans-serif}</style></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/Mint_hu_90cbcbb19cfdb02a.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌞</span></figure><div class=site-meta><h1 class=site-name><a href=/>luoboQAQ</a></h1><h2 class=site-description>快乐学习每一天</h2></div></header><ol class=menu-social><li><a href=https://github.com/luoboQAQ target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://lbqaq.top/index.xml target=_blank title=RSS订阅 rel=me><svg class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li><li><a href=https://pan.lbqaq.top target=_blank title=我的个人云盘 rel=me><svg class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 18a4.6 4.4.0 010-9 5 4.5.0 0111 2h1a3.5 3.5.0 010 7H7"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文章</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>查询</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>友链</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#实现效果>实现效果</a></li><li><a href=#遇到问题>遇到问题</a></li><li><a href=#方案设计>方案设计</a><ol><li><a href=#dns分流>DNS分流</a></li><li><a href=#修复地址解析错误>修复地址解析错误</a></li><li><a href=#区分流量来源>区分流量来源</a></li></ol></li><li><a href=#具体配置>具体配置</a><ol><li><a href=#小猫>小猫</a></li><li><a href=#mosdns>Mosdns</a></li></ol></li><li><a href=#后记>后记</a></li><li><a href=#后续更新>后续更新</a><ol><li><a href=#20240829>2024.08.29</a></li><li><a href=#20240926>2024.09.26</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/dns-shunt/><img src=/p/dns-shunt/115597971.webp width=2000 height=1400 loading=lazy alt="Featured image of post 基于DNS的分流方案"></a></div><div class=article-details><header class=article-category><a href=/categories/%E7%BD%91%E7%BB%9C/>网络</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/dns-shunt/>基于DNS的分流方案</a></h2><h3 class=article-subtitle>使用小猫和mosdns优雅的实现分流</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2024-03-22</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 9 分钟</time></div></footer></div></header><section class=article-content><p>最近将路由器上的工具换为小猫，使用默认的redir-host模式虽然能用，但总是出现各种各样奇怪的问题，再加上小猫官方已经删除了redir-host模式，于是我便想找到一个基于fake-ip的分流方式。通过在互联网上检索发现，找到了这篇文章——《<a class=link href=https://songchenwen.com/tproxy-split-by-dns target=_blank rel=noopener>基于 DNS 的内网透明代理分流方案</a>》。仔细研读下来，完美符合我的需求，然而，我使用的是内存捉襟见肘的硬路由，并没有足够的空间装下AdGuardHome+mosdns+小猫三员大将。于是，我便在他方案的基础上删除了AdGuardHome，优化出了现在的方案。</p><h2 id=实现效果><a href=#%e5%ae%9e%e7%8e%b0%e6%95%88%e6%9e%9c class=header-anchor></a>实现效果</h2><p>和原来的方案一样，我就直接粘贴了。</p><ol><li>基于DNS的流量分流，国内流量绕过小猫核心</li><li>用Fake-IP模式来解决DNS污染的问题，但限制Fake-IP的范围，不需要代理的域名仍返回正常IP</li><li>不用再费心找无污染的DNS服务器，使用运营商提供的DNS也没问题</li><li>因为彻底解决了DNS污染，可以放心缓存DNS请求结果</li><li>完美兼容IPv6。国内流量可正常使用IPv6服务。只要代理有IPv6出口，那国外也可正常使用。</li><li>兼容BT/PT应用，无需特殊配置也不会消耗代理流量</li><li>可以松切换内网设备是否走代理</li></ol><h2 id=遇到问题><a href=#%e9%81%87%e5%88%b0%e9%97%ae%e9%a2%98 class=header-anchor></a>遇到问题</h2><p>在按照原来的方案构建并删去AdGuardHome后，可以实现大部分的功能。然而在我的使用中，却遇到了一个关键的问题：<strong>无法区分流量来源</strong>——由于mosdns是作为Dnsmasq的上游来使用的，所以无法识别请求的客户端，故无法实现是否走代理。</p><p>为此，我尝试将mosdns代替dnsmasq来监听53端口，结果又遇到了一个新的问题：<strong>所有的请求都返回fake-ip</strong>——由于dns存在主机名解析功能，导致请求被错误的发往小猫的DNS端口，从而返回了fake-ip。</p><h2 id=方案设计><a href=#%e6%96%b9%e6%a1%88%e8%ae%be%e8%ae%a1 class=header-anchor></a>方案设计</h2><p>为了解决这两个问题，我重新设计了DNS解析的流程，从而得到了现在的这一套方案。</p><h3 id=dns分流><a href=#dns%e5%88%86%e6%b5%81 class=header-anchor></a>DNS分流</h3><pre class=mermaid align=center>graph TB
 client[DNS 请求] -- 防火墙劫持 -->  mosdns
 	mosdns -- 需要代理的设备 --> query[按规则进行DNS查询]
 	mosdns -- 不需要代理的设备 --> dnsmasq
@@ -457,940 +24,634 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
     query -- 域名白名单 --> dnsmasq
     query -- 域名灰名单 --> drop_ipv6
     drop_ipv6 --> fake[Fake IP]
-  </pre>
-  <p>经过DNS分流后，所有需要代理的域名都分配到了Fake IP，无需代理的域名都是由运营商DNS返回的最优结果。小猫的DNS在Fake IP模式下可以无需请求网络直接返回结果，所以整体的DNS响应速度非常快。在处理Fake IP的流量时，小猫会把hostname发送到远端进行DNS解析，也就自然不存在DNS污染的问题了。</p>
-<h3 id="修复地址解析错误"><a href="#%e4%bf%ae%e5%a4%8d%e5%9c%b0%e5%9d%80%e8%a7%a3%e6%9e%90%e9%94%99%e8%af%af" class="header-anchor"></a>修复地址解析错误
-</h3><p>由于dns存在主机名解析功能，会导致请求错误的转发。正所谓“头痛医头，脚痛医脚”，最简单和无脑的方法就是直接关闭这个功能：</p>
-<p>在<code>网络</code>-<code>DHCP/DNS</code>-<code>高级设置</code>里，将<code>本地域名</code>里的值删除。（未测试，不确定🤔）</p>
-<p>但是我们都使用了mosdns了，为什么不好好的利用它那强大的规则呢。所以，我们可以将有关主机名解析的流量全部转发到dnsmasq，这样就不会出问题了。</p>
-<h3 id="区分流量来源"><a href="#%e5%8c%ba%e5%88%86%e6%b5%81%e9%87%8f%e6%9d%a5%e6%ba%90" class="header-anchor"></a>区分流量来源
-</h3><p>一开始，mosdns是作为dnsmasq的上游的，所以所有的请求来源都是本地，这就导致了我们无法控制mosdns，让其为不需要代理的设备分配真实的IP。所以，我们将所有dns请求通过防火墙劫持到mosdns上，就能知道设备的来源的ip了。关于防火墙的写法，我参考了<a class="link" href="https://github.com/rufengsuixing/luci-app-adguardhome/blob/master/root/etc/init.d/AdGuardHome#L59"  target="_blank" rel="noopener"
-    >luci-app-adguardhome的开源代码</a>。</p>
-<p>但是这样还有一个问题，由于我们配置了ipv6，所以请求的客户端地址很大可能也是ipv6的。由于ipv6地址支持无状态分配，这就导致请求的地址会一直变动，这也导致无法为特定客户端实现分流。这里我选择了最简单和无脑的方法——直接关闭ipv6的DNS服务。通过查询Openwrt的官方文档，我们发现官方提供了<a class="link" href="https://openwrt.org/docs/guide-user/base-system/dhcp_configuration?s#disabling_ipv6_dns_for_odhcpd"  target="_blank" rel="noopener"
-    >关闭ipv6 DNS服务的方法</a>。这样就可以让客户端始终通过ipv4来请求了。确保了这一点，我们的防火墙也只用劫持ipv4的流量了。</p>
-<h2 id="具体配置"><a href="#%e5%85%b7%e4%bd%93%e9%85%8d%e7%bd%ae" class="header-anchor"></a>具体配置
-</h2><p>上面都在讲思路，终于轮到具体的配置了。我们现在只需要小猫和<a class="link" href="https://github.com/sbwml/luci-app-mosdns"  target="_blank" rel="noopener"
-    >luci-app-mosdns</a>这两个包就好了。</p>
-<h3 id="小猫"><a href="#%e5%b0%8f%e7%8c%ab" class="header-anchor"></a>小猫
-</h3><ul>
-<li><strong><code>插件设置</code></strong> - <strong><code>模式设置</code></strong> - <strong><code>运行模式</code></strong>： 切换到 <strong><code>Fake-IP（增强）模式</code></strong></li>
-<li><strong><code>插件设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>本地 DNS 劫持</code></strong> 选择 <strong><code>禁用</code></strong></li>
-<li><strong><code>插件设置</code></strong> - <strong><code>流量控制</code></strong> - <strong><code>绕过中国大陆 IP</code></strong> 取消勾选</li>
-<li><strong><code>插件设置</code></strong> - <strong><code>流量控制</code></strong> - <strong><code>仅允许内网</code></strong> 开启</li>
-<li><strong><code>插件设置</code></strong> - <strong><code>IPv6 设置</code></strong> 这页的选项全都关闭就行了</li>
-<li><strong><code>覆写设置</code></strong> - <strong><code>常规设置</code></strong> 这里都不用改，只需要记住 DNS 监听，后面配置 mosdns 要用</li>
-<li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>自定义上游 DNS 服务器</code></strong> 勾选</li>
-<li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>追加上游 DNS</code></strong> 勾选</li>
-<li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>追加默认 DNS</code></strong> 勾选</li>
-<li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>Fake-IP 持久化</code></strong> 勾选</li>
-<li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> 页面下方 <strong><code>NameServer</code></strong>，<strong><code>FallBack</code></strong>，<strong><code>Default-NameServer</code></strong> 里的 DNS 服务器全都取消勾选，我们只用运营商提供的 DNS 服务器就够了，一般运营商 DNS 都是最快的，也是 CDN 最优化的。</li>
-<li><strong><code>插件设置</code></strong> - <strong><code>开发者选项</code></strong> 里，我们自定义一下防火墙规则，增加如下这些行。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">LOG_OUT <span class="s2">&#34;limit route to only fake ips with proxy port 7892&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">/etc/mosdns/genipset.sh
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">iptables -t nat -D openclash -p tcp -j REDIRECT --to-ports <span class="m">7892</span>
-</span></span><span class="line"><span class="cl">iptables -t nat -A openclash -m <span class="nb">set</span> --match-set telegram dst -p tcp -j REDIRECT --to-ports <span class="m">7892</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">LOG_OUT <span class="s2">&#34;restart mosdns&#34;</span>
-</span></span><span class="line"><span class="cl">/etc/init.d/mosdns restart
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">LOG_OUT <span class="s2">&#34;将53端口重定向到mosdns&#34;</span>
-</span></span><span class="line"><span class="cl">iptables -t nat -D PREROUTING -p udp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span><span class="line"><span class="cl">iptables -t nat -A PREROUTING -p udp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span><span class="line"><span class="cl">iptables -t nat -D PREROUTING -p tcp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span><span class="line"><span class="cl">iptables -t nat -A PREROUTING -p tcp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这里有几个注意点，都是我踩过的坑😢：</p>
-<ul>
-<li>可能是我内核版本太旧了，这里使用任何变量都是空值，所以我把所有地址都写死了，记得根据自己的路由器地址进行修改</li>
-<li>不要忘记劫持TCP流量！我之前仅仅劫持了UDP流量导致浏览器一直请求到真实ip而无法访问。</li>
-</ul>
-<p><a class="link" href="#20240926" >2024.09.26更新</a> 使用<code>nftables</code>的高版本openwrt需要使用下面的脚本：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">LOG_OUT <span class="s2">&#34;Start Add Custom Firewall Rules...&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">FW4</span><span class="o">=</span><span class="k">$(</span><span class="nb">command</span> -v fw4<span class="k">)</span>
-</span></span><span class="line"><span class="cl"><span class="nv">en_mode</span><span class="o">=</span><span class="k">$(</span>uci -q get openclash.config.en_mode<span class="k">)</span>
-</span></span><span class="line"><span class="cl"><span class="nv">proxy_port</span><span class="o">=</span><span class="k">$(</span>uci -q get openclash.config.proxy_port<span class="k">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$en_mode</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;fake-ip&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">  LOG_OUT <span class="s2">&#34;limit route to only fake ips with proxy port </span><span class="nv">$proxy_port</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  /root/genipset.sh
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">handle</span><span class="o">=</span><span class="k">$(</span>nft -a list chain inet fw4 openclash <span class="p">|</span> grep <span class="s1">&#39;ip protocol tcp counter&#39;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $NF}&#39;</span><span class="k">)</span>
-</span></span><span class="line"><span class="cl">    LOG_OUT <span class="s2">&#34;deleting nft rule handle </span><span class="nv">$handle</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">    nft delete rule inet fw4 openclash handle <span class="nv">$handle</span>
-</span></span><span class="line"><span class="cl">    nft add rule inet fw4 openclash ip protocol tcp ip daddr @telegram counter redirect to <span class="nv">$proxy_port</span>
-</span></span><span class="line"><span class="cl">  <span class="k">else</span>
-</span></span><span class="line"><span class="cl">    iptables -t nat -D openclash -p tcp -j REDIRECT --to-ports <span class="nv">$proxy_port</span>
-</span></span><span class="line"><span class="cl">    iptables -t nat -A openclash -m <span class="nb">set</span> --match-set telegram dst -p tcp -j REDIRECT --to-ports <span class="nv">$proxy_port</span>
-</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  LOG_OUT <span class="s2">&#34;restart mosdns&#34;</span>
-</span></span><span class="line"><span class="cl">  /etc/init.d/mosdns restart
-</span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  LOG_OUT <span class="s2">&#34;将53端口重定向到mosdns&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    ! nft --check list table inet mosdns &gt; <span class="s2">&#34;/dev/null&#34;</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">||</span> nft delete table inet mosdns
-</span></span><span class="line"><span class="cl">    nft add table inet mosdns
-</span></span><span class="line"><span class="cl">    nft add chain inet mosdns prerouting <span class="s2">&#34;{ type nat hook prerouting priority -110; policy accept; }&#34;</span>
-</span></span><span class="line"><span class="cl">    nft add rule inet mosdns prerouting <span class="s2">&#34;meta nfproto { ipv4 } udp dport 53 ip daddr 192.168.6.1 counter redirect to :5335 comment \&#34;MOSDNS HIJACK\&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">    nft add rule inet mosdns prerouting <span class="s2">&#34;meta nfproto { ipv4 } tcp dport 53 ip daddr 192.168.6.1 counter redirect to :5335 comment \&#34;MOSDNS HIJACK\&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">else</span>
-</span></span><span class="line"><span class="cl">    iptables -t nat -D PREROUTING -p udp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span><span class="line"><span class="cl">    iptables -t nat -A PREROUTING -p udp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span><span class="line"><span class="cl">    iptables -t nat -D PREROUTING -p tcp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>
-</span></span><span class="line"><span class="cl">    iptables -t nat -A PREROUTING -p tcp -d 192.168.6.1 --dport <span class="m">53</span> -j REDIRECT --to-ports <span class="m">5335</span>  
-</span></span><span class="line"><span class="cl">  <span class="k">fi</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>genipset.sh</code> 的代码如下，这是针对某些应用不通过DNS直接用ip访问，要将这部分流量劫持到小猫。这个文件放到路由器上后，记得要执行 <code>chmod a+x /etc/mosdns/genipset.sh</code> 给它赋予可执行权限。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="nv">tag</span><span class="o">=</span><span class="s2">&#34;telegram&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nv">filename</span><span class="o">=</span><span class="s2">&#34;/etc/mosdns/data/telegram-cidr.txt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nv">FW4</span><span class="o">=</span><span class="k">$(</span><span class="nb">command</span> -v fw4<span class="k">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nb">test</span> -f <span class="s2">&#34;</span><span class="nv">$filename</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">        nft add <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> <span class="o">{</span> <span class="nb">type</span> ipv4_addr<span class="se">\;</span> flags interval<span class="se">\;</span>  auto-merge<span class="se">\;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        nft add <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> <span class="o">{</span> <span class="nb">type</span> ipv6_addr<span class="se">\;</span> flags interval<span class="se">\;</span>  auto-merge<span class="se">\;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        nft flush <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        nft flush <span class="nb">set</span> inet fw4 <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">    ipset create <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> hash:net -!
-</span></span><span class="line"><span class="cl">    ipset create <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> hash:net family inet6 -!
-</span></span><span class="line"><span class="cl">    ipset flush <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">    ipset flush <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="nb">read</span> p<span class="p">;</span> <span class="k">do</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> ! grep -q <span class="s2">&#34;:&#34;</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">                nft add element inet fw4 <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> <span class="o">{</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">            ipset add <span class="s2">&#34;</span><span class="nv">$tag</span><span class="s2">&#34;</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">else</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&#34;</span><span class="nv">$FW4</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-</span></span><span class="line"><span class="cl">                nft add element inet fw4 <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> <span class="o">{</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">            <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">            ipset add <span class="s2">&#34;</span><span class="si">${</span><span class="nv">tag</span><span class="si">}</span><span class="s2">6&#34;</span> <span class="s2">&#34;</span><span class="nv">$p</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">fi</span>
-</span></span><span class="line"><span class="cl">    <span class="k">done</span> &lt;<span class="s2">&#34;</span><span class="nv">$filename</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$filename</span><span class="s2"> missing.&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="k">fi</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="mosdns"><a href="#mosdns" class="header-anchor"></a>Mosdns
-</h3><p>选自定义配置文件，关闭<code>DNS 转发</code>的勾，然后我就直接贴配置了</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
-</span><span class="lnt">168
-</span><span class="lnt">169
-</span><span class="lnt">170
-</span><span class="lnt">171
-</span><span class="lnt">172
-</span><span class="lnt">173
-</span><span class="lnt">174
-</span><span class="lnt">175
-</span><span class="lnt">176
-</span><span class="lnt">177
-</span><span class="lnt">178
-</span><span class="lnt">179
-</span><span class="lnt">180
-</span><span class="lnt">181
-</span><span class="lnt">182
-</span><span class="lnt">183
-</span><span class="lnt">184
-</span><span class="lnt">185
-</span><span class="lnt">186
-</span><span class="lnt">187
-</span><span class="lnt">188
-</span><span class="lnt">189
-</span><span class="lnt">190
-</span><span class="lnt">191
-</span><span class="lnt">192
-</span><span class="lnt">193
-</span><span class="lnt">194
-</span><span class="lnt">195
-</span><span class="lnt">196
-</span><span class="lnt">197
-</span><span class="lnt">198
-</span><span class="lnt">199
-</span><span class="lnt">200
-</span><span class="lnt">201
-</span><span class="lnt">202
-</span><span class="lnt">203
-</span><span class="lnt">204
-</span><span class="lnt">205
-</span><span class="lnt">206
-</span><span class="lnt">207
-</span><span class="lnt">208
-</span><span class="lnt">209
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Powered by luoboQAQ</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 适配Clash的fake-ip模式</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># 24-08-29：让灰名单优先生效，避免被geosite_cn抢答</span>
-</span></span><span class="line"><span class="cl">log:
-</span></span><span class="line"><span class="cl">  level: info
-</span></span><span class="line"><span class="cl">  file: <span class="s2">&#34;/tmp/log/mosdns.log&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># API 入口设置</span>
-</span></span><span class="line"><span class="cl">api:
-</span></span><span class="line"><span class="cl">  http: <span class="s2">&#34;0.0.0.0:9091&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">plugins:
-</span></span><span class="line"><span class="cl">  <span class="c1"># 国内域名</span>
-</span></span><span class="line"><span class="cl">  - tag: geosite_cn
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/data/direct-list.txt&#34;</span>
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/whitelist.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 国内 IP</span>
-</span></span><span class="line"><span class="cl">  - tag: geoip_cn
-</span></span><span class="line"><span class="cl">    type: ip_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/data/CN-ip-cidr.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 国外域名</span>
-</span></span><span class="line"><span class="cl">  - tag: geosite_no_cn
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/data/proxy-list.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 灰名单域名，强制远程解析</span>
-</span></span><span class="line"><span class="cl">  - tag: greylist
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/greylist.txt&#34;</span>    
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 黑名单域名：屏蔽 DNS 解析</span>
-</span></span><span class="line"><span class="cl">  - tag: blocklist
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/blocklist.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># ddns域名</span>
-</span></span><span class="line"><span class="cl">  - tag: ddnslist
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/ddnslist.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 自定义 Hosts 重写</span>
-</span></span><span class="line"><span class="cl">  - tag: hosts
-</span></span><span class="line"><span class="cl">    type: hosts
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/hosts.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 广告域名</span>
-</span></span><span class="line"><span class="cl">  - tag: adlist
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/data/ad-domains.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># PTR黑名单</span>
-</span></span><span class="line"><span class="cl">  - tag: local_ptr
-</span></span><span class="line"><span class="cl">    type: domain_set
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      files:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;/etc/mosdns/rule/local-ptr.txt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 缓存插件</span>
-</span></span><span class="line"><span class="cl">  - tag: cache
-</span></span><span class="line"><span class="cl">    type: cache
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      size: <span class="m">10240</span>
-</span></span><span class="line"><span class="cl">      lazy_cache_ttl: <span class="m">86400</span>
-</span></span><span class="line"><span class="cl">      <span class="c1"># 将缓存保存在磁盘</span>
-</span></span><span class="line"><span class="cl">      <span class="c1"># dump_file: /tmp/mosdns/cache.dump</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 国内解析</span>
-</span></span><span class="line"><span class="cl">  - tag: local_sequence
-</span></span><span class="line"><span class="cl">    type: sequence
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      - exec: forward 127.0.0.1
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 国外解析</span>
-</span></span><span class="line"><span class="cl">  - tag: remote_sequence
-</span></span><span class="line"><span class="cl">    type: sequence
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qtype <span class="m">28</span>
-</span></span><span class="line"><span class="cl">        exec: reject <span class="m">0</span>
-</span></span><span class="line"><span class="cl">      - exec: forward 127.127.127.127:7874
-</span></span><span class="line"><span class="cl">      - exec: ttl 1800-0
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 有响应终止返回</span>
-</span></span><span class="line"><span class="cl">  - tag: has_resp_sequence
-</span></span><span class="line"><span class="cl">    type: sequence
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      - matches: qname <span class="nv">$ddnslist</span>
-</span></span><span class="line"><span class="cl">        exec: ttl 5-5
-</span></span><span class="line"><span class="cl">      - matches: has_resp
-</span></span><span class="line"><span class="cl">        exec: accept
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># fallback 用本地服务器 sequence</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># 返回非国内 ip 则 drop_resp</span>
-</span></span><span class="line"><span class="cl">  - tag: fallback_local
-</span></span><span class="line"><span class="cl">    type: sequence
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      - exec: <span class="nv">$local_sequence</span>
-</span></span><span class="line"><span class="cl">      - matches: <span class="s2">&#34;!resp_ip </span><span class="nv">$geoip_cn</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        exec: drop_resp
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># fallback 用远程服务器 sequence</span>
-</span></span><span class="line"><span class="cl">  - tag: fallback
-</span></span><span class="line"><span class="cl">    type: fallback
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      primary: fallback_local
-</span></span><span class="line"><span class="cl">      secondary: remote_sequence
-</span></span><span class="line"><span class="cl">      threshold: <span class="m">500</span>
-</span></span><span class="line"><span class="cl">      always_standby: <span class="nb">true</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1"># 主要的运行逻辑插件</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># sequence 插件中调用的插件 tag 必须在 sequence 前定义，</span>
-</span></span><span class="line"><span class="cl">  <span class="c1"># 否则 sequence 找不到对应插件。</span>
-</span></span><span class="line"><span class="cl">  - tag: main_sequence
-</span></span><span class="line"><span class="cl">    type: sequence
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      <span class="c1"># 不走代理的ip</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">#- matches: client_ip 192.168.6.144</span>
-</span></span><span class="line"><span class="cl">       <span class="c1"># exec: forward 127.0.0.1</span>
-</span></span><span class="line"><span class="cl">      <span class="c1">#- exec: jump has_resp_sequence</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="c1"># hosts</span>
-</span></span><span class="line"><span class="cl">      - exec: <span class="nv">$hosts</span>
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;!qname </span><span class="nv">$ddnslist</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;!qname </span><span class="nv">$blocklist</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;!qname </span><span class="nv">$adlist</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        - <span class="s2">&#34;!qname </span><span class="nv">$local_ptr</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">        exec: <span class="nv">$cache</span>
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="c1"># 查询拒绝域名</span>
-</span></span><span class="line"><span class="cl">      - matches: qname <span class="nv">$blocklist</span>
-</span></span><span class="line"><span class="cl">        exec: reject <span class="m">3</span>
-</span></span><span class="line"><span class="cl">      - matches: qname <span class="nv">$adlist</span>
-</span></span><span class="line"><span class="cl">        exec: reject <span class="m">3</span>
-</span></span><span class="line"><span class="cl">      - matches: qtype <span class="m">65</span>
-</span></span><span class="line"><span class="cl">        exec: reject <span class="m">3</span>
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qtype <span class="m">12</span>
-</span></span><span class="line"><span class="cl">        - qname <span class="nv">$local_ptr</span>
-</span></span><span class="line"><span class="cl">        exec: reject <span class="m">3</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="c1"># handle local ptr</span>
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qtype <span class="m">12</span>
-</span></span><span class="line"><span class="cl">        exec: forward 127.0.0.1
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="c1"># handle lan query</span>
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qname regexp:lan regexp:local regexp:arpa
-</span></span><span class="line"><span class="cl">        exec: forward 127.0.0.1
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qname <span class="nv">$ddnslist</span>
-</span></span><span class="line"><span class="cl">        exec: <span class="nv">$local_sequence</span>
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      <span class="c1"># 灰名单在geosite_cn之前查询</span>
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qname <span class="nv">$greylist</span>
-</span></span><span class="line"><span class="cl">        exec: <span class="nv">$remote_sequence</span>
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qname <span class="nv">$geosite_cn</span>
-</span></span><span class="line"><span class="cl">        exec: <span class="nv">$local_sequence</span>
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - matches:
-</span></span><span class="line"><span class="cl">        - qname <span class="nv">$geosite_no_cn</span>
-</span></span><span class="line"><span class="cl">        exec: <span class="nv">$remote_sequence</span>
-</span></span><span class="line"><span class="cl">      - exec: jump has_resp_sequence
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      - exec: <span class="nv">$fallback</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  - tag: udp_server
-</span></span><span class="line"><span class="cl">    type: udp_server
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      entry: main_sequence
-</span></span><span class="line"><span class="cl">      listen: <span class="s2">&#34;:5335&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  - tag: tcp_server
-</span></span><span class="line"><span class="cl">    type: tcp_server
-</span></span><span class="line"><span class="cl">    args:
-</span></span><span class="line"><span class="cl">      entry: main_sequence
-</span></span><span class="line"><span class="cl">      listen: <span class="s2">&#34;:5335&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在这个配置中，我使用了以下项目提供的域名/IP文件：</p>
-<ul>
-<li><a class="link" href="https://github.com/Loyalsoldier/v2ray-rules-dat"  target="_blank" rel="noopener"
-    >direct-list.txt和proxy-list.txt</a></li>
-<li><a class="link" href="https://github.com/Hackl0us/GeoIP2-CN/"  target="_blank" rel="noopener"
-    >CN-ip-cidr.txt</a></li>
-<li><a class="link" href="https://anti-ad.net/"  target="_blank" rel="noopener"
-    >ad-domains.txt</a></li>
-<li><a class="link" href="https://core.telegram.org/resources/cidr.txt"  target="_blank" rel="noopener"
-    >telegram-cidr.txt</a></li>
-</ul>
-<p>为了方便期间，我们可以使用脚本一键更新它们：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>curl -o <span class="s2">&#34;/etc/mosdns/data/direct-list.txt&#34;</span> <span class="s2">&#34;https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/direct-list.txt&#34;</span>
-</span></span><span class="line"><span class="cl">curl -o <span class="s2">&#34;/etc/mosdns/data/proxy-list.txt&#34;</span> <span class="s2">&#34;https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/proxy-list.txt&#34;</span>
-</span></span><span class="line"><span class="cl">curl -o <span class="s2">&#34;/etc/mosdns/data/CN-ip-cidr.txt&#34;</span> <span class="s2">&#34;https://cdn.jsdelivr.net/gh/Hackl0us/GeoIP2-CN@release/CN-ip-cidr.txt&#34;</span>
-</span></span><span class="line"><span class="cl">curl -o <span class="s2">&#34;/etc/mosdns/data/ad-domains.txt&#34;</span> <span class="s2">&#34;https://anti-ad.net/domains.txt&#34;</span>
-</span></span><span class="line"><span class="cl">curl --resolve core.telegram.org:443:<span class="sb">`</span>nslookup -port<span class="o">=</span><span class="m">5335</span> core.telegram.org 192.168.6.1 <span class="p">|</span> grep <span class="m">198</span> <span class="p">|</span> cut -d <span class="s2">&#34;:&#34;</span> -f2 <span class="p">|</span> tr -d <span class="s2">&#34; &#34;</span><span class="sb">`</span> -o <span class="s2">&#34;/etc/mosdns/data/telegram-cidr.txt&#34;</span> <span class="s2">&#34;https://core.telegram.org/resources/cidr.txt&#34;</span>
-</span></span><span class="line"><span class="cl">/etc/init.d/mosdns restart
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>由于某个地址需要小猫才能访问，同时我们没有劫持路由器的dns查询，所以需要先手动查一下ip再下载。</p>
-<h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
-</h2><p>这也是一个大工程了，前前后后也花了好多天，不过做完后使用起来还是非常丝滑和顺畅的，最重要的是自己折腾出来这是在是太酷了🤓。这里还是要感谢方案的原作者和开源项目作者，我从中学到了许多🙏。</p>
-<h2 id="后续更新"><a href="#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0" class="header-anchor"></a>后续更新
-</h2><h3 id="20240829"><a href="#20240829" class="header-anchor"></a>2024.08.29
-</h3><p>在使用时，会发现Google Play商店不能正常下载或更新应用。在<a class="link" href="https://www.yetpage.com/archives/278"  target="_blank" rel="noopener"
-    >《大陆用户 Google Play 商店无法下载或更新应用的原因分析与解决办法》</a>这篇文章中，作者指出了这是由于国内版商店的api请求链接和下载链接分别通过直连和代理导致的问题，解决方案就是让请求都从代理出去。</p>
-<p>具体而言，我们需要将下面这几个域名添加到代理规则中</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">domain:googleapis.cn
-</span></span><span class="line"><span class="cl">domain:googleapis.com
-</span></span><span class="line"><span class="cl">domain:xn--ngstr-lra8j.com
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>Mosdns</strong></p>
-<ul>
-<li>在<code>规则列表</code>-<code>灰名单</code>中添加上面的域名</li>
-</ul>
-<p><strong>小猫</strong></p>
-<ul>
-<li>在<code>覆写设置</code>-<code>规则设置</code>-<code>自定义规则</code>中添加下面的分流规则</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">rules:
-</span></span><span class="line"><span class="cl">  # Google Play
-</span></span><span class="line"><span class="cl">  - DOMAIN-SUFFIX,googleapis.cn,🚀 节点选择
-</span></span><span class="line"><span class="cl">  - DOMAIN-SUFFIX,googleapis.com,🚀 节点选择
-</span></span><span class="line"><span class="cl">  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这样就可以正常的使用Play商店了</p>
-<h3 id="20240926"><a href="#20240926" class="header-anchor"></a>2024.09.26
-</h3><p>将路由器刷到了最新的immortalWrt，防火墙从iptables升级到了nftables，所以原来的命令不能用了，需要使用新的命令。</p>
-
-</section>
-
-
-    <footer class="article-footer">
-    
-    <section class="article-tags">
-        
-            <a href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
-        
-            <a href="/tags/dns/">DNS</a>
-        
-            <a href="/tags/openwrt/">Openwrt</a>
-        
-            <a href="/tags/mosdns/">Mosdns</a>
-        
-    </section>
-
-
-    
-    <section class="article-copyright">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
-</svg>
-
-
-
-        <span>Licensed under CC BY-NC-SA 4.0</span>
-    </section>
-    <section class="article-lastmod">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-        <span>
-            最后更新于 2024-09-26 20:09:00
-        </span>
-    </section></footer>
-
-
-    
-        <link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"crossorigin="anonymous"
-            ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"crossorigin="anonymous"
-                defer
-                >
-            </script><script>
-    window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
-
-    
-</article>
-
-    
-
-    
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="has-image">
-    <a href="/p/wireguard-ipv6/">
-        
-        
-            <div class="article-image">
-                <img src="/p/wireguard-ipv6/104589070.5e41b10ddb272bb589ecbfcf88b93c1f.webp" 
-                        width="1803" 
-                        height="1125" 
-                        loading="lazy"
-                        alt="Featured image of post 使用WireGuard&#43;ipv6进行异地组网"
-                        data-key="wireguard-ipv6" 
-                        data-hash="md5-XkGxDdsnK7WJ7L/PiLk8Hw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">使用WireGuard&#43;ipv6进行异地组网</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/ax6000/">
-        
-        
-            <div class="article-image">
-                <img src="/p/ax6000/112545261.a7b15db342440eb9fdc7590d7e7a8abd.webp" 
-                        width="2000" 
-                        height="1321" 
-                        loading="lazy"
-                        alt="Featured image of post 红米AX6000折腾记"
-                        data-key="ax6000" 
-                        data-hash="md5-p7Fds0JEDrn9x1kNfnqKvQ==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">红米AX6000折腾记</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/mydns/">
-        
-        
-            <div class="article-image">
-                <img src="/p/mydns/100669875.996c5643dbba4e97e3b68a917d181fb2.webp" 
-                        width="2008" 
-                        height="1080" 
-                        loading="lazy"
-                        alt="Featured image of post 自建DNS实现分流及广告过滤"
-                        data-key="mydns" 
-                        data-hash="md5-mWxWQ9u6TpfjtoqRfRgfsg==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">自建DNS实现分流及广告过滤</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/">
-        
-        
-            <div class="article-image">
-                <img src="/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/99528942.cc2e0262f9453b8f27fe2926714d30d6.webp" 
-                        width="1993" 
-                        height="1500" 
-                        loading="lazy"
-                        alt="Featured image of post 一步到位，自动申请SSL证书"
-                        
-                        data-hash="md5-zC4CYvlFO48n/ikmcU0w1g==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">一步到位，自动申请SSL证书</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
-
-     
-    
-        
-    <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet'/>
-<div id="waline" class="waline-container"></div>
-<style>
-    .waline-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-        --waline-font-size: var(--article-font-size);
-    }
-    .waline-container .wl-count {
-        color: var(--card-text-color-main);
-    }
-</style><script type="module">
+  </pre><p>经过DNS分流后，所有需要代理的域名都分配到了Fake IP，无需代理的域名都是由运营商DNS返回的最优结果。小猫的DNS在Fake IP模式下可以无需请求网络直接返回结果，所以整体的DNS响应速度非常快。在处理Fake IP的流量时，小猫会把hostname发送到远端进行DNS解析，也就自然不存在DNS污染的问题了。</p><h3 id=修复地址解析错误><a href=#%e4%bf%ae%e5%a4%8d%e5%9c%b0%e5%9d%80%e8%a7%a3%e6%9e%90%e9%94%99%e8%af%af class=header-anchor></a>修复地址解析错误</h3><p>由于dns存在主机名解析功能，会导致请求错误的转发。正所谓“头痛医头，脚痛医脚”，最简单和无脑的方法就是直接关闭这个功能：</p><p>在<code>网络</code>-<code>DHCP/DNS</code>-<code>高级设置</code>里，将<code>本地域名</code>里的值删除。（未测试，不确定🤔）</p><p>但是我们都使用了mosdns了，为什么不好好的利用它那强大的规则呢。所以，我们可以将有关主机名解析的流量全部转发到dnsmasq，这样就不会出问题了。</p><h3 id=区分流量来源><a href=#%e5%8c%ba%e5%88%86%e6%b5%81%e9%87%8f%e6%9d%a5%e6%ba%90 class=header-anchor></a>区分流量来源</h3><p>一开始，mosdns是作为dnsmasq的上游的，所以所有的请求来源都是本地，这就导致了我们无法控制mosdns，让其为不需要代理的设备分配真实的IP。所以，我们将所有dns请求通过防火墙劫持到mosdns上，就能知道设备的来源的ip了。关于防火墙的写法，我参考了<a class=link href=https://github.com/rufengsuixing/luci-app-adguardhome/blob/master/root/etc/init.d/AdGuardHome#L59 target=_blank rel=noopener>luci-app-adguardhome的开源代码</a>。</p><p>但是这样还有一个问题，由于我们配置了ipv6，所以请求的客户端地址很大可能也是ipv6的。由于ipv6地址支持无状态分配，这就导致请求的地址会一直变动，这也导致无法为特定客户端实现分流。这里我选择了最简单和无脑的方法——直接关闭ipv6的DNS服务。通过查询Openwrt的官方文档，我们发现官方提供了<a class=link href=https://openwrt.org/docs/guide-user/base-system/dhcp_configuration?s#disabling_ipv6_dns_for_odhcpd target=_blank rel=noopener>关闭ipv6 DNS服务的方法</a>。这样就可以让客户端始终通过ipv4来请求了。确保了这一点，我们的防火墙也只用劫持ipv4的流量了。</p><h2 id=具体配置><a href=#%e5%85%b7%e4%bd%93%e9%85%8d%e7%bd%ae class=header-anchor></a>具体配置</h2><p>上面都在讲思路，终于轮到具体的配置了。我们现在只需要小猫和<a class=link href=https://github.com/sbwml/luci-app-mosdns target=_blank rel=noopener>luci-app-mosdns</a>这两个包就好了。</p><h3 id=小猫><a href=#%e5%b0%8f%e7%8c%ab class=header-anchor></a>小猫</h3><ul><li><strong><code>插件设置</code></strong> - <strong><code>模式设置</code></strong> - <strong><code>运行模式</code></strong>： 切换到 <strong><code>Fake-IP（增强）模式</code></strong></li><li><strong><code>插件设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>本地 DNS 劫持</code></strong> 选择 <strong><code>禁用</code></strong></li><li><strong><code>插件设置</code></strong> - <strong><code>流量控制</code></strong> - <strong><code>绕过中国大陆 IP</code></strong> 取消勾选</li><li><strong><code>插件设置</code></strong> - <strong><code>流量控制</code></strong> - <strong><code>仅允许内网</code></strong> 开启</li><li><strong><code>插件设置</code></strong> - <strong><code>IPv6 设置</code></strong> 这页的选项全都关闭就行了</li><li><strong><code>覆写设置</code></strong> - <strong><code>常规设置</code></strong> 这里都不用改，只需要记住 DNS 监听，后面配置 mosdns 要用</li><li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>自定义上游 DNS 服务器</code></strong> 勾选</li><li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>追加上游 DNS</code></strong> 勾选</li><li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>追加默认 DNS</code></strong> 勾选</li><li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> - <strong><code>Fake-IP 持久化</code></strong> 勾选</li><li><strong><code>覆写设置</code></strong> - <strong><code>DNS 设置</code></strong> 页面下方 <strong><code>NameServer</code></strong>，<strong><code>FallBack</code></strong>，<strong><code>Default-NameServer</code></strong> 里的 DNS 服务器全都取消勾选，我们只用运营商提供的 DNS 服务器就够了，一般运营商 DNS 都是最快的，也是 CDN 最优化的。</li><li><strong><code>插件设置</code></strong> - <strong><code>开发者选项</code></strong> 里，我们自定义一下防火墙规则，增加如下这些行。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>LOG_OUT <span class=s2>&#34;limit route to only fake ips with proxy port 7892&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>/etc/mosdns/genipset.sh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>iptables -t nat -D openclash -p tcp -j REDIRECT --to-ports <span class=m>7892</span>
+</span></span><span class=line><span class=cl>iptables -t nat -A openclash -m <span class=nb>set</span> --match-set telegram dst -p tcp -j REDIRECT --to-ports <span class=m>7892</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>LOG_OUT <span class=s2>&#34;restart mosdns&#34;</span>
+</span></span><span class=line><span class=cl>/etc/init.d/mosdns restart
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>LOG_OUT <span class=s2>&#34;将53端口重定向到mosdns&#34;</span>
+</span></span><span class=line><span class=cl>iptables -t nat -D PREROUTING -p udp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span><span class=line><span class=cl>iptables -t nat -A PREROUTING -p udp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span><span class=line><span class=cl>iptables -t nat -D PREROUTING -p tcp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span><span class=line><span class=cl>iptables -t nat -A PREROUTING -p tcp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里有几个注意点，都是我踩过的坑😢：</p><ul><li>可能是我内核版本太旧了，这里使用任何变量都是空值，所以我把所有地址都写死了，记得根据自己的路由器地址进行修改</li><li>不要忘记劫持TCP流量！我之前仅仅劫持了UDP流量导致浏览器一直请求到真实ip而无法访问。</li></ul><p><a class=link href=#20240926>2024.09.26更新</a> 使用<code>nftables</code>的高版本openwrt需要使用下面的脚本：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>LOG_OUT <span class=s2>&#34;Start Add Custom Firewall Rules...&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nv>FW4</span><span class=o>=</span><span class=k>$(</span><span class=nb>command</span> -v fw4<span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=nv>en_mode</span><span class=o>=</span><span class=k>$(</span>uci -q get openclash.config.en_mode<span class=k>)</span>
+</span></span><span class=line><span class=cl><span class=nv>proxy_port</span><span class=o>=</span><span class=k>$(</span>uci -q get openclash.config.proxy_port<span class=k>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> <span class=s2>&#34;</span><span class=nv>$en_mode</span><span class=s2>&#34;</span> <span class=o>==</span> <span class=s2>&#34;fake-ip&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>  LOG_OUT <span class=s2>&#34;limit route to only fake ips with proxy port </span><span class=nv>$proxy_port</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  /root/genipset.sh
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[</span> -n <span class=s2>&#34;</span><span class=nv>$FW4</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=nv>handle</span><span class=o>=</span><span class=k>$(</span>nft -a list chain inet fw4 openclash <span class=p>|</span> grep <span class=s1>&#39;ip protocol tcp counter&#39;</span> <span class=p>|</span> awk <span class=s1>&#39;{print $NF}&#39;</span><span class=k>)</span>
+</span></span><span class=line><span class=cl>    LOG_OUT <span class=s2>&#34;deleting nft rule handle </span><span class=nv>$handle</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    nft delete rule inet fw4 openclash handle <span class=nv>$handle</span>
+</span></span><span class=line><span class=cl>    nft add rule inet fw4 openclash ip protocol tcp ip daddr @telegram counter redirect to <span class=nv>$proxy_port</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>    iptables -t nat -D openclash -p tcp -j REDIRECT --to-ports <span class=nv>$proxy_port</span>
+</span></span><span class=line><span class=cl>    iptables -t nat -A openclash -m <span class=nb>set</span> --match-set telegram dst -p tcp -j REDIRECT --to-ports <span class=nv>$proxy_port</span>
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  LOG_OUT <span class=s2>&#34;restart mosdns&#34;</span>
+</span></span><span class=line><span class=cl>  /etc/init.d/mosdns restart
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  LOG_OUT <span class=s2>&#34;将53端口重定向到mosdns&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=o>[</span> -n <span class=s2>&#34;</span><span class=nv>$FW4</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    ! nft --check list table inet mosdns &gt; <span class=s2>&#34;/dev/null&#34;</span> 2&gt;<span class=p>&amp;</span><span class=m>1</span> <span class=o>||</span> nft delete table inet mosdns
+</span></span><span class=line><span class=cl>    nft add table inet mosdns
+</span></span><span class=line><span class=cl>    nft add chain inet mosdns prerouting <span class=s2>&#34;{ type nat hook prerouting priority -110; policy accept; }&#34;</span>
+</span></span><span class=line><span class=cl>    nft add rule inet mosdns prerouting <span class=s2>&#34;meta nfproto { ipv4 } udp dport 53 ip daddr 192.168.6.1 counter redirect to :5335 comment \&#34;MOSDNS HIJACK\&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    nft add rule inet mosdns prerouting <span class=s2>&#34;meta nfproto { ipv4 } tcp dport 53 ip daddr 192.168.6.1 counter redirect to :5335 comment \&#34;MOSDNS HIJACK\&#34;&#34;</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>    iptables -t nat -D PREROUTING -p udp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span><span class=line><span class=cl>    iptables -t nat -A PREROUTING -p udp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span><span class=line><span class=cl>    iptables -t nat -D PREROUTING -p tcp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>
+</span></span><span class=line><span class=cl>    iptables -t nat -A PREROUTING -p tcp -d 192.168.6.1 --dport <span class=m>53</span> -j REDIRECT --to-ports <span class=m>5335</span>  
+</span></span><span class=line><span class=cl>  <span class=k>fi</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>genipset.sh</code> 的代码如下，这是针对某些应用不通过DNS直接用ip访问，要将这部分流量劫持到小猫。这个文件放到路由器上后，记得要执行 <code>chmod a+x /etc/mosdns/genipset.sh</code> 给它赋予可执行权限。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=nv>tag</span><span class=o>=</span><span class=s2>&#34;telegram&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>filename</span><span class=o>=</span><span class=s2>&#34;/etc/mosdns/data/telegram-cidr.txt&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>FW4</span><span class=o>=</span><span class=k>$(</span><span class=nb>command</span> -v fw4<span class=k>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=nb>test</span> -f <span class=s2>&#34;</span><span class=nv>$filename</span><span class=s2>&#34;</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=o>[</span> -n <span class=s2>&#34;</span><span class=nv>$FW4</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>        nft add <span class=nb>set</span> inet fw4 <span class=s2>&#34;</span><span class=nv>$tag</span><span class=s2>&#34;</span> <span class=o>{</span> <span class=nb>type</span> ipv4_addr<span class=se>\;</span> flags interval<span class=se>\;</span>  auto-merge<span class=se>\;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>        nft add <span class=nb>set</span> inet fw4 <span class=s2>&#34;</span><span class=si>${</span><span class=nv>tag</span><span class=si>}</span><span class=s2>6&#34;</span> <span class=o>{</span> <span class=nb>type</span> ipv6_addr<span class=se>\;</span> flags interval<span class=se>\;</span>  auto-merge<span class=se>\;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>        nft flush <span class=nb>set</span> inet fw4 <span class=s2>&#34;</span><span class=nv>$tag</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        nft flush <span class=nb>set</span> inet fw4 <span class=s2>&#34;</span><span class=si>${</span><span class=nv>tag</span><span class=si>}</span><span class=s2>6&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>fi</span>
+</span></span><span class=line><span class=cl>    ipset create <span class=s2>&#34;</span><span class=nv>$tag</span><span class=s2>&#34;</span> hash:net -!
+</span></span><span class=line><span class=cl>    ipset create <span class=s2>&#34;</span><span class=si>${</span><span class=nv>tag</span><span class=si>}</span><span class=s2>6&#34;</span> hash:net family inet6 -!
+</span></span><span class=line><span class=cl>    ipset flush <span class=s2>&#34;</span><span class=nv>$tag</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>    ipset flush <span class=s2>&#34;</span><span class=si>${</span><span class=nv>tag</span><span class=si>}</span><span class=s2>6&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=nb>read</span> p<span class=p>;</span> <span class=k>do</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> ! grep -q <span class=s2>&#34;:&#34;</span> <span class=o>&lt;&lt;&lt;</span> <span class=s2>&#34;</span><span class=nv>$p</span><span class=s2>&#34;</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=o>[</span> -n <span class=s2>&#34;</span><span class=nv>$FW4</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>                nft add element inet fw4 <span class=s2>&#34;</span><span class=nv>$tag</span><span class=s2>&#34;</span> <span class=o>{</span> <span class=s2>&#34;</span><span class=nv>$p</span><span class=s2>&#34;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>fi</span>
+</span></span><span class=line><span class=cl>            ipset add <span class=s2>&#34;</span><span class=nv>$tag</span><span class=s2>&#34;</span> <span class=s2>&#34;</span><span class=nv>$p</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=o>[</span> -n <span class=s2>&#34;</span><span class=nv>$FW4</span><span class=s2>&#34;</span> <span class=o>]</span><span class=p>;</span> <span class=k>then</span>
+</span></span><span class=line><span class=cl>                nft add element inet fw4 <span class=s2>&#34;</span><span class=si>${</span><span class=nv>tag</span><span class=si>}</span><span class=s2>6&#34;</span> <span class=o>{</span> <span class=s2>&#34;</span><span class=nv>$p</span><span class=s2>&#34;</span> <span class=o>}</span>
+</span></span><span class=line><span class=cl>            <span class=k>fi</span>
+</span></span><span class=line><span class=cl>            ipset add <span class=s2>&#34;</span><span class=si>${</span><span class=nv>tag</span><span class=si>}</span><span class=s2>6&#34;</span> <span class=s2>&#34;</span><span class=nv>$p</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>fi</span>
+</span></span><span class=line><span class=cl>    <span class=k>done</span> &lt;<span class=s2>&#34;</span><span class=nv>$filename</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nb>echo</span> <span class=s2>&#34;</span><span class=nv>$filename</span><span class=s2> missing.&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=mosdns><a href=#mosdns class=header-anchor></a>Mosdns</h3><p>选自定义配置文件，关闭<code>DNS 转发</code>的勾，然后我就直接贴配置了</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Powered by luoboQAQ</span>
+</span></span><span class=line><span class=cl><span class=c1># 适配Clash的fake-ip模式</span>
+</span></span><span class=line><span class=cl><span class=c1># 24-08-29：让灰名单优先生效，避免被geosite_cn抢答</span>
+</span></span><span class=line><span class=cl>log:
+</span></span><span class=line><span class=cl>  level: info
+</span></span><span class=line><span class=cl>  file: <span class=s2>&#34;/tmp/log/mosdns.log&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># API 入口设置</span>
+</span></span><span class=line><span class=cl>api:
+</span></span><span class=line><span class=cl>  http: <span class=s2>&#34;0.0.0.0:9091&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>plugins:
+</span></span><span class=line><span class=cl>  <span class=c1># 国内域名</span>
+</span></span><span class=line><span class=cl>  - tag: geosite_cn
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/data/direct-list.txt&#34;</span>
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/rule/whitelist.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 国内 IP</span>
+</span></span><span class=line><span class=cl>  - tag: geoip_cn
+</span></span><span class=line><span class=cl>    type: ip_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/data/CN-ip-cidr.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 国外域名</span>
+</span></span><span class=line><span class=cl>  - tag: geosite_no_cn
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/data/proxy-list.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 灰名单域名，强制远程解析</span>
+</span></span><span class=line><span class=cl>  - tag: greylist
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/rule/greylist.txt&#34;</span>    
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 黑名单域名：屏蔽 DNS 解析</span>
+</span></span><span class=line><span class=cl>  - tag: blocklist
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/rule/blocklist.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># ddns域名</span>
+</span></span><span class=line><span class=cl>  - tag: ddnslist
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/rule/ddnslist.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 自定义 Hosts 重写</span>
+</span></span><span class=line><span class=cl>  - tag: hosts
+</span></span><span class=line><span class=cl>    type: hosts
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/rule/hosts.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 广告域名</span>
+</span></span><span class=line><span class=cl>  - tag: adlist
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/data/ad-domains.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># PTR黑名单</span>
+</span></span><span class=line><span class=cl>  - tag: local_ptr
+</span></span><span class=line><span class=cl>    type: domain_set
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      files:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;/etc/mosdns/rule/local-ptr.txt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 缓存插件</span>
+</span></span><span class=line><span class=cl>  - tag: cache
+</span></span><span class=line><span class=cl>    type: cache
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      size: <span class=m>10240</span>
+</span></span><span class=line><span class=cl>      lazy_cache_ttl: <span class=m>86400</span>
+</span></span><span class=line><span class=cl>      <span class=c1># 将缓存保存在磁盘</span>
+</span></span><span class=line><span class=cl>      <span class=c1># dump_file: /tmp/mosdns/cache.dump</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 国内解析</span>
+</span></span><span class=line><span class=cl>  - tag: local_sequence
+</span></span><span class=line><span class=cl>    type: sequence
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      - exec: forward 127.0.0.1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 国外解析</span>
+</span></span><span class=line><span class=cl>  - tag: remote_sequence
+</span></span><span class=line><span class=cl>    type: sequence
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qtype <span class=m>28</span>
+</span></span><span class=line><span class=cl>        exec: reject <span class=m>0</span>
+</span></span><span class=line><span class=cl>      - exec: forward 127.127.127.127:7874
+</span></span><span class=line><span class=cl>      - exec: ttl 1800-0
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 有响应终止返回</span>
+</span></span><span class=line><span class=cl>  - tag: has_resp_sequence
+</span></span><span class=line><span class=cl>    type: sequence
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      - matches: qname <span class=nv>$ddnslist</span>
+</span></span><span class=line><span class=cl>        exec: ttl 5-5
+</span></span><span class=line><span class=cl>      - matches: has_resp
+</span></span><span class=line><span class=cl>        exec: accept
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># fallback 用本地服务器 sequence</span>
+</span></span><span class=line><span class=cl>  <span class=c1># 返回非国内 ip 则 drop_resp</span>
+</span></span><span class=line><span class=cl>  - tag: fallback_local
+</span></span><span class=line><span class=cl>    type: sequence
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      - exec: <span class=nv>$local_sequence</span>
+</span></span><span class=line><span class=cl>      - matches: <span class=s2>&#34;!resp_ip </span><span class=nv>$geoip_cn</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        exec: drop_resp
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># fallback 用远程服务器 sequence</span>
+</span></span><span class=line><span class=cl>  - tag: fallback
+</span></span><span class=line><span class=cl>    type: fallback
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      primary: fallback_local
+</span></span><span class=line><span class=cl>      secondary: remote_sequence
+</span></span><span class=line><span class=cl>      threshold: <span class=m>500</span>
+</span></span><span class=line><span class=cl>      always_standby: <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># 主要的运行逻辑插件</span>
+</span></span><span class=line><span class=cl>  <span class=c1># sequence 插件中调用的插件 tag 必须在 sequence 前定义，</span>
+</span></span><span class=line><span class=cl>  <span class=c1># 否则 sequence 找不到对应插件。</span>
+</span></span><span class=line><span class=cl>  - tag: main_sequence
+</span></span><span class=line><span class=cl>    type: sequence
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      <span class=c1># 不走代理的ip</span>
+</span></span><span class=line><span class=cl>      <span class=c1>#- matches: client_ip 192.168.6.144</span>
+</span></span><span class=line><span class=cl>       <span class=c1># exec: forward 127.0.0.1</span>
+</span></span><span class=line><span class=cl>      <span class=c1>#- exec: jump has_resp_sequence</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=c1># hosts</span>
+</span></span><span class=line><span class=cl>      - exec: <span class=nv>$hosts</span>
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;!qname </span><span class=nv>$ddnslist</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;!qname </span><span class=nv>$blocklist</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;!qname </span><span class=nv>$adlist</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        - <span class=s2>&#34;!qname </span><span class=nv>$local_ptr</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>        exec: <span class=nv>$cache</span>
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=c1># 查询拒绝域名</span>
+</span></span><span class=line><span class=cl>      - matches: qname <span class=nv>$blocklist</span>
+</span></span><span class=line><span class=cl>        exec: reject <span class=m>3</span>
+</span></span><span class=line><span class=cl>      - matches: qname <span class=nv>$adlist</span>
+</span></span><span class=line><span class=cl>        exec: reject <span class=m>3</span>
+</span></span><span class=line><span class=cl>      - matches: qtype <span class=m>65</span>
+</span></span><span class=line><span class=cl>        exec: reject <span class=m>3</span>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qtype <span class=m>12</span>
+</span></span><span class=line><span class=cl>        - qname <span class=nv>$local_ptr</span>
+</span></span><span class=line><span class=cl>        exec: reject <span class=m>3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=c1># handle local ptr</span>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qtype <span class=m>12</span>
+</span></span><span class=line><span class=cl>        exec: forward 127.0.0.1
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=c1># handle lan query</span>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qname regexp:lan regexp:local regexp:arpa
+</span></span><span class=line><span class=cl>        exec: forward 127.0.0.1
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qname <span class=nv>$ddnslist</span>
+</span></span><span class=line><span class=cl>        exec: <span class=nv>$local_sequence</span>
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      <span class=c1># 灰名单在geosite_cn之前查询</span>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qname <span class=nv>$greylist</span>
+</span></span><span class=line><span class=cl>        exec: <span class=nv>$remote_sequence</span>
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qname <span class=nv>$geosite_cn</span>
+</span></span><span class=line><span class=cl>        exec: <span class=nv>$local_sequence</span>
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      - matches:
+</span></span><span class=line><span class=cl>        - qname <span class=nv>$geosite_no_cn</span>
+</span></span><span class=line><span class=cl>        exec: <span class=nv>$remote_sequence</span>
+</span></span><span class=line><span class=cl>      - exec: jump has_resp_sequence
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>      - exec: <span class=nv>$fallback</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  - tag: udp_server
+</span></span><span class=line><span class=cl>    type: udp_server
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      entry: main_sequence
+</span></span><span class=line><span class=cl>      listen: <span class=s2>&#34;:5335&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  - tag: tcp_server
+</span></span><span class=line><span class=cl>    type: tcp_server
+</span></span><span class=line><span class=cl>    args:
+</span></span><span class=line><span class=cl>      entry: main_sequence
+</span></span><span class=line><span class=cl>      listen: <span class=s2>&#34;:5335&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>在这个配置中，我使用了以下项目提供的域名/IP文件：</p><ul><li><a class=link href=https://github.com/Loyalsoldier/v2ray-rules-dat target=_blank rel=noopener>direct-list.txt和proxy-list.txt</a></li><li><a class=link href=https://github.com/Hackl0us/GeoIP2-CN/ target=_blank rel=noopener>CN-ip-cidr.txt</a></li><li><a class=link href=https://anti-ad.net/ target=_blank rel=noopener>ad-domains.txt</a></li><li><a class=link href=https://core.telegram.org/resources/cidr.txt target=_blank rel=noopener>telegram-cidr.txt</a></li></ul><p>为了方便期间，我们可以使用脚本一键更新它们：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span>curl -o <span class=s2>&#34;/etc/mosdns/data/direct-list.txt&#34;</span> <span class=s2>&#34;https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/direct-list.txt&#34;</span>
+</span></span><span class=line><span class=cl>curl -o <span class=s2>&#34;/etc/mosdns/data/proxy-list.txt&#34;</span> <span class=s2>&#34;https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/proxy-list.txt&#34;</span>
+</span></span><span class=line><span class=cl>curl -o <span class=s2>&#34;/etc/mosdns/data/CN-ip-cidr.txt&#34;</span> <span class=s2>&#34;https://cdn.jsdelivr.net/gh/Hackl0us/GeoIP2-CN@release/CN-ip-cidr.txt&#34;</span>
+</span></span><span class=line><span class=cl>curl -o <span class=s2>&#34;/etc/mosdns/data/ad-domains.txt&#34;</span> <span class=s2>&#34;https://anti-ad.net/domains.txt&#34;</span>
+</span></span><span class=line><span class=cl>curl --resolve core.telegram.org:443:<span class=sb>`</span>nslookup -port<span class=o>=</span><span class=m>5335</span> core.telegram.org 192.168.6.1 <span class=p>|</span> grep <span class=m>198</span> <span class=p>|</span> cut -d <span class=s2>&#34;:&#34;</span> -f2 <span class=p>|</span> tr -d <span class=s2>&#34; &#34;</span><span class=sb>`</span> -o <span class=s2>&#34;/etc/mosdns/data/telegram-cidr.txt&#34;</span> <span class=s2>&#34;https://core.telegram.org/resources/cidr.txt&#34;</span>
+</span></span><span class=line><span class=cl>/etc/init.d/mosdns restart
+</span></span></code></pre></td></tr></table></div></div><p>由于某个地址需要小猫才能访问，同时我们没有劫持路由器的dns查询，所以需要先手动查一下ip再下载。</p><h2 id=后记><a href=#%e5%90%8e%e8%ae%b0 class=header-anchor></a>后记</h2><p>这也是一个大工程了，前前后后也花了好多天，不过做完后使用起来还是非常丝滑和顺畅的，最重要的是自己折腾出来这是在是太酷了🤓。这里还是要感谢方案的原作者和开源项目作者，我从中学到了许多🙏。</p><h2 id=后续更新><a href=#%e5%90%8e%e7%bb%ad%e6%9b%b4%e6%96%b0 class=header-anchor></a>后续更新</h2><h3 id=20240829><a href=#20240829 class=header-anchor></a>2024.08.29</h3><p>在使用时，会发现Google Play商店不能正常下载或更新应用。在<a class=link href=https://www.yetpage.com/archives/278 target=_blank rel=noopener>《大陆用户 Google Play 商店无法下载或更新应用的原因分析与解决办法》</a>这篇文章中，作者指出了这是由于国内版商店的api请求链接和下载链接分别通过直连和代理导致的问题，解决方案就是让请求都从代理出去。</p><p>具体而言，我们需要将下面这几个域名添加到代理规则中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>domain:googleapis.cn
+</span></span><span class=line><span class=cl>domain:googleapis.com
+</span></span><span class=line><span class=cl>domain:xn--ngstr-lra8j.com
+</span></span></code></pre></td></tr></table></div></div><p><strong>Mosdns</strong></p><ul><li>在<code>规则列表</code>-<code>灰名单</code>中添加上面的域名</li></ul><p><strong>小猫</strong></p><ul><li>在<code>覆写设置</code>-<code>规则设置</code>-<code>自定义规则</code>中添加下面的分流规则</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>rules:
+</span></span><span class=line><span class=cl>  # Google Play
+</span></span><span class=line><span class=cl>  - DOMAIN-SUFFIX,googleapis.cn,🚀 节点选择
+</span></span><span class=line><span class=cl>  - DOMAIN-SUFFIX,googleapis.com,🚀 节点选择
+</span></span><span class=line><span class=cl>  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
+</span></span></code></pre></td></tr></table></div></div><p>这样就可以正常的使用Play商店了</p><h3 id=20240926><a href=#20240926 class=header-anchor></a>2024.09.26</h3><p>将路由器刷到了最新的immortalWrt，防火墙从iptables升级到了nftables，所以原来的命令不能用了，需要使用新的命令。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/%E6%95%99%E7%A8%8B/>教程</a>
+<a href=/tags/dns/>DNS</a>
+<a href=/tags/openwrt/>Openwrt</a>
+<a href=/tags/mosdns/>Mosdns</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>最后更新于 2024-09-26 20:09:00</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/wireguard-ipv6/><div class=article-image><img src=/p/wireguard-ipv6/104589070.5e41b10ddb272bb589ecbfcf88b93c1f.webp width=1803 height=1125 loading=lazy alt="Featured image of post 使用WireGuard+ipv6进行异地组网" data-key=wireguard-ipv6 data-hash="md5-XkGxDdsnK7WJ7L/PiLk8Hw=="></div><div class=article-details><h2 class=article-title>使用WireGuard+ipv6进行异地组网</h2></div></a></article><article class=has-image><a href=/p/ax6000/><div class=article-image><img src=/p/ax6000/112545261.a7b15db342440eb9fdc7590d7e7a8abd.webp width=2000 height=1321 loading=lazy alt="Featured image of post 红米AX6000折腾记" data-key=ax6000 data-hash="md5-p7Fds0JEDrn9x1kNfnqKvQ=="></div><div class=article-details><h2 class=article-title>红米AX6000折腾记</h2></div></a></article><article class=has-image><a href=/p/mydns/><div class=article-image><img src=/p/mydns/100669875.996c5643dbba4e97e3b68a917d181fb2.webp width=2008 height=1080 loading=lazy alt="Featured image of post 自建DNS实现分流及广告过滤" data-key=mydns data-hash="md5-mWxWQ9u6TpfjtoqRfRgfsg=="></div><div class=article-details><h2 class=article-title>自建DNS实现分流及广告过滤</h2></div></a></article><article class=has-image><a href=/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/><div class=article-image><img src=/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/99528942.cc2e0262f9453b8f27fe2926714d30d6.webp width=1993 height=1500 loading=lazy alt="Featured image of post 一步到位，自动申请SSL证书" data-hash="md5-zC4CYvlFO48n/ikmcU0w1g=="></div><div class=article-details><h2 class=article-title>一步到位，自动申请SSL证书</h2></div></a></article></div></div></aside><link href=//unpkg.com/@waline/client@v3/dist/waline.css rel=stylesheet><div id=waline class=waline-container></div><style>.waline-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding);--waline-font-size:var(--article-font-size)}.waline-container .wl-count{color:var(--card-text-color-main)}</style><script type=module>
     import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
     setTimeout(function () {
@@ -1399,132 +660,11 @@ client[DNS 请求] -- 防火墙劫持 -->  mosdns
     }, 300);
 
 
-</script>
-
-    
-
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2020 - 
-        
-        2025 luoboQAQ
-    </section>
-    
-    <section class="powerby">
-        
-            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
-    </section>
-</footer>
-
-
-    
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    
-    <div class="pswp__bg"></div>
-
-    
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
-
-            </main>
-        </div>
-        <script 
-                src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-
-        const customFont2 = document.createElement('link');
-        customFont2.href = "https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css";
-
-        customFont2.type = "text/css";
-        customFont2.rel = "stylesheet";
-
-        document.head.appendChild(customFont2);        
-    }());
-</script>
-
-    </body>
-</html>
+</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 luoboQAQ</section><section class=powerby><a href=https://umami.lbqaq.top/share/gbMqUqkF/Blog>访问统计</a><br><a href=https://beian.miit.gov.cn>苏ICP备2021037116号</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e);const t=document.createElement("link");t.href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css",t.type="text/css",t.rel="stylesheet",document.head.appendChild(t)})()</script></body></html>

@@ -1,147 +1,124 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>梯度下降 on luoboQAQ</title>
-        <link>https://lbqaq.top/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</link>
-        <description>Recent content in 梯度下降 on luoboQAQ</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Fri, 20 May 2022 12:50:16 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>回归分析学习笔记</title>
-        <link>https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
-        <pubDate>Fri, 20 May 2022 12:50:16 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp" alt="Featured image of post 回归分析学习笔记" /&gt;&lt;h2 id=&#34;线性回归&#34;&gt;&lt;a href=&#34;#%e7%ba%bf%e6%80%a7%e5%9b%9e%e5%bd%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;线性回归
-&lt;/h2&gt;&lt;p&gt;线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>梯度下降 on luoboQAQ</title><link>https://lbqaq.top/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/</link><description>Recent content in 梯度下降 on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Fri, 20 May 2022 12:50:16 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.xml" rel="self" type="application/rss+xml"/><item><title>回归分析学习笔记</title><link>https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link><pubDate>Fri, 20 May 2022 12:50:16 +0800</pubDate><guid>https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid><description>&lt;img src="https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/95446530.webp" alt="Featured image of post 回归分析学习笔记" />&lt;h2 id="线性回归">&lt;a href="#%e7%ba%bf%e6%80%a7%e5%9b%9e%e5%bd%92" class="header-anchor">&lt;/a>线性回归
+&lt;/h2>&lt;p>线性回归遇到的问题一般是这样的。我们有m个样本，每个样本对应于n维特征和一个结果输出，如下：&lt;/p>
 $$
 (x_1^{(0)}, x_2^{(0)}, ...x_n^{(0)}, y_0), (x_1^{(1)}, x_2^{(1)}, ...x_n^{(1)},y_1), ... (x_1^{(m)}, x_2^{(m)}, ...x_n^{(m)}, y_m)
-$$&lt;p&gt;我们的问题是，对于一个新的$(x_1^{(x)}, x_2^{(x)}, &amp;hellip;x_n^{(x)})$, 他所对应的$y_x$是多少呢？ 如果这个问题里面的y是连续的，则是一个回归问题，否则是一个分类问题。&lt;/p&gt;
-&lt;p&gt;对于n维特征的样本数据，如果我们决定使用线性回归，那么对应的模型是这样的：&lt;/p&gt;
-&lt;p&gt;$h_\theta(x_1, x_2, &amp;hellip;x_n) = \theta_0 + \theta_{1}x_1 + &amp;hellip; + \theta_{n}x_{n}$, 其中$\theta_i$ (i = 0,1,2&amp;hellip; n)为模型参数，$x_i$ (i = 0,1,2&amp;hellip; n)为每个样本的n个特征值。这个表示可以简化，我们增加一个特征$x_0 = 1$，这样$h_\theta(x_0, x_1, &amp;hellip;x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}$。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;💡 &lt;strong&gt;均方误差(MSE)&lt;/strong&gt;&lt;/p&gt;
+$$&lt;p>我们的问题是，对于一个新的$(x_1^{(x)}, x_2^{(x)}, &amp;hellip;x_n^{(x)})$, 他所对应的$y_x$是多少呢？ 如果这个问题里面的y是连续的，则是一个回归问题，否则是一个分类问题。&lt;/p>
+&lt;p>对于n维特征的样本数据，如果我们决定使用线性回归，那么对应的模型是这样的：&lt;/p>
+&lt;p>$h_\theta(x_1, x_2, &amp;hellip;x_n) = \theta_0 + \theta_{1}x_1 + &amp;hellip; + \theta_{n}x_{n}$, 其中$\theta_i$ (i = 0,1,2&amp;hellip; n)为模型参数，$x_i$ (i = 0,1,2&amp;hellip; n)为每个样本的n个特征值。这个表示可以简化，我们增加一个特征$x_0 = 1$，这样$h_\theta(x_0, x_1, &amp;hellip;x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}$。&lt;/p>
+&lt;blockquote>
+&lt;p>💡 &lt;strong>均方误差(MSE)&lt;/strong>&lt;/p>
 $$
-&gt; MSE=\frac{1}{n}\sum_{i=1}^{m}w_i(y_i-\widehat{y_i})^2
-&gt; $$&lt;/blockquote&gt;
-&lt;p&gt;其中$y_i$是真实数据，$\widehat{y_i}$是拟合的数据，$w_i&amp;gt;0$&lt;/p&gt;
-&lt;p&gt;得到了模型，我们需要求出需要的损失函数，一般线性回归我们用 &lt;strong&gt;均方误差(MSE)&lt;/strong&gt; 作为损失函数。损失函数的代数法表示如下：&lt;/p&gt;
+> MSE=\frac{1}{n}\sum_{i=1}^{m}w_i(y_i-\widehat{y_i})^2
+> $$&lt;/blockquote>
+&lt;p>其中$y_i$是真实数据，$\widehat{y_i}$是拟合的数据，$w_i&amp;gt;0$&lt;/p>
+&lt;p>得到了模型，我们需要求出需要的损失函数，一般线性回归我们用 &lt;strong>均方误差(MSE)&lt;/strong> 作为损失函数。损失函数的代数法表示如下：&lt;/p>
 $$
 J(\theta_0, \theta_1..., \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, ...x_n^{(i)}) - y_i)^2
-$$&lt;p&gt;由于矩阵形式不好理解，这里就不列出了。&lt;/p&gt;
-&lt;p&gt;如何求损失函数最小化时候的$\mathbf{\theta}$参数，这时就需要使用梯度下降法了。&lt;/p&gt;
-&lt;h2 id=&#34;梯度下降法&#34;&gt;&lt;a href=&#34;#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;梯度下降法
-&lt;/h2&gt;&lt;h3 id=&#34;梯度&#34;&gt;&lt;a href=&#34;#%e6%a2%af%e5%ba%a6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;梯度
-&lt;/h3&gt;&lt;p&gt;在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。&lt;/p&gt;
-&lt;h3 id=&#34;梯度下降的直观解释&#34;&gt;&lt;a href=&#34;#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e7%9b%b4%e8%a7%82%e8%a7%a3%e9%87%8a&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;梯度下降的直观解释
-&lt;/h3&gt;&lt;p&gt;首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。&lt;/p&gt;
-&lt;p&gt;从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png&#34;
-	width=&#34;692&#34;
-	height=&#34;343&#34;
-	srcset=&#34;https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hu_4108877c33900225.png 480w, https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hu_5fe56739d4515be4.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;梯度下降&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;201&#34;
-		data-flex-basis=&#34;484px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;梯度下降法的代数方式描述&#34;&gt;&lt;a href=&#34;#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95%e7%9a%84%e4%bb%a3%e6%95%b0%e6%96%b9%e5%bc%8f%e6%8f%8f%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;梯度下降法的代数方式描述
-&lt;/h3&gt;&lt;p&gt;在上面的内容中，我们知道了线性回归的函数为：&lt;/p&gt;
+$$&lt;p>由于矩阵形式不好理解，这里就不列出了。&lt;/p>
+&lt;p>如何求损失函数最小化时候的$\mathbf{\theta}$参数，这时就需要使用梯度下降法了。&lt;/p>
+&lt;h2 id="梯度下降法">&lt;a href="#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95" class="header-anchor">&lt;/a>梯度下降法
+&lt;/h2>&lt;h3 id="梯度">&lt;a href="#%e6%a2%af%e5%ba%a6" class="header-anchor">&lt;/a>梯度
+&lt;/h3>&lt;p>在微积分里面，对多元函数的参数求∂偏导数，把求得的各个参数的偏导数以向量的形式写出来，就是梯度。那么这个梯度向量求出来有什么意义呢？他的意义从几何意义上讲，就是函数变化增加最快的地方。&lt;/p>
+&lt;h3 id="梯度下降的直观解释">&lt;a href="#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e7%9a%84%e7%9b%b4%e8%a7%82%e8%a7%a3%e9%87%8a" class="header-anchor">&lt;/a>梯度下降的直观解释
+&lt;/h3>&lt;p>首先来看看梯度下降的一个直观的解释。比如我们在一座大山上的某处位置，由于我们不知道怎么下山，于是决定走一步算一步，也就是在每走到一个位置的时候，求解当前位置的梯度，沿着梯度的负方向，也就是当前最陡峭的位置向下走一步，然后继续求解当前位置梯度，向这一步所在位置沿着最陡峭最易下山的位置走一步。这样一步步的走下去，一直走到觉得我们已经到了山脚。当然这样走下去，有可能我们不能走到山脚，而是到了某一个局部的山峰低处。&lt;/p>
+&lt;p>从上面的解释可以看出，梯度下降不一定能够找到全局的最优解，有可能是一个局部最优解。当然，如果损失函数是凸函数，梯度下降法得到的解就一定是全局最优解。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1.png"
+width="692"
+height="343"
+srcset="https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hu_4108877c33900225.png 480w, https://lbqaq.top/p/%E5%9B%9E%E5%BD%92%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/IMAGE/1_hu_5fe56739d4515be4.png 1024w"
+loading="lazy"
+alt="梯度下降"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="484px"
+>&lt;/p>
+&lt;h3 id="梯度下降法的代数方式描述">&lt;a href="#%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95%e7%9a%84%e4%bb%a3%e6%95%b0%e6%96%b9%e5%bc%8f%e6%8f%8f%e8%bf%b0" class="header-anchor">&lt;/a>梯度下降法的代数方式描述
+&lt;/h3>&lt;p>在上面的内容中，我们知道了线性回归的函数为：&lt;/p>
 $$
 h_\theta(x_0, x_1, ...x_n) = \sum\limits_{i=0}^{n}\theta_{i}x_{i}
-$$&lt;p&gt;损失函数为：&lt;/p&gt;
+$$&lt;p>损失函数为：&lt;/p>
 $$
 J(\theta_0, \theta_1..., \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, ...x_n^{(i)}) - y_i)^2
-$$&lt;p&gt;算法相关参数初始化：主要是初始化$\theta_0, \theta_1&amp;hellip;, \theta_n$ ,算法终止距离$\varepsilon$ 以及步长$\alpha$ 。在没有任何先验知识的时候，我喜欢将所有的$\theta$ 初始化为0， 将步长初始化为1，在调优的时候再优化。&lt;/p&gt;
-&lt;p&gt;算法过程：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;确定当前位置的损失函数的梯度，对于$\theta_i$ ,其梯度表达式如下：&lt;/p&gt;
+$$&lt;p>算法相关参数初始化：主要是初始化$\theta_0, \theta_1&amp;hellip;, \theta_n$ ,算法终止距离$\varepsilon$ 以及步长$\alpha$ 。在没有任何先验知识的时候，我喜欢将所有的$\theta$ 初始化为0， 将步长初始化为1，在调优的时候再优化。&lt;/p>
+&lt;p>算法过程：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>确定当前位置的损失函数的梯度，对于$\theta_i$ ,其梯度表达式如下：&lt;/p>
 $$
-    \frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1..., \theta_n)= \frac{1}{m}\sum\limits_{j=0}^{m}(h_\theta(x_0^{(j)}, x_1^{(j)}, ...x_n^{(j)}) - y_j)x_i^{(j)}
-    $$&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;用步长乘以损失函数的梯度，得到当前位置下降的距离，即 $\alpha\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1&amp;hellip;, \theta_n)$ 对应于前面登山例子中的某一步。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;确定是否所有的 $\theta_i$ ,梯度下降的距离都小于 $\varepsilon$ ，如果小于 $\varepsilon$ 则算法终止，当前所有的 $\theta_i$ (i=0,1,&amp;hellip;n)即为最终结果。否则进入步骤4.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;更新所有的$\theta$ ，对于 $\theta_i$ ，其更新表达式如下。更新完毕后继续转入步骤1.&lt;/p&gt;
+\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1..., \theta_n)= \frac{1}{m}\sum\limits_{j=0}^{m}(h_\theta(x_0^{(j)}, x_1^{(j)}, ...x_n^{(j)}) - y_j)x_i^{(j)}
+$$&lt;/li>
+&lt;li>
+&lt;p>用步长乘以损失函数的梯度，得到当前位置下降的距离，即 $\alpha\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1&amp;hellip;, \theta_n)$ 对应于前面登山例子中的某一步。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>确定是否所有的 $\theta_i$ ,梯度下降的距离都小于 $\varepsilon$ ，如果小于 $\varepsilon$ 则算法终止，当前所有的 $\theta_i$ (i=0,1,&amp;hellip;n)即为最终结果。否则进入步骤4.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更新所有的$\theta$ ，对于 $\theta_i$ ，其更新表达式如下。更新完毕后继续转入步骤1.&lt;/p>
 $$
-    \theta_i = \theta_i - \alpha\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1..., \theta_n) = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, ...x_n^{(j)}) - y_j)x_i^{(j)}
-    $$&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;从这个例子可以看出当前点的梯度方向是由所有的样本决定的，加 $\frac{1}{m}$  是为了好理解。由于步长也为常数，他们的乘机也为常数，所以这里 $\alpha\frac{1}{m}$ 可以用一个常数表示。&lt;/p&gt;
-&lt;p&gt;在下面第4节会详细讲到的梯度下降法的变种，他们主要的区别就是对样本的采用方法不同。这里我们采用的是用所有样本。&lt;/p&gt;
-&lt;h3 id=&#34;随机梯度下降法sgd&#34;&gt;&lt;a href=&#34;#%e9%9a%8f%e6%9c%ba%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95sgd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;随机梯度下降法(SGD)
-&lt;/h3&gt;&lt;p&gt;随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是&lt;/p&gt;
+\theta_i = \theta_i - \alpha\frac{\partial}{\partial\theta_i}J(\theta_0, \theta_1..., \theta_n) = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, ...x_n^{(j)}) - y_j)x_i^{(j)}
+$$&lt;/li>
+&lt;/ol>
+&lt;p>从这个例子可以看出当前点的梯度方向是由所有的样本决定的，加 $\frac{1}{m}$ 是为了好理解。由于步长也为常数，他们的乘机也为常数，所以这里 $\alpha\frac{1}{m}$ 可以用一个常数表示。&lt;/p>
+&lt;p>在下面第4节会详细讲到的梯度下降法的变种，他们主要的区别就是对样本的采用方法不同。这里我们采用的是用所有样本。&lt;/p>
+&lt;h3 id="随机梯度下降法sgd">&lt;a href="#%e9%9a%8f%e6%9c%ba%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95sgd" class="header-anchor">&lt;/a>随机梯度下降法(SGD)
+&lt;/h3>&lt;p>随机梯度下降法，其实和批量梯度下降法原理类似，区别在与求梯度时没有用所有的m个样本的数据，而是仅仅选取一个样本j来求梯度。对应的更新公式是&lt;/p>
 $$
 \theta_i = \theta_i - \alpha (h_\theta(x_0^{(j)}, x_1^{(j)}, ...x_n^{(j)}) - y_j)x_i^{(j)}
-$$&lt;p&gt;随机梯度下降法，和批量梯度下降法是两个极端，一个采用所有数据来梯度下降，一个用一个样本来梯度下降。自然各自的优缺点都非常突出。对于训练速度来说，随机梯度下降法由于每次仅仅采用一个样本来迭代，训练速度很快，而批量梯度下降法在样本量很大的时候，训练速度不能让人满意。对于准确度来说，随机梯度下降法用于仅仅用一个样本决定梯度方向，导致解很有可能不是最优。对于收敛速度来说，由于随机梯度下降法一次迭代一个样本，导致迭代方向变化很大，不能很快的收敛到局部最优解。&lt;/p&gt;
-&lt;h3 id=&#34;编程实现&#34;&gt;&lt;a href=&#34;#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;编程实现
-&lt;/h3&gt;&lt;p&gt;网上找的代码，没验证，看个思路就行&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-matlab&#34; data-lang=&#34;matlab&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;[ theta,J_history ] &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;StochasticGD&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; X, y, theta, alpha, num_iter &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;J_history&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;zeros&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;iter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;num_iter&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;n&#34;&gt;index&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;randi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;n&#34;&gt;theta&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;theta&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;alpha&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;  &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;theta&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         &lt;span class=&#34;n&#34;&gt;temp&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;         &lt;span class=&#34;n&#34;&gt;J_history&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ComputeCost&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;theta&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;end&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;小批量梯度下降法mini-batch-sgd&#34;&gt;&lt;a href=&#34;#%e5%b0%8f%e6%89%b9%e9%87%8f%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95mini-batch-sgd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;小批量梯度下降法(Mini-Batch SGD)
-&lt;/h3&gt;&lt;p&gt;也就是对于m个样本，我们采用x个样子来迭代，1&amp;lt;x&amp;lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。&lt;/p&gt;
-&lt;h2 id=&#34;岭回归&#34;&gt;&lt;a href=&#34;#%e5%b2%ad%e5%9b%9e%e5%bd%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;岭回归
-&lt;/h2&gt;&lt;p&gt;&lt;del&gt;助教妹说就是不考&lt;/del&gt; 反转了，居然要考&lt;/p&gt;
-&lt;p&gt;在原先的线性回归的代价函数上加入了一个L2正则项，就是岭回归&lt;/p&gt;
+$$&lt;p>随机梯度下降法，和批量梯度下降法是两个极端，一个采用所有数据来梯度下降，一个用一个样本来梯度下降。自然各自的优缺点都非常突出。对于训练速度来说，随机梯度下降法由于每次仅仅采用一个样本来迭代，训练速度很快，而批量梯度下降法在样本量很大的时候，训练速度不能让人满意。对于准确度来说，随机梯度下降法用于仅仅用一个样本决定梯度方向，导致解很有可能不是最优。对于收敛速度来说，由于随机梯度下降法一次迭代一个样本，导致迭代方向变化很大，不能很快的收敛到局部最优解。&lt;/p>
+&lt;h3 id="编程实现">&lt;a href="#%e7%bc%96%e7%a8%8b%e5%ae%9e%e7%8e%b0" class="header-anchor">&lt;/a>编程实现
+&lt;/h3>&lt;p>网上找的代码，没验证，看个思路就行&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-matlab" data-lang="matlab">&lt;span class="line">&lt;span class="cl">&lt;span class="k">function&lt;/span>&lt;span class="w"> &lt;/span>[ theta,J_history ] &lt;span class="p">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">StochasticGD&lt;/span>&lt;span class="p">(&lt;/span> X, y, theta, alpha, num_iter &lt;span class="p">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">m&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">length&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">y&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">J_history&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">zeros&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">20&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">temp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">iter&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="n">num_iter&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">temp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">temp&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">index&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">randi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">theta&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">theta&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">alpha&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">:)&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">theta&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">index&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">X&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">index&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">:)&lt;/span>&lt;span class="o">&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">temp&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="mi">100&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">temp&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">n&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">J_history&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ComputeCost&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">theta&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">end&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">end&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">end&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="小批量梯度下降法mini-batch-sgd">&lt;a href="#%e5%b0%8f%e6%89%b9%e9%87%8f%e6%a2%af%e5%ba%a6%e4%b8%8b%e9%99%8d%e6%b3%95mini-batch-sgd" class="header-anchor">&lt;/a>小批量梯度下降法(Mini-Batch SGD)
+&lt;/h3>&lt;p>也就是对于m个样本，我们采用x个样子来迭代，1&amp;lt;x&amp;lt;m。一般可以取x=10，当然根据样本的数据，可以调整这个x的值。&lt;/p>
+&lt;h2 id="岭回归">&lt;a href="#%e5%b2%ad%e5%9b%9e%e5%bd%92" class="header-anchor">&lt;/a>岭回归
+&lt;/h2>&lt;p>&lt;del>助教妹说就是不考&lt;/del> 反转了，居然要考&lt;/p>
+&lt;p>在原先的线性回归的代价函数上加入了一个L2正则项，就是岭回归&lt;/p>
 $$
 J(\theta_0, \theta_1..., \theta_n) = \sum\limits_{i=1}^{m}(h_\theta(x_0^{(i)}, x_1^{(i)}, ...x_n^{(i)}) - y_i)^2+\lambda \sum_{i=1}^m\theta_i^2
-$$&lt;h2 id=&#34;非线性形式&#34;&gt;&lt;a href=&#34;#%e9%9d%9e%e7%ba%bf%e6%80%a7%e5%bd%a2%e5%bc%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;非线性形式
-&lt;/h2&gt;&lt;p&gt;助教妹说就是不考&lt;/p&gt;
-&lt;h2 id=&#34;参考链接&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考链接
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/pinard/p/5970503.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;梯度下降（Gradient Descent）小结 - 刘建平Pinard - 博客园&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/pinard/p/6004041.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;线性回归原理小结 - 刘建平Pinard - 博客园&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        
-    </channel>
-</rss>
+$$&lt;h2 id="非线性形式">&lt;a href="#%e9%9d%9e%e7%ba%bf%e6%80%a7%e5%bd%a2%e5%bc%8f" class="header-anchor">&lt;/a>非线性形式
+&lt;/h2>&lt;p>助教妹说就是不考&lt;/p>
+&lt;h2 id="参考链接">&lt;a href="#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5" class="header-anchor">&lt;/a>参考链接
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.cnblogs.com/pinard/p/5970503.html" target="_blank" rel="noopener"
+>梯度下降（Gradient Descent）小结 - 刘建平Pinard - 博客园&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.cnblogs.com/pinard/p/6004041.html" target="_blank" rel="noopener"
+>线性回归原理小结 - 刘建平Pinard - 博客园&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

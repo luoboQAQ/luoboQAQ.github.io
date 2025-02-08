@@ -1,1479 +1,705 @@
-<!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="比赛结束后我的一点碎碎念和总结">
-<title>我的智慧物流之旅</title>
-
-<link rel='canonical' href='https://lbqaq.top/p/roslogistic/'>
-
-<link rel="stylesheet" href="/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css"><meta property='og:title' content="我的智慧物流之旅">
-<meta property='og:description' content="比赛结束后我的一点碎碎念和总结">
-<meta property='og:url' content='https://lbqaq.top/p/roslogistic/'>
-<meta property='og:site_name' content='luoboQAQ'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ROS' /><meta property='article:tag' content='Python' /><meta property='article:published_time' content='2022-08-21T21:20:00&#43;08:00'/><meta property='article:modified_time' content='2022-08-21T21:20:00&#43;08:00'/><meta property='og:image' content='https://lbqaq.top/p/roslogistic/97096454.webp' />
-<meta name="twitter:title" content="我的智慧物流之旅">
-<meta name="twitter:description" content="比赛结束后我的一点碎碎念和总结"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lbqaq.top/p/roslogistic/97096454.webp' /><script async defer data-website-id="5a23d952-27c7-4abd-b8f0-c69397b25b55" data-cache="true"
-  src="https://umami.lbqaq.top/bpnwxrgz.js">
-  </script>
-
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<style>
-   
-  :root {
-    --sys-font-family: -apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;
-    --code-font-family: "JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;
-    --article-font-family: "LXGW WenKai", sans-serif;
-    --base-font-family: "LXGW WenKai", var(--sys-font-family), sans-serif;
-  }
-</style>
-    </head>
-    <body class="
-    article-page
-    ">
-    <script>
-        (function() {
-            const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'StackColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.scheme = 'dark';
-        } else {
-            document.documentElement.dataset.scheme = 'light';
-        }
-    })();
-</script>
-<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
-        <span class="hamburger-box">
-            <span class="hamburger-inner"></span>
-        </span>
-    </button>
-
-    <header>
-        
-            
-            <figure class="site-avatar">
-                <a href="/">
-                
-                    
-                    
-                    
-                        
-                        <img src="/img/Mint_hu_90cbcbb19cfdb02a.jpg" width="300"
-                            height="300" class="site-logo" loading="lazy" alt="Avatar">
-                    
-                
-                </a>
-                
-                    <span class="emoji">🌞</span>
-                
-            </figure>
-            
-        
-        
-        <div class="site-meta">
-            <h1 class="site-name"><a href="/">luoboQAQ</a></h1>
-            <h2 class="site-description">快乐学习每一天</h2>
-        </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/luoboQAQ'
-                        target="_blank"
-                        title="GitHub"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://lbqaq.top/index.xml'
-                        target="_blank"
-                        title="RSS订阅"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="5" cy="19" r="1" />
-  <path d="M4 4a16 16 0 0 1 16 16" />
-  <path d="M4 11a9 9 0 0 1 9 9" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-                <li>
-                    <a 
-                        href='https://pan.lbqaq.top'
-                        target="_blank"
-                        title="我的个人云盘"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12" />
-</svg>
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
-        
-        
-        
-        <li >
-            <a href='/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <polyline points="5 12 3 12 12 3 21 12 19 12" />
-  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-</svg>
-
-
-
-                
-                <span>主页</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/about/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="7" r="4" />
-  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-</svg>
-
-
-
-                
-                <span>关于</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/archives/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <rect x="3" y="4" width="18" height="4" rx="2" />
-  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
-  <line x1="10" y1="12" x2="14" y2="12" />
-</svg>
-
-
-
-                
-                <span>文章</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/search/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-                
-                <span>查询</span>
-            </a>
-        </li>
-        
-        
-        <li >
-            <a href='/links/' >
-                
-                
-                
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
-  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
-</svg>
-
-
-
-                
-                <span>友链</span>
-            </a>
-        </li>
-        
-        <li class="menu-bottom-section">
-            <ol class="menu">
-
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>暗色模式</span>
-                    </li>
-                
-            </ol>
-        </li>
-    </ol>
-</aside>
-
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ol>
-    <li><a href="#程序的大体思路和流程">程序的大体思路和流程</a>
-      <ol>
-        <li><a href="#建图">建图</a></li>
-        <li><a href="#导航">导航</a></li>
-        <li><a href="#图像识别">图像识别</a></li>
-        <li><a href="#机械臂抓取及投递">机械臂抓取及投递</a></li>
-      </ol>
-    </li>
-    <li><a href="#一些创新点">一些创新点</a>
-      <ol>
-        <li><a href="#键盘操控程序">键盘操控程序</a></li>
-        <li><a href="#摄像头分辨率提升及去畸变">摄像头分辨率提升及去畸变</a></li>
-        <li><a href="#后退距离判断">后退距离判断</a></li>
-        <li><a href="#由消息驱动程序逻辑">由消息驱动程序逻辑</a></li>
-        <li><a href="#分布式部署图像识别">分布式部署图像识别</a></li>
-        <li><a href="#机械臂异常自动检测和清除">机械臂异常自动检测和清除</a></li>
-        <li><a href="#ros日志输出级别控制">ROS日志输出级别控制</a></li>
-      </ol>
-    </li>
-    <li><a href="#一些小工具">一些小工具</a>
-      <ol>
-        <li><a href="#随机快递箱顺序生成">随机快递箱顺序生成</a></li>
-        <li><a href="#eai资源点坐标格式转yaml格式">EAI资源点坐标格式转yaml格式</a></li>
-      </ol>
-    </li>
-    <li><a href="#小结">小结</a></li>
-  </ol>
-</nav>
-        </div>
-    </section>
-
-            
-        
-    </aside>
-
-
-            <main class="main full-width">
-    <article class="has-image main-article">
-    <header class="article-header">
-        <div class="article-image">
-            <a href="/p/roslogistic/">
-                <img src="/p/roslogistic/97096454.webp"
-                        
-                        width="2000" 
-                        height="1099" 
-                        loading="lazy"
-                        alt="Featured image of post 我的智慧物流之旅" />
-                
-            </a>
-        </div>
-    
-
-    <div class="article-details">
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="/p/roslogistic/">我的智慧物流之旅</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            比赛结束后我的一点碎碎念和总结
-        </h3>
-        
-    </div>
-
-    
-    
-    
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">2022-08-21</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    阅读时长: 16 分钟
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
-</div>
-
-</header>
-
-    <section class="article-content">
-    
-    
-    <p>随着答辩的结束，智慧物流这个项目就算是彻底结束了。不出意外的话，这应该是我大学生涯的参加的最后一个比赛了。看了看git的记录，提交的代码超过了1k行，同时也花了不少的时间在上面。做了这么多东西，不留下点什么总觉得不好，想来想去，还是把比赛做的东西做个小结吧，也算是纪念我这不算丰富的比赛时光吧（雾）</p>
-<p>这里非常感谢我们队长，比赛里许多关键的问题是他解决的，他的动手能力和善于提出创新性想法的能力，都是值得我去学习的。也感谢另一位队友，在赛前紧张的准备时间里独自一人分担了制作PPT的工作，并且能做出如此精美的PPT。（大佬带带我 _(:з)∠)_ ）</p>
-<p>感想也就写这么多吧，下面主要介绍我们比赛时所做的一些工作和创新。</p>
-<h2 id="程序的大体思路和流程"><a href="#%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%a4%a7%e4%bd%93%e6%80%9d%e8%b7%af%e5%92%8c%e6%b5%81%e7%a8%8b" class="header-anchor"></a>程序的大体思路和流程
-</h2><p>根据赛题要求，程序要实现下面几个功能：</p>
-<ul>
-<li>导航至邮件分拣台</li>
-<li>运用视觉算法识别邮件</li>
-<li>机械臂定位抓取邮件</li>
-<li>机器人运送邮件投入正确的邮箱</li>
-</ul>
-<p>所以程序大致的步骤就是：建图-&gt;导航至分拣台-&gt;识别-&gt;抓取-&gt;导航至投递点-&gt;投递-&gt;导航至分拣台-&gt;&hellip;&hellip;</p>
-<p>这里我就按上面的要求一部分一部分的讲了。</p>
-<h3 id="建图"><a href="#%e5%bb%ba%e5%9b%be" class="header-anchor"></a>建图
-</h3><p>建图算法是Gmapping算法，这是一种基于2D激光雷达通过使用RBPF粒子滤波方法所完成的二维栅格地图构建SLAM算法，它也是移动机器人中适用最多的算法。它对激光雷达频率要求相对较低，稳定性较高，且能够结合里程计、陀螺仪等进行定位与地图构建，构建小场景地图时速度快、计算量小，缺点就是非常依赖里程计，所以无法适应不平坦的地面，无法使用回环检测，在大场景、粒子多的情况下，特别消耗资源。</p>
-<p>当然我们并没有去仔细研究这个算法，建图的话按照官方提供的教程来一步步做就好了。不得不吐槽的是我们的小车一开始后轮是偏高的，导致雷达会打到地面，预选赛建图的时候一直建不好，最终只能靠侧边的雷达才把图建好，当时以为车就是这样的，直到正赛时才知道是车的问题。所以这种硬件问题一定要及时和厂商联系，不然全是泪啊😭。</p>
-<p><img src="/p/roslogistic/IMAGE/1.png"
-	width="518"
-	height="369"
-	srcset="/p/roslogistic/IMAGE/1_hu_d75e01417e1f0e11.png 480w, /p/roslogistic/IMAGE/1_hu_715429cf3309308b.png 1024w"
-	loading="lazy"
-	
-		alt="雷达打到地面"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="140"
-		data-flex-basis="336px"
-	
-></p>
-<h3 id="导航"><a href="#%e5%af%bc%e8%88%aa" class="header-anchor"></a>导航
-</h3><p>导航这里不是我们写，而是使用了官方提供的导航包。根据培训文档，这里主要采用了AMCL自适应蒙特卡罗算法，它是机器人在二维移动过程中的一种概率定位系统，通过它实现了自适应（或 kld 采样）的蒙特卡罗定位方法。由于采用粒子滤波器来跟踪已经知道的地图中机器人位姿，故对于大范围的局部定位问题工作良好。路径规划则是最短路径规划算法，例如采用Floyd算法、Dijkstra算法、Bellman-Ford算法等。</p>
-<p>导航这里其实是有大坑的，我们最终比赛时就栽在这里了。我们发现小车运行时，激光雷达经常会发生错位，导致导航发生偏移。这种情况基本是出现在小车转向时，我们怀疑是轮子打滑，也调紧了后轮的弹簧，但也没有用。我们当时认为这就是小车本身的局限性，同时在小车运行时也会自动调整至正确位置，我们就没有特别重视这个问题。结果在正式比赛时导航就出现偏移，导致好几个包裹都错位抓取了，虽然最终都全部抓取上了，但浪费了很多时间，非常的可惜。所以有时间的话，一定要看看官方提供的导航定位算法，或者联系厂家看看雷达有无问题，不然程序没问题，却因为硬件问题而出错还是很难受的。( ‘-ωก̀ )</p>
-<h3 id="图像识别"><a href="#%e5%9b%be%e5%83%8f%e8%af%86%e5%88%ab" class="header-anchor"></a>图像识别
-</h3><p>图像识别这里我们是调用是百度的PaddleOCR模块，由于ROS里的Python是2版本的，我们采用的也是PaddleOCR里的develop分支而非最新版本。</p>
-<p>我们一开始是打算自己训练PaddleOCR模型的，然而我尝试了一晚上，不是很清楚模型训练的方法，好不容易运行了一个公开的训练集，发现训练时间要一天多，同时还需要自己做训练集。考虑到时间的问题，最终还是选择采用官方的模型。当然，最主要的原因还是分布式图像识别提升了性能，这部分我在下面会提到，这里就先按下不表。</p>
-<h3 id="机械臂抓取及投递"><a href="#%e6%9c%ba%e6%a2%b0%e8%87%82%e6%8a%93%e5%8f%96%e5%8f%8a%e6%8a%95%e9%80%92" class="header-anchor"></a>机械臂抓取及投递
-</h3><p>根据机械臂的官方文档，这里涉及的坐标系主要是两种，一种是关节坐标系，一直是笛卡尔坐标系。关节坐标系比较难以理解，我们还是采用比较直观的笛卡尔坐标系。</p>
-<p>同样，机械臂的抓取也有3种不同模式：MOVJ、MOVL、JUMP。MOVJ模式相较于MOVL模式，速度快；MOVJ模式相较于JUMP模式，稳定性高，不易越界。<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<p>综上，我们的机械臂控制都采用的是笛卡尔坐标系里的MOVEJ模式，这样能保证机械臂抓取时不会出现超出抓取范围的异常。</p>
-<p>控制机械臂基本就只要用到下面这几个话题，还是比较容易的：</p>
-<ul>
-<li><code>DobotServer/SetPTPCmd</code>：移动机械臂到指定坐标</li>
-<li><code>DobotServer/SetEndEffectorSuctionCup</code>：机械臂气泵控制</li>
-<li><code>DobotServer/ClearAllAlarmsState</code>：清除机械臂警报</li>
-</ul>
-<p>投递就没什么好说的了，根据文字识别的结果进行投递，只要能抓取到，基本上不会出现投递错位的情况。这里会出现的问题主要还是导航不准，容易偏或者撞。解决办法只能是不停的测试找准坐标以及将导航目的位置远离投递点。</p>
-<h2 id="一些创新点"><a href="#%e4%b8%80%e4%ba%9b%e5%88%9b%e6%96%b0%e7%82%b9" class="header-anchor"></a>一些创新点
-</h2><h3 id="键盘操控程序"><a href="#%e9%94%ae%e7%9b%98%e6%93%8d%e6%8e%a7%e7%a8%8b%e5%ba%8f" class="header-anchor"></a>键盘操控程序
-</h3><p>在我们的程序中，主要是通过开启两个线程来实现程序的暂停和恢复，如果使用<code>input</code>函数进行键盘输入的接收，则会阻塞线程，同时在输入完成后还需要按下回车，不是很合适。官方是提供了一个键盘控制程序的样例，然而这个程序有个我认为很大的BUG，会导致程序的输出偏移。</p>
-<p><img src="/p/roslogistic/IMAGE/2.png"
-	width="455"
-	height="377"
-	srcset="/p/roslogistic/IMAGE/2_hu_d49bd3eb1de8fa3c.png 480w, /p/roslogistic/IMAGE/2_hu_5fb85b9a253da4dc.png 1024w"
-	loading="lazy"
-	
-		alt="原来的程序，会导致输出偏移"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="120"
-		data-flex-basis="289px"
-	
-></p>
-<p>作为一个对代码美观有洁癖的人，这怎么能忍，于是我开始了百度，下面是我找到的可以在Windows和Linux两种环境下实现类似C语言<code>getchar()</code>函数的代码。<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getChar</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># figure out which function to use once, and store it in _func</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="s2">&#34;_func&#34;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">getChar</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># for Windows-based systems</span>
-</span></span><span class="line"><span class="cl">            <span class="kn">import</span> <span class="nn">msvcrt</span> <span class="c1"># If successful, we are on Windows</span>
-</span></span><span class="line"><span class="cl">            <span class="n">getChar</span><span class="o">.</span><span class="n">_func</span><span class="o">=</span><span class="n">msvcrt</span><span class="o">.</span><span class="n">getch</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># for POSIX-based systems (with termios &amp; tty support)</span>
-</span></span><span class="line"><span class="cl">            <span class="kn">import</span> <span class="nn">tty</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">termios</span> <span class="c1"># raises ImportError if unsupported</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">            <span class="k">def</span> <span class="nf">_ttyRead</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">                <span class="n">fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">                <span class="n">oldSettings</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                <span class="k">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">tty</span><span class="o">.</span><span class="n">setcbreak</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">answer</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="k">finally</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">                    <span class="n">termios</span><span class="o">.</span><span class="n">tcsetattr</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">termios</span><span class="o">.</span><span class="n">TCSADRAIN</span><span class="p">,</span> <span class="n">oldSettings</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">answer</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">            <span class="n">getChar</span><span class="o">.</span><span class="n">_func</span><span class="o">=</span><span class="n">_ttyRead</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">getChar</span><span class="o">.</span><span class="n">_func</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">answer</span> <span class="o">=</span> <span class="n">getChar</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这里和官方提供的程序主要不同就在是<code>tty.setcbreak(fd)</code>，但我不知道原理，不过既然能用，就算了😇。</p>
-<p>上面的代码还包括在Windows环境下的情况，我们不需要如此复杂，稍作修改将其整合进我们的程序，就构成了一个多线程程序的模板。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># coding=utf-8</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">rospy</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">threading</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">termios</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tty</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">	<span class="s1">&#39;&#39;&#39;程序主要逻辑入口&#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">pass</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getKey</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;获取输入的字符&#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fd</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">fileno</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">oldSettings</span> <span class="o">=</span> <span class="n">termios</span><span class="o">.</span><span class="n">tcgetattr</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">tty</span><span class="o">.</span><span class="n">setcbreak</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">finally</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">termios</span><span class="o">.</span><span class="n">tcsetattr</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">termios</span><span class="o">.</span><span class="n">TCSADRAIN</span><span class="p">,</span> <span class="n">oldSettings</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">key</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">initKeyListener</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;输入监听程序&#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="o">=</span> <span class="n">getKey</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;退出程序&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">os</span><span class="o">.</span><span class="n">_exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;恢复导航&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s1">&#39;取消导航&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s1">&#39;开始执行程序&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 给本程序初始化一个节点名称</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s1">&#39;match_topic&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># 开一个线程处理键盘监听</span>
-</span></span><span class="line"><span class="cl">    <span class="n">key_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">initKeyListener</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">key_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 开一个线程处理任务</span>
-</span></span><span class="line"><span class="cl">    <span class="n">main_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">main</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">main_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="摄像头分辨率提升及去畸变"><a href="#%e6%91%84%e5%83%8f%e5%a4%b4%e5%88%86%e8%be%a8%e7%8e%87%e6%8f%90%e5%8d%87%e5%8f%8a%e5%8e%bb%e7%95%b8%e5%8f%98" class="header-anchor"></a>摄像头分辨率提升及去畸变
-</h3><p>由于ROS默认从摄像头中获取的图像是640*480，且去畸变也是根据这个分辨率进行设置的，这会导致文字识别很容易识别不出文字。我们将小车上的摄像头接入电脑，发现是720P的，既然你能清晰，那为什么不用呢？于是，我们修改了相关的lanuch文件，将摄像头的分辨率提升到了720P，并使用我们自己打印的标定板进行标定。</p>
-<p><img src="/p/roslogistic/IMAGE/image-20220818093226649.png"
-	width="558"
-	height="316"
-	srcset="/p/roslogistic/IMAGE/image-20220818093226649_hu_d379d2f996af66da.png 480w, /p/roslogistic/IMAGE/image-20220818093226649_hu_c67f435c99910963.png 1024w"
-	loading="lazy"
-	
-		alt="去畸变前"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="176"
-		data-flex-basis="423px"
-	
->   <img src="/p/roslogistic/IMAGE/image-20220818093236019.png"
-	width="558"
-	height="316"
-	srcset="/p/roslogistic/IMAGE/image-20220818093236019_hu_5a6d5dfab1d35079.png 480w, /p/roslogistic/IMAGE/image-20220818093236019_hu_2923aadb2a8cd1d.png 1024w"
-	loading="lazy"
-	
-		alt="去畸变后"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="176"
-		data-flex-basis="423px"
-	
-></p>
-<p>下面介绍一下修改的方法</p>
-<p>在<code>moveit_ws/src/moveit/probot_vision/launch</code>目录下，我们可以看到<code>usb_cam_in_hand.launch</code>文件。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;launch&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&#34;usb_cam&#34;</span> <span class="na">pkg=</span><span class="s">&#34;usb_cam&#34;</span> <span class="na">type=</span><span class="s">&#34;usb_cam_node&#34;</span> <span class="na">output=</span><span class="s">&#34;screen&#34;</span> <span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;video_device&#34;</span> <span class="na">value=</span><span class="s">&#34;/dev/video0&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;image_width&#34;</span> <span class="na">value=</span><span class="s">&#34;1280&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;image_height&#34;</span> <span class="na">value=</span><span class="s">&#34;720&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;pixel_format&#34;</span> <span class="na">value=</span><span class="s">&#34;yuyv&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;camera_frame_id&#34;</span> <span class="na">value=</span><span class="s">&#34;cameral_base&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;io_method&#34;</span> <span class="na">value=</span><span class="s">&#34;mmap&#34;</span><span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">   <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&#34;camera_info_url&#34;</span> <span class="na">type=</span><span class="s">&#34;string&#34;</span> <span class="na">value=</span><span class="s">&#34;file://$(find probot_vision)/ost-720p.yaml&#34;</span> <span class="nt">/&gt;</span>
-</span></span><span class="line"><span class="cl">   <span class="c">&lt;!--rosparam file=&#34;$(find probot_vision)/ost_4_new.yaml&#34; command=&#34;load&#34; /--&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/node&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/launch&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>对其的<code>image_width</code>和<code>image_height</code>进行修改，改为1280和720即可实现摄像头画质提升至720P。</p>
-<p>对于手动标定，我们需要准备标定板，可以自己打印也可以上淘宝购买，就是像下面这样的黑白方格。</p>
-<p><img src="/p/roslogistic/IMAGE/image-20220818094329331.png"
-	width="575"
-	height="401"
-	srcset="/p/roslogistic/IMAGE/image-20220818094329331_hu_32634841ac899023.png 480w, /p/roslogistic/IMAGE/image-20220818094329331_hu_967179dfef1a6d31.png 1024w"
-	loading="lazy"
-	
-		alt="标定板"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="143"
-		data-flex-basis="344px"
-	
-></p>
-<p>然后在小车上启动标定程序（为什么不在自己电脑上启动呢，因为小车上已经帮你做好硬件端口绑定了，在自己电脑上还要再来一次）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># 启动摄像头</span>
-</span></span><span class="line"><span class="cl">roslaunch usb_cam usb_cam-test.launch
-</span></span><span class="line"><span class="cl"><span class="c1"># 启动标定程序</span>
-</span></span><span class="line"><span class="cl">rosrun camera_calibration cameracalibrator.py --size 8x6 --square 0.024 image:<span class="o">=</span>/usb_cam/image_raw camera:<span class="o">=</span>/usb_cam
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这里要注意修改<code>size</code>参数，改成你标定板的黑白格中间交点的个数。
-<code>square</code>参数这里则是你标定板上方格的边长，单位是米。</p>
-<p>启动完成以后就可以看到标定界面了，通过调整标定板的上下左右以及角度，让右边的进度条全变绿就算标定完成了。点击计算按钮得到数据，将保存的yml文件路径替换上面的<code>camera_info_url</code>。</p>
-<p>仅仅是这样还不算是完成，我们还需要修改去畸变程序里的参数，将<code>moveit_ws/src/moveit/probot_vision/src/image_correct.cpp</code>里的相关参数按照yml文件的参数进行修改。（这里有疑似是自动读取的代码，但被注释了，我们也没测试能不能用）修改好后就可以执行编译了，我们在<code>moveit_ws</code>目录下执行<code>catkin_make --pkg probot_vision</code>，等待编译完成后这项工作就算完成了。</p>
-<h3 id="后退距离判断"><a href="#%e5%90%8e%e9%80%80%e8%b7%9d%e7%a6%bb%e5%88%a4%e6%96%ad" class="header-anchor"></a>后退距离判断
-</h3><p>由于小车的后面是没有雷达的，为了避免碰撞，我们编写了基于摄像头的后退距离判断。当小车到达分拣台前时，调用摄像头进行拍照，对其进行蓝色区域的识别，得到分拣台在图像中的像素位置，再利用公式进行转化，得到小车当前距离分拣台的距离，最后使用<code>check</code>话题控制小车后退至距离分拣台5cm左右的位置，既避免了碰撞，又最大化了抓取范围。</p>
-<h3 id="由消息驱动程序逻辑"><a href="#%e7%94%b1%e6%b6%88%e6%81%af%e9%a9%b1%e5%8a%a8%e7%a8%8b%e5%ba%8f%e9%80%bb%e8%be%91" class="header-anchor"></a>由消息驱动程序逻辑
-</h3><p>在一开始，我们的程序是在函数里调用小车导航，并阻塞直到导航成功再继续执行。这样的程序有个问题，就是当小车出现错误时，无法立即停下小车并保存当前程序执行的进度。于是，我们便将程序修改为基于ROS消息来驱动。这样的好处是程序只有收到成功或者失败的消息后才会执行对应的逻辑，便于失败后状态的恢复。</p>
-<p>想要实现相关的功能，首先是导航不能采用原来基于动作的模式了，而是改成基于消息的模式。我们在程序运行的一开始注册相关的话题发布者。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">initPublisher</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 微调发布器</span>
-</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">checkPub</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 暂停导航发布器</span>
-</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">pauseNav</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 目标点发布器</span>
-</span></span><span class="line"><span class="cl">    <span class="k">global</span> <span class="n">goalPub</span>
-</span></span><span class="line"><span class="cl">    <span class="n">goalPub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;move_base/goal&#39;</span><span class="p">,</span> <span class="n">MoveBaseActionGoal</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 目标点里面的goal_id的id与上一次的id不能相同</span>
-</span></span><span class="line"><span class="cl">    <span class="n">checkPub</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span><span class="s1">&#39;check&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">pauseNav</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Publisher</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;move_base/cancel&#39;</span><span class="p">,</span> <span class="n">GoalID</span><span class="p">,</span> <span class="n">queue_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>同时，我们也需要注册相关话题的监听者以及对应的回调函数</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">initListener</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 订阅导航结果话题数据</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;move_base/result&#39;</span><span class="p">,</span> <span class="n">MoveBaseActionResult</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                     <span class="n">navCallback</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># 订阅（微调）走固定距离结果话题数据</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">Subscriber</span><span class="p">(</span><span class="s1">&#39;check_server/result&#39;</span><span class="p">,</span> <span class="n">check_msgActionResult</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                     <span class="n">checkCallback</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;初始化订阅话题成功&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">checkCallback</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;位置微移回调&#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">issuccess</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;位置微调完成&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="k">pass</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">navCallback</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;导航消息回调&#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">PROVINCES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;四川&#34;</span><span class="p">,</span> <span class="s2">&#34;安徽&#34;</span><span class="p">,</span> <span class="s2">&#34;湖南&#34;</span><span class="p">,</span> <span class="s2">&#34;广东&#34;</span><span class="p">,</span> <span class="s2">&#34;浙江&#34;</span><span class="p">,</span> <span class="s2">&#34;江苏&#34;</span><span class="p">,</span> <span class="s2">&#34;福建&#34;</span><span class="p">,</span> <span class="s2">&#34;河南&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;导航到达指定地点&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">goal_name</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">goal_id</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">goal_name</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;分拣台&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># 到达分拣台前</span>
-</span></span><span class="line"><span class="cl">	    <span class="k">pass</span>
-</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">goal_name</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span> <span class="ow">in</span> <span class="n">PROVINCES</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># 到达投递点</span>
-</span></span><span class="line"><span class="cl">	    <span class="k">pass</span>
-</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">rospy</span><span class="o">.</span><span class="n">logwarn</span><span class="p">(</span><span class="s2">&#34;未知的节点:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">goal_id</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">data</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">rospy</span><span class="o">.</span><span class="n">logwarn</span><span class="p">(</span><span class="s2">&#34;导航失败,当前id为:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">goal_id</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">rospy</span><span class="o">.</span><span class="n">logwarn</span><span class="p">(</span><span class="s2">&#34;导航被取消:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">status</span><span class="p">))</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在导航消息回调中，我们使用<code>goal_id.id</code>来进行目标地点的传递，其构造模式为<code>targetName +'_' + str(time.time())[-9:-3]</code>。这样既有目标地点信息，也避免了id重复。这里一个汉字占3位，所以看到上面的<code>[:6]</code>的写法也就代表前2个字。</p>
-<h3 id="分布式部署图像识别"><a href="#%e5%88%86%e5%b8%83%e5%bc%8f%e9%83%a8%e7%bd%b2%e5%9b%be%e5%83%8f%e8%af%86%e5%88%ab" class="header-anchor"></a>分布式部署图像识别
-</h3><p>对于图像识别，我们一开始是放在小车上进行的，结果发现在小车上识别速度并不是很快，平均每张图片需要5~6秒的时间才能完成。</p>
-<p><img src="/p/roslogistic/IMAGE/image-20220818142138849.png"
-	width="1182"
-	height="280"
-	srcset="/p/roslogistic/IMAGE/image-20220818142138849_hu_a4ce1d0b8b6f2860.png 480w, /p/roslogistic/IMAGE/image-20220818142138849_hu_c4943938c51beaa2.png 1024w"
-	loading="lazy"
-	
-		alt="小车上的文字识别"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="422"
-		data-flex-basis="1013px"
-	
-></p>
-<p>检查小车的CPU发现，这性能还是不要指望其来跑图像识别算法了，还是采用在自己的电脑上跑图像识别，将结果返回给小车吧。</p>
-<p><img src="/p/roslogistic/IMAGE/image-20220818142219779.png"
-	width="785"
-	height="395"
-	srcset="/p/roslogistic/IMAGE/image-20220818142219779_hu_9add53141196d069.png 480w, /p/roslogistic/IMAGE/image-20220818142219779_hu_76f915ef059f3b56.png 1024w"
-	loading="lazy"
-	
-		alt="小车CPU"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="198"
-		data-flex-basis="476px"
-	
-></p>
-<p>想要实现这样的功能，就需要在电脑里装好ROS环境，我们是直接使用虚拟机，里面已经配置好相关的环境了。</p>
-<p>在<code>~/.bashrc</code>里增加<code>export ROS_MASTER_URI=http://192.168.31.200:11311</code>，让虚拟机使用小车作为服务端。之后就是编写程序注册服务，供主程序调用了，为了方便调用，我们自己编写了相应的数据结构。</p>
-<p>我们注册了<code>Province.msg</code>，存放识别到的快递盒上所需的数据。<code>name</code>代表省份名称，<code>x</code>和<code>y</code>分别是相对偏移量。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">string name
-</span></span><span class="line"><span class="cl">float32 x
-</span></span><span class="line"><span class="cl">float32 y
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然后注册了<code>ProvinceList.srv</code>，作为我们服务的消息。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-plain" data-lang="plain"><span class="line"><span class="cl">---
-</span></span><span class="line"><span class="cl">Province[] provinces
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>由于使用了自定义消息类型，要注意修改<code>CMakeLists.txt</code>，将相应的文件添加进去，并注意引入<code>message_generation</code>，否则不会生成供Python调用的消息类。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="line"><span class="cl"><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0.2</span><span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">project</span><span class="p">(</span><span class="s">imgocr</span><span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## Compile as C++11, supported in ROS Kinetic and newer
-</span></span></span><span class="line"><span class="cl"><span class="c"># add_compile_options(-std=c++11)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## Find catkin macros and libraries
-</span></span></span><span class="line"><span class="cl"><span class="c">## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-</span></span></span><span class="line"><span class="cl"><span class="c">## is used, also find other catkin packages
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">find_package</span><span class="p">(</span><span class="s">catkin</span> <span class="s">REQUIRED</span> <span class="s">COMPONENTS</span>
-</span></span><span class="line"><span class="cl">  <span class="s">rospy</span>
-</span></span><span class="line"><span class="cl">  <span class="s">std_msgs</span>
-</span></span><span class="line"><span class="cl">  <span class="s">sensor_msgs</span>
-</span></span><span class="line"><span class="cl">  <span class="s">message_generation</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## System dependencies are found with CMake&#39;s conventions
-</span></span></span><span class="line"><span class="cl"><span class="c"># find_package(Boost REQUIRED COMPONENTS system)
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## Uncomment this if the package has a setup.py. This macro ensures
-</span></span></span><span class="line"><span class="cl"><span class="c">## modules and global scripts declared therein get installed
-</span></span></span><span class="line"><span class="cl"><span class="c">## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-</span></span></span><span class="line"><span class="cl"><span class="c"># catkin_python_setup()
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## Generate messages in the &#39;msg&#39; folder
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">add_message_files</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">   <span class="s">FILES</span>
-</span></span><span class="line"><span class="cl">   <span class="s">Province.msg</span>
-</span></span><span class="line"><span class="cl"> <span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## Generate services in the &#39;srv&#39; folder
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">add_service_files</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">   <span class="s">FILES</span>
-</span></span><span class="line"><span class="cl">   <span class="s">ProvinceList.srv</span>
-</span></span><span class="line"><span class="cl"> <span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c">## Generate added messages and services with any dependencies listed here
-</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nb">generate_messages</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">   <span class="s">DEPENDENCIES</span>
-</span></span><span class="line"><span class="cl">   <span class="s">std_msgs</span>
-</span></span><span class="line"><span class="cl">   <span class="s">sensor_msgs</span>
-</span></span><span class="line"><span class="cl"> <span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span> <span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">catkin_package</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">  <span class="s">CATKIN_DEPENDS</span> <span class="s">rospy</span> <span class="s">std_msgs</span> <span class="s">message_runtime</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="nb">include_directories</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl"><span class="c"># include
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  <span class="o">${</span><span class="nv">catkin_INCLUDE_DIRS</span><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>同样，在<code>package.xml</code>里也要添加<code>message_generation</code>等依赖</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34;?&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;package</span> <span class="na">format=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;name&gt;</span>imgocr<span class="nt">&lt;/name&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;version&gt;</span>0.0.0<span class="nt">&lt;/version&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;description&gt;</span>The imgocr package<span class="nt">&lt;/description&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;maintainer</span> <span class="na">email=</span><span class="s">&#34;eaibot@todo.todo&#34;</span><span class="nt">&gt;</span>eaibot<span class="nt">&lt;/maintainer&gt;</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;license&gt;</span>TODO<span class="nt">&lt;/license&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;buildtool_depend&gt;</span>catkin<span class="nt">&lt;/buildtool_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;build_depend&gt;</span>rospy<span class="nt">&lt;/build_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;build_depend&gt;</span>std_msgs<span class="nt">&lt;/build_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;build_depend&gt;</span>message_generation<span class="nt">&lt;/build_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;build_export_depend&gt;</span>rospy<span class="nt">&lt;/build_export_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;build_export_depend&gt;</span>std_msgs<span class="nt">&lt;/build_export_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;exec_depend&gt;</span>rospy<span class="nt">&lt;/exec_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;exec_depend&gt;</span>std_msgs<span class="nt">&lt;/exec_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;exec_depend&gt;</span>message_runtime<span class="nt">&lt;/exec_depend&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;export&gt;</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/export&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/package&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这样，就可以完成一个文字识别节点了。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># encoding: utf-8</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">imp</span> <span class="kn">import</span> <span class="n">reload</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">rospy</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">cv2</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">imgocr.srv</span> <span class="kn">import</span> <span class="n">ProvinceList</span><span class="p">,</span> <span class="n">ProvinceListResponse</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">imgocr.msg</span> <span class="kn">import</span> <span class="n">Province</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sensor_msgs.msg</span> <span class="kn">import</span> <span class="n">CompressedImage</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">cv_bridge</span> <span class="kn">import</span> <span class="n">CvBridge</span><span class="p">,</span> <span class="n">CvBridgeError</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 支持中文</span>
-</span></span><span class="line"><span class="cl"><span class="n">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s2">&#34;utf8&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getImage</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;获取摄像头的图片&#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_message</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;/usb_cam/image_correct/compressed&#39;</span><span class="p">,</span> <span class="n">CompressedImage</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">15.0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">cv_image</span> <span class="o">=</span> <span class="n">CvBridge</span><span class="p">()</span><span class="o">.</span><span class="n">compressed_imgmsg_to_cv2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s2">&#34;bgr8&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">CvBridgeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cv_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">cv_image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ROTATE_180</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cv_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">cv_image</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">cv_image</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">doReq</span><span class="p">(</span><span class="n">req</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;开始执行文字识别&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">img</span> <span class="o">=</span> <span class="n">getImage</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">	<span class="k">pass</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;识别用时：</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start_time</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="n">resp</span> <span class="o">=</span> <span class="n">ProvinceListResponse</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">pro</span> <span class="ow">in</span> <span class="n">ans</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">Province</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">a</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">pro</span><span class="p">[</span><span class="s2">&#34;province&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">pro</span><span class="p">[</span><span class="s2">&#34;x&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="n">a</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">pro</span><span class="p">[</span><span class="s2">&#34;y&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="n">resp</span><span class="o">.</span><span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">resp</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">init_node</span><span class="p">(</span><span class="s2">&#34;imgocr&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">server</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">Service</span><span class="p">(</span><span class="s2">&#34;imgocr/getProvince&#34;</span><span class="p">,</span> <span class="n">ProvinceList</span><span class="p">,</span> <span class="n">doReq</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;节点初始化完成&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">spin</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这里我们一开始获取摄像头的图片是采用<code>/usb_cam/image_correct</code>这个话题，但这个话题得到的图片是未压缩的，使用<code>rostopic bw /usb_cam/image_correct</code>可以看出大小差不多是好几M，这就会导致获取图像的时长远超文字识别时长，甚至是无法获取到图片。我们根据探索，发现<code>/usb_cam/image_correct/compressed</code>话题提供的是压缩后的图片，使用后获取图像的时长大大减小。</p>
-<p>使用分布式图像识别后，识别时长基本控制在2S内。</p>
-<p>由于我们是使用虚拟机，无法调用真机的显卡，如果有机会的话，可以尝试在真机上装相应的环境，使用GPU来进行图像识别，速度应该会更进一步。</p>
-<h3 id="机械臂异常自动检测和清除"><a href="#%e6%9c%ba%e6%a2%b0%e8%87%82%e5%bc%82%e5%b8%b8%e8%87%aa%e5%8a%a8%e6%a3%80%e6%b5%8b%e5%92%8c%e6%b8%85%e9%99%a4" class="header-anchor"></a>机械臂异常自动检测和清除
-</h3><p>在上面一小节中，我们获取到省份的坐标就可以送至机械臂进行抓取了。但是，机械臂的抓取范围是有限的，一旦超出抓取范围机械臂就会停止执行直至执行清除警报。一种思路是我们首先是在一个固定的定去识别邮件，首先记录这个点的高度，然后我们需要降到桌面去吸取邮件，这是第二个高度，我们只需要测定这两个高度Z的前提下，Y的移动范围就可以了。<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></p>
-<p>这种思路确实可行，但如果后期更换了机械臂高度，又要手动测量，十分麻烦。于是，我想了另一个思路，通过查询API文档，我找到了警报检测的API，那就好说了。在执行可能越界的指令后接上异常检测，如果异常就自动清除，这样就能自动化的判断了。</p>
-<p>话不多说，直接上代码：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># coding=utf-8</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">rospy</span>
-</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">dobot.srv</span> <span class="kn">import</span> <span class="n">GetAlarmsState</span><span class="p">,</span> <span class="n">ClearAllAlarmsState</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getAlarmsState</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">    <span class="s1">&#39;&#39;&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s1">    查询机械臂报警状态，并自动进行清除
-</span></span></span><span class="line"><span class="cl"><span class="s1">    return 是否存在报警
-</span></span></span><span class="line"><span class="cl"><span class="s1">    &#39;&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;DobotServer/GetAlarmsState&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rospy</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="s1">&#39;DobotServer/ClearAllAlarmsState&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">client</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;DobotServer/GetAlarmsState&#39;</span><span class="p">,</span> <span class="n">GetAlarmsState</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">client2</span> <span class="o">=</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceProxy</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;DobotServer/ClearAllAlarmsState&#39;</span><span class="p">,</span> <span class="n">ClearAllAlarmsState</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">client</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">isError</span> <span class="o">=</span> <span class="kc">False</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">alarmsState</span> <span class="o">!=</span> <span class="s2">&#34;</span><span class="se">\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0</span><span class="s2">&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">rospy</span><span class="o">.</span><span class="n">loginfo</span><span class="p">(</span><span class="s2">&#34;检测到警报，自动进行清除&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="n">client2</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">            <span class="n">isError</span> <span class="o">=</span> <span class="kc">True</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">isError</span>
-</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="n">rospy</span><span class="o">.</span><span class="n">ServiceException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">rospy</span><span class="o">.</span><span class="n">logerr</span><span class="p">(</span><span class="s2">&#34;查询机械臂报警状态失败: </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="ros日志输出级别控制"><a href="#ros%e6%97%a5%e5%bf%97%e8%be%93%e5%87%ba%e7%ba%a7%e5%88%ab%e6%8e%a7%e5%88%b6" class="header-anchor"></a>ROS日志输出级别控制
-</h3><p>在上面我提到过，我对代码美观有洁癖，那程序输出也自然不能放过。这个项目里所有的输出我都使用<code>rospy.log</code>来输出，这就带来一个问题，有些输出我将其设为<code>DEBUG</code>级别，而ROS默认的日志级别为<code>INFO</code>，导致这些信息根本看不到。每次想看时手动将代码换为<code>INFO</code>再换回去，虽然可行，但不优雅。于是我研究了一下ROS的日志方面的文档，发现是有方法来实现日志输出级别的控制的。</p>
-<p>在终端运行<code>rqt_logger_level</code>，之后选择你的程序节点中的<code>rosout</code>，在后面修改就可以修改ROS日志输出的级别了。</p>
-<p><img src="/p/roslogistic/IMAGE/image-20220821191610870.png"
-	width="1384"
-	height="764"
-	srcset="/p/roslogistic/IMAGE/image-20220821191610870_hu_68ec254e6cd32b57.png 480w, /p/roslogistic/IMAGE/image-20220821191610870_hu_d24b2d98809e57c4.png 1024w"
-	loading="lazy"
-	
-		alt="修改日志输出级别"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="181"
-		data-flex-basis="434px"
-	
-></p>
-<p>时间有限，我就找到了这一个可行的方法，其余方法我测试后并没生效，如果有更好的方法欢迎在评论区留言。</p>
-<h2 id="一些小工具"><a href="#%e4%b8%80%e4%ba%9b%e5%b0%8f%e5%b7%a5%e5%85%b7" class="header-anchor"></a>一些小工具
-</h2><p>在写程序时，为了避免重复工作，还是做了一些小工具，本着“不要重复造轮子”的精神，在此一并开源了，希望能帮助到有需要的同学。</p>
-<h3 id="随机快递箱顺序生成"><a href="#%e9%9a%8f%e6%9c%ba%e5%bf%ab%e9%80%92%e7%ae%b1%e9%a1%ba%e5%ba%8f%e7%94%9f%e6%88%90" class="header-anchor"></a>随机快递箱顺序生成
-</h3><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># coding=utf-8</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">provinces</span> <span class="o">=</span> <span class="p">[]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;四川&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;安徽&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;湖南&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;广东&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;浙江&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;江苏&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;福建&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">provinces</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;河南&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">provinces</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">pro</span> <span class="ow">in</span> <span class="n">provinces</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">pro</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="eai资源点坐标格式转yaml格式"><a href="#eai%e8%b5%84%e6%ba%90%e7%82%b9%e5%9d%90%e6%a0%87%e6%a0%bc%e5%bc%8f%e8%bd%acyaml%e6%a0%bc%e5%bc%8f" class="header-anchor"></a>EAI资源点坐标格式转yaml格式
-</h3><p>将官方<code>QTEAIBotDemoPub(VER2)</code>这个程序创建的导航目标点转成yaml格式，方便人修改及程序调用</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># coding=utf-8</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">loacate</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;file loacate:&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">loacate</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">file_data</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">file_data</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">tmp_list</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">tmp_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s2">&#34;:&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">positions</span> <span class="o">=</span> <span class="n">tmp_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  x: &#34;</span><span class="o">+</span><span class="n">positions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  y: &#34;</span><span class="o">+</span><span class="n">positions</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">    <span class="n">orientations</span> <span class="o">=</span> <span class="n">tmp_list</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  z: &#34;</span><span class="o">+</span><span class="n">orientations</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;  w: &#34;</span><span class="o">+</span><span class="n">orientations</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="小结"><a href="#%e5%b0%8f%e7%bb%93" class="header-anchor"></a>小结
-</h2><p>这个项目到此也就完全结束了，回头看来，这个项目也是涉及了许多知识，诸如图像识别、自主定位等等，不过时间有限，基本都没怎么了解其中原理，只是调用了相关的接口，如果以后有空，可以继续研究研究😇。</p>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a class="link" href="https://guazhou.blog.csdn.net/article/details/119626113"  target="_blank" rel="noopener"
-    >第五天：了解越疆dobot机械臂，使用python，编写通过ros服务控制机械臂运动程序_瓜洲大大的博客-CSDN博客_dobot机械臂</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2">
-<p><a class="link" href="https://www.codenong.com/510357/"  target="_blank" rel="noopener"
-    >关于输入：Python从用户读取单个字符 | 码农家园</a>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-
-</section>
-
-
-    <footer class="article-footer">
-    
-    <section class="article-tags">
-        
-            <a href="/tags/ros/">ROS</a>
-        
-            <a href="/tags/python/">Python</a>
-        
-    </section>
-
-
-    
-    <section class="article-copyright">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
-</svg>
-
-
-
-        <span>Licensed under CC BY-NC-SA 4.0</span>
-    </section>
-    </footer>
-
-
-    
-        <link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"crossorigin="anonymous"
-            ><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"crossorigin="anonymous"
-                defer
-                >
-            </script><script>
-    window.addEventListener("DOMContentLoaded", () => {
-	const mainArticleElement = document.querySelector(".main-article");
-        renderMathInElement(mainArticleElement, {
-            delimiters: [
-                { left: "$$", right: "$$", display: true },
-                { left: "$", right: "$", display: false },
-                { left: "\\(", right: "\\)", display: false },
-                { left: "\\[", right: "\\]", display: true }
-            ],
-            ignoredClasses: ["gist"]
-        });})
-</script>
-
-    
-</article>
-
-    
-
-    
-
-     
-    
-        
-    <link href='//unpkg.com/@waline/client@v3/dist/waline.css' rel='stylesheet'/>
-<div id="waline" class="waline-container"></div>
-<style>
-    .waline-container {
-        background-color: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
-        padding: var(--card-padding);
-        --waline-font-size: var(--article-font-size);
-    }
-    .waline-container .wl-count {
-        color: var(--card-text-color-main);
-    }
-</style><script type="module">
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="比赛结束后我的一点碎碎念和总结"><title>我的智慧物流之旅</title>
+<link rel=canonical href=https://lbqaq.top/p/roslogistic/><link rel=stylesheet href=/scss/style.min.ae1eb7f887336befbb146467b4baee8138bb2b0004f1f7aa9fcf3b40efa7e299.css><meta property='og:title' content="我的智慧物流之旅"><meta property='og:description' content="比赛结束后我的一点碎碎念和总结"><meta property='og:url' content='https://lbqaq.top/p/roslogistic/'><meta property='og:site_name' content='luoboQAQ'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='ROS'><meta property='article:tag' content='Python'><meta property='article:published_time' content='2022-08-21T21:20:00+08:00'><meta property='article:modified_time' content='2022-08-21T21:20:00+08:00'><meta property='og:image' content='https://lbqaq.top/p/roslogistic/97096454.webp'><meta name=twitter:title content="我的智慧物流之旅"><meta name=twitter:description content="比赛结束后我的一点碎碎念和总结"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://lbqaq.top/p/roslogistic/97096454.webp'><script async defer data-website-id=5a23d952-27c7-4abd-b8f0-c69397b25b55 data-cache=true src=https://umami.lbqaq.top/bpnwxrgz.js></script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><style>:root{--sys-font-family:-apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;--code-font-family:"JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;--article-font-family:"LXGW WenKai", sans-serif;--base-font-family:"LXGW WenKai", var(--sys-font-family), sans-serif}</style></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/Mint_hu_90cbcbb19cfdb02a.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌞</span></figure><div class=site-meta><h1 class=site-name><a href=/>luoboQAQ</a></h1><h2 class=site-description>快乐学习每一天</h2></div></header><ol class=menu-social><li><a href=https://github.com/luoboQAQ target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://lbqaq.top/index.xml target=_blank title=RSS订阅 rel=me><svg class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li><li><a href=https://pan.lbqaq.top target=_blank title=我的个人云盘 rel=me><svg class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 18a4.6 4.4.0 010-9 5 4.5.0 0111 2h1a3.5 3.5.0 010 7H7"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文章</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>查询</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>友链</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#程序的大体思路和流程>程序的大体思路和流程</a><ol><li><a href=#建图>建图</a></li><li><a href=#导航>导航</a></li><li><a href=#图像识别>图像识别</a></li><li><a href=#机械臂抓取及投递>机械臂抓取及投递</a></li></ol></li><li><a href=#一些创新点>一些创新点</a><ol><li><a href=#键盘操控程序>键盘操控程序</a></li><li><a href=#摄像头分辨率提升及去畸变>摄像头分辨率提升及去畸变</a></li><li><a href=#后退距离判断>后退距离判断</a></li><li><a href=#由消息驱动程序逻辑>由消息驱动程序逻辑</a></li><li><a href=#分布式部署图像识别>分布式部署图像识别</a></li><li><a href=#机械臂异常自动检测和清除>机械臂异常自动检测和清除</a></li><li><a href=#ros日志输出级别控制>ROS日志输出级别控制</a></li></ol></li><li><a href=#一些小工具>一些小工具</a><ol><li><a href=#随机快递箱顺序生成>随机快递箱顺序生成</a></li><li><a href=#eai资源点坐标格式转yaml格式>EAI资源点坐标格式转yaml格式</a></li></ol></li><li><a href=#小结>小结</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/roslogistic/><img src=/p/roslogistic/97096454.webp width=2000 height=1099 loading=lazy alt="Featured image of post 我的智慧物流之旅"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/p/roslogistic/>我的智慧物流之旅</a></h2><h3 class=article-subtitle>比赛结束后我的一点碎碎念和总结</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2022-08-21</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 16 分钟</time></div></footer></div></header><section class=article-content><p>随着答辩的结束，智慧物流这个项目就算是彻底结束了。不出意外的话，这应该是我大学生涯的参加的最后一个比赛了。看了看git的记录，提交的代码超过了1k行，同时也花了不少的时间在上面。做了这么多东西，不留下点什么总觉得不好，想来想去，还是把比赛做的东西做个小结吧，也算是纪念我这不算丰富的比赛时光吧（雾）</p><p>这里非常感谢我们队长，比赛里许多关键的问题是他解决的，他的动手能力和善于提出创新性想法的能力，都是值得我去学习的。也感谢另一位队友，在赛前紧张的准备时间里独自一人分担了制作PPT的工作，并且能做出如此精美的PPT。（大佬带带我 _(:з)∠)_ ）</p><p>感想也就写这么多吧，下面主要介绍我们比赛时所做的一些工作和创新。</p><h2 id=程序的大体思路和流程><a href=#%e7%a8%8b%e5%ba%8f%e7%9a%84%e5%a4%a7%e4%bd%93%e6%80%9d%e8%b7%af%e5%92%8c%e6%b5%81%e7%a8%8b class=header-anchor></a>程序的大体思路和流程</h2><p>根据赛题要求，程序要实现下面几个功能：</p><ul><li>导航至邮件分拣台</li><li>运用视觉算法识别邮件</li><li>机械臂定位抓取邮件</li><li>机器人运送邮件投入正确的邮箱</li></ul><p>所以程序大致的步骤就是：建图->导航至分拣台->识别->抓取->导航至投递点->投递->导航至分拣台->&mldr;&mldr;</p><p>这里我就按上面的要求一部分一部分的讲了。</p><h3 id=建图><a href=#%e5%bb%ba%e5%9b%be class=header-anchor></a>建图</h3><p>建图算法是Gmapping算法，这是一种基于2D激光雷达通过使用RBPF粒子滤波方法所完成的二维栅格地图构建SLAM算法，它也是移动机器人中适用最多的算法。它对激光雷达频率要求相对较低，稳定性较高，且能够结合里程计、陀螺仪等进行定位与地图构建，构建小场景地图时速度快、计算量小，缺点就是非常依赖里程计，所以无法适应不平坦的地面，无法使用回环检测，在大场景、粒子多的情况下，特别消耗资源。</p><p>当然我们并没有去仔细研究这个算法，建图的话按照官方提供的教程来一步步做就好了。不得不吐槽的是我们的小车一开始后轮是偏高的，导致雷达会打到地面，预选赛建图的时候一直建不好，最终只能靠侧边的雷达才把图建好，当时以为车就是这样的，直到正赛时才知道是车的问题。所以这种硬件问题一定要及时和厂商联系，不然全是泪啊😭。</p><p><img src=/p/roslogistic/IMAGE/1.png width=518 height=369 srcset="/p/roslogistic/IMAGE/1_hu_d75e01417e1f0e11.png 480w, /p/roslogistic/IMAGE/1_hu_715429cf3309308b.png 1024w" loading=lazy alt=雷达打到地面 class=gallery-image data-flex-grow=140 data-flex-basis=336px></p><h3 id=导航><a href=#%e5%af%bc%e8%88%aa class=header-anchor></a>导航</h3><p>导航这里不是我们写，而是使用了官方提供的导航包。根据培训文档，这里主要采用了AMCL自适应蒙特卡罗算法，它是机器人在二维移动过程中的一种概率定位系统，通过它实现了自适应（或 kld 采样）的蒙特卡罗定位方法。由于采用粒子滤波器来跟踪已经知道的地图中机器人位姿，故对于大范围的局部定位问题工作良好。路径规划则是最短路径规划算法，例如采用Floyd算法、Dijkstra算法、Bellman-Ford算法等。</p><p>导航这里其实是有大坑的，我们最终比赛时就栽在这里了。我们发现小车运行时，激光雷达经常会发生错位，导致导航发生偏移。这种情况基本是出现在小车转向时，我们怀疑是轮子打滑，也调紧了后轮的弹簧，但也没有用。我们当时认为这就是小车本身的局限性，同时在小车运行时也会自动调整至正确位置，我们就没有特别重视这个问题。结果在正式比赛时导航就出现偏移，导致好几个包裹都错位抓取了，虽然最终都全部抓取上了，但浪费了很多时间，非常的可惜。所以有时间的话，一定要看看官方提供的导航定位算法，或者联系厂家看看雷达有无问题，不然程序没问题，却因为硬件问题而出错还是很难受的。( ‘-ωก̀ )</p><h3 id=图像识别><a href=#%e5%9b%be%e5%83%8f%e8%af%86%e5%88%ab class=header-anchor></a>图像识别</h3><p>图像识别这里我们是调用是百度的PaddleOCR模块，由于ROS里的Python是2版本的，我们采用的也是PaddleOCR里的develop分支而非最新版本。</p><p>我们一开始是打算自己训练PaddleOCR模型的，然而我尝试了一晚上，不是很清楚模型训练的方法，好不容易运行了一个公开的训练集，发现训练时间要一天多，同时还需要自己做训练集。考虑到时间的问题，最终还是选择采用官方的模型。当然，最主要的原因还是分布式图像识别提升了性能，这部分我在下面会提到，这里就先按下不表。</p><h3 id=机械臂抓取及投递><a href=#%e6%9c%ba%e6%a2%b0%e8%87%82%e6%8a%93%e5%8f%96%e5%8f%8a%e6%8a%95%e9%80%92 class=header-anchor></a>机械臂抓取及投递</h3><p>根据机械臂的官方文档，这里涉及的坐标系主要是两种，一种是关节坐标系，一直是笛卡尔坐标系。关节坐标系比较难以理解，我们还是采用比较直观的笛卡尔坐标系。</p><p>同样，机械臂的抓取也有3种不同模式：MOVJ、MOVL、JUMP。MOVJ模式相较于MOVL模式，速度快；MOVJ模式相较于JUMP模式，稳定性高，不易越界。<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup></p><p>综上，我们的机械臂控制都采用的是笛卡尔坐标系里的MOVEJ模式，这样能保证机械臂抓取时不会出现超出抓取范围的异常。</p><p>控制机械臂基本就只要用到下面这几个话题，还是比较容易的：</p><ul><li><code>DobotServer/SetPTPCmd</code>：移动机械臂到指定坐标</li><li><code>DobotServer/SetEndEffectorSuctionCup</code>：机械臂气泵控制</li><li><code>DobotServer/ClearAllAlarmsState</code>：清除机械臂警报</li></ul><p>投递就没什么好说的了，根据文字识别的结果进行投递，只要能抓取到，基本上不会出现投递错位的情况。这里会出现的问题主要还是导航不准，容易偏或者撞。解决办法只能是不停的测试找准坐标以及将导航目的位置远离投递点。</p><h2 id=一些创新点><a href=#%e4%b8%80%e4%ba%9b%e5%88%9b%e6%96%b0%e7%82%b9 class=header-anchor></a>一些创新点</h2><h3 id=键盘操控程序><a href=#%e9%94%ae%e7%9b%98%e6%93%8d%e6%8e%a7%e7%a8%8b%e5%ba%8f class=header-anchor></a>键盘操控程序</h3><p>在我们的程序中，主要是通过开启两个线程来实现程序的暂停和恢复，如果使用<code>input</code>函数进行键盘输入的接收，则会阻塞线程，同时在输入完成后还需要按下回车，不是很合适。官方是提供了一个键盘控制程序的样例，然而这个程序有个我认为很大的BUG，会导致程序的输出偏移。</p><p><img src=/p/roslogistic/IMAGE/2.png width=455 height=377 srcset="/p/roslogistic/IMAGE/2_hu_d49bd3eb1de8fa3c.png 480w, /p/roslogistic/IMAGE/2_hu_5fb85b9a253da4dc.png 1024w" loading=lazy alt=原来的程序，会导致输出偏移 class=gallery-image data-flex-grow=120 data-flex-basis=289px></p><p>作为一个对代码美观有洁癖的人，这怎么能忍，于是我开始了百度，下面是我找到的可以在Windows和Linux两种环境下实现类似C语言<code>getchar()</code>函数的代码。<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>getChar</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># figure out which function to use once, and store it in _func</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span><span class=s2>&#34;_func&#34;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>getChar</span><span class=o>.</span><span class=vm>__dict__</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># for Windows-based systems</span>
+</span></span><span class=line><span class=cl>            <span class=kn>import</span> <span class=nn>msvcrt</span> <span class=c1># If successful, we are on Windows</span>
+</span></span><span class=line><span class=cl>            <span class=n>getChar</span><span class=o>.</span><span class=n>_func</span><span class=o>=</span><span class=n>msvcrt</span><span class=o>.</span><span class=n>getch</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>except</span> <span class=ne>ImportError</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># for POSIX-based systems (with termios &amp; tty support)</span>
+</span></span><span class=line><span class=cl>            <span class=kn>import</span> <span class=nn>tty</span><span class=o>,</span> <span class=nn>sys</span><span class=o>,</span> <span class=nn>termios</span> <span class=c1># raises ImportError if unsupported</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=k>def</span> <span class=nf>_ttyRead</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>                <span class=n>fd</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>fileno</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>                <span class=n>oldSettings</span> <span class=o>=</span> <span class=n>termios</span><span class=o>.</span><span class=n>tcgetattr</span><span class=p>(</span><span class=n>fd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=n>tty</span><span class=o>.</span><span class=n>setcbreak</span><span class=p>(</span><span class=n>fd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                    <span class=n>answer</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>                <span class=k>finally</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                    <span class=n>termios</span><span class=o>.</span><span class=n>tcsetattr</span><span class=p>(</span><span class=n>fd</span><span class=p>,</span> <span class=n>termios</span><span class=o>.</span><span class=n>TCSADRAIN</span><span class=p>,</span> <span class=n>oldSettings</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=n>answer</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            <span class=n>getChar</span><span class=o>.</span><span class=n>_func</span><span class=o>=</span><span class=n>_ttyRead</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>getChar</span><span class=o>.</span><span class=n>_func</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>answer</span> <span class=o>=</span> <span class=n>getChar</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里和官方提供的程序主要不同就在是<code>tty.setcbreak(fd)</code>，但我不知道原理，不过既然能用，就算了😇。</p><p>上面的代码还包括在Windows环境下的情况，我们不需要如此复杂，稍作修改将其整合进我们的程序，就构成了一个多线程程序的模板。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=c1># coding=utf-8</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>rospy</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>threading</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>termios</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>tty</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>	<span class=s1>&#39;&#39;&#39;程序主要逻辑入口&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>getKey</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;&#39;&#39;获取输入的字符&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>fd</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>fileno</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>oldSettings</span> <span class=o>=</span> <span class=n>termios</span><span class=o>.</span><span class=n>tcgetattr</span><span class=p>(</span><span class=n>fd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>tty</span><span class=o>.</span><span class=n>setcbreak</span><span class=p>(</span><span class=n>fd</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>key</span> <span class=o>=</span> <span class=n>sys</span><span class=o>.</span><span class=n>stdin</span><span class=o>.</span><span class=n>read</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>finally</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>termios</span><span class=o>.</span><span class=n>tcsetattr</span><span class=p>(</span><span class=n>fd</span><span class=p>,</span> <span class=n>termios</span><span class=o>.</span><span class=n>TCSADRAIN</span><span class=p>,</span> <span class=n>oldSettings</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>key</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>initKeyListener</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;&#39;&#39;输入监听程序&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span><span class=p>(</span><span class=mi>1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>key</span> <span class=o>=</span> <span class=n>getKey</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>key</span> <span class=o>==</span> <span class=s1>&#39;k&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;退出程序&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>os</span><span class=o>.</span><span class=n>_exit</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>key</span> <span class=o>==</span> <span class=s1>&#39;a&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;恢复导航&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>key</span> <span class=o>==</span> <span class=s1>&#39;s&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s1>&#39;取消导航&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>key</span> <span class=o>==</span> <span class=s1>&#39;q&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s1>&#39;开始执行程序&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 给本程序初始化一个节点名称</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>init_node</span><span class=p>(</span><span class=s1>&#39;match_topic&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 开一个线程处理键盘监听</span>
+</span></span><span class=line><span class=cl>    <span class=n>key_thread</span> <span class=o>=</span> <span class=n>threading</span><span class=o>.</span><span class=n>Thread</span><span class=p>(</span><span class=n>target</span><span class=o>=</span><span class=n>initKeyListener</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>key_thread</span><span class=o>.</span><span class=n>start</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 开一个线程处理任务</span>
+</span></span><span class=line><span class=cl>    <span class=n>main_thread</span> <span class=o>=</span> <span class=n>threading</span><span class=o>.</span><span class=n>Thread</span><span class=p>(</span><span class=n>target</span><span class=o>=</span><span class=n>main</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>main_thread</span><span class=o>.</span><span class=n>start</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=摄像头分辨率提升及去畸变><a href=#%e6%91%84%e5%83%8f%e5%a4%b4%e5%88%86%e8%be%a8%e7%8e%87%e6%8f%90%e5%8d%87%e5%8f%8a%e5%8e%bb%e7%95%b8%e5%8f%98 class=header-anchor></a>摄像头分辨率提升及去畸变</h3><p>由于ROS默认从摄像头中获取的图像是640*480，且去畸变也是根据这个分辨率进行设置的，这会导致文字识别很容易识别不出文字。我们将小车上的摄像头接入电脑，发现是720P的，既然你能清晰，那为什么不用呢？于是，我们修改了相关的lanuch文件，将摄像头的分辨率提升到了720P，并使用我们自己打印的标定板进行标定。</p><p><img src=/p/roslogistic/IMAGE/image-20220818093226649.png width=558 height=316 srcset="/p/roslogistic/IMAGE/image-20220818093226649_hu_d379d2f996af66da.png 480w, /p/roslogistic/IMAGE/image-20220818093226649_hu_c67f435c99910963.png 1024w" loading=lazy alt=去畸变前 class=gallery-image data-flex-grow=176 data-flex-basis=423px> <img src=/p/roslogistic/IMAGE/image-20220818093236019.png width=558 height=316 srcset="/p/roslogistic/IMAGE/image-20220818093236019_hu_5a6d5dfab1d35079.png 480w, /p/roslogistic/IMAGE/image-20220818093236019_hu_2923aadb2a8cd1d.png 1024w" loading=lazy alt=去畸变后 class=gallery-image data-flex-grow=176 data-flex-basis=423px></p><p>下面介绍一下修改的方法</p><p>在<code>moveit_ws/src/moveit/probot_vision/launch</code>目录下，我们可以看到<code>usb_cam_in_hand.launch</code>文件。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl><span class=nt>&lt;launch&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;node</span> <span class=na>name=</span><span class=s>&#34;usb_cam&#34;</span> <span class=na>pkg=</span><span class=s>&#34;usb_cam&#34;</span> <span class=na>type=</span><span class=s>&#34;usb_cam_node&#34;</span> <span class=na>output=</span><span class=s>&#34;screen&#34;</span> <span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;video_device&#34;</span> <span class=na>value=</span><span class=s>&#34;/dev/video0&#34;</span> <span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;image_width&#34;</span> <span class=na>value=</span><span class=s>&#34;1280&#34;</span> <span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;image_height&#34;</span> <span class=na>value=</span><span class=s>&#34;720&#34;</span> <span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;pixel_format&#34;</span> <span class=na>value=</span><span class=s>&#34;yuyv&#34;</span> <span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;camera_frame_id&#34;</span> <span class=na>value=</span><span class=s>&#34;cameral_base&#34;</span> <span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;io_method&#34;</span> <span class=na>value=</span><span class=s>&#34;mmap&#34;</span><span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>   <span class=nt>&lt;param</span> <span class=na>name=</span><span class=s>&#34;camera_info_url&#34;</span> <span class=na>type=</span><span class=s>&#34;string&#34;</span> <span class=na>value=</span><span class=s>&#34;file://$(find probot_vision)/ost-720p.yaml&#34;</span> <span class=nt>/&gt;</span>
+</span></span><span class=line><span class=cl>   <span class=c>&lt;!--rosparam file=&#34;$(find probot_vision)/ost_4_new.yaml&#34; command=&#34;load&#34; /--&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;/node&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nt>&lt;/launch&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>对其的<code>image_width</code>和<code>image_height</code>进行修改，改为1280和720即可实现摄像头画质提升至720P。</p><p>对于手动标定，我们需要准备标定板，可以自己打印也可以上淘宝购买，就是像下面这样的黑白方格。</p><p><img src=/p/roslogistic/IMAGE/image-20220818094329331.png width=575 height=401 srcset="/p/roslogistic/IMAGE/image-20220818094329331_hu_32634841ac899023.png 480w, /p/roslogistic/IMAGE/image-20220818094329331_hu_967179dfef1a6d31.png 1024w" loading=lazy alt=标定板 class=gallery-image data-flex-grow=143 data-flex-basis=344px></p><p>然后在小车上启动标定程序（为什么不在自己电脑上启动呢，因为小车上已经帮你做好硬件端口绑定了，在自己电脑上还要再来一次）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1># 启动摄像头</span>
+</span></span><span class=line><span class=cl>roslaunch usb_cam usb_cam-test.launch
+</span></span><span class=line><span class=cl><span class=c1># 启动标定程序</span>
+</span></span><span class=line><span class=cl>rosrun camera_calibration cameracalibrator.py --size 8x6 --square 0.024 image:<span class=o>=</span>/usb_cam/image_raw camera:<span class=o>=</span>/usb_cam
+</span></span></code></pre></td></tr></table></div></div><p>这里要注意修改<code>size</code>参数，改成你标定板的黑白格中间交点的个数。
+<code>square</code>参数这里则是你标定板上方格的边长，单位是米。</p><p>启动完成以后就可以看到标定界面了，通过调整标定板的上下左右以及角度，让右边的进度条全变绿就算标定完成了。点击计算按钮得到数据，将保存的yml文件路径替换上面的<code>camera_info_url</code>。</p><p>仅仅是这样还不算是完成，我们还需要修改去畸变程序里的参数，将<code>moveit_ws/src/moveit/probot_vision/src/image_correct.cpp</code>里的相关参数按照yml文件的参数进行修改。（这里有疑似是自动读取的代码，但被注释了，我们也没测试能不能用）修改好后就可以执行编译了，我们在<code>moveit_ws</code>目录下执行<code>catkin_make --pkg probot_vision</code>，等待编译完成后这项工作就算完成了。</p><h3 id=后退距离判断><a href=#%e5%90%8e%e9%80%80%e8%b7%9d%e7%a6%bb%e5%88%a4%e6%96%ad class=header-anchor></a>后退距离判断</h3><p>由于小车的后面是没有雷达的，为了避免碰撞，我们编写了基于摄像头的后退距离判断。当小车到达分拣台前时，调用摄像头进行拍照，对其进行蓝色区域的识别，得到分拣台在图像中的像素位置，再利用公式进行转化，得到小车当前距离分拣台的距离，最后使用<code>check</code>话题控制小车后退至距离分拣台5cm左右的位置，既避免了碰撞，又最大化了抓取范围。</p><h3 id=由消息驱动程序逻辑><a href=#%e7%94%b1%e6%b6%88%e6%81%af%e9%a9%b1%e5%8a%a8%e7%a8%8b%e5%ba%8f%e9%80%bb%e8%be%91 class=header-anchor></a>由消息驱动程序逻辑</h3><p>在一开始，我们的程序是在函数里调用小车导航，并阻塞直到导航成功再继续执行。这样的程序有个问题，就是当小车出现错误时，无法立即停下小车并保存当前程序执行的进度。于是，我们便将程序修改为基于ROS消息来驱动。这样的好处是程序只有收到成功或者失败的消息后才会执行对应的逻辑，便于失败后状态的恢复。</p><p>想要实现相关的功能，首先是导航不能采用原来基于动作的模式了，而是改成基于消息的模式。我们在程序运行的一开始注册相关的话题发布者。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>initPublisher</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 微调发布器</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>checkPub</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 暂停导航发布器</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>pauseNav</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 目标点发布器</span>
+</span></span><span class=line><span class=cl>    <span class=k>global</span> <span class=n>goalPub</span>
+</span></span><span class=line><span class=cl>    <span class=n>goalPub</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>Publisher</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;move_base/goal&#39;</span><span class=p>,</span> <span class=n>MoveBaseActionGoal</span><span class=p>,</span> <span class=n>queue_size</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 目标点里面的goal_id的id与上一次的id不能相同</span>
+</span></span><span class=line><span class=cl>    <span class=n>checkPub</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>Publisher</span><span class=p>(</span><span class=s1>&#39;check&#39;</span><span class=p>,</span> <span class=n>String</span><span class=p>,</span> <span class=n>queue_size</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>pauseNav</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>Publisher</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;move_base/cancel&#39;</span><span class=p>,</span> <span class=n>GoalID</span><span class=p>,</span> <span class=n>queue_size</span><span class=o>=</span><span class=mi>1</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>同时，我们也需要注册相关话题的监听者以及对应的回调函数</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>initListener</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 订阅导航结果话题数据</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>Subscriber</span><span class=p>(</span><span class=s1>&#39;move_base/result&#39;</span><span class=p>,</span> <span class=n>MoveBaseActionResult</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                     <span class=n>navCallback</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 订阅（微调）走固定距离结果话题数据</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>Subscriber</span><span class=p>(</span><span class=s1>&#39;check_server/result&#39;</span><span class=p>,</span> <span class=n>check_msgActionResult</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                     <span class=n>checkCallback</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;初始化订阅话题成功&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>checkCallback</span><span class=p>(</span><span class=n>data</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;&#39;&#39;位置微移回调&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>data</span><span class=o>.</span><span class=n>result</span><span class=o>.</span><span class=n>issuccess</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;位置微调完成&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>navCallback</span><span class=p>(</span><span class=n>data</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;&#39;&#39;导航消息回调&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>PROVINCES</span> <span class=o>=</span> <span class=p>{</span><span class=s2>&#34;四川&#34;</span><span class=p>,</span> <span class=s2>&#34;安徽&#34;</span><span class=p>,</span> <span class=s2>&#34;湖南&#34;</span><span class=p>,</span> <span class=s2>&#34;广东&#34;</span><span class=p>,</span> <span class=s2>&#34;浙江&#34;</span><span class=p>,</span> <span class=s2>&#34;江苏&#34;</span><span class=p>,</span> <span class=s2>&#34;福建&#34;</span><span class=p>,</span> <span class=s2>&#34;河南&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>data</span><span class=o>.</span><span class=n>status</span><span class=o>.</span><span class=n>status</span> <span class=o>==</span> <span class=mi>3</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;导航到达指定地点&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>goal_name</span> <span class=o>=</span> <span class=n>data</span><span class=o>.</span><span class=n>status</span><span class=o>.</span><span class=n>goal_id</span><span class=o>.</span><span class=n>id</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;_&#39;</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>goal_name</span><span class=p>[:</span><span class=mi>9</span><span class=p>]</span> <span class=o>==</span> <span class=s2>&#34;分拣台&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 到达分拣台前</span>
+</span></span><span class=line><span class=cl>	    <span class=k>pass</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>goal_name</span><span class=p>[:</span><span class=mi>6</span><span class=p>]</span> <span class=ow>in</span> <span class=n>PROVINCES</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=c1># 到达投递点</span>
+</span></span><span class=line><span class=cl>	    <span class=k>pass</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>rospy</span><span class=o>.</span><span class=n>logwarn</span><span class=p>(</span><span class=s2>&#34;未知的节点:</span><span class=si>{}</span><span class=s2>&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=n>status</span><span class=o>.</span><span class=n>goal_id</span><span class=o>.</span><span class=n>id</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>elif</span> <span class=n>data</span><span class=o>.</span><span class=n>status</span><span class=o>.</span><span class=n>status</span> <span class=o>==</span> <span class=mi>4</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>rospy</span><span class=o>.</span><span class=n>logwarn</span><span class=p>(</span><span class=s2>&#34;导航失败,当前id为:</span><span class=si>{}</span><span class=s2>&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=n>status</span><span class=o>.</span><span class=n>goal_id</span><span class=o>.</span><span class=n>id</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>rospy</span><span class=o>.</span><span class=n>logwarn</span><span class=p>(</span><span class=s2>&#34;导航被取消:</span><span class=si>{}</span><span class=s2>&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>data</span><span class=o>.</span><span class=n>status</span><span class=o>.</span><span class=n>status</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><p>在导航消息回调中，我们使用<code>goal_id.id</code>来进行目标地点的传递，其构造模式为<code>targetName +'_' + str(time.time())[-9:-3]</code>。这样既有目标地点信息，也避免了id重复。这里一个汉字占3位，所以看到上面的<code>[:6]</code>的写法也就代表前2个字。</p><h3 id=分布式部署图像识别><a href=#%e5%88%86%e5%b8%83%e5%bc%8f%e9%83%a8%e7%bd%b2%e5%9b%be%e5%83%8f%e8%af%86%e5%88%ab class=header-anchor></a>分布式部署图像识别</h3><p>对于图像识别，我们一开始是放在小车上进行的，结果发现在小车上识别速度并不是很快，平均每张图片需要5~6秒的时间才能完成。</p><p><img src=/p/roslogistic/IMAGE/image-20220818142138849.png width=1182 height=280 srcset="/p/roslogistic/IMAGE/image-20220818142138849_hu_a4ce1d0b8b6f2860.png 480w, /p/roslogistic/IMAGE/image-20220818142138849_hu_c4943938c51beaa2.png 1024w" loading=lazy alt=小车上的文字识别 class=gallery-image data-flex-grow=422 data-flex-basis=1013px></p><p>检查小车的CPU发现，这性能还是不要指望其来跑图像识别算法了，还是采用在自己的电脑上跑图像识别，将结果返回给小车吧。</p><p><img src=/p/roslogistic/IMAGE/image-20220818142219779.png width=785 height=395 srcset="/p/roslogistic/IMAGE/image-20220818142219779_hu_9add53141196d069.png 480w, /p/roslogistic/IMAGE/image-20220818142219779_hu_76f915ef059f3b56.png 1024w" loading=lazy alt=小车CPU class=gallery-image data-flex-grow=198 data-flex-basis=476px></p><p>想要实现这样的功能，就需要在电脑里装好ROS环境，我们是直接使用虚拟机，里面已经配置好相关的环境了。</p><p>在<code>~/.bashrc</code>里增加<code>export ROS_MASTER_URI=http://192.168.31.200:11311</code>，让虚拟机使用小车作为服务端。之后就是编写程序注册服务，供主程序调用了，为了方便调用，我们自己编写了相应的数据结构。</p><p>我们注册了<code>Province.msg</code>，存放识别到的快递盒上所需的数据。<code>name</code>代表省份名称，<code>x</code>和<code>y</code>分别是相对偏移量。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>string name
+</span></span><span class=line><span class=cl>float32 x
+</span></span><span class=line><span class=cl>float32 y
+</span></span></code></pre></td></tr></table></div></div><p>然后注册了<code>ProvinceList.srv</code>，作为我们服务的消息。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-plain data-lang=plain><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>Province[] provinces
+</span></span></code></pre></td></tr></table></div></div><p>由于使用了自定义消息类型，要注意修改<code>CMakeLists.txt</code>，将相应的文件添加进去，并注意引入<code>message_generation</code>，否则不会生成供Python调用的消息类。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cmake data-lang=cmake><span class=line><span class=cl><span class=nb>cmake_minimum_required</span><span class=p>(</span><span class=s>VERSION</span> <span class=s>3.0.2</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>project</span><span class=p>(</span><span class=s>imgocr</span><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## Compile as C++11, supported in ROS Kinetic and newer
+</span></span></span><span class=line><span class=cl><span class=c># add_compile_options(-std=c++11)
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## Find catkin macros and libraries
+</span></span></span><span class=line><span class=cl><span class=c>## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+</span></span></span><span class=line><span class=cl><span class=c>## is used, also find other catkin packages
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>find_package</span><span class=p>(</span><span class=s>catkin</span> <span class=s>REQUIRED</span> <span class=s>COMPONENTS</span>
+</span></span><span class=line><span class=cl>  <span class=s>rospy</span>
+</span></span><span class=line><span class=cl>  <span class=s>std_msgs</span>
+</span></span><span class=line><span class=cl>  <span class=s>sensor_msgs</span>
+</span></span><span class=line><span class=cl>  <span class=s>message_generation</span>
+</span></span><span class=line><span class=cl><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## System dependencies are found with CMake&#39;s conventions
+</span></span></span><span class=line><span class=cl><span class=c># find_package(Boost REQUIRED COMPONENTS system)
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## Uncomment this if the package has a setup.py. This macro ensures
+</span></span></span><span class=line><span class=cl><span class=c>## modules and global scripts declared therein get installed
+</span></span></span><span class=line><span class=cl><span class=c>## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+</span></span></span><span class=line><span class=cl><span class=c># catkin_python_setup()
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## Generate messages in the &#39;msg&#39; folder
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>add_message_files</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>   <span class=s>FILES</span>
+</span></span><span class=line><span class=cl>   <span class=s>Province.msg</span>
+</span></span><span class=line><span class=cl> <span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## Generate services in the &#39;srv&#39; folder
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>add_service_files</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>   <span class=s>FILES</span>
+</span></span><span class=line><span class=cl>   <span class=s>ProvinceList.srv</span>
+</span></span><span class=line><span class=cl> <span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=c>## Generate added messages and services with any dependencies listed here
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nb>generate_messages</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>   <span class=s>DEPENDENCIES</span>
+</span></span><span class=line><span class=cl>   <span class=s>std_msgs</span>
+</span></span><span class=line><span class=cl>   <span class=s>sensor_msgs</span>
+</span></span><span class=line><span class=cl> <span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span> <span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>catkin_package</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>  <span class=s>CATKIN_DEPENDS</span> <span class=s>rospy</span> <span class=s>std_msgs</span> <span class=s>message_runtime</span>
+</span></span><span class=line><span class=cl><span class=p>)</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=nb>include_directories</span><span class=p>(</span>
+</span></span><span class=line><span class=cl><span class=c># include
+</span></span></span><span class=line><span class=cl><span class=c></span>  <span class=o>${</span><span class=nv>catkin_INCLUDE_DIRS</span><span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=p>)</span><span class=err>
+</span></span></span></code></pre></td></tr></table></div></div><p>同样，在<code>package.xml</code>里也要添加<code>message_generation</code>等依赖</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-xml data-lang=xml><span class=line><span class=cl><span class=cp>&lt;?xml version=&#34;1.0&#34;?&gt;</span>
+</span></span><span class=line><span class=cl><span class=nt>&lt;package</span> <span class=na>format=</span><span class=s>&#34;2&#34;</span><span class=nt>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;name&gt;</span>imgocr<span class=nt>&lt;/name&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;version&gt;</span>0.0.0<span class=nt>&lt;/version&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;description&gt;</span>The imgocr package<span class=nt>&lt;/description&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;maintainer</span> <span class=na>email=</span><span class=s>&#34;eaibot@todo.todo&#34;</span><span class=nt>&gt;</span>eaibot<span class=nt>&lt;/maintainer&gt;</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;license&gt;</span>TODO<span class=nt>&lt;/license&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;buildtool_depend&gt;</span>catkin<span class=nt>&lt;/buildtool_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;build_depend&gt;</span>rospy<span class=nt>&lt;/build_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;build_depend&gt;</span>std_msgs<span class=nt>&lt;/build_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;build_depend&gt;</span>message_generation<span class=nt>&lt;/build_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;build_export_depend&gt;</span>rospy<span class=nt>&lt;/build_export_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;build_export_depend&gt;</span>std_msgs<span class=nt>&lt;/build_export_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;exec_depend&gt;</span>rospy<span class=nt>&lt;/exec_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;exec_depend&gt;</span>std_msgs<span class=nt>&lt;/exec_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;exec_depend&gt;</span>message_runtime<span class=nt>&lt;/exec_depend&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;export&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=nt>&lt;/export&gt;</span>
+</span></span><span class=line><span class=cl><span class=nt>&lt;/package&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>这样，就可以完成一个文字识别节点了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=c1># encoding: utf-8</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>imp</span> <span class=kn>import</span> <span class=n>reload</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>rospy</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>cv2</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>imgocr.srv</span> <span class=kn>import</span> <span class=n>ProvinceList</span><span class=p>,</span> <span class=n>ProvinceListResponse</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>imgocr.msg</span> <span class=kn>import</span> <span class=n>Province</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>sensor_msgs.msg</span> <span class=kn>import</span> <span class=n>CompressedImage</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>cv_bridge</span> <span class=kn>import</span> <span class=n>CvBridge</span><span class=p>,</span> <span class=n>CvBridgeError</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 支持中文</span>
+</span></span><span class=line><span class=cl><span class=n>reload</span><span class=p>(</span><span class=n>sys</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>sys</span><span class=o>.</span><span class=n>setdefaultencoding</span><span class=p>(</span><span class=s2>&#34;utf8&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>getImage</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;&#39;&#39;获取摄像头的图片&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>data</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>wait_for_message</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>        <span class=s1>&#39;/usb_cam/image_correct/compressed&#39;</span><span class=p>,</span> <span class=n>CompressedImage</span><span class=p>,</span> <span class=n>timeout</span><span class=o>=</span><span class=mf>15.0</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>cv_image</span> <span class=o>=</span> <span class=n>CvBridge</span><span class=p>()</span><span class=o>.</span><span class=n>compressed_imgmsg_to_cv2</span><span class=p>(</span><span class=n>data</span><span class=p>,</span> <span class=s2>&#34;bgr8&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=n>CvBridgeError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>rospy</span><span class=o>.</span><span class=n>logerr</span><span class=p>(</span><span class=n>e</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>cv_image</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>rotate</span><span class=p>(</span><span class=n>cv_image</span><span class=p>,</span> <span class=n>cv2</span><span class=o>.</span><span class=n>ROTATE_180</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>cv_image</span> <span class=o>=</span> <span class=n>cv2</span><span class=o>.</span><span class=n>flip</span><span class=p>(</span><span class=n>cv_image</span><span class=p>,</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>cv_image</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>doReq</span><span class=p>(</span><span class=n>req</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;开始执行文字识别&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>start_time</span> <span class=o>=</span> <span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>img</span> <span class=o>=</span> <span class=n>getImage</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=k>pass</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;识别用时：</span><span class=si>{}</span><span class=s2>&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>time</span><span class=o>.</span><span class=n>time</span><span class=p>()</span><span class=o>-</span><span class=n>start_time</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>resp</span> <span class=o>=</span> <span class=n>ProvinceListResponse</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>pro</span> <span class=ow>in</span> <span class=n>ans</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>a</span> <span class=o>=</span> <span class=n>Province</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>a</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>pro</span><span class=p>[</span><span class=s2>&#34;province&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>a</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=n>pro</span><span class=p>[</span><span class=s2>&#34;x&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>a</span><span class=o>.</span><span class=n>y</span> <span class=o>=</span> <span class=n>pro</span><span class=p>[</span><span class=s2>&#34;y&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>resp</span><span class=o>.</span><span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>a</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>resp</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>main</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>init_node</span><span class=p>(</span><span class=s2>&#34;imgocr&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>server</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>Service</span><span class=p>(</span><span class=s2>&#34;imgocr/getProvince&#34;</span><span class=p>,</span> <span class=n>ProvinceList</span><span class=p>,</span> <span class=n>doReq</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;节点初始化完成&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>spin</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>main</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里我们一开始获取摄像头的图片是采用<code>/usb_cam/image_correct</code>这个话题，但这个话题得到的图片是未压缩的，使用<code>rostopic bw /usb_cam/image_correct</code>可以看出大小差不多是好几M，这就会导致获取图像的时长远超文字识别时长，甚至是无法获取到图片。我们根据探索，发现<code>/usb_cam/image_correct/compressed</code>话题提供的是压缩后的图片，使用后获取图像的时长大大减小。</p><p>使用分布式图像识别后，识别时长基本控制在2S内。</p><p>由于我们是使用虚拟机，无法调用真机的显卡，如果有机会的话，可以尝试在真机上装相应的环境，使用GPU来进行图像识别，速度应该会更进一步。</p><h3 id=机械臂异常自动检测和清除><a href=#%e6%9c%ba%e6%a2%b0%e8%87%82%e5%bc%82%e5%b8%b8%e8%87%aa%e5%8a%a8%e6%a3%80%e6%b5%8b%e5%92%8c%e6%b8%85%e9%99%a4 class=header-anchor></a>机械臂异常自动检测和清除</h3><p>在上面一小节中，我们获取到省份的坐标就可以送至机械臂进行抓取了。但是，机械臂的抓取范围是有限的，一旦超出抓取范围机械臂就会停止执行直至执行清除警报。一种思路是我们首先是在一个固定的定去识别邮件，首先记录这个点的高度，然后我们需要降到桌面去吸取邮件，这是第二个高度，我们只需要测定这两个高度Z的前提下，Y的移动范围就可以了。<sup id=fnref1:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup></p><p>这种思路确实可行，但如果后期更换了机械臂高度，又要手动测量，十分麻烦。于是，我想了另一个思路，通过查询API文档，我找到了警报检测的API，那就好说了。在执行可能越界的指令后接上异常检测，如果异常就自动清除，这样就能自动化的判断了。</p><p>话不多说，直接上代码：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=c1># coding=utf-8</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>rospy</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>dobot.srv</span> <span class=kn>import</span> <span class=n>GetAlarmsState</span><span class=p>,</span> <span class=n>ClearAllAlarmsState</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>getAlarmsState</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>    <span class=s1>&#39;&#39;&#39;
+</span></span></span><span class=line><span class=cl><span class=s1>    查询机械臂报警状态，并自动进行清除
+</span></span></span><span class=line><span class=cl><span class=s1>    return 是否存在报警
+</span></span></span><span class=line><span class=cl><span class=s1>    &#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>wait_for_service</span><span class=p>(</span><span class=s1>&#39;DobotServer/GetAlarmsState&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>rospy</span><span class=o>.</span><span class=n>wait_for_service</span><span class=p>(</span><span class=s1>&#39;DobotServer/ClearAllAlarmsState&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>client</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>ServiceProxy</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s1>&#39;DobotServer/GetAlarmsState&#39;</span><span class=p>,</span> <span class=n>GetAlarmsState</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>client2</span> <span class=o>=</span> <span class=n>rospy</span><span class=o>.</span><span class=n>ServiceProxy</span><span class=p>(</span>
+</span></span><span class=line><span class=cl>            <span class=s1>&#39;DobotServer/ClearAllAlarmsState&#39;</span><span class=p>,</span> <span class=n>ClearAllAlarmsState</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>a</span> <span class=o>=</span> <span class=n>client</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=n>isError</span> <span class=o>=</span> <span class=kc>False</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>a</span><span class=o>.</span><span class=n>alarmsState</span> <span class=o>!=</span> <span class=s2>&#34;</span><span class=se>\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0</span><span class=s2>&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>rospy</span><span class=o>.</span><span class=n>loginfo</span><span class=p>(</span><span class=s2>&#34;检测到警报，自动进行清除&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=n>client2</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>            <span class=n>isError</span> <span class=o>=</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>isError</span>
+</span></span><span class=line><span class=cl>    <span class=k>except</span> <span class=n>rospy</span><span class=o>.</span><span class=n>ServiceException</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>rospy</span><span class=o>.</span><span class=n>logerr</span><span class=p>(</span><span class=s2>&#34;查询机械臂报警状态失败: </span><span class=si>%s</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>e</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=ros日志输出级别控制><a href=#ros%e6%97%a5%e5%bf%97%e8%be%93%e5%87%ba%e7%ba%a7%e5%88%ab%e6%8e%a7%e5%88%b6 class=header-anchor></a>ROS日志输出级别控制</h3><p>在上面我提到过，我对代码美观有洁癖，那程序输出也自然不能放过。这个项目里所有的输出我都使用<code>rospy.log</code>来输出，这就带来一个问题，有些输出我将其设为<code>DEBUG</code>级别，而ROS默认的日志级别为<code>INFO</code>，导致这些信息根本看不到。每次想看时手动将代码换为<code>INFO</code>再换回去，虽然可行，但不优雅。于是我研究了一下ROS的日志方面的文档，发现是有方法来实现日志输出级别的控制的。</p><p>在终端运行<code>rqt_logger_level</code>，之后选择你的程序节点中的<code>rosout</code>，在后面修改就可以修改ROS日志输出的级别了。</p><p><img src=/p/roslogistic/IMAGE/image-20220821191610870.png width=1384 height=764 srcset="/p/roslogistic/IMAGE/image-20220821191610870_hu_68ec254e6cd32b57.png 480w, /p/roslogistic/IMAGE/image-20220821191610870_hu_d24b2d98809e57c4.png 1024w" loading=lazy alt=修改日志输出级别 class=gallery-image data-flex-grow=181 data-flex-basis=434px></p><p>时间有限，我就找到了这一个可行的方法，其余方法我测试后并没生效，如果有更好的方法欢迎在评论区留言。</p><h2 id=一些小工具><a href=#%e4%b8%80%e4%ba%9b%e5%b0%8f%e5%b7%a5%e5%85%b7 class=header-anchor></a>一些小工具</h2><p>在写程序时，为了避免重复工作，还是做了一些小工具，本着“不要重复造轮子”的精神，在此一并开源了，希望能帮助到有需要的同学。</p><h3 id=随机快递箱顺序生成><a href=#%e9%9a%8f%e6%9c%ba%e5%bf%ab%e9%80%92%e7%ae%b1%e9%a1%ba%e5%ba%8f%e7%94%9f%e6%88%90 class=header-anchor></a>随机快递箱顺序生成</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=c1># coding=utf-8</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>random</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>provinces</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;四川&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;安徽&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;湖南&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;广东&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;浙江&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;江苏&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;福建&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>provinces</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=s1>&#39;河南&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>random</span><span class=o>.</span><span class=n>shuffle</span><span class=p>(</span><span class=n>provinces</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>pro</span> <span class=ow>in</span> <span class=n>provinces</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>pro</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=eai资源点坐标格式转yaml格式><a href=#eai%e8%b5%84%e6%ba%90%e7%82%b9%e5%9d%90%e6%a0%87%e6%a0%bc%e5%bc%8f%e8%bd%acyaml%e6%a0%bc%e5%bc%8f class=header-anchor></a>EAI资源点坐标格式转yaml格式</h3><p>将官方<code>QTEAIBotDemoPub(VER2)</code>这个程序创建的导航目标点转成yaml格式，方便人修改及程序调用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=ch>#!/usr/bin/env python</span>
+</span></span><span class=line><span class=cl><span class=c1># coding=utf-8</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>loacate</span> <span class=o>=</span> <span class=nb>input</span><span class=p>(</span><span class=s2>&#34;file loacate:&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>file</span> <span class=o>=</span> <span class=nb>open</span><span class=p>(</span><span class=n>loacate</span><span class=p>,</span> <span class=s2>&#34;r&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>file_data</span> <span class=o>=</span> <span class=n>file</span><span class=o>.</span><span class=n>readlines</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>row</span> <span class=ow>in</span> <span class=n>file_data</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>tmp_list</span> <span class=o>=</span> <span class=n>row</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;,&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>tmp_list</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>+</span><span class=s2>&#34;:&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>positions</span> <span class=o>=</span> <span class=n>tmp_list</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;#&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;  x: &#34;</span><span class=o>+</span><span class=n>positions</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;  y: &#34;</span><span class=o>+</span><span class=n>positions</span><span class=p>[</span><span class=mi>1</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=n>orientations</span> <span class=o>=</span> <span class=n>tmp_list</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s1>&#39;#&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;  z: &#34;</span><span class=o>+</span><span class=n>orientations</span><span class=p>[</span><span class=mi>2</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;  w: &#34;</span><span class=o>+</span><span class=n>orientations</span><span class=p>[</span><span class=mi>3</span><span class=p>])</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=小结><a href=#%e5%b0%8f%e7%bb%93 class=header-anchor></a>小结</h2><p>这个项目到此也就完全结束了，回头看来，这个项目也是涉及了许多知识，诸如图像识别、自主定位等等，不过时间有限，基本都没怎么了解其中原理，只是调用了相关的接口，如果以后有空，可以继续研究研究😇。</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p><a class=link href=https://guazhou.blog.csdn.net/article/details/119626113 target=_blank rel=noopener>第五天：了解越疆dobot机械臂，使用python，编写通过ros服务控制机械臂运动程序_瓜洲大大的博客-CSDN博客_dobot机械臂</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a>&#160;<a href=#fnref1:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p><a class=link href=https://www.codenong.com/510357/ target=_blank rel=noopener>关于输入：Python从用户读取单个字符 | 码农家园</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></section><footer class=article-footer><section class=article-tags><a href=/tags/ros/>ROS</a>
+<a href=/tags/python/>Python</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><link href=//unpkg.com/@waline/client@v3/dist/waline.css rel=stylesheet><div id=waline class=waline-container></div><style>.waline-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding);--waline-font-size:var(--article-font-size)}.waline-container .wl-count{color:var(--card-text-color-main)}</style><script type=module>
     import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
     setTimeout(function () {
@@ -1482,132 +708,11 @@
     }, 300);
 
 
-</script>
-
-    
-
-    <footer class="site-footer">
-    <section class="copyright">
-        &copy; 
-        
-            2020 - 
-        
-        2025 luoboQAQ
-    </section>
-    
-    <section class="powerby">
-        
-            <a href="https://umami.lbqaq.top/share/gbMqUqkF/Blog">访问统计</a><br/><a href="https://beian.miit.gov.cn">苏ICP备2021037116号</a> <br/>
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
-    </section>
-</footer>
-
-
-    
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    
-    <div class="pswp__bg"></div>
-
-    
-    <div class="pswp__scroll-wrap">
-
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
-
-            </main>
-        </div>
-        <script 
-                src="https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js"crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
-<script>
-    (function () {
-        const customFont = document.createElement('link');
-        customFont.href = "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap";
-
-        customFont.type = "text/css";
-        customFont.rel = "stylesheet";
-
-        document.head.appendChild(customFont);
-
-        const customFont2 = document.createElement('link');
-        customFont2.href = "https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css";
-
-        customFont2.type = "text/css";
-        customFont2.rel = "stylesheet";
-
-        document.head.appendChild(customFont2);        
-    }());
-</script>
-
-    </body>
-</html>
+</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 luoboQAQ</section><section class=powerby><a href=https://umami.lbqaq.top/share/gbMqUqkF/Blog>访问统计</a><br><a href=https://beian.miit.gov.cn>苏ICP备2021037116号</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e);const t=document.createElement("link");t.href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css",t.type="text/css",t.rel="stylesheet",document.head.appendChild(t)})()</script></body></html>

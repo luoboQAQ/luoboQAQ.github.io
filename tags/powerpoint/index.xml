@@ -1,148 +1,101 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>PowerPoint on luoboQAQ</title>
-        <link>https://lbqaq.top/tags/powerpoint/</link>
-        <description>Recent content in PowerPoint on luoboQAQ</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Sat, 31 Dec 2022 15:25:22 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/powerpoint/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>在PowerPoint里优雅的插入LaTeX公式</title>
-        <link>https://lbqaq.top/p/latex-in-ppt/</link>
-        <pubDate>Sat, 31 Dec 2022 15:25:22 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/latex-in-ppt/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/latex-in-ppt/102317894.webp" alt="Featured image of post 在PowerPoint里优雅的插入LaTeX公式" /&gt;&lt;p&gt;最近，需要我在PPT中插入公式的次数越来越多了。最传统的办法自然是将公式生成好后直接进行截图插入，但这种方式还是不够优雅，如果需要调节大小也十分的麻烦，于是我便通过检索找到了两种插入公式的方法，在此做一个记录。&lt;/p&gt;
-&lt;h2 id=&#34;使用原生的公式功能&#34;&gt;&lt;a href=&#34;#%e4%bd%bf%e7%94%a8%e5%8e%9f%e7%94%9f%e7%9a%84%e5%85%ac%e5%bc%8f%e5%8a%9f%e8%83%bd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;使用原生的公式功能
-&lt;/h2&gt;&lt;p&gt;2202年了，如果说PowerPoint本身不支持LaTeX公式那就大错特错了。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;将LaTeX代码插入到文本框中&lt;/li&gt;
-&lt;li&gt;选中刚刚输入的代码，依次点击功能区上的“插入”——“公式”——“专用”&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477.png&#34;
-	width=&#34;1373&#34;
-	height=&#34;143&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu_a8630a60dddc51c.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu_15e7424d8501a860.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;公式按钮&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;960&#34;
-		data-flex-basis=&#34;2304px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636.png&#34;
-	width=&#34;725&#34;
-	height=&#34;220&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu_53bb70b7107712a5.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu_fbc5da826dd19075.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;专用按钮及显示效果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;329&#34;
-		data-flex-basis=&#34;790px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;只需要简单两步即可转换完成。然而，这种方法却存在很大的问题，就是支持的公式太少了，一些简单的公式还可以成功转换，但如果是公式块或者用了一些宏包，就会导致转换不出来。&lt;/p&gt;
-&lt;p&gt;这种方式的优点就是无需额外配置，以及可以与文字放在一起，方便排版。但如果你的公式比较复杂，那我还是推荐下面的方法。&lt;/p&gt;
-&lt;h2 id=&#34;使用iguanatex插件&#34;&gt;&lt;a href=&#34;#%e4%bd%bf%e7%94%a8iguanatex%e6%8f%92%e4%bb%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;使用IguanaTex插件
-&lt;/h2&gt;&lt;p&gt;要说对LaTeX支持最好的，那肯定就是使用你电脑上安装好的发行版进行生成，IguanaTex插件就是基于这种方式实现的。&lt;/p&gt;
-&lt;p&gt;所以想要使用IguanaTex，你必须要准备好一个LaTeX发行版，我这里推荐&lt;a class=&#34;link&#34; href=&#34;https://miktex.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;MiKTeX&lt;/a&gt;，它不会安装完整的宏包而是在你需要的时候进行安装，避免占用过大的空间，具体的安装方法这里就不展开了。&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;在&lt;a class=&#34;link&#34; href=&#34;https://www.jonathanleroux.org/software/iguanatex/download.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;官网&lt;/a&gt;上下载最新版本，下载后缀名为&lt;code&gt;ppam&lt;/code&gt;的文件放入&lt;code&gt;C:\Users\%APPDATA%\Microsoft\AddIns&lt;/code&gt;目录中&lt;/li&gt;
-&lt;li&gt;打开PPT，依此选择： &lt;strong&gt;文件&lt;/strong&gt;-&amp;gt;&lt;strong&gt;选项&lt;/strong&gt;-&amp;gt;&lt;strong&gt;加载项&lt;/strong&gt;-&amp;gt;&lt;strong&gt;管理&lt;/strong&gt;（下拉框中选择：&lt;strong&gt;PowerPoint加载项&lt;/strong&gt;）-&amp;gt;&lt;strong&gt;转到&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293.png&#34;
-	width=&#34;836&#34;
-	height=&#34;717&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu_ff5696e038a7072e.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu_a47b5ef64b720b7.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;加载项选择&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;116&#34;
-		data-flex-basis=&#34;279px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;在弹出的对话框中选择： &lt;strong&gt;添加&lt;/strong&gt;-&amp;gt;选择刚下载的插件文件&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275.png&#34;
-	width=&#34;384&#34;
-	height=&#34;372&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu_40654cc81b32f730.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu_401c9fac4f9fd4bf.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;加载项&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;103&#34;
-		data-flex-basis=&#34;247px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;此时功能区上面就已经有了IguanaTex，点击第一个&lt;code&gt;New LaTeX display&lt;/code&gt;就可以插入公式了。我们现在可以点击&lt;code&gt;Main Settings&lt;/code&gt;来进行修改相关设置。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417.png&#34;
-	width=&#34;703&#34;
-	height=&#34;139&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hu_b9cb2fec662c6715.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hu_1593e3141ed62626.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;设置&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;505&#34;
-		data-flex-basis=&#34;1213px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ol start=&#34;5&#34;&gt;
-&lt;li&gt;我们在这里可以进行修改临时文件位置以及图片生成的方式&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982.png&#34;
-	width=&#34;411&#34;
-	height=&#34;563&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu_2bd21c99638a8f74.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu_6e4cb0d4e1be723.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;设置&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;73&#34;
-		data-flex-basis=&#34;175px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;我推荐将&lt;code&gt;Output&lt;/code&gt;修改成&lt;code&gt;Vector&lt;/code&gt;，这样生成的公式就是矢量形状，即使放大也不会变形。&lt;/p&gt;
-&lt;p&gt;下面就是生成的公式，可以看出每个字母都是图形。同时公式也可以使用该插件进行修改，还是比较方便的。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191.png&#34;
-	width=&#34;464&#34;
-	height=&#34;151&#34;
-	srcset=&#34;https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu_8144fbd88f9d5e2a.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu_26035ed28739eae2.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;生成公式&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;307&#34;
-		data-flex-basis=&#34;737px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;综上，个人推荐还是使用第二种方式，唯一麻烦的地方就是你需要自备LaTeX环境。&lt;/p&gt;
-&lt;p&gt;&lt;del&gt;最近的文章真的是越来越水了QAQ&lt;/del&gt;&lt;/p&gt;
-</description>
-        </item>
-        
-    </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>PowerPoint on luoboQAQ</title><link>https://lbqaq.top/tags/powerpoint/</link><description>Recent content in PowerPoint on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 31 Dec 2022 15:25:22 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/powerpoint/index.xml" rel="self" type="application/rss+xml"/><item><title>在PowerPoint里优雅的插入LaTeX公式</title><link>https://lbqaq.top/p/latex-in-ppt/</link><pubDate>Sat, 31 Dec 2022 15:25:22 +0800</pubDate><guid>https://lbqaq.top/p/latex-in-ppt/</guid><description>&lt;img src="https://lbqaq.top/p/latex-in-ppt/102317894.webp" alt="Featured image of post 在PowerPoint里优雅的插入LaTeX公式" />&lt;p>最近，需要我在PPT中插入公式的次数越来越多了。最传统的办法自然是将公式生成好后直接进行截图插入，但这种方式还是不够优雅，如果需要调节大小也十分的麻烦，于是我便通过检索找到了两种插入公式的方法，在此做一个记录。&lt;/p>
+&lt;h2 id="使用原生的公式功能">&lt;a href="#%e4%bd%bf%e7%94%a8%e5%8e%9f%e7%94%9f%e7%9a%84%e5%85%ac%e5%bc%8f%e5%8a%9f%e8%83%bd" class="header-anchor">&lt;/a>使用原生的公式功能
+&lt;/h2>&lt;p>2202年了，如果说PowerPoint本身不支持LaTeX公式那就大错特错了。&lt;/p>
+&lt;ol>
+&lt;li>将LaTeX代码插入到文本框中&lt;/li>
+&lt;li>选中刚刚输入的代码，依次点击功能区上的“插入”——“公式”——“专用”&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477.png"
+width="1373"
+height="143"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu_a8630a60dddc51c.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231113746477_hu_15e7424d8501a860.png 1024w"
+loading="lazy"
+alt="公式按钮"
+class="gallery-image"
+data-flex-grow="960"
+data-flex-basis="2304px"
+>&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636.png"
+width="725"
+height="220"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu_53bb70b7107712a5.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231114035636_hu_fbc5da826dd19075.png 1024w"
+loading="lazy"
+alt="专用按钮及显示效果"
+class="gallery-image"
+data-flex-grow="329"
+data-flex-basis="790px"
+>&lt;/p>
+&lt;p>只需要简单两步即可转换完成。然而，这种方法却存在很大的问题，就是支持的公式太少了，一些简单的公式还可以成功转换，但如果是公式块或者用了一些宏包，就会导致转换不出来。&lt;/p>
+&lt;p>这种方式的优点就是无需额外配置，以及可以与文字放在一起，方便排版。但如果你的公式比较复杂，那我还是推荐下面的方法。&lt;/p>
+&lt;h2 id="使用iguanatex插件">&lt;a href="#%e4%bd%bf%e7%94%a8iguanatex%e6%8f%92%e4%bb%b6" class="header-anchor">&lt;/a>使用IguanaTex插件
+&lt;/h2>&lt;p>要说对LaTeX支持最好的，那肯定就是使用你电脑上安装好的发行版进行生成，IguanaTex插件就是基于这种方式实现的。&lt;/p>
+&lt;p>所以想要使用IguanaTex，你必须要准备好一个LaTeX发行版，我这里推荐&lt;a class="link" href="https://miktex.org/" target="_blank" rel="noopener"
+>MiKTeX&lt;/a>，它不会安装完整的宏包而是在你需要的时候进行安装，避免占用过大的空间，具体的安装方法这里就不展开了。&lt;/p>
+&lt;ol>
+&lt;li>在&lt;a class="link" href="https://www.jonathanleroux.org/software/iguanatex/download.html" target="_blank" rel="noopener"
+>官网&lt;/a>上下载最新版本，下载后缀名为&lt;code>ppam&lt;/code>的文件放入&lt;code>C:\Users\%APPDATA%\Microsoft\AddIns&lt;/code>目录中&lt;/li>
+&lt;li>打开PPT，依此选择： &lt;strong>文件&lt;/strong>-&amp;gt;&lt;strong>选项&lt;/strong>-&amp;gt;&lt;strong>加载项&lt;/strong>-&amp;gt;&lt;strong>管理&lt;/strong>（下拉框中选择：&lt;strong>PowerPoint加载项&lt;/strong>）-&amp;gt;&lt;strong>转到&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293.png"
+width="836"
+height="717"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu_ff5696e038a7072e.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231144938293_hu_a47b5ef64b720b7.png 1024w"
+loading="lazy"
+alt="加载项选择"
+class="gallery-image"
+data-flex-grow="116"
+data-flex-basis="279px"
+>&lt;/p>
+&lt;ol start="3">
+&lt;li>在弹出的对话框中选择： &lt;strong>添加&lt;/strong>-&amp;gt;选择刚下载的插件文件&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275.png"
+width="384"
+height="372"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu_40654cc81b32f730.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145220275_hu_401c9fac4f9fd4bf.png 1024w"
+loading="lazy"
+alt="加载项"
+class="gallery-image"
+data-flex-grow="103"
+data-flex-basis="247px"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>此时功能区上面就已经有了IguanaTex，点击第一个&lt;code>New LaTeX display&lt;/code>就可以插入公式了。我们现在可以点击&lt;code>Main Settings&lt;/code>来进行修改相关设置。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417.png"
+width="703"
+height="139"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hu_b9cb2fec662c6715.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231145447417_hu_1593e3141ed62626.png 1024w"
+loading="lazy"
+alt="设置"
+class="gallery-image"
+data-flex-grow="505"
+data-flex-basis="1213px"
+>&lt;/p>
+&lt;ol start="5">
+&lt;li>我们在这里可以进行修改临时文件位置以及图片生成的方式&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982.png"
+width="411"
+height="563"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu_2bd21c99638a8f74.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150027982_hu_6e4cb0d4e1be723.png 1024w"
+loading="lazy"
+alt="设置"
+class="gallery-image"
+data-flex-grow="73"
+data-flex-basis="175px"
+>&lt;/p>
+&lt;p>我推荐将&lt;code>Output&lt;/code>修改成&lt;code>Vector&lt;/code>，这样生成的公式就是矢量形状，即使放大也不会变形。&lt;/p>
+&lt;p>下面就是生成的公式，可以看出每个字母都是图形。同时公式也可以使用该插件进行修改，还是比较方便的。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191.png"
+width="464"
+height="151"
+srcset="https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu_8144fbd88f9d5e2a.png 480w, https://lbqaq.top/p/latex-in-ppt/IMAGE/image-20221231150555191_hu_26035ed28739eae2.png 1024w"
+loading="lazy"
+alt="生成公式"
+class="gallery-image"
+data-flex-grow="307"
+data-flex-basis="737px"
+>&lt;/p>
+&lt;p>综上，个人推荐还是使用第二种方式，唯一麻烦的地方就是你需要自备LaTeX环境。&lt;/p>
+&lt;p>&lt;del>最近的文章真的是越来越水了QAQ&lt;/del>&lt;/p></description></item></channel></rss>

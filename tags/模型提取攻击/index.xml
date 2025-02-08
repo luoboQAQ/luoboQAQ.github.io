@@ -1,313 +1,234 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>模型提取攻击 on luoboQAQ</title>
-        <link>https://lbqaq.top/tags/%E6%A8%A1%E5%9E%8B%E6%8F%90%E5%8F%96%E6%94%BB%E5%87%BB/</link>
-        <description>Recent content in 模型提取攻击 on luoboQAQ</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Thu, 20 Jul 2023 14:57:05 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%A8%A1%E5%9E%8B%E6%8F%90%E5%8F%96%E6%94%BB%E5%87%BB/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>APMSA: Adversarial Perturbation Against Model Stealing Attacks</title>
-        <link>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</link>
-        <pubDate>Thu, 20 Jul 2023 14:57:05 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp" alt="Featured image of post APMSA: Adversarial Perturbation Against Model Stealing Attacks" /&gt;&lt;h2 id=&#34;介绍&#34;&gt;&lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;介绍
-&lt;/h2&gt;&lt;p&gt;在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。&lt;/p&gt;
-&lt;h3 id=&#34;mlaas&#34;&gt;&lt;a href=&#34;#mlaas&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MLaaS
-&lt;/h3&gt;&lt;p&gt;顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。&lt;/p&gt;
-&lt;p&gt;然而，MLaaS却容易受到模型提取攻击的影响。如下图所示，虽然模型托管在安全的云服务中，客户通过基于云的API进行查询。但是，攻击者可以基于预测输出来训练具有目标私有模型类似功能的替代模型。用户可以通过访问替代模型而无需向模型提供者付费，从而破坏了其商业价值。此外，攻击者还可以利用替代模型来制作优秀的可转移对抗性示例，从而有效地欺骗原始模型做出错误的预测，构成严重的安全威胁。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260.png&#34;
-	width=&#34;1032&#34;
-	height=&#34;497&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_46fb8d49824db0f4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_cfced2b85b0f71f4.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;模型提取攻击流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;207&#34;
-		data-flex-basis=&#34;498px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者提出了APMSA来防御模型提取攻击。当攻击者窃取服务器中部署的 &amp;ldquo;model under attack&amp;rdquo; (MUA) 时，通过发散给定特定类别的特征空间中查询样本的置信向量距离，就会泄露足够的MUA内部信息，有利于替代模型的训练。对此，作者在MUA 之前将微妙的噪声注入每个传入的输入查询中，以限制其置信向量的多样性。&lt;/p&gt;
-&lt;h3 id=&#34;相关研究&#34;&gt;&lt;a href=&#34;#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;相关研究
-&lt;/h3&gt;&lt;p&gt;目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270.png&#34;
-	width=&#34;2143&#34;
-	height=&#34;1005&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_2f19808c1b6b7730.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_e1ee7a4fb20e139e.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;相关文章&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;511px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Model extraction warning in MLaaS paradigm&lt;/li&gt;
-&lt;li&gt;PRADA: Protecting against DNN model stealing attacks&lt;/li&gt;
-&lt;li&gt;Defending against model stealing attacks with adaptive misinformation&lt;/li&gt;
-&lt;li&gt;Defending against neural network model stealing attacks using deceptive perturbations&lt;/li&gt;
-&lt;li&gt;BODAME: Bilevel optimization for defense against model extraction&lt;/li&gt;
-&lt;li&gt;Prediction poisoning: Towards defenses against DNN model stealing attacks&lt;/li&gt;
-&lt;li&gt;Model stealing defense with hybrid fuzzy models: Work-in-progress&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;与现有的直接置信扰动技术相比，APMSA不仅保留了MUA的可用性，还保留了MUA的实用性。与其他主动防御相比，APMSA可以简单地在MUA之前插入，而无需对MUA本身进行任何修改，因此它是通用的，易于部署的。&lt;/p&gt;
-&lt;h3 id=&#34;贡献&#34;&gt;&lt;a href=&#34;#%e8%b4%a1%e7%8c%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;贡献
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;通过建设性地最小化对训练替代模型至关重要的发散置信度信息来禁用被盗模型的可用功能。&lt;/li&gt;
-&lt;li&gt;通过形式化的优化实现了置信向量对 MUA 决策边界的限制。&lt;/li&gt;
-&lt;li&gt;APMSA不会对具有硬标签推理的普通用户造成效用损失&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;问题构造&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题构造
-&lt;/h2&gt;&lt;h3 id=&#34;威胁模型&#34;&gt;&lt;a href=&#34;#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;威胁模型
-&lt;/h3&gt;&lt;p&gt;假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990.png&#34;
-	width=&#34;1035&#34;
-	height=&#34;940&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_fa39e24285594e39.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_d8272ca6104544fe.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;基于迁移学习的模型提取攻击&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;110&#34;
-		data-flex-basis=&#34;264px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;攻击者只能通过 API 与模型交互，查询次数受预算限制。但是，他们可以自由选择任何样本进行查询（即未标记的公共数据集$X_{pub}$）。因此，攻击者完全了解输入（即样本类型）和输出（即标签集）的特征。但是，攻击者只能观察返回的预测置信向量，而不能观察模型架构和梯度信息。&lt;/p&gt;
-&lt;p&gt;攻击者旨在获得与私有模型$f$具有相似功能的替代模型$f&amp;rsquo;$。替代模型$f&amp;rsquo;$在公共数据集 $\mathbf{S}\subseteq\mathbf{X}_{pub}$ 的子集上进行训练：&lt;/p&gt;
-$$f^{\prime}\approx\arg\min\mathcal{L}\left(\\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in\mathbf{S}\\},f^{\prime}(\mathbf{x})\right)$$&lt;p&gt;防御者旨在将噪声注入每个查询的输入中，以间接干扰模型返回的预测。APMSA有两个主要目标。一方面，保留了模型的精度，即不使用APMSA时的精度应与原始精度相同。另一方面，被盗模型的准确性在很大程度上被破坏，使攻击者的免费私人查询不再有效。作者将使用 APMSA 前后模型准确性的下降程度作为指标。&lt;/p&gt;
-&lt;h3 id=&#34;apmsa的概述&#34;&gt;&lt;a href=&#34;#apmsa%e7%9a%84%e6%a6%82%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;APMSA的概述
-&lt;/h3&gt;&lt;p&gt;APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552.png&#34;
-	width=&#34;1036&#34;
-	height=&#34;381&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_dc8d51a86b052ea6.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_64aede77c8449950.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;APMSA的流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;271&#34;
-		data-flex-basis=&#34;652px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;上图是APMSA的流程。当向API查询输入时，APMSA不直接将该输入馈送到模型并返回置信向量。 相反，APMSA通过将对抗性噪声扰动注入到输入中来将该输入转换为对抗性输入。模型最终返回的是变换后的对抗性输入相对应的置信度向量。从攻击者的角度来看，其输入与返回的置信向量之间的关系映射已经被混淆。并且将给定类别样本的置信度向量约束在一个小的区域内，从而大大减少了泄漏信息，便于其替代模型的训练。同时，由于APMSA不会修改输入的硬标签，所以对于普通用户来说性能几乎没有损失。值得注意的是，APMSA是作为插件使用，不需要修改模型。&lt;/p&gt;
-&lt;h3 id=&#34;apmsa的实现&#34;&gt;&lt;a href=&#34;#apmsa%e7%9a%84%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;APMSA的实现
-&lt;/h3&gt;&lt;p&gt;作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）&lt;/p&gt;
-&lt;p&gt;也就是说如果输出都堆在一起，就可以混淆输入和输出之间的关系，并且可以更好地保护模型的隐私。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739.png&#34;
-	width=&#34;1036&#34;
-	height=&#34;384&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_d99f6a3840a205e4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_a3f1ce1b4090c8a.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;举例&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;269&#34;
-		data-flex-basis=&#34;647px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者随后介绍了APMSA的详细原理。同样是以二分类的模型为例，$f$是原模型，$f&amp;rsquo;$是攻击者得到的替代模型。其中，攻击者利用查询$x$来获得预测$y=f(x)$，其中$y=\{y_1,y_2\}$，攻击者使用$(x,y)$来训练替代模型。APMSA则是通过将向输入空间中的$x$添加对抗性噪声来将样本$x$变为混淆样本$x_c$。这里应用了制作对抗性样本$x&amp;rsquo;$的技术。与$x&amp;rsquo;$不同的是，$x_c$的硬标签与APMSA中的$x$的硬标签相同。这样，攻击者通过$\{x,y_c=f(x_c)\}$训练出来的模型$f&amp;rsquo;$决策边界就会导致$x_t$被误分类，从而防止模型窃取攻击。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663.png&#34;
-	width=&#34;994&#34;
-	height=&#34;474&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_b4407383a03bde74.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_9dc9419a786b281.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;APMSA工作流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;209&#34;
-		data-flex-basis=&#34;503px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;与传入的查询输入$x$相比，经变换的对抗输入$x_c$接近决策边界。作者将其转化成了一个优化问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;混淆的输入$x&amp;rsquo;$与其对应的对抗示例$x_c$在特征空间中相似，但$x_c$的硬标签与原始输入$x$的类别相同&lt;/li&gt;
-&lt;li&gt;混淆输入$x_c$和原始输入$x$的置信向量之间的间隙应尽可能小&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;将其公式化表示为：&lt;/p&gt;
-$$\begin{aligned}\mathcal{L}\_1&amp;=J\left(\mathbf{x}\_c\right)=J(\mathbf{x}+\delta)\\\\&amp;=\min\_\delta\max\left(Z(\mathbf{x}+\delta)\_s-Z(\mathbf{x}+\delta)\_t,0\right)\end{aligned}$$&lt;p&gt;其中$Z(x_c)_t$表示目标类别$t$的对数值，$Z(x_c)_s$表示原类别$s$。&lt;/p&gt;
-&lt;p&gt;如果使$Z(x_c)_s-Z(x_c)_t$变小，就表明指定类别的对数值和源类别之间的差距越来越大，则混淆输入$x_t$更接近目标类别的对抗样本。作者提出了新的约束来提高优化速度。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>模型提取攻击 on luoboQAQ</title><link>https://lbqaq.top/tags/%E6%A8%A1%E5%9E%8B%E6%8F%90%E5%8F%96%E6%94%BB%E5%87%BB/</link><description>Recent content in 模型提取攻击 on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 20 Jul 2023 14:57:05 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E6%A8%A1%E5%9E%8B%E6%8F%90%E5%8F%96%E6%94%BB%E5%87%BB/index.xml" rel="self" type="application/rss+xml"/><item><title>APMSA: Adversarial Perturbation Against Model Stealing Attacks</title><link>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</link><pubDate>Thu, 20 Jul 2023 14:57:05 +0800</pubDate><guid>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</guid><description>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp" alt="Featured image of post APMSA: Adversarial Perturbation Against Model Stealing Attacks" />&lt;h2 id="介绍">&lt;a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor">&lt;/a>介绍
+&lt;/h2>&lt;p>在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。&lt;/p>
+&lt;h3 id="mlaas">&lt;a href="#mlaas" class="header-anchor">&lt;/a>MLaaS
+&lt;/h3>&lt;p>顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。&lt;/p>
+&lt;p>然而，MLaaS却容易受到模型提取攻击的影响。如下图所示，虽然模型托管在安全的云服务中，客户通过基于云的API进行查询。但是，攻击者可以基于预测输出来训练具有目标私有模型类似功能的替代模型。用户可以通过访问替代模型而无需向模型提供者付费，从而破坏了其商业价值。此外，攻击者还可以利用替代模型来制作优秀的可转移对抗性示例，从而有效地欺骗原始模型做出错误的预测，构成严重的安全威胁。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260.png"
+width="1032"
+height="497"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_46fb8d49824db0f4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_cfced2b85b0f71f4.png 1024w"
+loading="lazy"
+alt="模型提取攻击流程"
+class="gallery-image"
+data-flex-grow="207"
+data-flex-basis="498px"
+>&lt;/p>
+&lt;p>作者提出了APMSA来防御模型提取攻击。当攻击者窃取服务器中部署的 &amp;ldquo;model under attack&amp;rdquo; (MUA) 时，通过发散给定特定类别的特征空间中查询样本的置信向量距离，就会泄露足够的MUA内部信息，有利于替代模型的训练。对此，作者在MUA 之前将微妙的噪声注入每个传入的输入查询中，以限制其置信向量的多样性。&lt;/p>
+&lt;h3 id="相关研究">&lt;a href="#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6" class="header-anchor">&lt;/a>相关研究
+&lt;/h3>&lt;p>目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270.png"
+width="2143"
+height="1005"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_2f19808c1b6b7730.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_e1ee7a4fb20e139e.png 1024w"
+loading="lazy"
+alt="相关文章"
+class="gallery-image"
+data-flex-grow="213"
+data-flex-basis="511px"
+>&lt;/p>
+&lt;ul>
+&lt;li>Model extraction warning in MLaaS paradigm&lt;/li>
+&lt;li>PRADA: Protecting against DNN model stealing attacks&lt;/li>
+&lt;li>Defending against model stealing attacks with adaptive misinformation&lt;/li>
+&lt;li>Defending against neural network model stealing attacks using deceptive perturbations&lt;/li>
+&lt;li>BODAME: Bilevel optimization for defense against model extraction&lt;/li>
+&lt;li>Prediction poisoning: Towards defenses against DNN model stealing attacks&lt;/li>
+&lt;li>Model stealing defense with hybrid fuzzy models: Work-in-progress&lt;/li>
+&lt;/ul>
+&lt;p>与现有的直接置信扰动技术相比，APMSA不仅保留了MUA的可用性，还保留了MUA的实用性。与其他主动防御相比，APMSA可以简单地在MUA之前插入，而无需对MUA本身进行任何修改，因此它是通用的，易于部署的。&lt;/p>
+&lt;h3 id="贡献">&lt;a href="#%e8%b4%a1%e7%8c%ae" class="header-anchor">&lt;/a>贡献
+&lt;/h3>&lt;ul>
+&lt;li>通过建设性地最小化对训练替代模型至关重要的发散置信度信息来禁用被盗模型的可用功能。&lt;/li>
+&lt;li>通过形式化的优化实现了置信向量对 MUA 决策边界的限制。&lt;/li>
+&lt;li>APMSA不会对具有硬标签推理的普通用户造成效用损失&lt;/li>
+&lt;/ul>
+&lt;h2 id="问题构造">&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor">&lt;/a>问题构造
+&lt;/h2>&lt;h3 id="威胁模型">&lt;a href="#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b" class="header-anchor">&lt;/a>威胁模型
+&lt;/h3>&lt;p>假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990.png"
+width="1035"
+height="940"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_fa39e24285594e39.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_d8272ca6104544fe.png 1024w"
+loading="lazy"
+alt="基于迁移学习的模型提取攻击"
+class="gallery-image"
+data-flex-grow="110"
+data-flex-basis="264px"
+>&lt;/p>
+&lt;p>攻击者只能通过 API 与模型交互，查询次数受预算限制。但是，他们可以自由选择任何样本进行查询（即未标记的公共数据集$X_{pub}$）。因此，攻击者完全了解输入（即样本类型）和输出（即标签集）的特征。但是，攻击者只能观察返回的预测置信向量，而不能观察模型架构和梯度信息。&lt;/p>
+&lt;p>攻击者旨在获得与私有模型$f$具有相似功能的替代模型$f&amp;rsquo;$。替代模型$f&amp;rsquo;$在公共数据集 $\mathbf{S}\subseteq\mathbf{X}_{pub}$ 的子集上进行训练：&lt;/p>
+$$f^{\prime}\approx\arg\min\mathcal{L}\left(\\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in\mathbf{S}\\},f^{\prime}(\mathbf{x})\right)$$&lt;p>防御者旨在将噪声注入每个查询的输入中，以间接干扰模型返回的预测。APMSA有两个主要目标。一方面，保留了模型的精度，即不使用APMSA时的精度应与原始精度相同。另一方面，被盗模型的准确性在很大程度上被破坏，使攻击者的免费私人查询不再有效。作者将使用 APMSA 前后模型准确性的下降程度作为指标。&lt;/p>
+&lt;h3 id="apmsa的概述">&lt;a href="#apmsa%e7%9a%84%e6%a6%82%e8%bf%b0" class="header-anchor">&lt;/a>APMSA的概述
+&lt;/h3>&lt;p>APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552.png"
+width="1036"
+height="381"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_dc8d51a86b052ea6.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_64aede77c8449950.png 1024w"
+loading="lazy"
+alt="APMSA的流程"
+class="gallery-image"
+data-flex-grow="271"
+data-flex-basis="652px"
+>&lt;/p>
+&lt;p>上图是APMSA的流程。当向API查询输入时，APMSA不直接将该输入馈送到模型并返回置信向量。 相反，APMSA通过将对抗性噪声扰动注入到输入中来将该输入转换为对抗性输入。模型最终返回的是变换后的对抗性输入相对应的置信度向量。从攻击者的角度来看，其输入与返回的置信向量之间的关系映射已经被混淆。并且将给定类别样本的置信度向量约束在一个小的区域内，从而大大减少了泄漏信息，便于其替代模型的训练。同时，由于APMSA不会修改输入的硬标签，所以对于普通用户来说性能几乎没有损失。值得注意的是，APMSA是作为插件使用，不需要修改模型。&lt;/p>
+&lt;h3 id="apmsa的实现">&lt;a href="#apmsa%e7%9a%84%e5%ae%9e%e7%8e%b0" class="header-anchor">&lt;/a>APMSA的实现
+&lt;/h3>&lt;p>作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）&lt;/p>
+&lt;p>也就是说如果输出都堆在一起，就可以混淆输入和输出之间的关系，并且可以更好地保护模型的隐私。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739.png"
+width="1036"
+height="384"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_d99f6a3840a205e4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_a3f1ce1b4090c8a.png 1024w"
+loading="lazy"
+alt="举例"
+class="gallery-image"
+data-flex-grow="269"
+data-flex-basis="647px"
+>&lt;/p>
+&lt;p>作者随后介绍了APMSA的详细原理。同样是以二分类的模型为例，$f$是原模型，$f&amp;rsquo;$是攻击者得到的替代模型。其中，攻击者利用查询$x$来获得预测$y=f(x)$，其中$y=\{y_1,y_2\}$，攻击者使用$(x,y)$来训练替代模型。APMSA则是通过将向输入空间中的$x$添加对抗性噪声来将样本$x$变为混淆样本$x_c$。这里应用了制作对抗性样本$x&amp;rsquo;$的技术。与$x&amp;rsquo;$不同的是，$x_c$的硬标签与APMSA中的$x$的硬标签相同。这样，攻击者通过$\{x,y_c=f(x_c)\}$训练出来的模型$f&amp;rsquo;$决策边界就会导致$x_t$被误分类，从而防止模型窃取攻击。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663.png"
+width="994"
+height="474"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_b4407383a03bde74.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_9dc9419a786b281.png 1024w"
+loading="lazy"
+alt="APMSA工作流程"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="503px"
+>&lt;/p>
+&lt;p>与传入的查询输入$x$相比，经变换的对抗输入$x_c$接近决策边界。作者将其转化成了一个优化问题：&lt;/p>
+&lt;ul>
+&lt;li>混淆的输入$x&amp;rsquo;$与其对应的对抗示例$x_c$在特征空间中相似，但$x_c$的硬标签与原始输入$x$的类别相同&lt;/li>
+&lt;li>混淆输入$x_c$和原始输入$x$的置信向量之间的间隙应尽可能小&lt;/li>
+&lt;/ul>
+&lt;p>将其公式化表示为：&lt;/p>
+$$\begin{aligned}\mathcal{L}\_1&amp;=J\left(\mathbf{x}\_c\right)=J(\mathbf{x}+\delta)\\\\&amp;=\min\_\delta\max\left(Z(\mathbf{x}+\delta)\_s-Z(\mathbf{x}+\delta)\_t,0\right)\end{aligned}$$&lt;p>其中$Z(x_c)_t$表示目标类别$t$的对数值，$Z(x_c)_s$表示原类别$s$。&lt;/p>
+&lt;p>如果使$Z(x_c)_s-Z(x_c)_t$变小，就表明指定类别的对数值和源类别之间的差距越来越大，则混淆输入$x_t$更接近目标类别的对抗样本。作者提出了新的约束来提高优化速度。&lt;/p>
 $$\begin{cases}\mathcal{L}\_2=Clip\_{(0,\infty)}\left(\max\left\\{Z(\mathbf{x}+\delta)\_i:i\neq t,o\right\\}-Z(\mathbf{x}+\delta)\_t\right)\\\\
-\mathcal{L}\_3=Clip\_{(0,\infty)}\left(\max\left\\{Z(\mathbf{x}+\delta)\_i:i\neq t,s\right\\}-Z(\mathbf{x}+\delta)\_s\right)\end{cases}$$&lt;p&gt;其中$Clip(·)$表示范围约束。&lt;/p&gt;
-&lt;p&gt;为了确保 APMSA 不会影响模型的性能（即标签不会更改），优化目标是：&lt;/p&gt;
+\mathcal{L}\_3=Clip\_{(0,\infty)}\left(\max\left\\{Z(\mathbf{x}+\delta)\_i:i\neq t,s\right\\}-Z(\mathbf{x}+\delta)\_s\right)\end{cases}$$&lt;p>其中$Clip(·)$表示范围约束。&lt;/p>
+&lt;p>为了确保 APMSA 不会影响模型的性能（即标签不会更改），优化目标是：&lt;/p>
 $$\begin{aligned}
-\mathcal{L}\_{4}&amp; =\text{distance }(\mathbf{y},\mathbf{y}\_c)=\min\_\delta\|\mathbf{y}-\mathbf{y}\_c\|  \\\\
+\mathcal{L}\_{4}&amp; =\text{distance }(\mathbf{y},\mathbf{y}\_c)=\min\_\delta\|\mathbf{y}-\mathbf{y}\_c\| \\\\
 &amp;=\min\_\delta\|f(\mathbf{x})-f(\mathbf{x}+\delta)\|
-\end{aligned}$$&lt;p&gt;这是为了测量扰动输入前后的置信差，以减轻APMSA对模型效用对普通用户的影响。综上，可以得到优化函数：&lt;/p&gt;
-$$\begin{aligned}\mathcal{L}&amp;=\mathcal{L}\_1+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\mathcal{L}\_4\\\\&amp;=\min\_\delta J(\mathbf{x}+\delta)+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\|f\left(\mathbf{x}\right)-f\left(\mathbf{x}+\delta\right)\|\end{aligned}$$&lt;p&gt;其中超参数$c_1$和$c_2$用于正则化损失函数，在实验中根据经验分别设置为2和0.01。 优化过程不是要找到对抗性样例，而是要识别以正确保存类别为条件的接近其对应对抗性样例的混淆输入$x_c$。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558.png&#34;
-	width=&#34;1032&#34;
-	height=&#34;409&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_e7489508d97d651f.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_96fd674848b77702.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;输入混淆机制&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;252&#34;
-		data-flex-basis=&#34;605px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;APMSA的具体过程如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502.png&#34;
-	width=&#34;1051&#34;
-	height=&#34;1354&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_5ab13c6f6c1825be.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_8e6a33603c50f6fb.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;APMSA算法流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;77&#34;
-		data-flex-basis=&#34;186px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;实验评价&#34;&gt;&lt;a href=&#34;#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;实验评价
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据集：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CIFAR10&lt;/li&gt;
-&lt;li&gt;GTSRB&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;评估指标：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Top-1 精度&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;模型提取攻击评估&#34;&gt;&lt;a href=&#34;#%e6%a8%a1%e5%9e%8b%e6%8f%90%e5%8f%96%e6%94%bb%e5%87%bb%e8%af%84%e4%bc%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;模型提取攻击评估
-&lt;/h3&gt;&lt;p&gt;选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587.png&#34;
-	width=&#34;1055&#34;
-	height=&#34;319&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_1d814802ee858dbb.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_9405fd5d1582cc28.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;STL10数据集&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;330&#34;
-		data-flex-basis=&#34;793px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;使用CIFAR-10数据集训练了一个基于ResNet-18的模型，准确率为91.94%，并在不应用防御的情况下部署。 对于初始替代模型，作者选择了在ImageNet上预训练的VGG 16模型，并使用STL 10数据集作为公共查询样本。&lt;/p&gt;
-&lt;p&gt;放宽限制，将查询样本设置为 CIFAR10 测试集的一小部分进行查询。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726.png&#34;
-	width=&#34;1040&#34;
-	height=&#34;320&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_c999424fcba6218b.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_4f6b84e41df1e4a3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;CIFAR-10数据集&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;325&#34;
-		data-flex-basis=&#34;780px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;使用GTSRB数据集训练了一个基于ResNet-18的MUA模型，准确率为95.40%，并在不应用防御的情况下部署。 对于初始替代模型，选择了在ImageNet上预训练的VGG 16模型。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827.png&#34;
-	width=&#34;1021&#34;
-	height=&#34;319&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_952b708151badab8.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_d82fd7e3fb3b5011.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GTSRB数据集&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;320&#34;
-		data-flex-basis=&#34;768px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;上述案例表明：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;查询样本的选择会影响模型窃取攻击的效率。具体来说，更接近目标域数据分布的查询样本始终有利于攻击。&lt;/li&gt;
-&lt;li&gt;基于决策边界的样本合成技术（即通过PGD、CW）可以提供比随机查询更有用的信息。&lt;/li&gt;
-&lt;li&gt;随着查询预算的增加，基于决策边界的样本生成并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集过于接近，基于决策边界的样本结构提供的信息量相对有限。&lt;/li&gt;
-&lt;li&gt;当样本数量较少时，基于迁移学习的模型窃取攻击可提高攻击效果。原因是样本越少，冗余信息越少。然而，由于获得的信息相似，更多的查询样本可能会导致信息冗余，这不会为促进攻击提供更多有用的信息。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;作者进一步评估攻击者选择的不同替代模型架构对攻击效果的影响。替代模型的性能受所选模型架构的影响。如图所示，VGG16始终表现出优于CIFAR10其他模型的攻击性能。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459.png&#34;
-	width=&#34;999&#34;
-	height=&#34;759&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_db6c7b48e68c2016.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_c954b26b99f5c204.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;CIFAR10实验结果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;131&#34;
-		data-flex-basis=&#34;315px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;同样，在在GTSRB数据集上评估时，ResNet50表现出最好的攻击效果，略好于VGG16，使用AlexNet的性能最差。这表明选择合适的替代模型可以降低攻击成本。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767.png&#34;
-	width=&#34;991&#34;
-	height=&#34;395&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_cbb598af4fbcda9e.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_393f17f40dddc8a9.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GTSRB数据集结果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;250&#34;
-		data-flex-basis=&#34;602px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;综上，查询样本的选择会影响模型窃取攻击的效率和替代模型的准确性。具体来说，攻击最好选择类似于目标域的数据分布的公共查询样本。&lt;/p&gt;
-&lt;p&gt;此外，基于决策边界的样本合成技术（PGD、CW等）可以提供比随机查询更有用的信息。但是，随着查询次数的增加，基于决策边界的样本并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集太接近。&lt;/p&gt;
-&lt;h3 id=&#34;防御验证&#34;&gt;&lt;a href=&#34;#%e9%98%b2%e5%be%a1%e9%aa%8c%e8%af%81&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;防御验证
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png&#34;
-	width=&#34;968&#34;
-	height=&#34;758&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_1ff504c17ea44227.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_ceab8f471377b8d5.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;验证APMSA&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;127&#34;
-		data-flex-basis=&#34;306px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;使用APMSA后，替代模型的准确率甚至低于基准，表明防御减少了模型预测引起的模型内部信息泄露。&lt;/p&gt;
-&lt;p&gt;APMSA的关键见解是，通过将输入映射到特征空间的小尺度区域，可以尽可能减少输入输出对携带的信息泄漏，甚至在很大程度上产生误导性信息。为了可视化这一关键见解，作者使用 t-SNE 和归一化操作来减少用于可视化的混淆输入的维度。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175.png&#34;
-	width=&#34;984&#34;
-	height=&#34;721&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_b495bf4d14862906.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_d7648715cc4956a9.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;t-SNE结果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;136&#34;
-		data-flex-basis=&#34;327px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;CIFAR10 数据集上的混淆输入和查询样本之间存在明显的分离——每个混淆输入都是从传入的查询样本中找到的。在将原始查询样本与混淆输出相关联时，通过干扰模型预测中泄露的信息，以减少模型窃取攻击的影响。&lt;/p&gt;
-</description>
-        </item>
-        
-    </channel>
-</rss>
+\end{aligned}$$&lt;p>这是为了测量扰动输入前后的置信差，以减轻APMSA对模型效用对普通用户的影响。综上，可以得到优化函数：&lt;/p>
+$$\begin{aligned}\mathcal{L}&amp;=\mathcal{L}\_1+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\mathcal{L}\_4\\\\&amp;=\min\_\delta J(\mathbf{x}+\delta)+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\|f\left(\mathbf{x}\right)-f\left(\mathbf{x}+\delta\right)\|\end{aligned}$$&lt;p>其中超参数$c_1$和$c_2$用于正则化损失函数，在实验中根据经验分别设置为2和0.01。 优化过程不是要找到对抗性样例，而是要识别以正确保存类别为条件的接近其对应对抗性样例的混淆输入$x_c$。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558.png"
+width="1032"
+height="409"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_e7489508d97d651f.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_96fd674848b77702.png 1024w"
+loading="lazy"
+alt="输入混淆机制"
+class="gallery-image"
+data-flex-grow="252"
+data-flex-basis="605px"
+>&lt;/p>
+&lt;p>APMSA的具体过程如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502.png"
+width="1051"
+height="1354"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_5ab13c6f6c1825be.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_8e6a33603c50f6fb.png 1024w"
+loading="lazy"
+alt="APMSA算法流程"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="186px"
+>&lt;/p>
+&lt;h2 id="实验评价">&lt;a href="#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7" class="header-anchor">&lt;/a>实验评价
+&lt;/h2>&lt;p>&lt;strong>数据集：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>CIFAR10&lt;/li>
+&lt;li>GTSRB&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>评估指标：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Top-1 精度&lt;/li>
+&lt;/ul>
+&lt;h3 id="模型提取攻击评估">&lt;a href="#%e6%a8%a1%e5%9e%8b%e6%8f%90%e5%8f%96%e6%94%bb%e5%87%bb%e8%af%84%e4%bc%b0" class="header-anchor">&lt;/a>模型提取攻击评估
+&lt;/h3>&lt;p>选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587.png"
+width="1055"
+height="319"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_1d814802ee858dbb.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_9405fd5d1582cc28.png 1024w"
+loading="lazy"
+alt="STL10数据集"
+class="gallery-image"
+data-flex-grow="330"
+data-flex-basis="793px"
+>&lt;/p>
+&lt;p>使用CIFAR-10数据集训练了一个基于ResNet-18的模型，准确率为91.94%，并在不应用防御的情况下部署。 对于初始替代模型，作者选择了在ImageNet上预训练的VGG 16模型，并使用STL 10数据集作为公共查询样本。&lt;/p>
+&lt;p>放宽限制，将查询样本设置为 CIFAR10 测试集的一小部分进行查询。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726.png"
+width="1040"
+height="320"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_c999424fcba6218b.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_4f6b84e41df1e4a3.png 1024w"
+loading="lazy"
+alt="CIFAR-10数据集"
+class="gallery-image"
+data-flex-grow="325"
+data-flex-basis="780px"
+>&lt;/p>
+&lt;p>使用GTSRB数据集训练了一个基于ResNet-18的MUA模型，准确率为95.40%，并在不应用防御的情况下部署。 对于初始替代模型，选择了在ImageNet上预训练的VGG 16模型。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827.png"
+width="1021"
+height="319"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_952b708151badab8.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_d82fd7e3fb3b5011.png 1024w"
+loading="lazy"
+alt="GTSRB数据集"
+class="gallery-image"
+data-flex-grow="320"
+data-flex-basis="768px"
+>&lt;/p>
+&lt;p>上述案例表明：&lt;/p>
+&lt;ul>
+&lt;li>查询样本的选择会影响模型窃取攻击的效率。具体来说，更接近目标域数据分布的查询样本始终有利于攻击。&lt;/li>
+&lt;li>基于决策边界的样本合成技术（即通过PGD、CW）可以提供比随机查询更有用的信息。&lt;/li>
+&lt;li>随着查询预算的增加，基于决策边界的样本生成并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集过于接近，基于决策边界的样本结构提供的信息量相对有限。&lt;/li>
+&lt;li>当样本数量较少时，基于迁移学习的模型窃取攻击可提高攻击效果。原因是样本越少，冗余信息越少。然而，由于获得的信息相似，更多的查询样本可能会导致信息冗余，这不会为促进攻击提供更多有用的信息。&lt;/li>
+&lt;/ul>
+&lt;p>作者进一步评估攻击者选择的不同替代模型架构对攻击效果的影响。替代模型的性能受所选模型架构的影响。如图所示，VGG16始终表现出优于CIFAR10其他模型的攻击性能。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459.png"
+width="999"
+height="759"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_db6c7b48e68c2016.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_c954b26b99f5c204.png 1024w"
+loading="lazy"
+alt="CIFAR10实验结果"
+class="gallery-image"
+data-flex-grow="131"
+data-flex-basis="315px"
+>&lt;/p>
+&lt;p>同样，在在GTSRB数据集上评估时，ResNet50表现出最好的攻击效果，略好于VGG16，使用AlexNet的性能最差。这表明选择合适的替代模型可以降低攻击成本。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767.png"
+width="991"
+height="395"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_cbb598af4fbcda9e.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_393f17f40dddc8a9.png 1024w"
+loading="lazy"
+alt="GTSRB数据集结果"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="602px"
+>&lt;/p>
+&lt;p>综上，查询样本的选择会影响模型窃取攻击的效率和替代模型的准确性。具体来说，攻击最好选择类似于目标域的数据分布的公共查询样本。&lt;/p>
+&lt;p>此外，基于决策边界的样本合成技术（PGD、CW等）可以提供比随机查询更有用的信息。但是，随着查询次数的增加，基于决策边界的样本并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集太接近。&lt;/p>
+&lt;h3 id="防御验证">&lt;a href="#%e9%98%b2%e5%be%a1%e9%aa%8c%e8%af%81" class="header-anchor">&lt;/a>防御验证
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png"
+width="968"
+height="758"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_1ff504c17ea44227.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_ceab8f471377b8d5.png 1024w"
+loading="lazy"
+alt="验证APMSA"
+class="gallery-image"
+data-flex-grow="127"
+data-flex-basis="306px"
+>&lt;/p>
+&lt;p>使用APMSA后，替代模型的准确率甚至低于基准，表明防御减少了模型预测引起的模型内部信息泄露。&lt;/p>
+&lt;p>APMSA的关键见解是，通过将输入映射到特征空间的小尺度区域，可以尽可能减少输入输出对携带的信息泄漏，甚至在很大程度上产生误导性信息。为了可视化这一关键见解，作者使用 t-SNE 和归一化操作来减少用于可视化的混淆输入的维度。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175.png"
+width="984"
+height="721"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_b495bf4d14862906.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_d7648715cc4956a9.png 1024w"
+loading="lazy"
+alt="t-SNE结果"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="327px"
+>&lt;/p>
+&lt;p>CIFAR10 数据集上的混淆输入和查询样本之间存在明显的分离——每个混淆输入都是从传入的查询样本中找到的。在将原始查询样本与混淆输出相关联时，通过干扰模型预测中泄露的信息，以减少模型窃取攻击的影响。&lt;/p></description></item></channel></rss>

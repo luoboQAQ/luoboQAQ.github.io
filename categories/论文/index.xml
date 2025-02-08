@@ -1,1158 +1,924 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>论文 on luoboQAQ</title>
-        <link>https://lbqaq.top/categories/%E8%AE%BA%E6%96%87/</link>
-        <description>Recent content in 论文 on luoboQAQ</description>
-        <generator>Hugo -- gohugo.io</generator>
-        <language>zh-cn</language>
-        <lastBuildDate>Tue, 07 May 2024 14:30:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/categories/%E8%AE%BA%E6%96%87/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Backdoor Defense via Deconfounded Representation Learning</title>
-        <link>https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/</link>
-        <pubDate>Tue, 07 May 2024 14:30:00 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/117158168.webp" alt="Featured image of post Backdoor Defense via Deconfounded Representation Learning" /&gt;&lt;h2 id=&#34;介绍&#34;&gt;&lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;介绍
-&lt;/h2&gt;&lt;p&gt;最近的研究表明，深度神经网络 （DNN） 容易受到后门攻击，攻击者通过毒害一些训练数据将隐蔽的后门注入 DNN。具体来说，后门攻击者将后门触发器（即特定模式）附加到一些良性训练数据，并将其标签更改为攻击者指定的目标标签。触发模式和目标标签之间的相关性将由 DNN 在训练期间学习。在推理过程中，后门模型在良性数据上表现正常，而当后门被激活时，其预测会被恶意改变。&lt;/p&gt;
-&lt;p&gt;相反，人类认知系统能够抵抗输入的扰动，例如后门攻击引起的隐蔽触发模式。这是因为人类对因果关系的敏感度高于干扰因素的关联。相比之下，经过训练以拟合中毒数据集的深度学习模型很难区分后门攻击带来的因果关系和统计关联。通过因果推理，我们可以识别因果关系并建立鲁棒的深度学习模型。因此，必须利用因果推理来分析和减轻后门攻击的威胁。&lt;/p&gt;
-&lt;p&gt;那么。什么是因果推理呢？因果推断在统计研究中有着悠久的历史。因果推理的目标是分析变量之间的因果效应，并减轻虚假相关性。&lt;/p&gt;
-&lt;p&gt;作者专注于图像分类任务，目标是在没有额外干净数据的情况下，在含有毒数据的数据集上训练出无后门的模型。作者首先构建了一个因果图来模拟后门数据的生成过程，特别考虑了干扰因素，即后门触发模式。借助因果图，发现后门攻击扮演了混杂因素的角色，并在输入图像与预测标签之间建立了一条虚假的联系。一旦深度神经网络学习了这种虚假联系，当附加了触发器时，它们的预测就会发生改变，转向目标标签。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240505113806496.png&#34;
-	width=&#34;981&#34;
-	height=&#34;449&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240505113806496_hu_8635af4f5014bd4c.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240505113806496_hu_a28f3ebe4682bdb6.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;后门攻击因果图&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;218&#34;
-		data-flex-basis=&#34;524px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者在因果洞察的启发下，提出了一种新的后门防御方法，称为因果关系启发的后门防御（Causalityinspired Backdoor Defense，CBD），旨在学习去混淆的分类表示。由于后门攻击隐蔽且难以直接测量，无法通过因果推理直接阻断后门路径。受到解缠绕表征学习最新进展的启发，作者的目标是学习一种表征，它只保留与因果关系相关的信息。在CBD中，作者训练了两个深度神经网络（DNN）：一个专注于捕获虚假相关性，另一个专注于识别因果效应。第一个DNN通过提前停止策略有意地学习后门相关性。接着，我们通过最小化互信息训练第二个干净的模型，使其在隐藏空间中独立于第一个模型。训练完成后，只有干净的模型被用于下游的分类任务。&lt;/p&gt;
-&lt;h2 id=&#34;问题构造&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题构造
-&lt;/h2&gt;&lt;p&gt;作者假设攻击者已经预先生成了一组后门示例，并成功地将它们注入到训练数据集中。同时，作者假设防御者能够完全控制训练过程，但对数据集中后门示例的分布或比例一无所知。防御者的目标是训练出一个在中毒数据集上表现良好且无后门的模型，其性能应与在纯干净数据上训练的模型相当。一句话总结，就是在后门数据集上训练出一个干净模型。&lt;/p&gt;
-&lt;h3 id=&#34;因果分析&#34;&gt;&lt;a href=&#34;#%e5%9b%a0%e6%9e%9c%e5%88%86%e6%9e%90&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;因果分析
-&lt;/h3&gt;&lt;p&gt;因果推理的优越性在于它使人类能够识别因果关系，同时忽略任务中的非必要因素。相比之下，深度神经网络通常无法区分因果关系和统计关联，并且倾向于学习那些“更容易”的相关性，而不是必要的信息。这种走捷径的解决方案可能导致对无关因素（例如触发模式）的过度拟合，从而增加了后门攻击的脆弱性。因此，作者利用因果推理来分析DNN模型的训练过程，并降低后门注入的风险。&lt;/p&gt;
-&lt;p&gt;作者通过构建因果图$G$来模拟中毒数据的生成过程。在因果图中，作者使用节点来表示抽象数据变量，其中$X$代表输入图像，$Y$代表标签，$B$代表后门攻击。有向链接则表示这些变量之间的关系。除了$X$对$Y$的因果效应（$X → Y$）之外，后门攻击者可以通过将触发模式附加到图像（$B → X$）并将标签更改为目标标签（$B → Y$）来实施攻击。因此，后门攻击 $B$ 作为 $X$ 和 $Y$ 之间的混杂因素，打开了虚假路径 $X ← B → Y$（其中 $B = 1$ 表示图像中毒，$B = 0$ 表示图像干净）。我们所说的“虚假”路径是指这条路径位于 $X$ 到 $Y$ 的直接因果路径之外，它使得 $X$ 和 $Y$ 之间产生了虚假的相关性，并在触发器被激活时导致错误的效果。深度神经网络（DNN）很难区分虚假相关性和因果关系。因此，如果在可能中毒的数据集上直接训练 DNN，模型将面临被后门攻击的风险。&lt;/p&gt;
-&lt;p&gt;为了探究 $X$ 对 $Y$ 的因果效应，研究者通常使用 do 演算在因果干预中进行后门调整：$P(Y|do(X)) = \sum_{B\in\{0,1\}}P(Y|X,B)P(B)$。然而，在作者的设置中，由于混杂变量 $B$ 几乎无法被检测和测量，不能简单地使用后门调整来阻断后门路径。相反，由于大多数深度学习模型的目标是学习下游任务的准确嵌入表示，所以目标是解开隐藏空间中的混淆效应和因果效应。&lt;/p&gt;
-&lt;h2 id=&#34;基于因果推理的后门防御&#34;&gt;&lt;a href=&#34;#%e5%9f%ba%e4%ba%8e%e5%9b%a0%e6%9e%9c%e6%8e%a8%e7%90%86%e7%9a%84%e5%90%8e%e9%97%a8%e9%98%b2%e5%be%a1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;基于因果推理的后门防御
-&lt;/h2&gt;&lt;p&gt;在现实应用中，直接识别数据空间中 $X$ 的混杂因素和因果因素可能相当困难。作者假设这些混杂因素和因果因素会在隐藏的表征中得到体现。通常，训练包括两个 DNN，即 $f_B$ 和 $f_C$，它们分别专注于捕获虚假相关性和因果关系。作者从 $f_B$ 和 $f_C$ 的倒数第二层提取嵌入向量，分别表示为 $R$ 和 $Z$。为了避免混淆，本文中使用大写字母表示变量，小写字母表示具体值。为了生成能够捕获因果关系的高质量变量 $Z$，作者在训练阶段，首先在中毒数据集上训练 $f_B$，以捕捉后门的虚假相关性。随后，训练另一个干净的模型 $f_C$，鼓励其在隐藏空间（即 $Z$ 与 $R$ 独立）中的独立性，并通过最小化互信息和实施样本重新加权策略。训练完成后，只有 $f_C$ 被用于下游的分类任务。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506143306646.png&#34;
-	width=&#34;855&#34;
-	height=&#34;416&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506143306646_hu_223138b87ac4fbd.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506143306646_hu_78af587a89ae9b69.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;框架图&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;205&#34;
-		data-flex-basis=&#34;493px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;后门模型训练&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e9%97%a8%e6%a8%a1%e5%9e%8b%e8%ae%ad%e7%bb%83&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后门模型训练
-&lt;/h3&gt;&lt;p&gt;首先，作者在具有交叉熵损失的毒数据集上训练 $f_B$，目的是捕获后门的虚假相关性。由于中毒数据仍然包含因果关系，作者有意通过早期停止策略来增强 $f_B$ 中的混杂偏差。具体来说，作者只对 $f_B$ 进行了少数几个时期的训练（例如，5 个时期），并在训练 $f_C$ 时冻结了其参数。这是因为先前的研究表明，后门关联比因果关系更容易被学习。&lt;/p&gt;
-&lt;h3 id=&#34;干净模型训练&#34;&gt;&lt;a href=&#34;#%e5%b9%b2%e5%87%80%e6%a8%a1%e5%9e%8b%e8%ae%ad%e7%bb%83&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;干净模型训练
-&lt;/h3&gt;&lt;p&gt;作者提出了具有信息瓶颈和互信息最小化的训练目标：&lt;/p&gt;
-$$\mathcal{L}\_C=\min\underbrace{\beta I(Z;X)}\_{1}-\underbrace{I(Z;Y)}\_{2}+\underbrace{I(Z;R)}\_{3}$$&lt;p&gt;其中$I(.;.)$​表示互信息&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;①用来限制来自输入的不相关信息&lt;/li&gt;
-&lt;li&gt;②用来捕获变量 $Z$​ 用于标签预测的核心信息&lt;/li&gt;
-&lt;li&gt;③描述了后门嵌入 $R$ 和去混淆嵌入 $Z$ 之间的依赖程度。它鼓励 $Z$ 独立于 $R$，通过最小化互信息来关注因果效应&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;互信息&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;互信息&lt;/strong&gt;（mutual Information，MI）度量了两个变量之间相互依赖的程度。具体来说，对于两个随机变量，MI是一个随机变量由于已知另一个随机变量而减少的“信息量”（单位通常为比特）。&lt;/p&gt;
-$$I(X;Y)=D\_{\mathrm{KL}}(p(x,y)\|p(x)\otimes p(y))$$&lt;p&gt;直观上，互信息度量 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 共享的信息：它度量知道这两个变量其中一个，对另一个不确定度减少的程度。例如，如果 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 相互独立，则知道 &lt;em&gt;X&lt;/em&gt; 不对 &lt;em&gt;Y&lt;/em&gt; 提供任何信息，反之亦然，所以它们的互信息为零。在另一个极端，如果 &lt;em&gt;X&lt;/em&gt; 是 &lt;em&gt;Y&lt;/em&gt; 的一个确定性函数，且 &lt;em&gt;Y&lt;/em&gt; 也是 &lt;em&gt;X&lt;/em&gt; 的一个确定性函数，那么传递的所有信息被 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 共享：知道 &lt;em&gt;X&lt;/em&gt; 决定 &lt;em&gt;Y&lt;/em&gt; 的值，反之亦然。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;然而，上述的公式并不能直接求解，为此，作者放宽了限制。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;公式1&lt;/strong&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>论文 on luoboQAQ</title><link>https://lbqaq.top/categories/%E8%AE%BA%E6%96%87/</link><description>Recent content in 论文 on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 07 May 2024 14:30:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/categories/%E8%AE%BA%E6%96%87/index.xml" rel="self" type="application/rss+xml"/><item><title>Backdoor Defense via Deconfounded Representation Learning</title><link>https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/</link><pubDate>Tue, 07 May 2024 14:30:00 +0800</pubDate><guid>https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/</guid><description>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/117158168.webp" alt="Featured image of post Backdoor Defense via Deconfounded Representation Learning" />&lt;h2 id="介绍">&lt;a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor">&lt;/a>介绍
+&lt;/h2>&lt;p>最近的研究表明，深度神经网络 （DNN） 容易受到后门攻击，攻击者通过毒害一些训练数据将隐蔽的后门注入 DNN。具体来说，后门攻击者将后门触发器（即特定模式）附加到一些良性训练数据，并将其标签更改为攻击者指定的目标标签。触发模式和目标标签之间的相关性将由 DNN 在训练期间学习。在推理过程中，后门模型在良性数据上表现正常，而当后门被激活时，其预测会被恶意改变。&lt;/p>
+&lt;p>相反，人类认知系统能够抵抗输入的扰动，例如后门攻击引起的隐蔽触发模式。这是因为人类对因果关系的敏感度高于干扰因素的关联。相比之下，经过训练以拟合中毒数据集的深度学习模型很难区分后门攻击带来的因果关系和统计关联。通过因果推理，我们可以识别因果关系并建立鲁棒的深度学习模型。因此，必须利用因果推理来分析和减轻后门攻击的威胁。&lt;/p>
+&lt;p>那么。什么是因果推理呢？因果推断在统计研究中有着悠久的历史。因果推理的目标是分析变量之间的因果效应，并减轻虚假相关性。&lt;/p>
+&lt;p>作者专注于图像分类任务，目标是在没有额外干净数据的情况下，在含有毒数据的数据集上训练出无后门的模型。作者首先构建了一个因果图来模拟后门数据的生成过程，特别考虑了干扰因素，即后门触发模式。借助因果图，发现后门攻击扮演了混杂因素的角色，并在输入图像与预测标签之间建立了一条虚假的联系。一旦深度神经网络学习了这种虚假联系，当附加了触发器时，它们的预测就会发生改变，转向目标标签。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240505113806496.png"
+width="981"
+height="449"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240505113806496_hu_8635af4f5014bd4c.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240505113806496_hu_a28f3ebe4682bdb6.png 1024w"
+loading="lazy"
+alt="后门攻击因果图"
+class="gallery-image"
+data-flex-grow="218"
+data-flex-basis="524px"
+>&lt;/p>
+&lt;p>作者在因果洞察的启发下，提出了一种新的后门防御方法，称为因果关系启发的后门防御（Causalityinspired Backdoor Defense，CBD），旨在学习去混淆的分类表示。由于后门攻击隐蔽且难以直接测量，无法通过因果推理直接阻断后门路径。受到解缠绕表征学习最新进展的启发，作者的目标是学习一种表征，它只保留与因果关系相关的信息。在CBD中，作者训练了两个深度神经网络（DNN）：一个专注于捕获虚假相关性，另一个专注于识别因果效应。第一个DNN通过提前停止策略有意地学习后门相关性。接着，我们通过最小化互信息训练第二个干净的模型，使其在隐藏空间中独立于第一个模型。训练完成后，只有干净的模型被用于下游的分类任务。&lt;/p>
+&lt;h2 id="问题构造">&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor">&lt;/a>问题构造
+&lt;/h2>&lt;p>作者假设攻击者已经预先生成了一组后门示例，并成功地将它们注入到训练数据集中。同时，作者假设防御者能够完全控制训练过程，但对数据集中后门示例的分布或比例一无所知。防御者的目标是训练出一个在中毒数据集上表现良好且无后门的模型，其性能应与在纯干净数据上训练的模型相当。一句话总结，就是在后门数据集上训练出一个干净模型。&lt;/p>
+&lt;h3 id="因果分析">&lt;a href="#%e5%9b%a0%e6%9e%9c%e5%88%86%e6%9e%90" class="header-anchor">&lt;/a>因果分析
+&lt;/h3>&lt;p>因果推理的优越性在于它使人类能够识别因果关系，同时忽略任务中的非必要因素。相比之下，深度神经网络通常无法区分因果关系和统计关联，并且倾向于学习那些“更容易”的相关性，而不是必要的信息。这种走捷径的解决方案可能导致对无关因素（例如触发模式）的过度拟合，从而增加了后门攻击的脆弱性。因此，作者利用因果推理来分析DNN模型的训练过程，并降低后门注入的风险。&lt;/p>
+&lt;p>作者通过构建因果图$G$来模拟中毒数据的生成过程。在因果图中，作者使用节点来表示抽象数据变量，其中$X$代表输入图像，$Y$代表标签，$B$代表后门攻击。有向链接则表示这些变量之间的关系。除了$X$对$Y$的因果效应（$X → Y$）之外，后门攻击者可以通过将触发模式附加到图像（$B → X$）并将标签更改为目标标签（$B → Y$）来实施攻击。因此，后门攻击 $B$ 作为 $X$ 和 $Y$ 之间的混杂因素，打开了虚假路径 $X ← B → Y$（其中 $B = 1$ 表示图像中毒，$B = 0$ 表示图像干净）。我们所说的“虚假”路径是指这条路径位于 $X$ 到 $Y$ 的直接因果路径之外，它使得 $X$ 和 $Y$ 之间产生了虚假的相关性，并在触发器被激活时导致错误的效果。深度神经网络（DNN）很难区分虚假相关性和因果关系。因此，如果在可能中毒的数据集上直接训练 DNN，模型将面临被后门攻击的风险。&lt;/p>
+&lt;p>为了探究 $X$ 对 $Y$ 的因果效应，研究者通常使用 do 演算在因果干预中进行后门调整：$P(Y|do(X)) = \sum_{B\in\{0,1\}}P(Y|X,B)P(B)$。然而，在作者的设置中，由于混杂变量 $B$ 几乎无法被检测和测量，不能简单地使用后门调整来阻断后门路径。相反，由于大多数深度学习模型的目标是学习下游任务的准确嵌入表示，所以目标是解开隐藏空间中的混淆效应和因果效应。&lt;/p>
+&lt;h2 id="基于因果推理的后门防御">&lt;a href="#%e5%9f%ba%e4%ba%8e%e5%9b%a0%e6%9e%9c%e6%8e%a8%e7%90%86%e7%9a%84%e5%90%8e%e9%97%a8%e9%98%b2%e5%be%a1" class="header-anchor">&lt;/a>基于因果推理的后门防御
+&lt;/h2>&lt;p>在现实应用中，直接识别数据空间中 $X$ 的混杂因素和因果因素可能相当困难。作者假设这些混杂因素和因果因素会在隐藏的表征中得到体现。通常，训练包括两个 DNN，即 $f_B$ 和 $f_C$，它们分别专注于捕获虚假相关性和因果关系。作者从 $f_B$ 和 $f_C$ 的倒数第二层提取嵌入向量，分别表示为 $R$ 和 $Z$。为了避免混淆，本文中使用大写字母表示变量，小写字母表示具体值。为了生成能够捕获因果关系的高质量变量 $Z$，作者在训练阶段，首先在中毒数据集上训练 $f_B$，以捕捉后门的虚假相关性。随后，训练另一个干净的模型 $f_C$，鼓励其在隐藏空间（即 $Z$ 与 $R$ 独立）中的独立性，并通过最小化互信息和实施样本重新加权策略。训练完成后，只有 $f_C$ 被用于下游的分类任务。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506143306646.png"
+width="855"
+height="416"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506143306646_hu_223138b87ac4fbd.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506143306646_hu_78af587a89ae9b69.png 1024w"
+loading="lazy"
+alt="框架图"
+class="gallery-image"
+data-flex-grow="205"
+data-flex-basis="493px"
+>&lt;/p>
+&lt;h3 id="后门模型训练">&lt;a href="#%e5%90%8e%e9%97%a8%e6%a8%a1%e5%9e%8b%e8%ae%ad%e7%bb%83" class="header-anchor">&lt;/a>后门模型训练
+&lt;/h3>&lt;p>首先，作者在具有交叉熵损失的毒数据集上训练 $f_B$，目的是捕获后门的虚假相关性。由于中毒数据仍然包含因果关系，作者有意通过早期停止策略来增强 $f_B$ 中的混杂偏差。具体来说，作者只对 $f_B$ 进行了少数几个时期的训练（例如，5 个时期），并在训练 $f_C$ 时冻结了其参数。这是因为先前的研究表明，后门关联比因果关系更容易被学习。&lt;/p>
+&lt;h3 id="干净模型训练">&lt;a href="#%e5%b9%b2%e5%87%80%e6%a8%a1%e5%9e%8b%e8%ae%ad%e7%bb%83" class="header-anchor">&lt;/a>干净模型训练
+&lt;/h3>&lt;p>作者提出了具有信息瓶颈和互信息最小化的训练目标：&lt;/p>
+$$\mathcal{L}\_C=\min\underbrace{\beta I(Z;X)}\_{1}-\underbrace{I(Z;Y)}\_{2}+\underbrace{I(Z;R)}\_{3}$$&lt;p>其中$I(.;.)$​表示互信息&lt;/p>
+&lt;ul>
+&lt;li>①用来限制来自输入的不相关信息&lt;/li>
+&lt;li>②用来捕获变量 $Z$​ 用于标签预测的核心信息&lt;/li>
+&lt;li>③描述了后门嵌入 $R$ 和去混淆嵌入 $Z$ 之间的依赖程度。它鼓励 $Z$ 独立于 $R$，通过最小化互信息来关注因果效应&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;strong>互信息&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>互信息&lt;/strong>（mutual Information，MI）度量了两个变量之间相互依赖的程度。具体来说，对于两个随机变量，MI是一个随机变量由于已知另一个随机变量而减少的“信息量”（单位通常为比特）。&lt;/p>
+$$I(X;Y)=D\_{\mathrm{KL}}(p(x,y)\|p(x)\otimes p(y))$$&lt;p>直观上，互信息度量 &lt;em>X&lt;/em> 和 &lt;em>Y&lt;/em> 共享的信息：它度量知道这两个变量其中一个，对另一个不确定度减少的程度。例如，如果 &lt;em>X&lt;/em> 和 &lt;em>Y&lt;/em> 相互独立，则知道 &lt;em>X&lt;/em> 不对 &lt;em>Y&lt;/em> 提供任何信息，反之亦然，所以它们的互信息为零。在另一个极端，如果 &lt;em>X&lt;/em> 是 &lt;em>Y&lt;/em> 的一个确定性函数，且 &lt;em>Y&lt;/em> 也是 &lt;em>X&lt;/em> 的一个确定性函数，那么传递的所有信息被 &lt;em>X&lt;/em> 和 &lt;em>Y&lt;/em> 共享：知道 &lt;em>X&lt;/em> 决定 &lt;em>Y&lt;/em> 的值，反之亦然。&lt;/p>&lt;/blockquote>
+&lt;p>然而，上述的公式并不能直接求解，为此，作者放宽了限制。&lt;/p>
+&lt;p>&lt;strong>公式1&lt;/strong>&lt;/p>
 $$\begin{aligned}
 I(Z;X)&amp; =\sum\_x\sum\_zp(z,x)\mathrm{log}\frac{p(z,x)}{p(z)p(x)} \\\\
 &amp;=\sum\_x\sum\_zp(z|x)p(x)\mathrm{log}\frac{p(z|x)p(x)}{p(z)p(x)} \\\\
 &amp;=\sum\_x\sum\_zp(z|x)p(x)\mathrm{log~}p(z|x)-\sum\_zp(z)\mathrm{log~}p(z)
-\end{aligned}$$&lt;p&gt;然而，边际概率$p(z)=\sum_xp(z|x)p(x)$在实践中很难计算，为此作者通过变分分布$q(z)$来近似$p(z)$，由于KL散度是非负的，根据吉布斯不等式：$D_{\mathrm{KL}}(p(z)||q(z)) \geq 0 \Rightarrow -\sum_zp(z)\mathrm{log~}p(z)\leq-\sum_zp(z)\mathrm{log~}q(z)$&lt;/p&gt;
-&lt;p&gt;将其代入上式：&lt;/p&gt;
+\end{aligned}$$&lt;p>然而，边际概率$p(z)=\sum_xp(z|x)p(x)$在实践中很难计算，为此作者通过变分分布$q(z)$来近似$p(z)$，由于KL散度是非负的，根据吉布斯不等式：$D_{\mathrm{KL}}(p(z)||q(z)) \geq 0 \Rightarrow -\sum_zp(z)\mathrm{log~}p(z)\leq-\sum_zp(z)\mathrm{log~}q(z)$&lt;/p>
+&lt;p>将其代入上式：&lt;/p>
 $$\begin{aligned}
 I(Z;X)&amp; \leq\sum\_xp(x)\sum\_zp(z|x)\mathrm{log~}p(z|x)-\sum\_zp(z)\mathrm{log~}q(z) \\\\
 &amp;=\sum\_xp(x)\sum\_zp(z|x)\mathrm{log}\frac{p(z|x)}{q(z)} \\\\
 &amp;=\sum\_xp(x)D\_{\mathrm{KL}}(p(z|x)||q(z))
-\end{aligned}$$&lt;p&gt;作者假设$p(z|x)=\mathcal{N}(\mu(x),\mathrm{diag}\{\sigma^2(x)\})$是高斯分布，其中$\mu(x)$是$x$的编码嵌入，$\mathrm{diag}\{\sigma^2(x)\}=\{\sigma_d^2\}_{d=1}^D$表示方差的对角矩阵，并假设$q(z)=\mathcal{N}(0,I)$，于是上式就可以改写成：&lt;/p&gt;
-$$D\_{\mathrm{KL}}(p(z|x)||q(z))=\frac{1}{2}||\mu(x)||\_2^2+\frac{1}{2}\sum\_d(\sigma\_d^2-\mathrm{log}\sigma\_d^2-1)$$&lt;p&gt;为了便于优化作者将$\sigma(x)$定义为全零矩阵，所以$z=\mu(x)$成为确定性嵌入。&lt;/p&gt;
-&lt;p&gt;最后推导出来，公式一就相当于直接在嵌入向量 $z$ 上应用L2正则化&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;公式2&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;根据互信息的定义，有$I(Z;Y)=H(Y)-H(Y|Z)$，其中$H(·)$ 和 $H(·|·)$ 分别表示熵和条件熵。由于$H(Y)$ 是一个正常数，可以忽略不计，因此有以下不等式：&lt;/p&gt;
-$$-I(Z;Y)\leq H(Y|Z)$$&lt;p&gt;在实验中，$H(Y|Z)$可以计算并优化为交叉熵损失。为了进一步鼓励 $f_C$ 和 $f_B$ 之间的独立性，作者固定了 $f_B$ 的参数，并使用样本加权交叉熵损失来训练 $f_C$，权重的计算公式为：&lt;/p&gt;
-$$w(x)=\frac{CE(f\_B(x),y)}{CE(f\_B(x),y)+CE(f\_C(x),y)}$$&lt;p&gt;对于 $f_B$上损失较大的样本，$w(x)$接近1;而当损失非常小时，$w(x)$接近 0。从而让 $f_C$专注于 $f_B$的“难”示例，以鼓励其独立性。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;公式3&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;基于互信息和KL散度的关系，有$I(Z;R)=D_{\mathrm{KL}}(p(Z,R)||p(Z)p(R))$，即$I(Z;R)$等价于联合分布$p(Z,R)$和两个边际$p(Z)p(R)$的乘积之间的KL散度。&lt;/p&gt;
-&lt;p&gt;为了最小化混杂惩罚项，作者采用了对抗学习。判别器$D_\phi$被训练成将联合分布$p(Z,R)$分类为1，将边际分布$p(Z)p(R)$分类为0。边际分布$p(Z)p(R)$的样本是通过对$p(Z,R)$训练批次中样本$(z,r)$的单个表示进行shuffle而获得的。优化函数如下：&lt;/p&gt;
-$$\mathcal{L}\_{adv}=\min\_{\theta\_C}\max\_\phi\mathbb{E}\_{p(z,r)}[D\_\phi(z,r)]-\mathbb{E}\_{p(z)p(r)}[D\_\phi(z,r)]$$&lt;p&gt;其中$\theta_C$ 和$\phi$分别表示 $f_C$ 和 $D_\phi$ 的参数。&lt;/p&gt;
-&lt;p&gt;综上，$f_C$的损失函数为：&lt;/p&gt;
-$$\mathcal{L}\_C=\mathcal{L}\_{wce}+\mathcal{L}\_{adv}+\beta||\mu(x)||\_2^2$$&lt;p&gt;​&lt;/p&gt;
-&lt;p&gt;算法的伪代码如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425.png&#34;
-	width=&#34;989&#34;
-	height=&#34;662&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425_hu_934445f40a309d99.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425_hu_83565e92195510bf.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;CBD算法&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;149&#34;
-		data-flex-basis=&#34;358px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;实验&#34;&gt;&lt;a href=&#34;#%e5%ae%9e%e9%aa%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;实验
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据集和模型&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CIFAR-10：WideResNet&lt;/li&gt;
-&lt;li&gt;GTSRB：WideResNet&lt;/li&gt;
-&lt;li&gt;ImageNet：ResNet-34&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;攻击基线&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;BadNets、Trojan attack、Blend attack、Sinusoidal signal attack (SIG)、Dynamic attack、WaNet&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;防御基线&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Fine-pruning (FP) 、Mode Connectivity Repair (MCR) 、 Neural Attention Distillation (NAD) 、 Anti-Backdoor Learning (ABL) 、Decoupling-based backdoor defense (DBD)&lt;/p&gt;
-&lt;p&gt;作者在&lt;strong&gt;10%中毒率&lt;/strong&gt;下和其他防御方法进行了对比，证明了该方法的有效性。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124654213.png&#34;
-	width=&#34;1700&#34;
-	height=&#34;1262&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124654213_hu_e22381df4b51cf71.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124654213_hu_f1aaa1291e8bdfdc.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;实验&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;134&#34;
-		data-flex-basis=&#34;323px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;同时，作者也考虑了&lt;strong&gt;不同中毒率&lt;/strong&gt;下防御方法的有效性&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124825684.png&#34;
-	width=&#34;1094&#34;
-	height=&#34;593&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124825684_hu_8c44ae762888829f.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124825684_hu_4b83798a9ef554aa.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;不同中毒率&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;184&#34;
-		data-flex-basis=&#34;442px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;此外，作者还绘制了t-SNE图，从a和b可以看出在训练后，混杂成分$r$和因果成分$z$之间存在明显的分离。从c和d中可以看出，中毒样本的嵌入在$r$中形成簇，这表明已经学习了后门触发器和目标标签之间的虚假相关性。相比之下，中毒样本与样本密切相关，其真实标签位于去混淆嵌入$z$中，这表明CBD可以有效地防御后门攻击。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125037327.png&#34;
-	width=&#34;1948&#34;
-	height=&#34;593&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125037327_hu_37a257ce2dde5951.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125037327_hu_d2f1c5d5b749b3e3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;t-SNE&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;328&#34;
-		data-flex-basis=&#34;788px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者最后还计算了防御所需的时间，可见防御并不需要更多额外的时间&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125439316.png&#34;
-	width=&#34;912&#34;
-	height=&#34;281&#34;
-	srcset=&#34;https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125439316_hu_a93b7ee3849f4cbe.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125439316_hu_a9d05e324970c33d.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;运算时间&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;324&#34;
-		data-flex-basis=&#34;778px&#34;
-	
-&gt;&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Graph Unlearning</title>
-        <link>https://lbqaq.top/p/graph-unlearning/</link>
-        <pubDate>Wed, 13 Sep 2023 16:38:20 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/graph-unlearning/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/graph-unlearning/110091745.webp" alt="Featured image of post Graph Unlearning" /&gt;&lt;h2 id=&#34;介绍&#34;&gt;&lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;介绍
-&lt;/h2&gt;&lt;p&gt;数据保护最近引起了越来越多的关注，并且已经提出了一些法规来保护个人用户的隐私。在这些法规中，提到了「被遗忘权」，它赋予数据主体从存储数据的实体中删除其数据的权利。这也意味着在机器学习中，模型提供者有义务消除其所有者要求被遗忘的数据的任何影响，即遗忘学习。&lt;/p&gt;
-&lt;p&gt;最简单和有效的遗忘学习方法就是移除对应的样本后重新训练模型，然而当底层数据集很大时，这种方法在计算上可能令人望而却步。目前通用的遗忘学习方法是SISA (Sharded, Isolated, Sliced, and Aggregated) ——将训练集分为shards, shards中分为slices, 对于每个slice训练之后记录model parameters,  每个数据点被划分到不同的shards和slices中, unlearn时就是排除掉对应数据点然后retrain对应的shard和slices,  以空间开销换取训练的时间开销。&lt;/p&gt;
-&lt;p&gt;对于图像和文本数据，分割数据没有什么问题。然而，对于图来说，GNN依赖于图结构信息，像在SISA中那样将节点随机划分为子图可能会严重损坏生成的模型。对此，作者提出了GraphEraser，以实现GNN中的遗忘学习。&lt;/p&gt;
-&lt;p&gt;作者将图遗忘学习分为node unlearning「节点遗忘学习」和edge unlearning「边遗忘学习」，提出了两种图分割策略。第一种侧重于graph structural information「图结构信息」，另一种则是同时考虑graph structural and node feature information「图结构和节点特征信息」。&lt;/p&gt;
-&lt;p&gt;为了同时考虑图结构和节点特征信息，作者将节点特征和图结构转化为嵌入向量，然后将其聚类为不同的shards。但是由于现实世界图的结构特性，传统的群落检测和聚类方法划分会导致分片大小不平衡，而大部分需要被撤销的数据都在最大的分区，从而导致效率低下。作者提出了两种分割算法和一种聚合算法以解决此问题。&lt;/p&gt;
-&lt;h3 id=&#34;贡献&#34;&gt;&lt;a href=&#34;#%e8%b4%a1%e7%8c%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;贡献
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;第一次提出了在GNN模型上的遗忘学习方法&lt;/li&gt;
-&lt;li&gt;提出了两种算法以平衡图分割块大小&lt;/li&gt;
-&lt;li&gt;提出了一种基于学习的聚合方法&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;问题构造&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题构造
-&lt;/h2&gt;&lt;h3 id=&#34;问题定义&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e5%ae%9a%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题定义
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;节点遗忘学习&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;对于GNN模型$F_o$，每个数据主体的数据对应于GNN训练图$G_o$中的一个节点。数据主体$u$要删除其所有数据，则意味着从GNN的训练图中遗忘学习$u$的节点特征以及其于其他节点的链接。以社交网络为例，节点遗忘学习意味着需要从目标GNN的训练图中删除用户的个人资料信息和社交关系。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;边遗忘学习&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;数据主体$u$要删除其节点于另一个节点$v$之间的一条边缘。仍然以社交网络为例，边缘遗忘意味着社交网络用户想要隐藏他们与另一个人的关系。&lt;/p&gt;
-&lt;h3 id=&#34;评估指标&#34;&gt;&lt;a href=&#34;#%e8%af%84%e4%bc%b0%e6%8c%87%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;评估指标
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;unlearning efficiency「遗忘学习效率」：与在训练的时间有关，时间要尽可能短。&lt;/li&gt;
-&lt;li&gt;model utility「模型效用」：与准确性有关，越高越好。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在之前提过，图分割存在分片大小不均匀的问题。为此，作者提出了两种分片目标：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;G1: Balanced Shards「均衡分片」：每个分片中的节点数量相似。这样，每个分片的再训练时间是相似的，从而提高了整个图遗忘学习过程的效率。&lt;/li&gt;
-&lt;li&gt;G2: Comparable Model Utility「可比模型效用」：图结构信息是决定GNN性能的主要因素，每个分片都应保留图的结构属性。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;grapheraser框架构造&#34;&gt;&lt;a href=&#34;#grapheraser%e6%a1%86%e6%9e%b6%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;GraphEraser框架构造
-&lt;/h3&gt;&lt;p&gt;作者将GraphEraser框架分为三个阶段：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Balanced Graph Partition「平衡图分区」：将训练图划分为不相交的分片&lt;/li&gt;
-&lt;li&gt;Shard Model Training「分片训练模型」：对每个分片进行训练一个模型，称之为shard model「分片模型」$F_i$&lt;/li&gt;
-&lt;li&gt;Shard Model Aggregation「分片模型聚合」：为了得到预测节点$w$的标签，将对应的数据（$w$的特征、其邻居的特征以及其中的图结构）同时发送到所有分片模型，并通过聚合所有分片模型的预测来获得最终预测。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;GraphEraser框架的结构图如下所示：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230910155749458.png&#34;
-	width=&#34;1609&#34;
-	height=&#34;546&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230910155749458_hu_afc1e13c416b6b72.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230910155749458_hu_6fcb945e6404318f.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GraphEraser框架图&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;294&#34;
-		data-flex-basis=&#34;707px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;平衡图分割&#34;&gt;&lt;a href=&#34;#%e5%b9%b3%e8%a1%a1%e5%9b%be%e5%88%86%e5%89%b2&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;平衡图分割
-&lt;/h2&gt;&lt;p&gt;作者提出了三种图分区策略：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;策略0&lt;/strong&gt;：仅考虑节点特征信息，并随机对节点进行分区&lt;/p&gt;
-&lt;p&gt;该策略可以满足G1「均衡分片」要求，但不满足G2「可比模型效用」要求&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;策略1&lt;/strong&gt;：依靠community detection「社区发现」，仅考虑结构信息，并尽可能保留它&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;策略2&lt;/strong&gt;：同时考虑结构信息和节点特征。将节点特征和图结构表示为低维向量，即节点嵌入，然后将节点嵌入聚类到不同的分片中。&lt;/p&gt;
-&lt;p&gt;直接这样划分会导致划分区域不平衡，如下图所示：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911095231520.png&#34;
-	width=&#34;970&#34;
-	height=&#34;376&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911095231520_hu_6fc11e1147f5d99b.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911095231520_hu_d2a05acf1ae949d6.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;在Cora数据集上使用传统划分区域的大小&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;257&#34;
-		data-flex-basis=&#34;619px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;接下来，作者便介绍了对应的平衡图分区算法。&lt;/p&gt;
-&lt;h3 id=&#34;社区发现算法&#34;&gt;&lt;a href=&#34;#%e7%a4%be%e5%8c%ba%e5%8f%91%e7%8e%b0%e7%ae%97%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;社区发现算法
-&lt;/h3&gt;&lt;p&gt;对于策略1，主要依赖的就是此算法。作者基于Label Propagation Algorithm (LPA)「标签传播算法」来设计图分区算法。在本文中，shard就是community。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;标签传播算法&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911105605800.png&#34;
-	width=&#34;898&#34;
-	height=&#34;358&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911105605800_hu_1a8b28a41da05111.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911105605800_hu_adaf0536ba7d5e5.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;LPA工作流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;250&#34;
-		data-flex-basis=&#34;602px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;在初始阶段（图a），每个节点都随机分配一个分片标签。&lt;/p&gt;
-&lt;p&gt;在标签传播阶段（图b → 图 c），每个节点都会发送自己的标签，将自己更新成收到最多的那个标签&lt;/p&gt;
-&lt;p&gt;标签传播过程会对所有节点进行多次迭代，直到收敛（没有节点更改标签）&lt;/p&gt;
-&lt;p&gt;就如之前提到的，传统的LPA会导致高度不平衡的图形分区，严重影响了遗忘学习的效率。&lt;/p&gt;
-&lt;p&gt;对此，作者提出了一个实现平衡图分区的&lt;strong&gt;一般方法&lt;/strong&gt;。给定所需的分片大小$k$和最大分片大小$\delta$，为每个节点-分片定义一个可能被分配到此分片的preference「偏好值」，代表该节点被分配给了分片（这被称为destination shard「目标分片」），从而产生$k \times n$个偏好值。对这些值进行排序，如果目标分片中的节点数不超过$\delta$，就将该节点分配给此分片。&lt;/p&gt;
-&lt;p&gt;具体而言，作者提出了Balanced LPA (BLPA)「平衡标签传播算法」，将偏好值定义为节点分片对的neighbor counts「邻居计数」（属于目标分片的邻居数量），并且具有较大邻居计数的节点分片对具有更高的优先级分配。&lt;/p&gt;
-&lt;p&gt;算法的步骤如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911142423655.png&#34;
-	width=&#34;1005&#34;
-	height=&#34;1271&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911142423655_hu_6cd374f3aae8569a.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911142423655_hu_92b8b6b78d535d99.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;BLPA算法&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;79&#34;
-		data-flex-basis=&#34;189px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;初始化：将每个节点随机分配给k个分片之一&lt;/li&gt;
-&lt;li&gt;重新分配配置文件计算：对于每个节点$u$，使用元组$\left\langle u, \mathbb{C}_{s r c}, \mathbb{C}_{d s t}, \xi\right\rangle$表示其重新分配的配置文件，其中$\mathbb{C}_{s r c}$和$\mathbb{C}_{d s t}$是节点$u$的当前分片和目标分片，$\xi$是目标分片$\mathbb{C}_{d s t}$的邻居计数，并将其存入$\mathbb{F}$&lt;/li&gt;
-&lt;li&gt;排序：邻居数量越多的重新分配配置文件应具有越高的优先级，所以按$\xi$对$\mathbb{F}$进行降序排序&lt;/li&gt;
-&lt;li&gt;传播标签：枚举$\mathbb{F}$里的所有元素，如果$\mathbb{C}_{d s t}$的大小不超过给定的阈值$\delta$，就将其添加到目标分片并从当前分片中删除。之后在$\mathbb{F}$中删除所有剩余的包含节点$u$的元组。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;之后不断迭代，直到分片不更改或达到最大迭代$T$&lt;/p&gt;
-&lt;p&gt;算法的时间复杂度为$O(n·d_{ave})$，$n$为节点数，$d_{ave}$为训练图的平均节点数。&lt;/p&gt;
-&lt;p&gt;作者无法从理论上证明其收敛性，不过通过实验表示$T=30$时几乎是收敛的。&lt;/p&gt;
-&lt;h3 id=&#34;嵌入式聚类算法&#34;&gt;&lt;a href=&#34;#%e5%b5%8c%e5%85%a5%e5%bc%8f%e8%81%9a%e7%b1%bb%e7%ae%97%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;嵌入式聚类算法
-&lt;/h3&gt;&lt;p&gt;对于策略2，作者使用预训练的GNN模型来获取所有节点嵌入，然后对生成的节点嵌入执行聚类。&lt;/p&gt;
-&lt;p&gt;思路是将GNN模型的所有节点投影到空间中，再使用K-Means进行聚类。同样也会导致分块的不平均这个问题。&lt;/p&gt;
-&lt;p&gt;对此，作者提出了Balanced Embedding k-means (BEKM)。定义preference「偏好值」为节点嵌入和所有节点分片对的分片质心之间的欧氏距离。&lt;/p&gt;
-&lt;p&gt;具体的算法如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912153952657.png&#34;
-	width=&#34;998&#34;
-	height=&#34;1447&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912153952657_hu_97849e8d384ef55b.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912153952657_hu_918b0ba534c5b6d2.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;BEKM算法&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;68&#34;
-		data-flex-basis=&#34;165px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;初始化：随机选择$k$个质心$C^0=\{C^0_1,C^0_2,\dots,C^0_k\}$&lt;/li&gt;
-&lt;li&gt;计算嵌入质心距离：计算节点嵌入和质心之间的所有成对距离，从而得到$n\times k$个嵌入质心对。这些对存储在$\mathbb{F}$中。&lt;/li&gt;
-&lt;li&gt;排序质心距离：距离较近的嵌入质心对具有更高的优先级，所以按照升序对$\mathbb{F}$进行排序&lt;/li&gt;
-&lt;li&gt;重新分配节点和更新质心：枚举$\mathbb{F}$里的所有元素，如果$\mathbb{C}_{j}$的大小不超过给定的阈值$\delta$，就将其添加到目标分片。之后在$\mathbb{F}$中删除所有剩余的包含节点$i$的元组。最后，将新质心计算为其相应分片中所有节点的平均值。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;同样，不断重复直到分片不更改或达到最大迭代$T$&lt;/p&gt;
-&lt;p&gt;算法的时间复杂度为$O(k·n)$，$n$个节点,$k$个分片。&lt;/p&gt;
-&lt;h2 id=&#34;基于学习的聚合&#34;&gt;&lt;a href=&#34;#%e5%9f%ba%e4%ba%8e%e5%ad%a6%e4%b9%a0%e7%9a%84%e8%81%9a%e5%90%88&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;基于学习的聚合
-&lt;/h2&gt;&lt;p&gt;目前常见的聚合方式有两种：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;MajAggr：每个分片模型预测一个标签，取最多预测的标签&lt;/li&gt;
-&lt;li&gt;MeanAggr：收集所有分片模型的后验向量，然后求平均值，得到聚合后验，选取最高后验值。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;作者提出了一种基于学习的聚合方法LBAggr，为每个分片模型分配一个重要性分数，通过以下损失函数进行学习：&lt;/p&gt;
-$$\min \_{\alpha} \underset{w \in \mathcal{G}\_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum\_{i=0}^{m} \alpha\_{i} \cdot \mathcal{F}\_{i}\left(X\_{w}, \mathcal{N}\_{w}\right), y\right)\right]+\lambda \sum\_{i=0}^{m}\left\|\alpha\_{i}\right\|$$&lt;p&gt;其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。&lt;/p&gt;
-&lt;p&gt;作者通过梯度下降来找到最优的$\alpha$，从而解决最优化问题。然而，直接梯度下降会导致$\alpha$为负数。为了解决此问题，作者使用softmax 函数在每次迭代中进行归一化处理。&lt;/p&gt;
-&lt;p&gt;为了提升运行速度，作者指出可以使用训练图中 10% 的节点进行重新训练。&lt;/p&gt;
-&lt;h2 id=&#34;grapheraser&#34;&gt;&lt;a href=&#34;#grapheraser&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;GraphEraser
-&lt;/h2&gt;&lt;p&gt;将上面提到的方法集合在一起，就得到了此算法。当某些节点或边缘被数据所有者撤销时，只需要重新训练相应的分片模型即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912202314840.png&#34;
-	width=&#34;1029&#34;
-	height=&#34;1020&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912202314840_hu_72e08d63c3131ee4.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912202314840_hu_282650750a810a6b.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GraphEraser&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;100&#34;
-		data-flex-basis=&#34;242px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;评估&#34;&gt;&lt;a href=&#34;#%e8%af%84%e4%bc%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;评估
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据集&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;作者采用了五个常用的图像数据集，分别为Cora, Citeseer, Pubmed, CS和Physics。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;模型&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;作者在四个GNN模型上进行了测试，分别是SAGE，GCN，GAT和GIN。每个模型都经过100轮的训练，默认学习率设置为0.01，权重衰减为0.001。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;指标&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在问题构造中提过，就是遗忘学习效率和模型效用&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;遗忘学习效率：计算100个独立遗忘学习请求的平均遗忘学习时间。&lt;/li&gt;
-&lt;li&gt;模型效用：使用F1得分&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;基线&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Scratch「从头开始训练」&lt;/li&gt;
-&lt;li&gt;Random「随机分区」&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;实验设置&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;将整个图分为两个不相交的部分，其中80%的节点用于训练GNN模型，20%的节点用于评估模型效用。&lt;/p&gt;
-&lt;p&gt;分片大小$k$设为20, 20, 50, 30, 和 100&lt;/p&gt;
-&lt;p&gt;片中节点最大个数$\delta$设为$\left \lceil \frac{n}{k} \right \rceil $&lt;/p&gt;
-&lt;p&gt;最大迭代次数$T$设为30&lt;/p&gt;
-&lt;p&gt;BLPA对应社区发现算法；BEKM对应嵌入式聚类算法&lt;/p&gt;
-&lt;h3 id=&#34;遗忘学习效率评估&#34;&gt;&lt;a href=&#34;#%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%95%88%e7%8e%87%e8%af%84%e4%bc%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;遗忘学习效率评估
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675.png&#34;
-	width=&#34;1733&#34;
-	height=&#34;464&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675_hu_6f3a611eb1d0d762.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675_hu_96450a638557c16b.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;遗忘学习效率&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;373&#34;
-		data-flex-basis=&#34;896px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;如图所示，BLPA和BEKM相对于从头训练模型，可以显著的减少训练的时间。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025.png&#34;
-	width=&#34;991&#34;
-	height=&#34;358&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025_hu_cb8af87f07830d8c.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025_hu_489c8bf421efc731.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;每个步骤所花费的时间&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;276&#34;
-		data-flex-basis=&#34;664px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;相对于Random，时间略长是因为存在更长的图分割成本。BLPA 和 BEKM 都需要多次迭代以保留结构信息。但一旦完成图分割，就会将其固定下来。从这个意义上说，我们可以容忍这种代价，因为它只执行一次。&lt;/p&gt;
-&lt;h3 id=&#34;模型效用评分&#34;&gt;&lt;a href=&#34;#%e6%a8%a1%e5%9e%8b%e6%95%88%e7%94%a8%e8%af%84%e5%88%86&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;模型效用评分
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971.png&#34;
-	width=&#34;1960&#34;
-	height=&#34;799&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971_hu_3d1f0efb28430581.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971_hu_e1ccddf03fd2d90f.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;不同遗忘学习方法模型效用&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;245&#34;
-		data-flex-basis=&#34;588px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;绿色底色表示不需要聚合，红色底色表示作者提出的方法，蓝色字体表示最优得分。&lt;/p&gt;
-&lt;p&gt;有些随机得分和BLPA和BEKM差不多，作者认为这时由于图结构信息在GNN模型中作用不大导致的。&lt;/p&gt;
-&lt;p&gt;对此，作者提出了一个方法选择的技巧：可以首先比较MLP和GNN的F1分数，如果MLP和GNN之间的F1分数差距很小，随机方法可能是一个不错的选择，因为它更容易实现，并且可以实现与BLPA和BEKM相当的模型效用。否则，BLPA和BEKM是更好的选择，因为更好的模型实用程序。&lt;/p&gt;
-&lt;p&gt;如果 GNN 遵循 GCN 结构，则可以选择BLPA，否则可以采用 BEKM。这是因为 GCN 模型需要节点度信息来进行归一化，而BLPA 可以保留更多的局部结构信息，从而更好地保留节点度。&lt;/p&gt;
-&lt;p&gt;BEKM 在 Cora 数据集和 GIN 模型上的 F1 得分为 0.801，而 Scratch 的相应 F1 得分为 0.787。作者认为有两种可能的原因：抽样往往可以消除数据集中的一些“噪声”；其次，GraphEraser通过聚合所有子模型的结果来进行最终预测，从这个意义上说，GraphEraser执行集成，这是提高模型性能的另一种方法。&lt;/p&gt;
-&lt;h3 id=&#34;lbaggr-的效果&#34;&gt;&lt;a href=&#34;#lbaggr-%e7%9a%84%e6%95%88%e6%9e%9c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;LBAggr 的效果
-&lt;/h3&gt;&lt;p&gt;有效，可以提升F1分数。&lt;/p&gt;
-&lt;p&gt;比较不同的GNN模型，GCN从LBAggr中受益最大，而GIN受益最少。在模型效用方面，GraphEraser-BLPA方法从LBAggr中受益最大。我们推测这是因为BLPA划分方法可以捕获局部结构信息，同时丢失训练图的一些全局结构信息。&lt;/p&gt;
-&lt;p&gt;为了进一步提高忘却效率，可以使用训练图中的一小部分节点来学习重要性分数。这样做可以有效地减少 LBAggr 的遗忘学习时间。使用 10% 的节点和使用固定数量的 1，000 个节点都可以实现与使用所有节点相当的模型效用。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907.png&#34;
-	width=&#34;971&#34;
-	height=&#34;561&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907_hu_92b016a23587b81c.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907_hu_71f9c13474b1d5.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;LBAggr 的效果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;173&#34;
-		data-flex-basis=&#34;415px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;和其他遗忘学习方法对比&#34;&gt;&lt;a href=&#34;#%e5%92%8c%e5%85%b6%e4%bb%96%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%96%b9%e6%b3%95%e5%af%b9%e6%af%94&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;和其他遗忘学习方法对比
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804.png&#34;
-	width=&#34;2011&#34;
-	height=&#34;1003&#34;
-	srcset=&#34;https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804_hu_baf7ab0c311bd774.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804_hu_b15c3db71f522390.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;遗忘学习对比&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;200&#34;
-		data-flex-basis=&#34;481px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;同样，也是作者的方法比较好。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>APMSA: Adversarial Perturbation Against Model Stealing Attacks</title>
-        <link>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</link>
-        <pubDate>Thu, 20 Jul 2023 14:57:05 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp" alt="Featured image of post APMSA: Adversarial Perturbation Against Model Stealing Attacks" /&gt;&lt;h2 id=&#34;介绍&#34;&gt;&lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;介绍
-&lt;/h2&gt;&lt;p&gt;在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。&lt;/p&gt;
-&lt;h3 id=&#34;mlaas&#34;&gt;&lt;a href=&#34;#mlaas&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MLaaS
-&lt;/h3&gt;&lt;p&gt;顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。&lt;/p&gt;
-&lt;p&gt;然而，MLaaS却容易受到模型提取攻击的影响。如下图所示，虽然模型托管在安全的云服务中，客户通过基于云的API进行查询。但是，攻击者可以基于预测输出来训练具有目标私有模型类似功能的替代模型。用户可以通过访问替代模型而无需向模型提供者付费，从而破坏了其商业价值。此外，攻击者还可以利用替代模型来制作优秀的可转移对抗性示例，从而有效地欺骗原始模型做出错误的预测，构成严重的安全威胁。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260.png&#34;
-	width=&#34;1032&#34;
-	height=&#34;497&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_46fb8d49824db0f4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_cfced2b85b0f71f4.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;模型提取攻击流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;207&#34;
-		data-flex-basis=&#34;498px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者提出了APMSA来防御模型提取攻击。当攻击者窃取服务器中部署的 &amp;ldquo;model under attack&amp;rdquo; (MUA) 时，通过发散给定特定类别的特征空间中查询样本的置信向量距离，就会泄露足够的MUA内部信息，有利于替代模型的训练。对此，作者在MUA 之前将微妙的噪声注入每个传入的输入查询中，以限制其置信向量的多样性。&lt;/p&gt;
-&lt;h3 id=&#34;相关研究&#34;&gt;&lt;a href=&#34;#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;相关研究
-&lt;/h3&gt;&lt;p&gt;目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270.png&#34;
-	width=&#34;2143&#34;
-	height=&#34;1005&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_2f19808c1b6b7730.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_e1ee7a4fb20e139e.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;相关文章&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;511px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Model extraction warning in MLaaS paradigm&lt;/li&gt;
-&lt;li&gt;PRADA: Protecting against DNN model stealing attacks&lt;/li&gt;
-&lt;li&gt;Defending against model stealing attacks with adaptive misinformation&lt;/li&gt;
-&lt;li&gt;Defending against neural network model stealing attacks using deceptive perturbations&lt;/li&gt;
-&lt;li&gt;BODAME: Bilevel optimization for defense against model extraction&lt;/li&gt;
-&lt;li&gt;Prediction poisoning: Towards defenses against DNN model stealing attacks&lt;/li&gt;
-&lt;li&gt;Model stealing defense with hybrid fuzzy models: Work-in-progress&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;与现有的直接置信扰动技术相比，APMSA不仅保留了MUA的可用性，还保留了MUA的实用性。与其他主动防御相比，APMSA可以简单地在MUA之前插入，而无需对MUA本身进行任何修改，因此它是通用的，易于部署的。&lt;/p&gt;
-&lt;h3 id=&#34;贡献&#34;&gt;&lt;a href=&#34;#%e8%b4%a1%e7%8c%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;贡献
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;通过建设性地最小化对训练替代模型至关重要的发散置信度信息来禁用被盗模型的可用功能。&lt;/li&gt;
-&lt;li&gt;通过形式化的优化实现了置信向量对 MUA 决策边界的限制。&lt;/li&gt;
-&lt;li&gt;APMSA不会对具有硬标签推理的普通用户造成效用损失&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;问题构造&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题构造
-&lt;/h2&gt;&lt;h3 id=&#34;威胁模型&#34;&gt;&lt;a href=&#34;#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;威胁模型
-&lt;/h3&gt;&lt;p&gt;假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990.png&#34;
-	width=&#34;1035&#34;
-	height=&#34;940&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_fa39e24285594e39.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_d8272ca6104544fe.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;基于迁移学习的模型提取攻击&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;110&#34;
-		data-flex-basis=&#34;264px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;攻击者只能通过 API 与模型交互，查询次数受预算限制。但是，他们可以自由选择任何样本进行查询（即未标记的公共数据集$X_{pub}$）。因此，攻击者完全了解输入（即样本类型）和输出（即标签集）的特征。但是，攻击者只能观察返回的预测置信向量，而不能观察模型架构和梯度信息。&lt;/p&gt;
-&lt;p&gt;攻击者旨在获得与私有模型$f$具有相似功能的替代模型$f&amp;rsquo;$。替代模型$f&amp;rsquo;$在公共数据集 $\mathbf{S}\subseteq\mathbf{X}_{pub}$ 的子集上进行训练：&lt;/p&gt;
-$$f^{\prime}\approx\arg\min\mathcal{L}\left(\\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in\mathbf{S}\\},f^{\prime}(\mathbf{x})\right)$$&lt;p&gt;防御者旨在将噪声注入每个查询的输入中，以间接干扰模型返回的预测。APMSA有两个主要目标。一方面，保留了模型的精度，即不使用APMSA时的精度应与原始精度相同。另一方面，被盗模型的准确性在很大程度上被破坏，使攻击者的免费私人查询不再有效。作者将使用 APMSA 前后模型准确性的下降程度作为指标。&lt;/p&gt;
-&lt;h3 id=&#34;apmsa的概述&#34;&gt;&lt;a href=&#34;#apmsa%e7%9a%84%e6%a6%82%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;APMSA的概述
-&lt;/h3&gt;&lt;p&gt;APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552.png&#34;
-	width=&#34;1036&#34;
-	height=&#34;381&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_dc8d51a86b052ea6.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_64aede77c8449950.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;APMSA的流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;271&#34;
-		data-flex-basis=&#34;652px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;上图是APMSA的流程。当向API查询输入时，APMSA不直接将该输入馈送到模型并返回置信向量。 相反，APMSA通过将对抗性噪声扰动注入到输入中来将该输入转换为对抗性输入。模型最终返回的是变换后的对抗性输入相对应的置信度向量。从攻击者的角度来看，其输入与返回的置信向量之间的关系映射已经被混淆。并且将给定类别样本的置信度向量约束在一个小的区域内，从而大大减少了泄漏信息，便于其替代模型的训练。同时，由于APMSA不会修改输入的硬标签，所以对于普通用户来说性能几乎没有损失。值得注意的是，APMSA是作为插件使用，不需要修改模型。&lt;/p&gt;
-&lt;h3 id=&#34;apmsa的实现&#34;&gt;&lt;a href=&#34;#apmsa%e7%9a%84%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;APMSA的实现
-&lt;/h3&gt;&lt;p&gt;作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）&lt;/p&gt;
-&lt;p&gt;也就是说如果输出都堆在一起，就可以混淆输入和输出之间的关系，并且可以更好地保护模型的隐私。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739.png&#34;
-	width=&#34;1036&#34;
-	height=&#34;384&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_d99f6a3840a205e4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_a3f1ce1b4090c8a.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;举例&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;269&#34;
-		data-flex-basis=&#34;647px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者随后介绍了APMSA的详细原理。同样是以二分类的模型为例，$f$是原模型，$f&amp;rsquo;$是攻击者得到的替代模型。其中，攻击者利用查询$x$来获得预测$y=f(x)$，其中$y=\{y_1,y_2\}$，攻击者使用$(x,y)$来训练替代模型。APMSA则是通过将向输入空间中的$x$添加对抗性噪声来将样本$x$变为混淆样本$x_c$。这里应用了制作对抗性样本$x&amp;rsquo;$的技术。与$x&amp;rsquo;$不同的是，$x_c$的硬标签与APMSA中的$x$的硬标签相同。这样，攻击者通过$\{x,y_c=f(x_c)\}$训练出来的模型$f&amp;rsquo;$决策边界就会导致$x_t$被误分类，从而防止模型窃取攻击。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663.png&#34;
-	width=&#34;994&#34;
-	height=&#34;474&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_b4407383a03bde74.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_9dc9419a786b281.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;APMSA工作流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;209&#34;
-		data-flex-basis=&#34;503px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;与传入的查询输入$x$相比，经变换的对抗输入$x_c$接近决策边界。作者将其转化成了一个优化问题：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;混淆的输入$x&amp;rsquo;$与其对应的对抗示例$x_c$在特征空间中相似，但$x_c$的硬标签与原始输入$x$的类别相同&lt;/li&gt;
-&lt;li&gt;混淆输入$x_c$和原始输入$x$的置信向量之间的间隙应尽可能小&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;将其公式化表示为：&lt;/p&gt;
-$$\begin{aligned}\mathcal{L}\_1&amp;=J\left(\mathbf{x}\_c\right)=J(\mathbf{x}+\delta)\\\\&amp;=\min\_\delta\max\left(Z(\mathbf{x}+\delta)\_s-Z(\mathbf{x}+\delta)\_t,0\right)\end{aligned}$$&lt;p&gt;其中$Z(x_c)_t$表示目标类别$t$的对数值，$Z(x_c)_s$表示原类别$s$。&lt;/p&gt;
-&lt;p&gt;如果使$Z(x_c)_s-Z(x_c)_t$变小，就表明指定类别的对数值和源类别之间的差距越来越大，则混淆输入$x_t$更接近目标类别的对抗样本。作者提出了新的约束来提高优化速度。&lt;/p&gt;
+\end{aligned}$$&lt;p>作者假设$p(z|x)=\mathcal{N}(\mu(x),\mathrm{diag}\{\sigma^2(x)\})$是高斯分布，其中$\mu(x)$是$x$的编码嵌入，$\mathrm{diag}\{\sigma^2(x)\}=\{\sigma_d^2\}_{d=1}^D$表示方差的对角矩阵，并假设$q(z)=\mathcal{N}(0,I)$，于是上式就可以改写成：&lt;/p>
+$$D\_{\mathrm{KL}}(p(z|x)||q(z))=\frac{1}{2}||\mu(x)||\_2^2+\frac{1}{2}\sum\_d(\sigma\_d^2-\mathrm{log}\sigma\_d^2-1)$$&lt;p>为了便于优化作者将$\sigma(x)$定义为全零矩阵，所以$z=\mu(x)$成为确定性嵌入。&lt;/p>
+&lt;p>最后推导出来，公式一就相当于直接在嵌入向量 $z$ 上应用L2正则化&lt;/p>
+&lt;p>&lt;strong>公式2&lt;/strong>&lt;/p>
+&lt;p>根据互信息的定义，有$I(Z;Y)=H(Y)-H(Y|Z)$，其中$H(·)$ 和 $H(·|·)$ 分别表示熵和条件熵。由于$H(Y)$ 是一个正常数，可以忽略不计，因此有以下不等式：&lt;/p>
+$$-I(Z;Y)\leq H(Y|Z)$$&lt;p>在实验中，$H(Y|Z)$可以计算并优化为交叉熵损失。为了进一步鼓励 $f_C$ 和 $f_B$ 之间的独立性，作者固定了 $f_B$ 的参数，并使用样本加权交叉熵损失来训练 $f_C$，权重的计算公式为：&lt;/p>
+$$w(x)=\frac{CE(f\_B(x),y)}{CE(f\_B(x),y)+CE(f\_C(x),y)}$$&lt;p>对于 $f_B$上损失较大的样本，$w(x)$接近1;而当损失非常小时，$w(x)$接近 0。从而让 $f_C$专注于 $f_B$的“难”示例，以鼓励其独立性。&lt;/p>
+&lt;p>&lt;strong>公式3&lt;/strong>&lt;/p>
+&lt;p>基于互信息和KL散度的关系，有$I(Z;R)=D_{\mathrm{KL}}(p(Z,R)||p(Z)p(R))$，即$I(Z;R)$等价于联合分布$p(Z,R)$和两个边际$p(Z)p(R)$的乘积之间的KL散度。&lt;/p>
+&lt;p>为了最小化混杂惩罚项，作者采用了对抗学习。判别器$D_\phi$被训练成将联合分布$p(Z,R)$分类为1，将边际分布$p(Z)p(R)$分类为0。边际分布$p(Z)p(R)$的样本是通过对$p(Z,R)$训练批次中样本$(z,r)$的单个表示进行shuffle而获得的。优化函数如下：&lt;/p>
+$$\mathcal{L}\_{adv}=\min\_{\theta\_C}\max\_\phi\mathbb{E}\_{p(z,r)}[D\_\phi(z,r)]-\mathbb{E}\_{p(z)p(r)}[D\_\phi(z,r)]$$&lt;p>其中$\theta_C$ 和$\phi$分别表示 $f_C$ 和 $D_\phi$ 的参数。&lt;/p>
+&lt;p>综上，$f_C$的损失函数为：&lt;/p>
+$$\mathcal{L}\_C=\mathcal{L}\_{wce}+\mathcal{L}\_{adv}+\beta||\mu(x)||\_2^2$$&lt;p>​&lt;/p>
+&lt;p>算法的伪代码如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425.png"
+width="989"
+height="662"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425_hu_934445f40a309d99.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425_hu_83565e92195510bf.png 1024w"
+loading="lazy"
+alt="CBD算法"
+class="gallery-image"
+data-flex-grow="149"
+data-flex-basis="358px"
+>&lt;/p>
+&lt;h2 id="实验">&lt;a href="#%e5%ae%9e%e9%aa%8c" class="header-anchor">&lt;/a>实验
+&lt;/h2>&lt;p>&lt;strong>数据集和模型&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>CIFAR-10：WideResNet&lt;/li>
+&lt;li>GTSRB：WideResNet&lt;/li>
+&lt;li>ImageNet：ResNet-34&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>攻击基线&lt;/strong>&lt;/p>
+&lt;p>BadNets、Trojan attack、Blend attack、Sinusoidal signal attack (SIG)、Dynamic attack、WaNet&lt;/p>
+&lt;p>&lt;strong>防御基线&lt;/strong>&lt;/p>
+&lt;p>Fine-pruning (FP) 、Mode Connectivity Repair (MCR) 、 Neural Attention Distillation (NAD) 、 Anti-Backdoor Learning (ABL) 、Decoupling-based backdoor defense (DBD)&lt;/p>
+&lt;p>作者在&lt;strong>10%中毒率&lt;/strong>下和其他防御方法进行了对比，证明了该方法的有效性。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124654213.png"
+width="1700"
+height="1262"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124654213_hu_e22381df4b51cf71.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124654213_hu_f1aaa1291e8bdfdc.png 1024w"
+loading="lazy"
+alt="实验"
+class="gallery-image"
+data-flex-grow="134"
+data-flex-basis="323px"
+>&lt;/p>
+&lt;p>同时，作者也考虑了&lt;strong>不同中毒率&lt;/strong>下防御方法的有效性&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124825684.png"
+width="1094"
+height="593"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124825684_hu_8c44ae762888829f.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507124825684_hu_4b83798a9ef554aa.png 1024w"
+loading="lazy"
+alt="不同中毒率"
+class="gallery-image"
+data-flex-grow="184"
+data-flex-basis="442px"
+>&lt;/p>
+&lt;p>此外，作者还绘制了t-SNE图，从a和b可以看出在训练后，混杂成分$r$和因果成分$z$之间存在明显的分离。从c和d中可以看出，中毒样本的嵌入在$r$中形成簇，这表明已经学习了后门触发器和目标标签之间的虚假相关性。相比之下，中毒样本与样本密切相关，其真实标签位于去混淆嵌入$z$中，这表明CBD可以有效地防御后门攻击。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125037327.png"
+width="1948"
+height="593"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125037327_hu_37a257ce2dde5951.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125037327_hu_d2f1c5d5b749b3e3.png 1024w"
+loading="lazy"
+alt="t-SNE"
+class="gallery-image"
+data-flex-grow="328"
+data-flex-basis="788px"
+>&lt;/p>
+&lt;p>作者最后还计算了防御所需的时间，可见防御并不需要更多额外的时间&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125439316.png"
+width="912"
+height="281"
+srcset="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125439316_hu_a93b7ee3849f4cbe.png 480w, https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240507125439316_hu_a9d05e324970c33d.png 1024w"
+loading="lazy"
+alt="运算时间"
+class="gallery-image"
+data-flex-grow="324"
+data-flex-basis="778px"
+>&lt;/p></description></item><item><title>Graph Unlearning</title><link>https://lbqaq.top/p/graph-unlearning/</link><pubDate>Wed, 13 Sep 2023 16:38:20 +0800</pubDate><guid>https://lbqaq.top/p/graph-unlearning/</guid><description>&lt;img src="https://lbqaq.top/p/graph-unlearning/110091745.webp" alt="Featured image of post Graph Unlearning" />&lt;h2 id="介绍">&lt;a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor">&lt;/a>介绍
+&lt;/h2>&lt;p>数据保护最近引起了越来越多的关注，并且已经提出了一些法规来保护个人用户的隐私。在这些法规中，提到了「被遗忘权」，它赋予数据主体从存储数据的实体中删除其数据的权利。这也意味着在机器学习中，模型提供者有义务消除其所有者要求被遗忘的数据的任何影响，即遗忘学习。&lt;/p>
+&lt;p>最简单和有效的遗忘学习方法就是移除对应的样本后重新训练模型，然而当底层数据集很大时，这种方法在计算上可能令人望而却步。目前通用的遗忘学习方法是SISA (Sharded, Isolated, Sliced, and Aggregated) ——将训练集分为shards, shards中分为slices, 对于每个slice训练之后记录model parameters, 每个数据点被划分到不同的shards和slices中, unlearn时就是排除掉对应数据点然后retrain对应的shard和slices, 以空间开销换取训练的时间开销。&lt;/p>
+&lt;p>对于图像和文本数据，分割数据没有什么问题。然而，对于图来说，GNN依赖于图结构信息，像在SISA中那样将节点随机划分为子图可能会严重损坏生成的模型。对此，作者提出了GraphEraser，以实现GNN中的遗忘学习。&lt;/p>
+&lt;p>作者将图遗忘学习分为node unlearning「节点遗忘学习」和edge unlearning「边遗忘学习」，提出了两种图分割策略。第一种侧重于graph structural information「图结构信息」，另一种则是同时考虑graph structural and node feature information「图结构和节点特征信息」。&lt;/p>
+&lt;p>为了同时考虑图结构和节点特征信息，作者将节点特征和图结构转化为嵌入向量，然后将其聚类为不同的shards。但是由于现实世界图的结构特性，传统的群落检测和聚类方法划分会导致分片大小不平衡，而大部分需要被撤销的数据都在最大的分区，从而导致效率低下。作者提出了两种分割算法和一种聚合算法以解决此问题。&lt;/p>
+&lt;h3 id="贡献">&lt;a href="#%e8%b4%a1%e7%8c%ae" class="header-anchor">&lt;/a>贡献
+&lt;/h3>&lt;ul>
+&lt;li>第一次提出了在GNN模型上的遗忘学习方法&lt;/li>
+&lt;li>提出了两种算法以平衡图分割块大小&lt;/li>
+&lt;li>提出了一种基于学习的聚合方法&lt;/li>
+&lt;/ul>
+&lt;h2 id="问题构造">&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor">&lt;/a>问题构造
+&lt;/h2>&lt;h3 id="问题定义">&lt;a href="#%e9%97%ae%e9%a2%98%e5%ae%9a%e4%b9%89" class="header-anchor">&lt;/a>问题定义
+&lt;/h3>&lt;p>&lt;strong>节点遗忘学习&lt;/strong>&lt;/p>
+&lt;p>对于GNN模型$F_o$，每个数据主体的数据对应于GNN训练图$G_o$中的一个节点。数据主体$u$要删除其所有数据，则意味着从GNN的训练图中遗忘学习$u$的节点特征以及其于其他节点的链接。以社交网络为例，节点遗忘学习意味着需要从目标GNN的训练图中删除用户的个人资料信息和社交关系。&lt;/p>
+&lt;p>&lt;strong>边遗忘学习&lt;/strong>&lt;/p>
+&lt;p>数据主体$u$要删除其节点于另一个节点$v$之间的一条边缘。仍然以社交网络为例，边缘遗忘意味着社交网络用户想要隐藏他们与另一个人的关系。&lt;/p>
+&lt;h3 id="评估指标">&lt;a href="#%e8%af%84%e4%bc%b0%e6%8c%87%e6%a0%87" class="header-anchor">&lt;/a>评估指标
+&lt;/h3>&lt;ul>
+&lt;li>unlearning efficiency「遗忘学习效率」：与在训练的时间有关，时间要尽可能短。&lt;/li>
+&lt;li>model utility「模型效用」：与准确性有关，越高越好。&lt;/li>
+&lt;/ul>
+&lt;p>在之前提过，图分割存在分片大小不均匀的问题。为此，作者提出了两种分片目标：&lt;/p>
+&lt;ul>
+&lt;li>G1: Balanced Shards「均衡分片」：每个分片中的节点数量相似。这样，每个分片的再训练时间是相似的，从而提高了整个图遗忘学习过程的效率。&lt;/li>
+&lt;li>G2: Comparable Model Utility「可比模型效用」：图结构信息是决定GNN性能的主要因素，每个分片都应保留图的结构属性。&lt;/li>
+&lt;/ul>
+&lt;h3 id="grapheraser框架构造">&lt;a href="#grapheraser%e6%a1%86%e6%9e%b6%e6%9e%84%e9%80%a0" class="header-anchor">&lt;/a>GraphEraser框架构造
+&lt;/h3>&lt;p>作者将GraphEraser框架分为三个阶段：&lt;/p>
+&lt;ul>
+&lt;li>Balanced Graph Partition「平衡图分区」：将训练图划分为不相交的分片&lt;/li>
+&lt;li>Shard Model Training「分片训练模型」：对每个分片进行训练一个模型，称之为shard model「分片模型」$F_i$&lt;/li>
+&lt;li>Shard Model Aggregation「分片模型聚合」：为了得到预测节点$w$的标签，将对应的数据（$w$的特征、其邻居的特征以及其中的图结构）同时发送到所有分片模型，并通过聚合所有分片模型的预测来获得最终预测。&lt;/li>
+&lt;/ul>
+&lt;p>GraphEraser框架的结构图如下所示：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230910155749458.png"
+width="1609"
+height="546"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230910155749458_hu_afc1e13c416b6b72.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230910155749458_hu_6fcb945e6404318f.png 1024w"
+loading="lazy"
+alt="GraphEraser框架图"
+class="gallery-image"
+data-flex-grow="294"
+data-flex-basis="707px"
+>&lt;/p>
+&lt;h2 id="平衡图分割">&lt;a href="#%e5%b9%b3%e8%a1%a1%e5%9b%be%e5%88%86%e5%89%b2" class="header-anchor">&lt;/a>平衡图分割
+&lt;/h2>&lt;p>作者提出了三种图分区策略：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>策略0&lt;/strong>：仅考虑节点特征信息，并随机对节点进行分区&lt;/p>
+&lt;p>该策略可以满足G1「均衡分片」要求，但不满足G2「可比模型效用」要求&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>策略1&lt;/strong>：依靠community detection「社区发现」，仅考虑结构信息，并尽可能保留它&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>策略2&lt;/strong>：同时考虑结构信息和节点特征。将节点特征和图结构表示为低维向量，即节点嵌入，然后将节点嵌入聚类到不同的分片中。&lt;/p>
+&lt;p>直接这样划分会导致划分区域不平衡，如下图所示：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911095231520.png"
+width="970"
+height="376"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911095231520_hu_6fc11e1147f5d99b.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911095231520_hu_d2a05acf1ae949d6.png 1024w"
+loading="lazy"
+alt="在Cora数据集上使用传统划分区域的大小"
+class="gallery-image"
+data-flex-grow="257"
+data-flex-basis="619px"
+>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>接下来，作者便介绍了对应的平衡图分区算法。&lt;/p>
+&lt;h3 id="社区发现算法">&lt;a href="#%e7%a4%be%e5%8c%ba%e5%8f%91%e7%8e%b0%e7%ae%97%e6%b3%95" class="header-anchor">&lt;/a>社区发现算法
+&lt;/h3>&lt;p>对于策略1，主要依赖的就是此算法。作者基于Label Propagation Algorithm (LPA)「标签传播算法」来设计图分区算法。在本文中，shard就是community。&lt;/p>
+&lt;p>&lt;strong>标签传播算法&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911105605800.png"
+width="898"
+height="358"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911105605800_hu_1a8b28a41da05111.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911105605800_hu_adaf0536ba7d5e5.png 1024w"
+loading="lazy"
+alt="LPA工作流程"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="602px"
+>&lt;/p>
+&lt;p>在初始阶段（图a），每个节点都随机分配一个分片标签。&lt;/p>
+&lt;p>在标签传播阶段（图b → 图 c），每个节点都会发送自己的标签，将自己更新成收到最多的那个标签&lt;/p>
+&lt;p>标签传播过程会对所有节点进行多次迭代，直到收敛（没有节点更改标签）&lt;/p>
+&lt;p>就如之前提到的，传统的LPA会导致高度不平衡的图形分区，严重影响了遗忘学习的效率。&lt;/p>
+&lt;p>对此，作者提出了一个实现平衡图分区的&lt;strong>一般方法&lt;/strong>。给定所需的分片大小$k$和最大分片大小$\delta$，为每个节点-分片定义一个可能被分配到此分片的preference「偏好值」，代表该节点被分配给了分片（这被称为destination shard「目标分片」），从而产生$k \times n$个偏好值。对这些值进行排序，如果目标分片中的节点数不超过$\delta$，就将该节点分配给此分片。&lt;/p>
+&lt;p>具体而言，作者提出了Balanced LPA (BLPA)「平衡标签传播算法」，将偏好值定义为节点分片对的neighbor counts「邻居计数」（属于目标分片的邻居数量），并且具有较大邻居计数的节点分片对具有更高的优先级分配。&lt;/p>
+&lt;p>算法的步骤如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911142423655.png"
+width="1005"
+height="1271"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911142423655_hu_6cd374f3aae8569a.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230911142423655_hu_92b8b6b78d535d99.png 1024w"
+loading="lazy"
+alt="BLPA算法"
+class="gallery-image"
+data-flex-grow="79"
+data-flex-basis="189px"
+>&lt;/p>
+&lt;ol>
+&lt;li>初始化：将每个节点随机分配给k个分片之一&lt;/li>
+&lt;li>重新分配配置文件计算：对于每个节点$u$，使用元组$\left\langle u, \mathbb{C}_{s r c}, \mathbb{C}_{d s t}, \xi\right\rangle$表示其重新分配的配置文件，其中$\mathbb{C}_{s r c}$和$\mathbb{C}_{d s t}$是节点$u$的当前分片和目标分片，$\xi$是目标分片$\mathbb{C}_{d s t}$的邻居计数，并将其存入$\mathbb{F}$&lt;/li>
+&lt;li>排序：邻居数量越多的重新分配配置文件应具有越高的优先级，所以按$\xi$对$\mathbb{F}$进行降序排序&lt;/li>
+&lt;li>传播标签：枚举$\mathbb{F}$里的所有元素，如果$\mathbb{C}_{d s t}$的大小不超过给定的阈值$\delta$，就将其添加到目标分片并从当前分片中删除。之后在$\mathbb{F}$中删除所有剩余的包含节点$u$的元组。&lt;/li>
+&lt;/ol>
+&lt;p>之后不断迭代，直到分片不更改或达到最大迭代$T$&lt;/p>
+&lt;p>算法的时间复杂度为$O(n·d_{ave})$，$n$为节点数，$d_{ave}$为训练图的平均节点数。&lt;/p>
+&lt;p>作者无法从理论上证明其收敛性，不过通过实验表示$T=30$时几乎是收敛的。&lt;/p>
+&lt;h3 id="嵌入式聚类算法">&lt;a href="#%e5%b5%8c%e5%85%a5%e5%bc%8f%e8%81%9a%e7%b1%bb%e7%ae%97%e6%b3%95" class="header-anchor">&lt;/a>嵌入式聚类算法
+&lt;/h3>&lt;p>对于策略2，作者使用预训练的GNN模型来获取所有节点嵌入，然后对生成的节点嵌入执行聚类。&lt;/p>
+&lt;p>思路是将GNN模型的所有节点投影到空间中，再使用K-Means进行聚类。同样也会导致分块的不平均这个问题。&lt;/p>
+&lt;p>对此，作者提出了Balanced Embedding k-means (BEKM)。定义preference「偏好值」为节点嵌入和所有节点分片对的分片质心之间的欧氏距离。&lt;/p>
+&lt;p>具体的算法如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912153952657.png"
+width="998"
+height="1447"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912153952657_hu_97849e8d384ef55b.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912153952657_hu_918b0ba534c5b6d2.png 1024w"
+loading="lazy"
+alt="BEKM算法"
+class="gallery-image"
+data-flex-grow="68"
+data-flex-basis="165px"
+>&lt;/p>
+&lt;ol>
+&lt;li>初始化：随机选择$k$个质心$C^0=\{C^0_1,C^0_2,\dots,C^0_k\}$&lt;/li>
+&lt;li>计算嵌入质心距离：计算节点嵌入和质心之间的所有成对距离，从而得到$n\times k$个嵌入质心对。这些对存储在$\mathbb{F}$中。&lt;/li>
+&lt;li>排序质心距离：距离较近的嵌入质心对具有更高的优先级，所以按照升序对$\mathbb{F}$进行排序&lt;/li>
+&lt;li>重新分配节点和更新质心：枚举$\mathbb{F}$里的所有元素，如果$\mathbb{C}_{j}$的大小不超过给定的阈值$\delta$，就将其添加到目标分片。之后在$\mathbb{F}$中删除所有剩余的包含节点$i$的元组。最后，将新质心计算为其相应分片中所有节点的平均值。&lt;/li>
+&lt;/ol>
+&lt;p>同样，不断重复直到分片不更改或达到最大迭代$T$&lt;/p>
+&lt;p>算法的时间复杂度为$O(k·n)$，$n$个节点,$k$个分片。&lt;/p>
+&lt;h2 id="基于学习的聚合">&lt;a href="#%e5%9f%ba%e4%ba%8e%e5%ad%a6%e4%b9%a0%e7%9a%84%e8%81%9a%e5%90%88" class="header-anchor">&lt;/a>基于学习的聚合
+&lt;/h2>&lt;p>目前常见的聚合方式有两种：&lt;/p>
+&lt;ul>
+&lt;li>MajAggr：每个分片模型预测一个标签，取最多预测的标签&lt;/li>
+&lt;li>MeanAggr：收集所有分片模型的后验向量，然后求平均值，得到聚合后验，选取最高后验值。&lt;/li>
+&lt;/ul>
+&lt;p>作者提出了一种基于学习的聚合方法LBAggr，为每个分片模型分配一个重要性分数，通过以下损失函数进行学习：&lt;/p>
+$$\min \_{\alpha} \underset{w \in \mathcal{G}\_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum\_{i=0}^{m} \alpha\_{i} \cdot \mathcal{F}\_{i}\left(X\_{w}, \mathcal{N}\_{w}\right), y\right)\right]+\lambda \sum\_{i=0}^{m}\left\|\alpha\_{i}\right\|$$&lt;p>其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。&lt;/p>
+&lt;p>作者通过梯度下降来找到最优的$\alpha$，从而解决最优化问题。然而，直接梯度下降会导致$\alpha$为负数。为了解决此问题，作者使用softmax 函数在每次迭代中进行归一化处理。&lt;/p>
+&lt;p>为了提升运行速度，作者指出可以使用训练图中 10% 的节点进行重新训练。&lt;/p>
+&lt;h2 id="grapheraser">&lt;a href="#grapheraser" class="header-anchor">&lt;/a>GraphEraser
+&lt;/h2>&lt;p>将上面提到的方法集合在一起，就得到了此算法。当某些节点或边缘被数据所有者撤销时，只需要重新训练相应的分片模型即可。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912202314840.png"
+width="1029"
+height="1020"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912202314840_hu_72e08d63c3131ee4.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230912202314840_hu_282650750a810a6b.png 1024w"
+loading="lazy"
+alt="GraphEraser"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="242px"
+>&lt;/p>
+&lt;h2 id="评估">&lt;a href="#%e8%af%84%e4%bc%b0" class="header-anchor">&lt;/a>评估
+&lt;/h2>&lt;p>&lt;strong>数据集&lt;/strong>&lt;/p>
+&lt;p>作者采用了五个常用的图像数据集，分别为Cora, Citeseer, Pubmed, CS和Physics。&lt;/p>
+&lt;p>&lt;strong>模型&lt;/strong>&lt;/p>
+&lt;p>作者在四个GNN模型上进行了测试，分别是SAGE，GCN，GAT和GIN。每个模型都经过100轮的训练，默认学习率设置为0.01，权重衰减为0.001。&lt;/p>
+&lt;p>&lt;strong>指标&lt;/strong>&lt;/p>
+&lt;p>在问题构造中提过，就是遗忘学习效率和模型效用&lt;/p>
+&lt;ul>
+&lt;li>遗忘学习效率：计算100个独立遗忘学习请求的平均遗忘学习时间。&lt;/li>
+&lt;li>模型效用：使用F1得分&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>基线&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Scratch「从头开始训练」&lt;/li>
+&lt;li>Random「随机分区」&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>实验设置&lt;/strong>&lt;/p>
+&lt;p>将整个图分为两个不相交的部分，其中80%的节点用于训练GNN模型，20%的节点用于评估模型效用。&lt;/p>
+&lt;p>分片大小$k$设为20, 20, 50, 30, 和 100&lt;/p>
+&lt;p>片中节点最大个数$\delta$设为$\left \lceil \frac{n}{k} \right \rceil $&lt;/p>
+&lt;p>最大迭代次数$T$设为30&lt;/p>
+&lt;p>BLPA对应社区发现算法；BEKM对应嵌入式聚类算法&lt;/p>
+&lt;h3 id="遗忘学习效率评估">&lt;a href="#%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%95%88%e7%8e%87%e8%af%84%e4%bc%b0" class="header-anchor">&lt;/a>遗忘学习效率评估
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675.png"
+width="1733"
+height="464"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675_hu_6f3a611eb1d0d762.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185539675_hu_96450a638557c16b.png 1024w"
+loading="lazy"
+alt="遗忘学习效率"
+class="gallery-image"
+data-flex-grow="373"
+data-flex-basis="896px"
+>&lt;/p>
+&lt;p>如图所示，BLPA和BEKM相对于从头训练模型，可以显著的减少训练的时间。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025.png"
+width="991"
+height="358"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025_hu_cb8af87f07830d8c.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921185950025_hu_489c8bf421efc731.png 1024w"
+loading="lazy"
+alt="每个步骤所花费的时间"
+class="gallery-image"
+data-flex-grow="276"
+data-flex-basis="664px"
+>&lt;/p>
+&lt;p>相对于Random，时间略长是因为存在更长的图分割成本。BLPA 和 BEKM 都需要多次迭代以保留结构信息。但一旦完成图分割，就会将其固定下来。从这个意义上说，我们可以容忍这种代价，因为它只执行一次。&lt;/p>
+&lt;h3 id="模型效用评分">&lt;a href="#%e6%a8%a1%e5%9e%8b%e6%95%88%e7%94%a8%e8%af%84%e5%88%86" class="header-anchor">&lt;/a>模型效用评分
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971.png"
+width="1960"
+height="799"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971_hu_3d1f0efb28430581.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921193316971_hu_e1ccddf03fd2d90f.png 1024w"
+loading="lazy"
+alt="不同遗忘学习方法模型效用"
+class="gallery-image"
+data-flex-grow="245"
+data-flex-basis="588px"
+>&lt;/p>
+&lt;p>绿色底色表示不需要聚合，红色底色表示作者提出的方法，蓝色字体表示最优得分。&lt;/p>
+&lt;p>有些随机得分和BLPA和BEKM差不多，作者认为这时由于图结构信息在GNN模型中作用不大导致的。&lt;/p>
+&lt;p>对此，作者提出了一个方法选择的技巧：可以首先比较MLP和GNN的F1分数，如果MLP和GNN之间的F1分数差距很小，随机方法可能是一个不错的选择，因为它更容易实现，并且可以实现与BLPA和BEKM相当的模型效用。否则，BLPA和BEKM是更好的选择，因为更好的模型实用程序。&lt;/p>
+&lt;p>如果 GNN 遵循 GCN 结构，则可以选择BLPA，否则可以采用 BEKM。这是因为 GCN 模型需要节点度信息来进行归一化，而BLPA 可以保留更多的局部结构信息，从而更好地保留节点度。&lt;/p>
+&lt;p>BEKM 在 Cora 数据集和 GIN 模型上的 F1 得分为 0.801，而 Scratch 的相应 F1 得分为 0.787。作者认为有两种可能的原因：抽样往往可以消除数据集中的一些“噪声”；其次，GraphEraser通过聚合所有子模型的结果来进行最终预测，从这个意义上说，GraphEraser执行集成，这是提高模型性能的另一种方法。&lt;/p>
+&lt;h3 id="lbaggr-的效果">&lt;a href="#lbaggr-%e7%9a%84%e6%95%88%e6%9e%9c" class="header-anchor">&lt;/a>LBAggr 的效果
+&lt;/h3>&lt;p>有效，可以提升F1分数。&lt;/p>
+&lt;p>比较不同的GNN模型，GCN从LBAggr中受益最大，而GIN受益最少。在模型效用方面，GraphEraser-BLPA方法从LBAggr中受益最大。我们推测这是因为BLPA划分方法可以捕获局部结构信息，同时丢失训练图的一些全局结构信息。&lt;/p>
+&lt;p>为了进一步提高忘却效率，可以使用训练图中的一小部分节点来学习重要性分数。这样做可以有效地减少 LBAggr 的遗忘学习时间。使用 10% 的节点和使用固定数量的 1，000 个节点都可以实现与使用所有节点相当的模型效用。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907.png"
+width="971"
+height="561"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907_hu_92b016a23587b81c.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921194318907_hu_71f9c13474b1d5.png 1024w"
+loading="lazy"
+alt="LBAggr 的效果"
+class="gallery-image"
+data-flex-grow="173"
+data-flex-basis="415px"
+>&lt;/p>
+&lt;h3 id="和其他遗忘学习方法对比">&lt;a href="#%e5%92%8c%e5%85%b6%e4%bb%96%e9%81%97%e5%bf%98%e5%ad%a6%e4%b9%a0%e6%96%b9%e6%b3%95%e5%af%b9%e6%af%94" class="header-anchor">&lt;/a>和其他遗忘学习方法对比
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804.png"
+width="2011"
+height="1003"
+srcset="https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804_hu_baf7ab0c311bd774.png 480w, https://lbqaq.top/p/graph-unlearning/IMAGE/image-20230921200838804_hu_b15c3db71f522390.png 1024w"
+loading="lazy"
+alt="遗忘学习对比"
+class="gallery-image"
+data-flex-grow="200"
+data-flex-basis="481px"
+>&lt;/p>
+&lt;p>同样，也是作者的方法比较好。&lt;/p></description></item><item><title>APMSA: Adversarial Perturbation Against Model Stealing Attacks</title><link>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</link><pubDate>Thu, 20 Jul 2023 14:57:05 +0800</pubDate><guid>https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/</guid><description>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/108529802.webp" alt="Featured image of post APMSA: Adversarial Perturbation Against Model Stealing Attacks" />&lt;h2 id="介绍">&lt;a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor">&lt;/a>介绍
+&lt;/h2>&lt;p>在大数据时代，机器学习（ML）为我们的生活提供了便利，并在各个领域发挥着不可或缺的作用。随着深度学习应用场景的丰富和数据的增长，主流云提供商（如谷歌、亚马逊和微软）推出了机器学习即服务（MLaaS）。&lt;/p>
+&lt;h3 id="mlaas">&lt;a href="#mlaas" class="header-anchor">&lt;/a>MLaaS
+&lt;/h3>&lt;p>顾名思义，MLaaS是一系列提供机器学习工具作为云计算服务一部分的服务。 这些服务的主要吸引力在于，就像其他任何云服务一样，客户无需安装软件或配置自己的服务器即可快速开始机器学习。它帮助资源和专业知识有限的数据所有者（小型企业或个人）解决数据处理、模型训练和评估等基础设施问题。模型提供者通过根据查询时间向用户收费来获得收益。&lt;/p>
+&lt;p>然而，MLaaS却容易受到模型提取攻击的影响。如下图所示，虽然模型托管在安全的云服务中，客户通过基于云的API进行查询。但是，攻击者可以基于预测输出来训练具有目标私有模型类似功能的替代模型。用户可以通过访问替代模型而无需向模型提供者付费，从而破坏了其商业价值。此外，攻击者还可以利用替代模型来制作优秀的可转移对抗性示例，从而有效地欺骗原始模型做出错误的预测，构成严重的安全威胁。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260.png"
+width="1032"
+height="497"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_46fb8d49824db0f4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718150526260_hu_cfced2b85b0f71f4.png 1024w"
+loading="lazy"
+alt="模型提取攻击流程"
+class="gallery-image"
+data-flex-grow="207"
+data-flex-basis="498px"
+>&lt;/p>
+&lt;p>作者提出了APMSA来防御模型提取攻击。当攻击者窃取服务器中部署的 &amp;ldquo;model under attack&amp;rdquo; (MUA) 时，通过发散给定特定类别的特征空间中查询样本的置信向量距离，就会泄露足够的MUA内部信息，有利于替代模型的训练。对此，作者在MUA 之前将微妙的噪声注入每个传入的输入查询中，以限制其置信向量的多样性。&lt;/p>
+&lt;h3 id="相关研究">&lt;a href="#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6" class="header-anchor">&lt;/a>相关研究
+&lt;/h3>&lt;p>目前，将对于模型提取攻击的防御通常可分为两类：被动防御和主动防御。 前者是被动地检测恶意查询行为，然后限制或拒绝为更可能来自攻击者的恶意传入查询提供推理服务。 后者主要是指主动置信扰动技术。本文介绍的APMSA属于主动防御技术，作者将相关的文章进行了整理，如下表所示。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270.png"
+width="2143"
+height="1005"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_2f19808c1b6b7730.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230718154251270_hu_e1ee7a4fb20e139e.png 1024w"
+loading="lazy"
+alt="相关文章"
+class="gallery-image"
+data-flex-grow="213"
+data-flex-basis="511px"
+>&lt;/p>
+&lt;ul>
+&lt;li>Model extraction warning in MLaaS paradigm&lt;/li>
+&lt;li>PRADA: Protecting against DNN model stealing attacks&lt;/li>
+&lt;li>Defending against model stealing attacks with adaptive misinformation&lt;/li>
+&lt;li>Defending against neural network model stealing attacks using deceptive perturbations&lt;/li>
+&lt;li>BODAME: Bilevel optimization for defense against model extraction&lt;/li>
+&lt;li>Prediction poisoning: Towards defenses against DNN model stealing attacks&lt;/li>
+&lt;li>Model stealing defense with hybrid fuzzy models: Work-in-progress&lt;/li>
+&lt;/ul>
+&lt;p>与现有的直接置信扰动技术相比，APMSA不仅保留了MUA的可用性，还保留了MUA的实用性。与其他主动防御相比，APMSA可以简单地在MUA之前插入，而无需对MUA本身进行任何修改，因此它是通用的，易于部署的。&lt;/p>
+&lt;h3 id="贡献">&lt;a href="#%e8%b4%a1%e7%8c%ae" class="header-anchor">&lt;/a>贡献
+&lt;/h3>&lt;ul>
+&lt;li>通过建设性地最小化对训练替代模型至关重要的发散置信度信息来禁用被盗模型的可用功能。&lt;/li>
+&lt;li>通过形式化的优化实现了置信向量对 MUA 决策边界的限制。&lt;/li>
+&lt;li>APMSA不会对具有硬标签推理的普通用户造成效用损失&lt;/li>
+&lt;/ul>
+&lt;h2 id="问题构造">&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor">&lt;/a>问题构造
+&lt;/h2>&lt;h3 id="威胁模型">&lt;a href="#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b" class="header-anchor">&lt;/a>威胁模型
+&lt;/h3>&lt;p>假设攻击者不了解系统的模型体系结构。攻击者只能通过迁移学习发起攻击，即攻击者使用恶意样本查询黑盒模型，以标记这些将用于训练替代模型的样本。攻击者从公众中识别预训练模型，并基于预训练模型通过迁移学习构建替代模型;训练数据集是通过 MUA 上的查询的一组输入输出对。具体算法如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990.png"
+width="1035"
+height="940"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_fa39e24285594e39.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719093246990_hu_d8272ca6104544fe.png 1024w"
+loading="lazy"
+alt="基于迁移学习的模型提取攻击"
+class="gallery-image"
+data-flex-grow="110"
+data-flex-basis="264px"
+>&lt;/p>
+&lt;p>攻击者只能通过 API 与模型交互，查询次数受预算限制。但是，他们可以自由选择任何样本进行查询（即未标记的公共数据集$X_{pub}$）。因此，攻击者完全了解输入（即样本类型）和输出（即标签集）的特征。但是，攻击者只能观察返回的预测置信向量，而不能观察模型架构和梯度信息。&lt;/p>
+&lt;p>攻击者旨在获得与私有模型$f$具有相似功能的替代模型$f&amp;rsquo;$。替代模型$f&amp;rsquo;$在公共数据集 $\mathbf{S}\subseteq\mathbf{X}_{pub}$ 的子集上进行训练：&lt;/p>
+$$f^{\prime}\approx\arg\min\mathcal{L}\left(\\{(\mathbf{x},f(\mathbf{x})):\mathbf{x}\in\mathbf{S}\\},f^{\prime}(\mathbf{x})\right)$$&lt;p>防御者旨在将噪声注入每个查询的输入中，以间接干扰模型返回的预测。APMSA有两个主要目标。一方面，保留了模型的精度，即不使用APMSA时的精度应与原始精度相同。另一方面，被盗模型的准确性在很大程度上被破坏，使攻击者的免费私人查询不再有效。作者将使用 APMSA 前后模型准确性的下降程度作为指标。&lt;/p>
+&lt;h3 id="apmsa的概述">&lt;a href="#apmsa%e7%9a%84%e6%a6%82%e8%bf%b0" class="header-anchor">&lt;/a>APMSA的概述
+&lt;/h3>&lt;p>APMSA的直觉是如果防御者策略性地混淆输入查询与其返回的置信度（向量）的输出之间的映射关系，则当攻击者利用这样的输入-输出对来训练其替代模型时，对攻击者有用的泄漏信息将被最小化甚至误导。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552.png"
+width="1036"
+height="381"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_dc8d51a86b052ea6.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719095133552_hu_64aede77c8449950.png 1024w"
+loading="lazy"
+alt="APMSA的流程"
+class="gallery-image"
+data-flex-grow="271"
+data-flex-basis="652px"
+>&lt;/p>
+&lt;p>上图是APMSA的流程。当向API查询输入时，APMSA不直接将该输入馈送到模型并返回置信向量。 相反，APMSA通过将对抗性噪声扰动注入到输入中来将该输入转换为对抗性输入。模型最终返回的是变换后的对抗性输入相对应的置信度向量。从攻击者的角度来看，其输入与返回的置信向量之间的关系映射已经被混淆。并且将给定类别样本的置信度向量约束在一个小的区域内，从而大大减少了泄漏信息，便于其替代模型的训练。同时，由于APMSA不会修改输入的硬标签，所以对于普通用户来说性能几乎没有损失。值得注意的是，APMSA是作为插件使用，不需要修改模型。&lt;/p>
+&lt;h3 id="apmsa的实现">&lt;a href="#apmsa%e7%9a%84%e5%ae%9e%e7%8e%b0" class="header-anchor">&lt;/a>APMSA的实现
+&lt;/h3>&lt;p>作者在此用一个例子来解释了APMSA。假设有一个二分类模型（性别分类），如果模型将$k$个男性类别的图像映射到$k$个不同的概率分布，则在给定不同分布的情况下，$k$个输入-输出对的映射关系将揭示更多关于模型的内部信息。 （如图a所示）但是，如果控制$k$个不同的男性图像映射到特征空间中的相邻区域，则泄露的信息将大大减少。 此外，这些混淆的输入-输出对将在很大程度上误导训练替代模型。（如图b所示）&lt;/p>
+&lt;p>也就是说如果输出都堆在一起，就可以混淆输入和输出之间的关系，并且可以更好地保护模型的隐私。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739.png"
+width="1036"
+height="384"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_d99f6a3840a205e4.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719100907739_hu_a3f1ce1b4090c8a.png 1024w"
+loading="lazy"
+alt="举例"
+class="gallery-image"
+data-flex-grow="269"
+data-flex-basis="647px"
+>&lt;/p>
+&lt;p>作者随后介绍了APMSA的详细原理。同样是以二分类的模型为例，$f$是原模型，$f&amp;rsquo;$是攻击者得到的替代模型。其中，攻击者利用查询$x$来获得预测$y=f(x)$，其中$y=\{y_1,y_2\}$，攻击者使用$(x,y)$来训练替代模型。APMSA则是通过将向输入空间中的$x$添加对抗性噪声来将样本$x$变为混淆样本$x_c$。这里应用了制作对抗性样本$x&amp;rsquo;$的技术。与$x&amp;rsquo;$不同的是，$x_c$的硬标签与APMSA中的$x$的硬标签相同。这样，攻击者通过$\{x,y_c=f(x_c)\}$训练出来的模型$f&amp;rsquo;$决策边界就会导致$x_t$被误分类，从而防止模型窃取攻击。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663.png"
+width="994"
+height="474"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_b4407383a03bde74.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719140727663_hu_9dc9419a786b281.png 1024w"
+loading="lazy"
+alt="APMSA工作流程"
+class="gallery-image"
+data-flex-grow="209"
+data-flex-basis="503px"
+>&lt;/p>
+&lt;p>与传入的查询输入$x$相比，经变换的对抗输入$x_c$接近决策边界。作者将其转化成了一个优化问题：&lt;/p>
+&lt;ul>
+&lt;li>混淆的输入$x&amp;rsquo;$与其对应的对抗示例$x_c$在特征空间中相似，但$x_c$的硬标签与原始输入$x$的类别相同&lt;/li>
+&lt;li>混淆输入$x_c$和原始输入$x$的置信向量之间的间隙应尽可能小&lt;/li>
+&lt;/ul>
+&lt;p>将其公式化表示为：&lt;/p>
+$$\begin{aligned}\mathcal{L}\_1&amp;=J\left(\mathbf{x}\_c\right)=J(\mathbf{x}+\delta)\\\\&amp;=\min\_\delta\max\left(Z(\mathbf{x}+\delta)\_s-Z(\mathbf{x}+\delta)\_t,0\right)\end{aligned}$$&lt;p>其中$Z(x_c)_t$表示目标类别$t$的对数值，$Z(x_c)_s$表示原类别$s$。&lt;/p>
+&lt;p>如果使$Z(x_c)_s-Z(x_c)_t$变小，就表明指定类别的对数值和源类别之间的差距越来越大，则混淆输入$x_t$更接近目标类别的对抗样本。作者提出了新的约束来提高优化速度。&lt;/p>
 $$\begin{cases}\mathcal{L}\_2=Clip\_{(0,\infty)}\left(\max\left\\{Z(\mathbf{x}+\delta)\_i:i\neq t,o\right\\}-Z(\mathbf{x}+\delta)\_t\right)\\\\
-\mathcal{L}\_3=Clip\_{(0,\infty)}\left(\max\left\\{Z(\mathbf{x}+\delta)\_i:i\neq t,s\right\\}-Z(\mathbf{x}+\delta)\_s\right)\end{cases}$$&lt;p&gt;其中$Clip(·)$表示范围约束。&lt;/p&gt;
-&lt;p&gt;为了确保 APMSA 不会影响模型的性能（即标签不会更改），优化目标是：&lt;/p&gt;
+\mathcal{L}\_3=Clip\_{(0,\infty)}\left(\max\left\\{Z(\mathbf{x}+\delta)\_i:i\neq t,s\right\\}-Z(\mathbf{x}+\delta)\_s\right)\end{cases}$$&lt;p>其中$Clip(·)$表示范围约束。&lt;/p>
+&lt;p>为了确保 APMSA 不会影响模型的性能（即标签不会更改），优化目标是：&lt;/p>
 $$\begin{aligned}
-\mathcal{L}\_{4}&amp; =\text{distance }(\mathbf{y},\mathbf{y}\_c)=\min\_\delta\|\mathbf{y}-\mathbf{y}\_c\|  \\\\
+\mathcal{L}\_{4}&amp; =\text{distance }(\mathbf{y},\mathbf{y}\_c)=\min\_\delta\|\mathbf{y}-\mathbf{y}\_c\| \\\\
 &amp;=\min\_\delta\|f(\mathbf{x})-f(\mathbf{x}+\delta)\|
-\end{aligned}$$&lt;p&gt;这是为了测量扰动输入前后的置信差，以减轻APMSA对模型效用对普通用户的影响。综上，可以得到优化函数：&lt;/p&gt;
-$$\begin{aligned}\mathcal{L}&amp;=\mathcal{L}\_1+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\mathcal{L}\_4\\\\&amp;=\min\_\delta J(\mathbf{x}+\delta)+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\|f\left(\mathbf{x}\right)-f\left(\mathbf{x}+\delta\right)\|\end{aligned}$$&lt;p&gt;其中超参数$c_1$和$c_2$用于正则化损失函数，在实验中根据经验分别设置为2和0.01。 优化过程不是要找到对抗性样例，而是要识别以正确保存类别为条件的接近其对应对抗性样例的混淆输入$x_c$。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558.png&#34;
-	width=&#34;1032&#34;
-	height=&#34;409&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_e7489508d97d651f.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_96fd674848b77702.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;输入混淆机制&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;252&#34;
-		data-flex-basis=&#34;605px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;APMSA的具体过程如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502.png&#34;
-	width=&#34;1051&#34;
-	height=&#34;1354&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_5ab13c6f6c1825be.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_8e6a33603c50f6fb.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;APMSA算法流程&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;77&#34;
-		data-flex-basis=&#34;186px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;实验评价&#34;&gt;&lt;a href=&#34;#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;实验评价
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据集：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;CIFAR10&lt;/li&gt;
-&lt;li&gt;GTSRB&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;评估指标：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Top-1 精度&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;模型提取攻击评估&#34;&gt;&lt;a href=&#34;#%e6%a8%a1%e5%9e%8b%e6%8f%90%e5%8f%96%e6%94%bb%e5%87%bb%e8%af%84%e4%bc%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;模型提取攻击评估
-&lt;/h3&gt;&lt;p&gt;选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587.png&#34;
-	width=&#34;1055&#34;
-	height=&#34;319&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_1d814802ee858dbb.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_9405fd5d1582cc28.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;STL10数据集&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;330&#34;
-		data-flex-basis=&#34;793px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;使用CIFAR-10数据集训练了一个基于ResNet-18的模型，准确率为91.94%，并在不应用防御的情况下部署。 对于初始替代模型，作者选择了在ImageNet上预训练的VGG 16模型，并使用STL 10数据集作为公共查询样本。&lt;/p&gt;
-&lt;p&gt;放宽限制，将查询样本设置为 CIFAR10 测试集的一小部分进行查询。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726.png&#34;
-	width=&#34;1040&#34;
-	height=&#34;320&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_c999424fcba6218b.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_4f6b84e41df1e4a3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;CIFAR-10数据集&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;325&#34;
-		data-flex-basis=&#34;780px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;使用GTSRB数据集训练了一个基于ResNet-18的MUA模型，准确率为95.40%，并在不应用防御的情况下部署。 对于初始替代模型，选择了在ImageNet上预训练的VGG 16模型。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827.png&#34;
-	width=&#34;1021&#34;
-	height=&#34;319&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_952b708151badab8.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_d82fd7e3fb3b5011.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GTSRB数据集&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;320&#34;
-		data-flex-basis=&#34;768px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;上述案例表明：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;查询样本的选择会影响模型窃取攻击的效率。具体来说，更接近目标域数据分布的查询样本始终有利于攻击。&lt;/li&gt;
-&lt;li&gt;基于决策边界的样本合成技术（即通过PGD、CW）可以提供比随机查询更有用的信息。&lt;/li&gt;
-&lt;li&gt;随着查询预算的增加，基于决策边界的样本生成并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集过于接近，基于决策边界的样本结构提供的信息量相对有限。&lt;/li&gt;
-&lt;li&gt;当样本数量较少时，基于迁移学习的模型窃取攻击可提高攻击效果。原因是样本越少，冗余信息越少。然而，由于获得的信息相似，更多的查询样本可能会导致信息冗余，这不会为促进攻击提供更多有用的信息。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;作者进一步评估攻击者选择的不同替代模型架构对攻击效果的影响。替代模型的性能受所选模型架构的影响。如图所示，VGG16始终表现出优于CIFAR10其他模型的攻击性能。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459.png&#34;
-	width=&#34;999&#34;
-	height=&#34;759&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_db6c7b48e68c2016.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_c954b26b99f5c204.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;CIFAR10实验结果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;131&#34;
-		data-flex-basis=&#34;315px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;同样，在在GTSRB数据集上评估时，ResNet50表现出最好的攻击效果，略好于VGG16，使用AlexNet的性能最差。这表明选择合适的替代模型可以降低攻击成本。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767.png&#34;
-	width=&#34;991&#34;
-	height=&#34;395&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_cbb598af4fbcda9e.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_393f17f40dddc8a9.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GTSRB数据集结果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;250&#34;
-		data-flex-basis=&#34;602px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;综上，查询样本的选择会影响模型窃取攻击的效率和替代模型的准确性。具体来说，攻击最好选择类似于目标域的数据分布的公共查询样本。&lt;/p&gt;
-&lt;p&gt;此外，基于决策边界的样本合成技术（PGD、CW等）可以提供比随机查询更有用的信息。但是，随着查询次数的增加，基于决策边界的样本并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集太接近。&lt;/p&gt;
-&lt;h3 id=&#34;防御验证&#34;&gt;&lt;a href=&#34;#%e9%98%b2%e5%be%a1%e9%aa%8c%e8%af%81&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;防御验证
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png&#34;
-	width=&#34;968&#34;
-	height=&#34;758&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_1ff504c17ea44227.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_ceab8f471377b8d5.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;验证APMSA&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;127&#34;
-		data-flex-basis=&#34;306px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;使用APMSA后，替代模型的准确率甚至低于基准，表明防御减少了模型预测引起的模型内部信息泄露。&lt;/p&gt;
-&lt;p&gt;APMSA的关键见解是，通过将输入映射到特征空间的小尺度区域，可以尽可能减少输入输出对携带的信息泄漏，甚至在很大程度上产生误导性信息。为了可视化这一关键见解，作者使用 t-SNE 和归一化操作来减少用于可视化的混淆输入的维度。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175.png&#34;
-	width=&#34;984&#34;
-	height=&#34;721&#34;
-	srcset=&#34;https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_b495bf4d14862906.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_d7648715cc4956a9.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;t-SNE结果&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;136&#34;
-		data-flex-basis=&#34;327px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;CIFAR10 数据集上的混淆输入和查询样本之间存在明显的分离——每个混淆输入都是从传入的查询样本中找到的。在将原始查询样本与混淆输出相关联时，通过干扰模型预测中泄露的信息，以减少模型窃取攻击的影响。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Feature Inference Attack on Model Predictions in Vertical Federated Learning</title>
-        <link>https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/</link>
-        <pubDate>Tue, 03 Jan 2023 16:27:11 +0800</pubDate>
-        
-        <guid>https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/</guid>
-        <description>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/100018879.webp" alt="Featured image of post Feature Inference Attack on Model Predictions in Vertical Federated Learning" /&gt;&lt;h2 id=&#34;介绍&#34;&gt;&lt;a href=&#34;#%e4%bb%8b%e7%bb%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;介绍
-&lt;/h2&gt;&lt;p&gt;近年来，人们对利用来自多个组织的分布式源的数据来设计复杂的机器学习模型越来越感兴趣。&lt;/p&gt;
-&lt;p&gt;但是，由于&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用户敏感数据的使用被迫遵守标准隐私规章或法律，例如GDPR或CCPA&lt;/li&gt;
-&lt;li&gt;数据是组织保持业务竞争优势的宝贵资产，应该受到高度保护&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这两个原因，专有数据不能被直接共享。于是，&lt;strong&gt;联邦学习&lt;/strong&gt;便被提出。联邦学习是一种新兴的数据协作范例，它允许多个数据所有者联合构建ML模型而不向彼此泄露其私有数据。&lt;/p&gt;
-&lt;p&gt;联邦学习根据数据划分，被分为横向联邦学习、纵向联邦学习、联邦迁移学习三类。在本文中，作者主要考虑的是纵向联邦学习这一类。何为纵向联邦学习呢？也就是２个数据集的用户重叠部分较大，而用户特征重叠部分较小，作者给出了一个实例：&lt;/p&gt;
-&lt;p&gt;一家银行希望构建一个机器学习模型，通过加入Fintech公司的更多特性来评估是否批准用户的信用卡申请。这家银行拥有“年龄”和“收入”的特征，而Fintech公司拥有“存款”和“平均在线购物次数”的特征。只有银行拥有训练数据集和测试数据集中的标签信息，即：是否应批准申请。我们将带有标签的一方称为主动方，其余没有标签值的一方或者几方称为被动方。&lt;/p&gt;
-&lt;p&gt;在本篇文章中，把拥有标签值的一方看作进攻方，而没有标签值的一方或者几方所拥有的特征值看作目标值，进攻方通过一定的方法得到目标方的目标值，也就是通常模型中被动方的隐私数据。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101100642620.png&#34;
-	width=&#34;1050&#34;
-	height=&#34;609&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101100642620_hu_d078401738fac925.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101100642620_hu_1a69e51281fcb2c0.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;纵向联邦学习示例&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;172&#34;
-		data-flex-basis=&#34;413px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;相关研究&#34;&gt;&lt;a href=&#34;#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;相关研究
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;Comprehensive privacy analysis of deep learning: Stand-alone and federated learning under passive and active white-box inference attacks&lt;/li&gt;
-&lt;li&gt;The secret sharer: Measuring unintended neural network memorization &amp;amp; extracting secrets&lt;/li&gt;
-&lt;li&gt;Exploiting unintended feature leakage in collaborative learning&lt;/li&gt;
-&lt;li&gt;Deep models under the gan: information leakage from collaborative deep learning&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;等等，这些文章旨在推断横向联邦学习中参与方的特征值，其中各方具有相同的特征但具有不同的样本。 然而，这些攻击极大地依赖于在训练过程中交换的模型梯度，一旦模型梯度被安全地保护，这些攻击将是无效的。而且，对于预测阶段中的推理攻击，联邦学习模型事先不知道预测样本。于是，作者提出几种基于模型预测的特征推理攻击，研究了纵向联邦学习预测阶段的隐私泄露问题，该攻击方法在预测输出的计算过程中不依赖任何中间信息。&lt;/p&gt;
-&lt;h3 id=&#34;本文贡献&#34;&gt;&lt;a href=&#34;#%e6%9c%ac%e6%96%87%e8%b4%a1%e7%8c%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;本文贡献
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;首次提出了纵向联邦学习预测模型的特征推理攻击&lt;/li&gt;
-&lt;li&gt;提出了针对逻辑回归和决策树的两种特定的攻击思路&lt;/li&gt;
-&lt;li&gt;利用攻方积累的多种预测输出，来设计一种从中学习攻方特征和目标特征关联的通用攻击思路&lt;/li&gt;
-&lt;li&gt;在真实和合成的数据集上，实践了提出的方法并进行了大量的评估。结论显示了攻击的有效性，本文也分析和建议了几种潜在的应对思路&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;问题构造&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题构造
-&lt;/h2&gt;&lt;h3 id=&#34;系统模型&#34;&gt;&lt;a href=&#34;#%e7%b3%bb%e7%bb%9f%e6%a8%a1%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;系统模型
-&lt;/h3&gt;&lt;p&gt;我们考虑一组m个分布方（或数据所有者）${P_1,&amp;hellip;,P_m}$，他们通过合并各自的数据集来训练纵向联邦学习模型。在获得经训练的纵向联邦学习模型参数$\theta$之后，各方协作地对其联合预测数据集$D_{pred}={D_1,&amp;hellip;,D_m}$进行预测。 数据集中的每一行对应一个样本，每一列对应一个要素。 设$n$为样本数，$d_i$为$D_i$中的特征数，其中$i\in{1,&amp;hellip;,m}$。我们表示$D_i={x^t_i}^n_{t=1}$，其中$x^t_i$表示$D_i$的第t个样本。在这篇文章中，作者考虑监督分类任务，并用$c$表示分类的数量。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656.png&#34;
-	width=&#34;1017&#34;
-	height=&#34;715&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656_hu_463b64018c45090d.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656_hu_9ccfddf49fb88dee.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;符号说明&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;142&#34;
-		data-flex-basis=&#34;341px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;威胁模型&#34;&gt;&lt;a href=&#34;#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;威胁模型
-&lt;/h3&gt;&lt;p&gt;我们考虑半诚实模型，其中每一方都严格按照规定遵循协议，但可能试图基于接收到的消息推断其他方的私有信息。具体而言，本文着重研究了主动方为对抗方的情形。主动方还可以与其他被动方串通来推断一组目标被动方的私有特征值。最强的概念是m-1个参与方（包括主动方）合谋推断其余被动方的特征值。&lt;/p&gt;
-&lt;h2 id=&#34;攻击方法&#34;&gt;&lt;a href=&#34;#%e6%94%bb%e5%87%bb%e6%96%b9%e6%b3%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;攻击方法
-&lt;/h2&gt;&lt;h3 id=&#34;逻辑回归模型lr的等式求解攻击&#34;&gt;&lt;a href=&#34;#%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92%e6%a8%a1%e5%9e%8blr%e7%9a%84%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;逻辑回归模型(LR)的等式求解攻击
-&lt;/h3&gt;&lt;p&gt;给定预测输出$v$，对手$P_{adv}$可以构造一组方程，$P_{adv}$可以从该组方程推断出$P_{target}$所持有的特征值。也就是说攻击者利用纵向联邦学习预测结果以及自己所持有的参数推断数据其他提供方的参数。&lt;/p&gt;
-&lt;p&gt;作者分别讨论了二分类逻辑回归以及多分类逻辑回归。&lt;/p&gt;
-&lt;h4 id=&#34;二分类逻辑回归&#34;&gt;&lt;a href=&#34;#%e4%ba%8c%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;二分类逻辑回归
-&lt;/h4&gt;&lt;p&gt;将模型参数表示为$\theta = \theta (\theta_{adv},\theta_{target})$，其中$\theta_{adv}$和$\theta_{target}$分别是对应于$P_{adv}$和$P_{target}$所拥有的特征的权重。&lt;/p&gt;
-&lt;p&gt;令$v$为给定样本$x=(x_{adv},x_{target})$的预测输出。对于二元LR分类，$v$中只有一个有意义的置信度分数，我们令其为$v_1$。&lt;/p&gt;
-&lt;p&gt;给定$v_1$和对手自己的特征值$x_{adv}$，$P_{adv}$可以直接创建以$x_{target}$作为变量的方程，即，&lt;/p&gt;
-$$\sigma\left(x\_{\text {adv }} \cdot \theta\_{\text {adv }}+x\_{\text {target }} \cdot \theta\_{\text {target }}\right)=v\_{1}$$&lt;p&gt;其中$\sigma(\cdot)$是S形函数。显然，如果只有一个未知特征，即，$d_{target} = 1$，则方程只有一个解，这意味着可以精确地推断未知特征值$x_{target}$。&lt;/p&gt;
-&lt;h4 id=&#34;多分类逻辑回归&#34;&gt;&lt;a href=&#34;#%e5%a4%9a%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;多分类逻辑回归
-&lt;/h4&gt;&lt;p&gt;对于多分类逻辑回归，存在$c$个线性回归模型。设$\theta = (\theta^{(1)},&amp;hellip;,\theta^{(c)})$分别为这些$c$模型的参数。&lt;/p&gt;
-&lt;p&gt;为了发起特征推理攻击，对手的目标是构造$k\in{1,&amp;hellip;,c}$的线性方程。&lt;/p&gt;
-$$x \_ { a d v } \cdot \theta \_ { a d v } ^ { ( k ) } + x \_ { target } \cdot \theta \_ { target } ^ { ( k ) } = z \_ { k }$$&lt;p&gt;其中$z_k$是第$k$个线性回归模型的输出。然而，$P_{adv}$只知道置信度向量$v =(v_1,&amp;hellip;,v_c)$，使得&lt;/p&gt;
-$$v \_ { k } = \frac { e x p ( z \_ { k } ) } { \sum \_ { k&#39; } exp ( z \_ { k&#39; } ) }$$&lt;p&gt;上面两个式子是我们用逻辑回归解决多分类问题的通用的公式，其中作者在第一个式子中把x和θ分成了攻方和目标方的数据。&lt;/p&gt;
-&lt;p&gt;作者将第二个式子双方取对数&lt;/p&gt;
-$$\ln v \_ { k } = z \_ { k } - \ln ( \sum \_ { k ^ { \prime } } e x p ( z \_ { k } ^ { \prime } ) )$$&lt;p&gt;等式右边的第二项对于所有$k\in{1,&amp;hellip;,c}$是相同的。因此，对两个相邻类别概率v的对数取差值&lt;/p&gt;
-$$\ln v \_ { k } - \ln v \_ { k&#39;} = z \_ { k } - z \_ { k&#39; }$$&lt;p&gt;最后可以得到一个无关z值的一个等式&lt;/p&gt;
-$$x\_{\text {adv }}\left(\theta\_{\text {adv }}^{(k)}-\theta\_{\text {adv }}^{(k+1)}\right)+x\_{\text {target }}\left(\theta\_{\text {target }}^{(k)}-\theta\_{\text {target }}^{(k+1)}\right)=a\_{k}^{\prime}$$&lt;p&gt;其中$a^\prime_k=\ln v_k-\ln v_{k+1},k\in{1,&amp;hellip;,c}$。&lt;/p&gt;
-&lt;p&gt;但是在后面推理的时候本文有一些为了逻辑上方便而采用了一个把纵向联邦限制减少的做法：把目标方或者说被动方的参数θ看作进攻方或者主动方能够得到的数据。&lt;/p&gt;
-&lt;p&gt;实际情况中，主动方或者进攻方在一般的纵向联邦框架中是无法得到被动方的参数θ数据的。&lt;/p&gt;
-&lt;p&gt;本文中我们姑且认为进攻方能得到，那么上式中的未知数只有$x_{target}$了，而$x_{target}$的维数为$d_{target}$，数量为目标方所用拥有的特征数。&lt;/p&gt;
-&lt;p&gt;这里我们把$x_{target}$的未知数看作自变量，个数为目标放所拥有的特征数。那么也就是说，$d_{target}$个自变量，$c-1$个方程，当$d_{target}\le c-1$，那么$x_{target}$只有一个解，可以精确地推断出来。&lt;/p&gt;
-&lt;h3 id=&#34;决策树模型的路径限制攻击&#34;&gt;&lt;a href=&#34;#%e5%86%b3%e7%ad%96%e6%a0%91%e6%a8%a1%e5%9e%8b%e7%9a%84%e8%b7%af%e5%be%84%e9%99%90%e5%88%b6%e6%94%bb%e5%87%bb&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;决策树模型的路径限制攻击
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474.png&#34;
-	width=&#34;1016&#34;
-	height=&#34;673&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474_hu_540bc76f19e55b86.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474_hu_50c4ce55f98ff4f2.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;路径限制攻击示例&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;150&#34;
-		data-flex-basis=&#34;362px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;攻击方可以根据自己的部分特征信息(蓝色方框) 限制树模型中可能的路径(灰色箭头 -&amp;gt; 蓝色箭头 5:2)，结合预测类别结果&lt;strong&gt;1&lt;/strong&gt;进一步限制决策路径(蓝色 - &amp;gt; 红色箭头 2:1 )，可以推测目标方Target的deposit属性(绿色方框) &amp;gt; 5K。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101241766.png&#34;
-	width=&#34;1043&#34;
-	height=&#34;1094&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101241766_hu_9b0eac0701bccb27.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101241766_hu_d7173bff23454079.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;路径限制攻击算法&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;95&#34;
-		data-flex-basis=&#34;228px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;生成回归网络攻击&#34;&gt;&lt;a href=&#34;#%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;生成回归网络攻击
-&lt;/h3&gt;&lt;p&gt;上面介绍的两种攻击方式都是基于单个模型预测。然而，这些攻击很难应用于复杂的模型，如神经网络（NN）和随机森林（RF）。&lt;/p&gt;
-&lt;p&gt;针对上述缺陷，作者设计了一种基于多模型预测的通用特征推理攻击，即生成回归网络（GRN）攻击，这是本篇论文的重点。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865.png&#34;
-	width=&#34;1583&#34;
-	height=&#34;769&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865_hu_b2d4bb9a5d4acaec.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865_hu_e40be91b033b01c4.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;生成回归网络攻击概况&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;205&#34;
-		data-flex-basis=&#34;494px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;基本思想：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;计算出对手自身特征与攻击目标未知特征之间的总体相关性。在此基础上，推断未知特征值的问题等效于生成新值$\hat{x}_{target}$以匹配垂直FL模型的决策的问题，其中$\hat{x}_{target}$遵循由对手的已知特征值和特征相关性确定的概率分布。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;目标函数：&lt;/strong&gt;&lt;/p&gt;
-$$\min \_{\theta\_{G}} \frac{1}{n} \sum\_{t=1}^{n} \ell\left(f\left(x\_{\mathrm{adv}}^{t}, f\_{G}\left(x\_{\mathrm{adv}}^{t}, r^{t} ; \theta\_{G}\right) ; \theta\right), v^{t}\right)+\Omega\left(f\_{G}\right)$$&lt;p&gt;其中$\theta$和$\theta_G$分别是纵向联邦学习模型和生成模型的参数。此外，$f_G$表示$\hat{x}_{target}^t$，即生成模型的输出,$f$表示给定所生成样本的纵向联邦学习模型的输出（由$x_{adv}^t$和$\hat{x}_{target}^t$连接）。此外，$\Omega(\cdot)$是生成的未知特征值${\hat{x}_{target}^t}_{t=1}^n$的正则化项。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;具体方法：&lt;/strong&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;把进攻方所拥有的数据（蓝色）和随机生成的数据（橙色），合成一个d维向量，其中d为进攻方的特征数量和目标方特征数量之和，随机生成的数据是为了初始化生成模型的初始输入。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;生成模型计算之后，输出生成模型对于目标方特征值的预测。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;把生成模型生成的目标方特征值的预测（橙色）与进攻方所拥有的数据（蓝色）合并，得到另一个d维的向量，作为已经生成的纵向联邦学习预测模型（比如神经网络）的输入。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;得到输出的对不同类别的预测概率矩阵（橙色），与真实的攻方特征值和目标方特征值得到的不同类别的预测概率矩阵（蓝色）求损失。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;对得到的损失进行反向传播，修改生成模型的参数，得到新的生成模型对目标放特征值的预测。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;这种方法对于目标函数为可微的情况下效果不错，也就说明可以用来对逻辑回归和神经网络进行生成模型攻击。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102105356091.png&#34;
-	width=&#34;1061&#34;
-	height=&#34;839&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102105356091_hu_1fd0979a015ca771.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102105356091_hu_103261bdcf884718.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;GRN训练方法&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;126&#34;
-		data-flex-basis=&#34;303px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;h3 id=&#34;随机森林的生成模型的攻击&#34;&gt;&lt;a href=&#34;#%e9%9a%8f%e6%9c%ba%e6%a3%ae%e6%9e%97%e7%9a%84%e7%94%9f%e6%88%90%e6%a8%a1%e5%9e%8b%e7%9a%84%e6%94%bb%e5%87%bb&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;随机森林的生成模型的攻击
-&lt;/h3&gt;&lt;p&gt;路径限制攻击不适用于随机森林的模型，特别是当随机森林的树数量很大的时候。&lt;/p&gt;
-&lt;p&gt;因此，在随机森林模型使用GRN攻击的思想。&lt;/p&gt;
-&lt;p&gt;但是，因为随机森林（RF）模型的目标函数并不是可微的，所以不能通过随机森林（RF）把预测损失反向传播给生成模型。&lt;/p&gt;
-&lt;p&gt;因此，本文在得到纵向联邦模型（比如随机森林RF）之后，攻方会另外训练一个可微的模型（比如神经网络NN）来近似RF模型。&lt;/p&gt;
-&lt;h2 id=&#34;实验评价&#34;&gt;&lt;a href=&#34;#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;实验评价
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;数据集：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;四个数据集，分别是银行营销（20个特征的2分类），信用卡（23个特征的2分类），诊断（48个特征的11分类）和新闻流行（59个特征的5分类）。&lt;/p&gt;
-&lt;p&gt;此外，利用sklearn库生成了两个合成数据集，用于评估预测数据集中样本数n对生成回归网络攻击性能的影响。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230.png&#34;
-	width=&#34;1014&#34;
-	height=&#34;423&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230_hu_3112a358cdab8e2b.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230_hu_a71ec3b9f1407162.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;数据集概况&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;239&#34;
-		data-flex-basis=&#34;575px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;指标：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;对于等式求解攻击（ESA）和生成回归网络攻击（GRNA），由于是回归任务，因此使用每个特征的均方误差（MSE）来衡量它们在重建多个目标特征时的总体准确性。具体而言，每个特征的MSE计算如下：&lt;/p&gt;
-$$\mathrm{MSE}=\frac{1}{n * d\_{\text {target }}} \sum\_{t=1}^{n} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{t}-x\_{\text {target }, i}^{t}\right)^{2}$$&lt;p&gt;对于路径限制攻击（PRA），作者测量了正确分支率（CBR）。&lt;/p&gt;
-&lt;h3 id=&#34;d_target对等式求解攻击的影响&#34;&gt;&lt;a href=&#34;#d_target%e5%af%b9%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;$d_{target}$对等式求解攻击的影响
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720.png&#34;
-	width=&#34;2090&#34;
-	height=&#34;518&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720_hu_44d855796c609ab7.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720_hu_7d2b0e9c45c35dc3.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;等式求解攻击性能&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;403&#34;
-		data-flex-basis=&#34;968px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;对于所有数据集，如果满足阈值条件$d_{target}\le c-1$（在每个子图中用“T”表示），则每个特征的MSE为0，这证明了上面讨论的性质正确。&lt;/p&gt;
-&lt;p&gt;通过观察b和c，我们发现即使不满足阈值条件，等式求解攻击仍然可以找到$x_{target}$的良好推断，这大大优于随机猜测方法。&lt;/p&gt;
-&lt;p&gt;还有一个明显的趋势，每个特征的MSE随着$d_{target}$分数的增加而增加，即攻方所掌握的特征数越少，供给的准确率越低。&lt;/p&gt;
-&lt;p&gt;同时，作者还分析了为什么Bank数据集的MSE增量远大于其他数据集的MSE增量，这是因为不同数据集的数据分布差异。&lt;/p&gt;
-&lt;p&gt;由伪逆矩阵计算出的解$\hat{x}_{target}$在所有解中具有最小的欧几里德范数，即$||\hat{x}_{target}||_2\le||x_{target}||_2$&lt;/p&gt;
-&lt;p&gt;其中&lt;/p&gt;
-$$\sum\_{i=1}^{d\_{\text {target }}} \hat{x}\_{\text {target }, i}^{2} \leq \sum\_{i=1}^{d\_{\text {target }}} x\_{\text {target }, i}^{2}$$&lt;p&gt;因此，我们有&lt;/p&gt;
+\end{aligned}$$&lt;p>这是为了测量扰动输入前后的置信差，以减轻APMSA对模型效用对普通用户的影响。综上，可以得到优化函数：&lt;/p>
+$$\begin{aligned}\mathcal{L}&amp;=\mathcal{L}\_1+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\mathcal{L}\_4\\\\&amp;=\min\_\delta J(\mathbf{x}+\delta)+c\_1\cdot\mathcal{L}\_2+\mathcal{L}\_3+c\_2\cdot\|f\left(\mathbf{x}\right)-f\left(\mathbf{x}+\delta\right)\|\end{aligned}$$&lt;p>其中超参数$c_1$和$c_2$用于正则化损失函数，在实验中根据经验分别设置为2和0.01。 优化过程不是要找到对抗性样例，而是要识别以正确保存类别为条件的接近其对应对抗性样例的混淆输入$x_c$。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558.png"
+width="1032"
+height="409"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_e7489508d97d651f.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154342558_hu_96fd674848b77702.png 1024w"
+loading="lazy"
+alt="输入混淆机制"
+class="gallery-image"
+data-flex-grow="252"
+data-flex-basis="605px"
+>&lt;/p>
+&lt;p>APMSA的具体过程如下：&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502.png"
+width="1051"
+height="1354"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_5ab13c6f6c1825be.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719154510502_hu_8e6a33603c50f6fb.png 1024w"
+loading="lazy"
+alt="APMSA算法流程"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="186px"
+>&lt;/p>
+&lt;h2 id="实验评价">&lt;a href="#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7" class="header-anchor">&lt;/a>实验评价
+&lt;/h2>&lt;p>&lt;strong>数据集：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>CIFAR10&lt;/li>
+&lt;li>GTSRB&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>评估指标：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Top-1 精度&lt;/li>
+&lt;/ul>
+&lt;h3 id="模型提取攻击评估">&lt;a href="#%e6%a8%a1%e5%9e%8b%e6%8f%90%e5%8f%96%e6%94%bb%e5%87%bb%e8%af%84%e4%bc%b0" class="header-anchor">&lt;/a>模型提取攻击评估
+&lt;/h3>&lt;p>选择VGG16作为攻击者初始替代模型的模型结构。使用学习率为 0.0001 的 SGD 来最小化均方误差的损失。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587.png"
+width="1055"
+height="319"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_1d814802ee858dbb.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193250587_hu_9405fd5d1582cc28.png 1024w"
+loading="lazy"
+alt="STL10数据集"
+class="gallery-image"
+data-flex-grow="330"
+data-flex-basis="793px"
+>&lt;/p>
+&lt;p>使用CIFAR-10数据集训练了一个基于ResNet-18的模型，准确率为91.94%，并在不应用防御的情况下部署。 对于初始替代模型，作者选择了在ImageNet上预训练的VGG 16模型，并使用STL 10数据集作为公共查询样本。&lt;/p>
+&lt;p>放宽限制，将查询样本设置为 CIFAR10 测试集的一小部分进行查询。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726.png"
+width="1040"
+height="320"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_c999424fcba6218b.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193548726_hu_4f6b84e41df1e4a3.png 1024w"
+loading="lazy"
+alt="CIFAR-10数据集"
+class="gallery-image"
+data-flex-grow="325"
+data-flex-basis="780px"
+>&lt;/p>
+&lt;p>使用GTSRB数据集训练了一个基于ResNet-18的MUA模型，准确率为95.40%，并在不应用防御的情况下部署。 对于初始替代模型，选择了在ImageNet上预训练的VGG 16模型。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827.png"
+width="1021"
+height="319"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_952b708151badab8.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719193708827_hu_d82fd7e3fb3b5011.png 1024w"
+loading="lazy"
+alt="GTSRB数据集"
+class="gallery-image"
+data-flex-grow="320"
+data-flex-basis="768px"
+>&lt;/p>
+&lt;p>上述案例表明：&lt;/p>
+&lt;ul>
+&lt;li>查询样本的选择会影响模型窃取攻击的效率。具体来说，更接近目标域数据分布的查询样本始终有利于攻击。&lt;/li>
+&lt;li>基于决策边界的样本合成技术（即通过PGD、CW）可以提供比随机查询更有用的信息。&lt;/li>
+&lt;li>随着查询预算的增加，基于决策边界的样本生成并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集过于接近，基于决策边界的样本结构提供的信息量相对有限。&lt;/li>
+&lt;li>当样本数量较少时，基于迁移学习的模型窃取攻击可提高攻击效果。原因是样本越少，冗余信息越少。然而，由于获得的信息相似，更多的查询样本可能会导致信息冗余，这不会为促进攻击提供更多有用的信息。&lt;/li>
+&lt;/ul>
+&lt;p>作者进一步评估攻击者选择的不同替代模型架构对攻击效果的影响。替代模型的性能受所选模型架构的影响。如图所示，VGG16始终表现出优于CIFAR10其他模型的攻击性能。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459.png"
+width="999"
+height="759"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_db6c7b48e68c2016.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194215459_hu_c954b26b99f5c204.png 1024w"
+loading="lazy"
+alt="CIFAR10实验结果"
+class="gallery-image"
+data-flex-grow="131"
+data-flex-basis="315px"
+>&lt;/p>
+&lt;p>同样，在在GTSRB数据集上评估时，ResNet50表现出最好的攻击效果，略好于VGG16，使用AlexNet的性能最差。这表明选择合适的替代模型可以降低攻击成本。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767.png"
+width="991"
+height="395"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_cbb598af4fbcda9e.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194317767_hu_393f17f40dddc8a9.png 1024w"
+loading="lazy"
+alt="GTSRB数据集结果"
+class="gallery-image"
+data-flex-grow="250"
+data-flex-basis="602px"
+>&lt;/p>
+&lt;p>综上，查询样本的选择会影响模型窃取攻击的效率和替代模型的准确性。具体来说，攻击最好选择类似于目标域的数据分布的公共查询样本。&lt;/p>
+&lt;p>此外，基于决策边界的样本合成技术（PGD、CW等）可以提供比随机查询更有用的信息。但是，随着查询次数的增加，基于决策边界的样本并没有带来太大的性能提升。原因可能是所选样本分布与原始模型的训练集太接近。&lt;/p>
+&lt;h3 id="防御验证">&lt;a href="#%e9%98%b2%e5%be%a1%e9%aa%8c%e8%af%81" class="header-anchor">&lt;/a>防御验证
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217.png"
+width="968"
+height="758"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_1ff504c17ea44227.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719194541217_hu_ceab8f471377b8d5.png 1024w"
+loading="lazy"
+alt="验证APMSA"
+class="gallery-image"
+data-flex-grow="127"
+data-flex-basis="306px"
+>&lt;/p>
+&lt;p>使用APMSA后，替代模型的准确率甚至低于基准，表明防御减少了模型预测引起的模型内部信息泄露。&lt;/p>
+&lt;p>APMSA的关键见解是，通过将输入映射到特征空间的小尺度区域，可以尽可能减少输入输出对携带的信息泄漏，甚至在很大程度上产生误导性信息。为了可视化这一关键见解，作者使用 t-SNE 和归一化操作来减少用于可视化的混淆输入的维度。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175.png"
+width="984"
+height="721"
+srcset="https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_b495bf4d14862906.png 480w, https://lbqaq.top/p/apmsa-adversarial-perturbation-against-model-stealing-attacks/IMAGE/image-20230719195342175_hu_d7648715cc4956a9.png 1024w"
+loading="lazy"
+alt="t-SNE结果"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="327px"
+>&lt;/p>
+&lt;p>CIFAR10 数据集上的混淆输入和查询样本之间存在明显的分离——每个混淆输入都是从传入的查询样本中找到的。在将原始查询样本与混淆输出相关联时，通过干扰模型预测中泄露的信息，以减少模型窃取攻击的影响。&lt;/p></description></item><item><title>Feature Inference Attack on Model Predictions in Vertical Federated Learning</title><link>https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/</link><pubDate>Tue, 03 Jan 2023 16:27:11 +0800</pubDate><guid>https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/</guid><description>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/100018879.webp" alt="Featured image of post Feature Inference Attack on Model Predictions in Vertical Federated Learning" />&lt;h2 id="介绍">&lt;a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor">&lt;/a>介绍
+&lt;/h2>&lt;p>近年来，人们对利用来自多个组织的分布式源的数据来设计复杂的机器学习模型越来越感兴趣。&lt;/p>
+&lt;p>但是，由于&lt;/p>
+&lt;ul>
+&lt;li>用户敏感数据的使用被迫遵守标准隐私规章或法律，例如GDPR或CCPA&lt;/li>
+&lt;li>数据是组织保持业务竞争优势的宝贵资产，应该受到高度保护&lt;/li>
+&lt;/ul>
+&lt;p>这两个原因，专有数据不能被直接共享。于是，&lt;strong>联邦学习&lt;/strong>便被提出。联邦学习是一种新兴的数据协作范例，它允许多个数据所有者联合构建ML模型而不向彼此泄露其私有数据。&lt;/p>
+&lt;p>联邦学习根据数据划分，被分为横向联邦学习、纵向联邦学习、联邦迁移学习三类。在本文中，作者主要考虑的是纵向联邦学习这一类。何为纵向联邦学习呢？也就是２个数据集的用户重叠部分较大，而用户特征重叠部分较小，作者给出了一个实例：&lt;/p>
+&lt;p>一家银行希望构建一个机器学习模型，通过加入Fintech公司的更多特性来评估是否批准用户的信用卡申请。这家银行拥有“年龄”和“收入”的特征，而Fintech公司拥有“存款”和“平均在线购物次数”的特征。只有银行拥有训练数据集和测试数据集中的标签信息，即：是否应批准申请。我们将带有标签的一方称为主动方，其余没有标签值的一方或者几方称为被动方。&lt;/p>
+&lt;p>在本篇文章中，把拥有标签值的一方看作进攻方，而没有标签值的一方或者几方所拥有的特征值看作目标值，进攻方通过一定的方法得到目标方的目标值，也就是通常模型中被动方的隐私数据。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101100642620.png"
+width="1050"
+height="609"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101100642620_hu_d078401738fac925.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101100642620_hu_1a69e51281fcb2c0.png 1024w"
+loading="lazy"
+alt="纵向联邦学习示例"
+class="gallery-image"
+data-flex-grow="172"
+data-flex-basis="413px"
+>&lt;/p>
+&lt;h3 id="相关研究">&lt;a href="#%e7%9b%b8%e5%85%b3%e7%a0%94%e7%a9%b6" class="header-anchor">&lt;/a>相关研究
+&lt;/h3>&lt;ul>
+&lt;li>Comprehensive privacy analysis of deep learning: Stand-alone and federated learning under passive and active white-box inference attacks&lt;/li>
+&lt;li>The secret sharer: Measuring unintended neural network memorization &amp;amp; extracting secrets&lt;/li>
+&lt;li>Exploiting unintended feature leakage in collaborative learning&lt;/li>
+&lt;li>Deep models under the gan: information leakage from collaborative deep learning&lt;/li>
+&lt;/ul>
+&lt;p>等等，这些文章旨在推断横向联邦学习中参与方的特征值，其中各方具有相同的特征但具有不同的样本。 然而，这些攻击极大地依赖于在训练过程中交换的模型梯度，一旦模型梯度被安全地保护，这些攻击将是无效的。而且，对于预测阶段中的推理攻击，联邦学习模型事先不知道预测样本。于是，作者提出几种基于模型预测的特征推理攻击，研究了纵向联邦学习预测阶段的隐私泄露问题，该攻击方法在预测输出的计算过程中不依赖任何中间信息。&lt;/p>
+&lt;h3 id="本文贡献">&lt;a href="#%e6%9c%ac%e6%96%87%e8%b4%a1%e7%8c%ae" class="header-anchor">&lt;/a>本文贡献
+&lt;/h3>&lt;ul>
+&lt;li>首次提出了纵向联邦学习预测模型的特征推理攻击&lt;/li>
+&lt;li>提出了针对逻辑回归和决策树的两种特定的攻击思路&lt;/li>
+&lt;li>利用攻方积累的多种预测输出，来设计一种从中学习攻方特征和目标特征关联的通用攻击思路&lt;/li>
+&lt;li>在真实和合成的数据集上，实践了提出的方法并进行了大量的评估。结论显示了攻击的有效性，本文也分析和建议了几种潜在的应对思路&lt;/li>
+&lt;/ul>
+&lt;h2 id="问题构造">&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor">&lt;/a>问题构造
+&lt;/h2>&lt;h3 id="系统模型">&lt;a href="#%e7%b3%bb%e7%bb%9f%e6%a8%a1%e5%9e%8b" class="header-anchor">&lt;/a>系统模型
+&lt;/h3>&lt;p>我们考虑一组m个分布方（或数据所有者）${P_1,&amp;hellip;,P_m}$，他们通过合并各自的数据集来训练纵向联邦学习模型。在获得经训练的纵向联邦学习模型参数$\theta$之后，各方协作地对其联合预测数据集$D_{pred}={D_1,&amp;hellip;,D_m}$进行预测。 数据集中的每一行对应一个样本，每一列对应一个要素。 设$n$为样本数，$d_i$为$D_i$中的特征数，其中$i\in{1,&amp;hellip;,m}$。我们表示$D_i={x^t_i}^n_{t=1}$，其中$x^t_i$表示$D_i$的第t个样本。在这篇文章中，作者考虑监督分类任务，并用$c$表示分类的数量。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656.png"
+width="1017"
+height="715"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656_hu_463b64018c45090d.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656_hu_9ccfddf49fb88dee.png 1024w"
+loading="lazy"
+alt="符号说明"
+class="gallery-image"
+data-flex-grow="142"
+data-flex-basis="341px"
+>&lt;/p>
+&lt;h3 id="威胁模型">&lt;a href="#%e5%a8%81%e8%83%81%e6%a8%a1%e5%9e%8b" class="header-anchor">&lt;/a>威胁模型
+&lt;/h3>&lt;p>我们考虑半诚实模型，其中每一方都严格按照规定遵循协议，但可能试图基于接收到的消息推断其他方的私有信息。具体而言，本文着重研究了主动方为对抗方的情形。主动方还可以与其他被动方串通来推断一组目标被动方的私有特征值。最强的概念是m-1个参与方（包括主动方）合谋推断其余被动方的特征值。&lt;/p>
+&lt;h2 id="攻击方法">&lt;a href="#%e6%94%bb%e5%87%bb%e6%96%b9%e6%b3%95" class="header-anchor">&lt;/a>攻击方法
+&lt;/h2>&lt;h3 id="逻辑回归模型lr的等式求解攻击">&lt;a href="#%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92%e6%a8%a1%e5%9e%8blr%e7%9a%84%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb" class="header-anchor">&lt;/a>逻辑回归模型(LR)的等式求解攻击
+&lt;/h3>&lt;p>给定预测输出$v$，对手$P_{adv}$可以构造一组方程，$P_{adv}$可以从该组方程推断出$P_{target}$所持有的特征值。也就是说攻击者利用纵向联邦学习预测结果以及自己所持有的参数推断数据其他提供方的参数。&lt;/p>
+&lt;p>作者分别讨论了二分类逻辑回归以及多分类逻辑回归。&lt;/p>
+&lt;h4 id="二分类逻辑回归">&lt;a href="#%e4%ba%8c%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92" class="header-anchor">&lt;/a>二分类逻辑回归
+&lt;/h4>&lt;p>将模型参数表示为$\theta = \theta (\theta_{adv},\theta_{target})$，其中$\theta_{adv}$和$\theta_{target}$分别是对应于$P_{adv}$和$P_{target}$所拥有的特征的权重。&lt;/p>
+&lt;p>令$v$为给定样本$x=(x_{adv},x_{target})$的预测输出。对于二元LR分类，$v$中只有一个有意义的置信度分数，我们令其为$v_1$。&lt;/p>
+&lt;p>给定$v_1$和对手自己的特征值$x_{adv}$，$P_{adv}$可以直接创建以$x_{target}$作为变量的方程，即，&lt;/p>
+$$\sigma\left(x\_{\text {adv }} \cdot \theta\_{\text {adv }}+x\_{\text {target }} \cdot \theta\_{\text {target }}\right)=v\_{1}$$&lt;p>其中$\sigma(\cdot)$是S形函数。显然，如果只有一个未知特征，即，$d_{target} = 1$，则方程只有一个解，这意味着可以精确地推断未知特征值$x_{target}$。&lt;/p>
+&lt;h4 id="多分类逻辑回归">&lt;a href="#%e5%a4%9a%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92" class="header-anchor">&lt;/a>多分类逻辑回归
+&lt;/h4>&lt;p>对于多分类逻辑回归，存在$c$个线性回归模型。设$\theta = (\theta^{(1)},&amp;hellip;,\theta^{(c)})$分别为这些$c$模型的参数。&lt;/p>
+&lt;p>为了发起特征推理攻击，对手的目标是构造$k\in{1,&amp;hellip;,c}$的线性方程。&lt;/p>
+$$x \_ { a d v } \cdot \theta \_ { a d v } ^ { ( k ) } + x \_ { target } \cdot \theta \_ { target } ^ { ( k ) } = z \_ { k }$$&lt;p>其中$z_k$是第$k$个线性回归模型的输出。然而，$P_{adv}$只知道置信度向量$v =(v_1,&amp;hellip;,v_c)$，使得&lt;/p>
+$$v \_ { k } = \frac { e x p ( z \_ { k } ) } { \sum \_ { k' } exp ( z \_ { k' } ) }$$&lt;p>上面两个式子是我们用逻辑回归解决多分类问题的通用的公式，其中作者在第一个式子中把x和θ分成了攻方和目标方的数据。&lt;/p>
+&lt;p>作者将第二个式子双方取对数&lt;/p>
+$$\ln v \_ { k } = z \_ { k } - \ln ( \sum \_ { k ^ { \prime } } e x p ( z \_ { k } ^ { \prime } ) )$$&lt;p>等式右边的第二项对于所有$k\in{1,&amp;hellip;,c}$是相同的。因此，对两个相邻类别概率v的对数取差值&lt;/p>
+$$\ln v \_ { k } - \ln v \_ { k'} = z \_ { k } - z \_ { k' }$$&lt;p>最后可以得到一个无关z值的一个等式&lt;/p>
+$$x\_{\text {adv }}\left(\theta\_{\text {adv }}^{(k)}-\theta\_{\text {adv }}^{(k+1)}\right)+x\_{\text {target }}\left(\theta\_{\text {target }}^{(k)}-\theta\_{\text {target }}^{(k+1)}\right)=a\_{k}^{\prime}$$&lt;p>其中$a^\prime_k=\ln v_k-\ln v_{k+1},k\in{1,&amp;hellip;,c}$。&lt;/p>
+&lt;p>但是在后面推理的时候本文有一些为了逻辑上方便而采用了一个把纵向联邦限制减少的做法：把目标方或者说被动方的参数θ看作进攻方或者主动方能够得到的数据。&lt;/p>
+&lt;p>实际情况中，主动方或者进攻方在一般的纵向联邦框架中是无法得到被动方的参数θ数据的。&lt;/p>
+&lt;p>本文中我们姑且认为进攻方能得到，那么上式中的未知数只有$x_{target}$了，而$x_{target}$的维数为$d_{target}$，数量为目标方所用拥有的特征数。&lt;/p>
+&lt;p>这里我们把$x_{target}$的未知数看作自变量，个数为目标放所拥有的特征数。那么也就是说，$d_{target}$个自变量，$c-1$个方程，当$d_{target}\le c-1$，那么$x_{target}$只有一个解，可以精确地推断出来。&lt;/p>
+&lt;h3 id="决策树模型的路径限制攻击">&lt;a href="#%e5%86%b3%e7%ad%96%e6%a0%91%e6%a8%a1%e5%9e%8b%e7%9a%84%e8%b7%af%e5%be%84%e9%99%90%e5%88%b6%e6%94%bb%e5%87%bb" class="header-anchor">&lt;/a>决策树模型的路径限制攻击
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474.png"
+width="1016"
+height="673"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474_hu_540bc76f19e55b86.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101155921474_hu_50c4ce55f98ff4f2.png 1024w"
+loading="lazy"
+alt="路径限制攻击示例"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="362px"
+>&lt;/p>
+&lt;p>攻击方可以根据自己的部分特征信息(蓝色方框) 限制树模型中可能的路径(灰色箭头 -&amp;gt; 蓝色箭头 5:2)，结合预测类别结果&lt;strong>1&lt;/strong>进一步限制决策路径(蓝色 - &amp;gt; 红色箭头 2:1 )，可以推测目标方Target的deposit属性(绿色方框) &amp;gt; 5K。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101241766.png"
+width="1043"
+height="1094"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101241766_hu_9b0eac0701bccb27.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101241766_hu_d7173bff23454079.png 1024w"
+loading="lazy"
+alt="路径限制攻击算法"
+class="gallery-image"
+data-flex-grow="95"
+data-flex-basis="228px"
+>&lt;/p>
+&lt;h3 id="生成回归网络攻击">&lt;a href="#%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb" class="header-anchor">&lt;/a>生成回归网络攻击
+&lt;/h3>&lt;p>上面介绍的两种攻击方式都是基于单个模型预测。然而，这些攻击很难应用于复杂的模型，如神经网络（NN）和随机森林（RF）。&lt;/p>
+&lt;p>针对上述缺陷，作者设计了一种基于多模型预测的通用特征推理攻击，即生成回归网络（GRN）攻击，这是本篇论文的重点。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865.png"
+width="1583"
+height="769"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865_hu_b2d4bb9a5d4acaec.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102101712865_hu_e40be91b033b01c4.png 1024w"
+loading="lazy"
+alt="生成回归网络攻击概况"
+class="gallery-image"
+data-flex-grow="205"
+data-flex-basis="494px"
+>&lt;/p>
+&lt;p>&lt;strong>基本思想：&lt;/strong>&lt;/p>
+&lt;p>计算出对手自身特征与攻击目标未知特征之间的总体相关性。在此基础上，推断未知特征值的问题等效于生成新值$\hat{x}_{target}$以匹配垂直FL模型的决策的问题，其中$\hat{x}_{target}$遵循由对手的已知特征值和特征相关性确定的概率分布。&lt;/p>
+&lt;p>&lt;strong>目标函数：&lt;/strong>&lt;/p>
+$$\min \_{\theta\_{G}} \frac{1}{n} \sum\_{t=1}^{n} \ell\left(f\left(x\_{\mathrm{adv}}^{t}, f\_{G}\left(x\_{\mathrm{adv}}^{t}, r^{t} ; \theta\_{G}\right) ; \theta\right), v^{t}\right)+\Omega\left(f\_{G}\right)$$&lt;p>其中$\theta$和$\theta_G$分别是纵向联邦学习模型和生成模型的参数。此外，$f_G$表示$\hat{x}_{target}^t$，即生成模型的输出,$f$表示给定所生成样本的纵向联邦学习模型的输出（由$x_{adv}^t$和$\hat{x}_{target}^t$连接）。此外，$\Omega(\cdot)$是生成的未知特征值${\hat{x}_{target}^t}_{t=1}^n$的正则化项。&lt;/p>
+&lt;p>&lt;strong>具体方法：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>把进攻方所拥有的数据（蓝色）和随机生成的数据（橙色），合成一个d维向量，其中d为进攻方的特征数量和目标方特征数量之和，随机生成的数据是为了初始化生成模型的初始输入。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>生成模型计算之后，输出生成模型对于目标方特征值的预测。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>把生成模型生成的目标方特征值的预测（橙色）与进攻方所拥有的数据（蓝色）合并，得到另一个d维的向量，作为已经生成的纵向联邦学习预测模型（比如神经网络）的输入。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>得到输出的对不同类别的预测概率矩阵（橙色），与真实的攻方特征值和目标方特征值得到的不同类别的预测概率矩阵（蓝色）求损失。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对得到的损失进行反向传播，修改生成模型的参数，得到新的生成模型对目标放特征值的预测。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>这种方法对于目标函数为可微的情况下效果不错，也就说明可以用来对逻辑回归和神经网络进行生成模型攻击。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102105356091.png"
+width="1061"
+height="839"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102105356091_hu_1fd0979a015ca771.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102105356091_hu_103261bdcf884718.png 1024w"
+loading="lazy"
+alt="GRN训练方法"
+class="gallery-image"
+data-flex-grow="126"
+data-flex-basis="303px"
+>&lt;/p>
+&lt;h3 id="随机森林的生成模型的攻击">&lt;a href="#%e9%9a%8f%e6%9c%ba%e6%a3%ae%e6%9e%97%e7%9a%84%e7%94%9f%e6%88%90%e6%a8%a1%e5%9e%8b%e7%9a%84%e6%94%bb%e5%87%bb" class="header-anchor">&lt;/a>随机森林的生成模型的攻击
+&lt;/h3>&lt;p>路径限制攻击不适用于随机森林的模型，特别是当随机森林的树数量很大的时候。&lt;/p>
+&lt;p>因此，在随机森林模型使用GRN攻击的思想。&lt;/p>
+&lt;p>但是，因为随机森林（RF）模型的目标函数并不是可微的，所以不能通过随机森林（RF）把预测损失反向传播给生成模型。&lt;/p>
+&lt;p>因此，本文在得到纵向联邦模型（比如随机森林RF）之后，攻方会另外训练一个可微的模型（比如神经网络NN）来近似RF模型。&lt;/p>
+&lt;h2 id="实验评价">&lt;a href="#%e5%ae%9e%e9%aa%8c%e8%af%84%e4%bb%b7" class="header-anchor">&lt;/a>实验评价
+&lt;/h2>&lt;p>&lt;strong>数据集：&lt;/strong>&lt;/p>
+&lt;p>四个数据集，分别是银行营销（20个特征的2分类），信用卡（23个特征的2分类），诊断（48个特征的11分类）和新闻流行（59个特征的5分类）。&lt;/p>
+&lt;p>此外，利用sklearn库生成了两个合成数据集，用于评估预测数据集中样本数n对生成回归网络攻击性能的影响。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230.png"
+width="1014"
+height="423"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230_hu_3112a358cdab8e2b.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230102110409230_hu_a71ec3b9f1407162.png 1024w"
+loading="lazy"
+alt="数据集概况"
+class="gallery-image"
+data-flex-grow="239"
+data-flex-basis="575px"
+>&lt;/p>
+&lt;p>&lt;strong>指标：&lt;/strong>&lt;/p>
+&lt;p>对于等式求解攻击（ESA）和生成回归网络攻击（GRNA），由于是回归任务，因此使用每个特征的均方误差（MSE）来衡量它们在重建多个目标特征时的总体准确性。具体而言，每个特征的MSE计算如下：&lt;/p>
+$$\mathrm{MSE}=\frac{1}{n * d\_{\text {target }}} \sum\_{t=1}^{n} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{t}-x\_{\text {target }, i}^{t}\right)^{2}$$&lt;p>对于路径限制攻击（PRA），作者测量了正确分支率（CBR）。&lt;/p>
+&lt;h3 id="d_target对等式求解攻击的影响">&lt;a href="#d_target%e5%af%b9%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d" class="header-anchor">&lt;/a>$d_{target}$对等式求解攻击的影响
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720.png"
+width="2090"
+height="518"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720_hu_44d855796c609ab7.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720_hu_7d2b0e9c45c35dc3.png 1024w"
+loading="lazy"
+alt="等式求解攻击性能"
+class="gallery-image"
+data-flex-grow="403"
+data-flex-basis="968px"
+>&lt;/p>
+&lt;p>对于所有数据集，如果满足阈值条件$d_{target}\le c-1$（在每个子图中用“T”表示），则每个特征的MSE为0，这证明了上面讨论的性质正确。&lt;/p>
+&lt;p>通过观察b和c，我们发现即使不满足阈值条件，等式求解攻击仍然可以找到$x_{target}$的良好推断，这大大优于随机猜测方法。&lt;/p>
+&lt;p>还有一个明显的趋势，每个特征的MSE随着$d_{target}$分数的增加而增加，即攻方所掌握的特征数越少，供给的准确率越低。&lt;/p>
+&lt;p>同时，作者还分析了为什么Bank数据集的MSE增量远大于其他数据集的MSE增量，这是因为不同数据集的数据分布差异。&lt;/p>
+&lt;p>由伪逆矩阵计算出的解$\hat{x}_{target}$在所有解中具有最小的欧几里德范数，即$||\hat{x}_{target}||_2\le||x_{target}||_2$&lt;/p>
+&lt;p>其中&lt;/p>
+$$\sum\_{i=1}^{d\_{\text {target }}} \hat{x}\_{\text {target }, i}^{2} \leq \sum\_{i=1}^{d\_{\text {target }}} x\_{\text {target }, i}^{2}$$&lt;p>因此，我们有&lt;/p>
 $$\begin{aligned}
 \mathrm{MSE} &amp; =\frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}-x\_{\text {target }, i}\right)^{2} \\\\
 &amp; =\frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{2}+x\_{\text {target }, i}^{2}-2 \hat{x}\_{\text {target }, i} x\_{\text {target }, i}\right) \\\\
 &amp; \leq \frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{2}+x\_{\text {target }, i}^{2}\right) \\\\
 &amp; \leq \frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}} 2 x\_{\text {target }, i}^{2},
-\end{aligned}$$&lt;p&gt;我们便推导出$\mathrm{MSE}(\hat{x}_{target},x_{target})$的上界。&lt;/p&gt;
-&lt;p&gt;作者分别计算了Bank、Credit、Drive和News四个数据集的上界，分别为0.60、0.14、0.45和0.34。&lt;/p&gt;
-&lt;p&gt;一般来说，上界越大，对手的攻击精度就越差。这就解释了为什么Bank的MSE比其他数据集增长得更快。&lt;/p&gt;
-&lt;h3 id=&#34;d_target对路径限制攻击的影响&#34;&gt;&lt;a href=&#34;#d_target%e5%af%b9%e8%b7%af%e5%be%84%e9%99%90%e5%88%b6%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;$d_{target}$对路径限制攻击的影响
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445.png&#34;
-	width=&#34;2090&#34;
-	height=&#34;516&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445_hu_7282c734e8457a43.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445_hu_efe8e1a6cae3f776.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;路径限制攻击性能&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;405&#34;
-		data-flex-basis=&#34;972px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;与等式求解攻击类似，攻击精度随着$d_{target}$的增加而降低。这是因为通常更多的目标特征将导致更多可能的预测路径，从而导致选择正确路径的概率降低。&lt;/p&gt;
-&lt;p&gt;我们可以发现，第三个数据集是异常的，它甚至随着$d_{target}$的增加而增加了。这是因为Drive数据集有11个类，比其他数据集的类要多得多。因此，在Drive中，每个类别对应的树形路径数量较少。其次，决策树模型在训练过程中只选择信息量大的特征，这意味着Drive数据集中$d_{target}$的增加不一定会增加树中未知特征的数量，因为有些特征可能永远不会被选中。&lt;/p&gt;
-&lt;p&gt;综上，较大的目标数据并不总是能降低路径限制攻击的CBR。&lt;/p&gt;
-&lt;h3 id=&#34;d_target对生成回归网络攻击的影响&#34;&gt;&lt;a href=&#34;#d_target%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;$d_{target}$对生成回归网络攻击的影响
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894.png&#34;
-	width=&#34;2090&#34;
-	height=&#34;525&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894_hu_ec02b23a4ce8fbe.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894_hu_6030528279424394.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;生成回归网络攻击性能&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;398&#34;
-		data-flex-basis=&#34;955px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者展示了生成回归网络攻击对三种模型的攻击性能（LR：逻辑回归、RF：随机森林、NN：神经网络）&lt;/p&gt;
-&lt;p&gt;类似地，每个特征的MSE都随着$d_{target}$的增加而上升。这是因为生成回归网络攻击依赖于$x_{adv}$和$x_{target}$之间的特征相关性来推断未知特征值。如果$d_{target}$所占比例较大，学习到的相关性会变弱，导致攻击性能相对较差。然而，即使在$d_{target}$的分数为60%时，生成回归网络攻击仍然比随机猜测方法获得了更好的效果，证明了其有效性。&lt;/p&gt;
-&lt;p&gt;作者发现，采用神经网络模型的生成回归网络攻击的性能优于逻辑回归和随机森林模型。原因在于神经网络模型比其他两种模型具有更复杂的决策边界，从而极大地限制了给定相同$x_{adv}$和$v$时$x_{target}$的可能分布。同时，神经网络模型本身具有更多的参数，可以捕获更多关于特征相关性的重要信息，从而获得更好的攻击性能。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112225469.png&#34;
-	width=&#34;2070&#34;
-	height=&#34;536&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112225469_hu_d6004b51c0051221.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112225469_hu_4e4d044ae18fcb03.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;生成回归网络攻击性能 - CBR&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;386&#34;
-		data-flex-basis=&#34;926px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;作者还将CBR度量用于评估RF模型上的GRNA，同样效果也比随机猜测方法优秀。&lt;/p&gt;
-&lt;h3 id=&#34;需要预测的样本数对生成回归网络攻击的影响&#34;&gt;&lt;a href=&#34;#%e9%9c%80%e8%a6%81%e9%a2%84%e6%b5%8b%e7%9a%84%e6%a0%b7%e6%9c%ac%e6%95%b0%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;需要预测的样本数对生成回归网络攻击的影响
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389.png&#34;
-	width=&#34;2070&#34;
-	height=&#34;518&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389_hu_d161a8253ebb6245.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389_hu_c6cd7467f682b69b.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;需要预测的样本数的影响&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;399&#34;
-		data-flex-basis=&#34;959px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;四个数据集上的趋势表明，预测数据集中的样本越多，对手可以获得的每个特征的MSE越少。 换句话说，对手可以长期积累更多的预测输出，以提高其攻击精度。&lt;/p&gt;
-&lt;h3 id=&#34;数据相关性对生成回归网络攻击的影响&#34;&gt;&lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e7%9b%b8%e5%85%b3%e6%80%a7%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;数据相关性对生成回归网络攻击的影响
-&lt;/h3&gt;&lt;p&gt;由于LR和RF模型的性能低于NN模型，作者推断是因为一小部分推断出的特征值与真实相差甚远，导致整体攻击性能相对较低，于是作者研究数据相关性的影响。&lt;/p&gt;
-&lt;p&gt;数据相关性定义如下：&lt;/p&gt;
+\end{aligned}$$&lt;p>我们便推导出$\mathrm{MSE}(\hat{x}_{target},x_{target})$的上界。&lt;/p>
+&lt;p>作者分别计算了Bank、Credit、Drive和News四个数据集的上界，分别为0.60、0.14、0.45和0.34。&lt;/p>
+&lt;p>一般来说，上界越大，对手的攻击精度就越差。这就解释了为什么Bank的MSE比其他数据集增长得更快。&lt;/p>
+&lt;h3 id="d_target对路径限制攻击的影响">&lt;a href="#d_target%e5%af%b9%e8%b7%af%e5%be%84%e9%99%90%e5%88%b6%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d" class="header-anchor">&lt;/a>$d_{target}$对路径限制攻击的影响
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445.png"
+width="2090"
+height="516"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445_hu_7282c734e8457a43.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103104636445_hu_efe8e1a6cae3f776.png 1024w"
+loading="lazy"
+alt="路径限制攻击性能"
+class="gallery-image"
+data-flex-grow="405"
+data-flex-basis="972px"
+>&lt;/p>
+&lt;p>与等式求解攻击类似，攻击精度随着$d_{target}$的增加而降低。这是因为通常更多的目标特征将导致更多可能的预测路径，从而导致选择正确路径的概率降低。&lt;/p>
+&lt;p>我们可以发现，第三个数据集是异常的，它甚至随着$d_{target}$的增加而增加了。这是因为Drive数据集有11个类，比其他数据集的类要多得多。因此，在Drive中，每个类别对应的树形路径数量较少。其次，决策树模型在训练过程中只选择信息量大的特征，这意味着Drive数据集中$d_{target}$的增加不一定会增加树中未知特征的数量，因为有些特征可能永远不会被选中。&lt;/p>
+&lt;p>综上，较大的目标数据并不总是能降低路径限制攻击的CBR。&lt;/p>
+&lt;h3 id="d_target对生成回归网络攻击的影响">&lt;a href="#d_target%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d" class="header-anchor">&lt;/a>$d_{target}$对生成回归网络攻击的影响
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894.png"
+width="2090"
+height="525"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894_hu_ec02b23a4ce8fbe.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103111155894_hu_6030528279424394.png 1024w"
+loading="lazy"
+alt="生成回归网络攻击性能"
+class="gallery-image"
+data-flex-grow="398"
+data-flex-basis="955px"
+>&lt;/p>
+&lt;p>作者展示了生成回归网络攻击对三种模型的攻击性能（LR：逻辑回归、RF：随机森林、NN：神经网络）&lt;/p>
+&lt;p>类似地，每个特征的MSE都随着$d_{target}$的增加而上升。这是因为生成回归网络攻击依赖于$x_{adv}$和$x_{target}$之间的特征相关性来推断未知特征值。如果$d_{target}$所占比例较大，学习到的相关性会变弱，导致攻击性能相对较差。然而，即使在$d_{target}$的分数为60%时，生成回归网络攻击仍然比随机猜测方法获得了更好的效果，证明了其有效性。&lt;/p>
+&lt;p>作者发现，采用神经网络模型的生成回归网络攻击的性能优于逻辑回归和随机森林模型。原因在于神经网络模型比其他两种模型具有更复杂的决策边界，从而极大地限制了给定相同$x_{adv}$和$v$时$x_{target}$的可能分布。同时，神经网络模型本身具有更多的参数，可以捕获更多关于特征相关性的重要信息，从而获得更好的攻击性能。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112225469.png"
+width="2070"
+height="536"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112225469_hu_d6004b51c0051221.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112225469_hu_4e4d044ae18fcb03.png 1024w"
+loading="lazy"
+alt="生成回归网络攻击性能 - CBR"
+class="gallery-image"
+data-flex-grow="386"
+data-flex-basis="926px"
+>&lt;/p>
+&lt;p>作者还将CBR度量用于评估RF模型上的GRNA，同样效果也比随机猜测方法优秀。&lt;/p>
+&lt;h3 id="需要预测的样本数对生成回归网络攻击的影响">&lt;a href="#%e9%9c%80%e8%a6%81%e9%a2%84%e6%b5%8b%e7%9a%84%e6%a0%b7%e6%9c%ac%e6%95%b0%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d" class="header-anchor">&lt;/a>需要预测的样本数对生成回归网络攻击的影响
+&lt;/h3>&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389.png"
+width="2070"
+height="518"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389_hu_d161a8253ebb6245.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112521389_hu_c6cd7467f682b69b.png 1024w"
+loading="lazy"
+alt="需要预测的样本数的影响"
+class="gallery-image"
+data-flex-grow="399"
+data-flex-basis="959px"
+>&lt;/p>
+&lt;p>四个数据集上的趋势表明，预测数据集中的样本越多，对手可以获得的每个特征的MSE越少。 换句话说，对手可以长期积累更多的预测输出，以提高其攻击精度。&lt;/p>
+&lt;h3 id="数据相关性对生成回归网络攻击的影响">&lt;a href="#%e6%95%b0%e6%8d%ae%e7%9b%b8%e5%85%b3%e6%80%a7%e5%af%b9%e7%94%9f%e6%88%90%e5%9b%9e%e5%bd%92%e7%bd%91%e7%bb%9c%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d" class="header-anchor">&lt;/a>数据相关性对生成回归网络攻击的影响
+&lt;/h3>&lt;p>由于LR和RF模型的性能低于NN模型，作者推断是因为一小部分推断出的特征值与真实相差甚远，导致整体攻击性能相对较低，于是作者研究数据相关性的影响。&lt;/p>
+&lt;p>数据相关性定义如下：&lt;/p>
 $$\begin{aligned}
 \operatorname{corr}\left(x\_{\mathrm{adv}}, x\_{\mathrm{target}, i}\right) &amp; =\frac{1}{d\_{\mathrm{adv}}} \sum\_{j=1}^{d\_{\mathrm{adv}}} a b s\left(r\left(x\_{\mathrm{adv}, j}, x\_{\mathrm{target}, i}\right)\right), \\\\
 \operatorname{corr}\left(v, x\_{\mathrm{target}, i}\right) &amp; =\frac{1}{c} \sum\_{j=1}^{c} a b s\left(r\left(v\_{j}, x\_{\mathrm{target}, i}\right)\right),
-\end{aligned}$$&lt;p&gt;其中$r(a,b)$表示a和b之间的皮尔逊相关系数，$abs(\cdot)$表示绝对值。 本质上，两个系数越大，对手越容易通过生成回归网络攻击学习特征相关性。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781.png&#34;
-	width=&#34;1747&#34;
-	height=&#34;769&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781_hu_8ebf89399dd41d2d.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781_hu_b3faf008127ffd2d.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;数据相关性对生成回归网络攻击性能&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;227&#34;
-		data-flex-basis=&#34;545px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;我们可以观察到相关系数$x_{adv}$和$v$都会影响生成回归网络攻击的攻击性能。$x_{target}$，$i$与$x_{adv}$和$v$之间较弱的相关性导致较低的推断准确度，例如图10a中的特征1和3以及图10b中的特征4和6。&lt;/p&gt;
-&lt;h2 id=&#34;对策&#34;&gt;&lt;a href=&#34;#%e5%af%b9%e7%ad%96&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;对策
-&lt;/h2&gt;&lt;p&gt;作者讨论了几种可能减轻所提出的特征推断攻击的潜在防御方法。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515.png&#34;
-	width=&#34;2030&#34;
-	height=&#34;1174&#34;
-	srcset=&#34;https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515_hu_3ad02ff2a52f490f.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515_hu_843f72228808122a.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;防御方法比较&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;172&#34;
-		data-flex-basis=&#34;414px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;策略名称&lt;/th&gt;
-          &lt;th&gt;效果&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Rounding confidence scores&lt;/td&gt;
-          &lt;td&gt;等式求解攻击有效，但生成回归网络攻击效果甚微&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Dropout for neural networks model&lt;/td&gt;
-          &lt;td&gt;有效，但攻击者还是有一个很好的推断&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Pre-processing before collaboration&lt;/td&gt;
-          &lt;td&gt;未做测试&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Post-processing for verification&lt;/td&gt;
-          &lt;td&gt;导致模型预测计算的巨大开销&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Hide the vertical FL model&lt;/td&gt;
-          &lt;td&gt;可能会导致新的隐私泄露&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;Differential Privacy (DP)&lt;/td&gt;
-          &lt;td&gt;不适用&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;参考文章&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考文章
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/linear345/p/16406051.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;【论文阅读】Feature Inference Attack on Model Predictions in Vertical Federated Learning - linear345 - 博客园 (cnblogs.com)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/547510858&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;纵向联邦学习VFL 属性推理攻击 Feature inference attack on model predictions in VFL (ICDE21） - 知乎 (zhihu.com)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        
-    </channel>
-</rss>
+\end{aligned}$$&lt;p>其中$r(a,b)$表示a和b之间的皮尔逊相关系数，$abs(\cdot)$表示绝对值。 本质上，两个系数越大，对手越容易通过生成回归网络攻击学习特征相关性。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781.png"
+width="1747"
+height="769"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781_hu_8ebf89399dd41d2d.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781_hu_b3faf008127ffd2d.png 1024w"
+loading="lazy"
+alt="数据相关性对生成回归网络攻击性能"
+class="gallery-image"
+data-flex-grow="227"
+data-flex-basis="545px"
+>&lt;/p>
+&lt;p>我们可以观察到相关系数$x_{adv}$和$v$都会影响生成回归网络攻击的攻击性能。$x_{target}$，$i$与$x_{adv}$和$v$之间较弱的相关性导致较低的推断准确度，例如图10a中的特征1和3以及图10b中的特征4和6。&lt;/p>
+&lt;h2 id="对策">&lt;a href="#%e5%af%b9%e7%ad%96" class="header-anchor">&lt;/a>对策
+&lt;/h2>&lt;p>作者讨论了几种可能减轻所提出的特征推断攻击的潜在防御方法。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515.png"
+width="2030"
+height="1174"
+srcset="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515_hu_3ad02ff2a52f490f.png 480w, https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103120035515_hu_843f72228808122a.png 1024w"
+loading="lazy"
+alt="防御方法比较"
+class="gallery-image"
+data-flex-grow="172"
+data-flex-basis="414px"
+>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>策略名称&lt;/th>
+&lt;th>效果&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Rounding confidence scores&lt;/td>
+&lt;td>等式求解攻击有效，但生成回归网络攻击效果甚微&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Dropout for neural networks model&lt;/td>
+&lt;td>有效，但攻击者还是有一个很好的推断&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Pre-processing before collaboration&lt;/td>
+&lt;td>未做测试&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Post-processing for verification&lt;/td>
+&lt;td>导致模型预测计算的巨大开销&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Hide the vertical FL model&lt;/td>
+&lt;td>可能会导致新的隐私泄露&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Differential Privacy (DP)&lt;/td>
+&lt;td>不适用&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="参考文章">&lt;a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0" class="header-anchor">&lt;/a>参考文章
+&lt;/h2>&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.cnblogs.com/linear345/p/16406051.html" target="_blank" rel="noopener"
+>【论文阅读】Feature Inference Attack on Model Predictions in Vertical Federated Learning - linear345 - 博客园 (cnblogs.com)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/547510858" target="_blank" rel="noopener"
+>纵向联邦学习VFL 属性推理攻击 Feature inference attack on model predictions in VFL (ICDE21） - 知乎 (zhihu.com)&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

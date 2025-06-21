@@ -1,0 +1,388 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="总结从下载+整理+观看+备份一条龙自动化看番"><title>如何优雅的打造个人影音库</title><link rel=canonical href=https://lbqaq.top/p/my-anime-hub/><link rel=stylesheet href=/scss/style.min.2d47bd8ef39ed3b6e381fc30c41c603c9773b1b9e311595afb8f0ffebf5b9437.css><meta property='og:title' content="如何优雅的打造个人影音库"><meta property='og:description' content="总结从下载+整理+观看+备份一条龙自动化看番"><meta property='og:url' content='https://lbqaq.top/p/my-anime-hub/'><meta property='og:site_name' content='luoboQAQ'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='Emby'><meta property='article:tag' content='折腾'><meta property='article:published_time' content='2025-06-20T16:02:45+08:00'><meta property='article:modified_time' content='2025-06-20T16:02:45+08:00'><meta property='og:image' content='https://lbqaq.top/p/my-anime-hub/131135880.webp'><meta name=twitter:title content="如何优雅的打造个人影音库"><meta name=twitter:description content="总结从下载+整理+观看+备份一条龙自动化看番"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://lbqaq.top/p/my-anime-hub/131135880.webp'><script async defer data-website-id=5a23d952-27c7-4abd-b8f0-c69397b25b55 data-cache=true src=https://umami.lbqaq.top/bpnwxrgz.js></script><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><style>:root{--sys-font-family:-apple-system, "LXGW WenKai", 'Microsoft Yahei', 'WenQuanYi Micro Hei', sans-serif;--code-font-family:"JetBrains Mono", "LXGW WenKai Mono", Menlo, Monaco, Consolas, monospace;--article-font-family:"LXGW WenKai", sans-serif;--base-font-family:"LXGW WenKai", var(--sys-font-family), sans-serif}</style></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/Mint_hu_90cbcbb19cfdb02a.jpg width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌞</span></figure><div class=site-meta><h1 class=site-name><a href=/>luoboQAQ</a></h1><h2 class=site-description>快乐学习每一天</h2></div></header><ol class=menu-social><li><a href=https://github.com/luoboQAQ target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://lbqaq.top/index.xml target=_blank title=RSS订阅 rel=me><svg class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li><li><a href=https://pan.lbqaq.top target=_blank title=我的个人云盘 rel=me><svg class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 18a4.6 4.4.0 010-9 5 4.5.0 0111 2h1a3.5 3.5.0 010 7H7"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文章</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>查询</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>友链</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#前言>前言</a></li><li><a href=#个人媒体库emby>个人媒体库——Emby</a></li><li><a href=#下载三件套ani-rssqbittorrentpeerbanhelper>下载三件套——Ani-rss、qBittorrent、PeerBanHelper</a><ol><li><a href=#ani-rss>ani-rss</a></li><li><a href=#qbittorrent>qBittorrent</a></li><li><a href=#peerbanhelper>PeerBanHelper</a></li></ol></li><li><a href=#字体自动子集化fontinass>字体自动子集化——fontInAss</a></li><li><a href=#自动备份rclone>自动备份——Rclone</a></li><li><a href=#小结>小结</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/my-anime-hub/><img src=/p/my-anime-hub/131135880.webp width=1414 height=1000 loading=lazy alt="Featured image of post 如何优雅的打造个人影音库"></a></div><div class=article-details><div class=article-title-wrapper><h2 class=article-title><a href=/p/my-anime-hub/>如何优雅的打造个人影音库</a></h2><h3 class=article-subtitle>总结从下载+整理+观看+备份一条龙自动化看番</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>2025-06-20</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 7 分钟</time></div></footer></div></header><section class=article-content><h2 id=前言><a href=#%e5%89%8d%e8%a8%80 class=header-anchor></a>前言</h2><p>在21年，我写过一篇《<a class=link href=/p/%e5%a6%82%e4%bd%95%e4%bc%98%e9%9b%85%e7%9a%84%e7%9c%8b%e7%95%aa/>如何优雅的看番</a>》，当时只是简单的介绍了一下下载和播放用的软件，顺便再介绍了一下补帧。但随着时间的推移，原先的那套方法早已陈旧了。正好最近有些空闲时间，把目前我使用的追/补番流程记录一下。</p><p>目前使用到的软件有以下：</p><ul><li><a class=link href=https://emby.media/ target=_blank rel=noopener>Emby</a>：本地媒体库</li><li><a class=link href=https://github.com/RiderLty/fontInAss target=_blank rel=noopener>fontInAss</a>：实时将字体子集化后嵌入ass</li><li><a class=link href=https://github.com/wushuo894/ani-rss target=_blank rel=noopener>Ani-rss</a>：新番自动下载+重命名</li><li><a class=link href=https://github.com/qbittorrent/qBittorrent target=_blank rel=noopener>qBittorrent</a>：大名鼎鼎的种子下载软件</li><li><a class=link href=https://github.com/VueTorrent/VueTorrent target=_blank rel=noopener>VueTorrent</a>：颜值更高的qBittorrent WebUI</li><li><a class=link href=https://github.com/PBH-BTN/PeerBanHelper target=_blank rel=noopener>PeerBanHelper</a>：BT 反吸血工具</li><li><a class=link href=https://github.com/kookxiang/jellyfin-plugin-bangumi target=_blank rel=noopener>jellyfin-plugin-bangumi</a>：bangumi自动点格子+元数据获取</li><li><a class=link href=https://rclone.org/ target=_blank rel=noopener>Rclone</a>：自动备份</li></ul><p>通过这些软件，可以实现：</p><ul><li>自动追更+下载+整理</li><li>随处播放，记录播放历史</li><li>拥有精美的UI和海报墙，<del>看着很爽</del></li><li>自动同步播放记录</li></ul><p>下面就依次介绍这些软件的功能与安装设置步骤，为了便于管理，我都是采用Docker进行安装。</p><h2 id=个人媒体库emby><a href=#%e4%b8%aa%e4%ba%ba%e5%aa%92%e4%bd%93%e5%ba%93emby class=header-anchor></a>个人媒体库——Emby</h2><blockquote><p>Emby是一款优秀的媒体服务器软件，致力于为用户提供丰富的多媒体体验。通过Emby，您可以方便地在家庭内的各种设备上观看您喜爱的电影、电视剧和其他视频内容。而且，Emby还具备强大的媒体管理功能，让您的影视资源井然有序，随时随地畅享观影乐趣。</p></blockquote><p>首先要搭建的就是Emby，只要有NAS的用户都应该听过它的大名，用来管理本地的影音数据再合适不过了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>docker run -d <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --name emby <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --restart unless-stopped <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --stop-timeout <span class=m>30</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -p 8096:8096 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -p 8920:8920 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v /var/opt/emby:/config <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -v /mnt/luoboPool/public:/data <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    --device<span class=o>=</span>/dev/dri <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=nv>PUID</span><span class=o>=</span><span class=m>0</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=nv>PGID</span><span class=o>=</span><span class=m>0</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    -e <span class=nv>TZ</span><span class=o>=</span>Asia/Shanghai <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>    amilys/embyserver:4.9.0.46
+</span></span></code></pre></td></tr></table></div></div><p>这里我没有选用官方的镜像，而是使用amilys大佬做的整合版，里面内置了一些插件还是比较好用的。这里我指定了<code>4.9.0.46</code>版本是因为神医助手这个插件不再继续适配最新测试版了，所以就停在这个版本了。</p><p>接下来就是安装和配置相关的插件，amilys大佬使用了一个扩展脚本，所以我们就可以修改其来实现配置<code>docker/emby/config/ext.sh</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=c1>######## 说明 2023-07-30 ########</span>
+</span></span><span class=line><span class=cl><span class=c1>#一个sh脚本，容器每次启动时运行</span>
+</span></span><span class=line><span class=cl><span class=c1>#方便自定义添加功能</span>
+</span></span><span class=line><span class=cl><span class=c1>#################################</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Emby扩展启动脚本&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#去掉下行注释可以关闭次脚本</span>
+</span></span><span class=line><span class=cl><span class=c1>#exit 0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>########下面可以自行添加功能########</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## 修改容器hosts</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#echo -e &#34;13.226.210.20     api.themoviedb.org&#34; &gt;&gt; /etc/hosts</span>
+</span></span><span class=line><span class=cl><span class=c1>#echo -e &#34;13.225.142.99     api4.thetvdb.com&#34; &gt;&gt; /etc/hosts</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## Emby-crx 美化 媒体库ID为空时不启用</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## 媒体库id，用逗号分隔。进入媒体库后url里的parentId</span>
+</span></span><span class=line><span class=cl><span class=c1>## MediaId=&#34;21466,21463&#34;</span>
+</span></span><span class=line><span class=cl><span class=nv>MediaId</span><span class=o>=</span><span class=s2>&#34;239&#34;</span>
+</span></span><span class=line><span class=cl>sed -i <span class=s2>&#34;s/this\.parentId = \&#34;\&#34;;/this\.parentId = \&#34;</span><span class=nv>$MediaId</span><span class=s2>\&#34;;/&#34;</span> /system/dashboard-ui/emby-crx/config.js
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>## 扩展插件: </span>
+</span></span><span class=line><span class=cl><span class=c1># embyLaunchPotplayer 外部播放</span>
+</span></span><span class=line><span class=cl><span class=c1># ede.user 弹幕</span>
+</span></span><span class=line><span class=cl><span class=c1># actorPlus 未知演员隐藏</span>
+</span></span><span class=line><span class=cl><span class=nv>extmod</span><span class=o>=</span><span class=s1>&#39;[&#34;embyLaunchPotplayer&#34;,&#34;actorPlus&#34;]&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>sed -i <span class=s1>&#39;/\ extmod/s/\[.*\]/&#39;</span><span class=nv>$extmod</span><span class=s1>&#39;/g&#39;</span> /system/dashboard-ui/ext.js
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 修改弹幕插件</span>
+</span></span><span class=line><span class=cl>sed -i <span class=s1>&#39;s#&lt;script src=&#34;danmaku.min.js&#34;&gt;&lt;/script&gt;#&lt;script src=&#34;https://cdn.jsdelivr.net/gh/chen3861229/dd-danmaku@gh-pages/ede.user.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;#g&#39;</span> /system/dashboard-ui/index.html
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>exit</span> <span class=m>0</span>
+</span></span></code></pre></td></tr></table></div></div><p>相较于原始脚本，我将弹幕脚本修改为chen3861229大佬继续维护的版本<a class=link href=https://github.com/chen3861229/dd-danmaku target=_blank rel=noopener>dd-danmaku</a>。</p><p>其次，我为emby-erx美化插件指定了媒体库，并修复了配置脚本没有工作的问题，最终的效果如下：</p><p><img src=/p/my-anime-hub/IMAGE/image-20250620192136290.png width=3828 height=1926 srcset="/p/my-anime-hub/IMAGE/image-20250620192136290_hu_5f8e2ef7fa20422d.png 480w, /p/my-anime-hub/IMAGE/image-20250620192136290_hu_7e47f9199d38e8a1.png 1024w" loading=lazy alt=emby首页 class=gallery-image data-flex-grow=198 data-flex-basis=477px></p><p><img src=/p/my-anime-hub/IMAGE/image-20250620192252851.png width=3774 height=1778 srcset="/p/my-anime-hub/IMAGE/image-20250620192252851_hu_f78d877c3302e40b.png 480w, /p/my-anime-hub/IMAGE/image-20250620192252851_hu_5c5b3ad9969347b8.png 1024w" loading=lazy alt=emby首页 class=gallery-image data-flex-grow=212 data-flex-basis=509px></p><p>可以看到海报墙还是非常赏心悦目的。</p><p>关于如何创建媒体库之类的Emby设置网上已经有很多相关的教程了，我这里就不再赘述了，就只写一下和网上配置不一样的地方吧。</p><ul><li><code>首选图像下载语言</code>这里设置为空，然后在神医助手里开启<code>原语言海报</code>，这样下载的海报就是日文原版的，看起来更舒服。</li><li>媒体库可以自己用PS设计一个封面，看起来会更加醒目。</li></ul><p>对于客户端的选择，根据我的使用体验来看，目前使用体验比较好的是：</p><ul><li>PC：小雅优化的官方PC客户端</li><li>Android：Yampy</li><li>TV：amilys优化的官方TV客户端，对于部分有子集化的字幕（这个后面会介绍）使用Kodi+emby官方插件</li></ul><p>Emby默认的元数据来源为<a class=link href=https://www.themoviedb.org/ target=_blank rel=noopener>The Movie Database (TMDB)</a>，已经满足95%的刮削需求了。但是，有些资源还是找不到，这时就可以从<a class=link href=https://bgm.tv/ target=_blank rel=noopener>Bangumi 番组计划</a>上获取了。</p><p>这里就需要使用<a class=link href=https://github.com/kookxiang/jellyfin-plugin-bangumi target=_blank rel=noopener>jellyfin-plugin-bangumi</a>插件了，虽然是为jellyfin编写的，但是作者也为Emby做了适配。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>sudo curl -L -o /var/opt/emby/plugins/Emby.Plugin.Bangumi.dll https://github.com/kookxiang/jellyfin-plugin-bangumi/releases/download/1.7.1/Emby.Plugin.Bangumi.dll
+</span></span></code></pre></td></tr></table></div></div><p>直接将其下载到之前配置好的Emby配置目录里并重启即可使用了。</p><p>除了元数据获取，它还可以在播放完成后自动点格子，还是非常方便的。</p><h2 id=下载三件套ani-rssqbittorrentpeerbanhelper><a href=#%e4%b8%8b%e8%bd%bd%e4%b8%89%e4%bb%b6%e5%a5%97ani-rssqbittorrentpeerbanhelper class=header-anchor></a>下载三件套——Ani-rss、qBittorrent、PeerBanHelper</h2><p>有了媒体库，下面需要的就是如何将网上的资源下载进来了。这里我使用的是wushuo894大佬编写的Ani-rss，可以自动检测蜜柑计划的更新并下载，同时还有重命名以及洗版功能。种子下载则是qBittorrent。PeerBanHelper则是为了避免被吸血。由于这三个工具是一起使用的，所以我直接写了个docker compose来一键启动：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>bt-download</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>   </span><span class=nt>qb_ipv6</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>enable_ipv6</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>ipam</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>config</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=nt>subnet</span><span class=p>:</span><span class=w> </span><span class=m>2001</span><span class=p>:</span><span class=l>db8:abc1::/64</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>services</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>qBittorrent</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>linuxserver/qbittorrent</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>qBittorrent</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>16000</span><span class=p>:</span><span class=m>16000</span><span class=w> </span><span class=c>#网页端口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>18064</span><span class=p>:</span><span class=m>18064</span><span class=w> </span><span class=c>#下载端口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>18064</span><span class=p>:</span><span class=m>18064</span><span class=l>/udp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>PUID=1000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>PGID=994</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>TZ=Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>WEBUI_PORT=16000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>TORRENTING_PORT=18064</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/var/opt/qbittorrent:/config</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/mnt/luoboPool/public:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/home/luobo/qbittorrent/VueTorrent:/VueTorrent</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>qb_ipv6</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ani-rss</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>wushuo894/ani-rss</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>ani-rss</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>7789</span><span class=p>:</span><span class=m>7789</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>PORT=7789</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>CONFIG=/config</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>TZ=Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/var/opt/ani-rss:/config</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/mnt/luoboPool/public:/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>qb_ipv6</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>PeerBanHelper</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>registry.cn-hangzhou.aliyuncs.com/ghostchu/peerbanhelper</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>container_name</span><span class=p>:</span><span class=w> </span><span class=l>PeerBanHelper</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ports</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>9898</span><span class=p>:</span><span class=m>9898</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>environment</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>TZ=Asia/Shanghai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>volumes</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>/var/opt/PBH:/app/data</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>restart</span><span class=p>:</span><span class=w> </span><span class=l>unless-stopped</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>networks</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>qb_ipv6</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>记得修改qBittorrent的端口和相关的挂载路径。</p><p>我这里在配置时，启用了ipv6支持，主要是下载bt时有ipv6连接性会更好一点（也就是更快）</p><h3 id=ani-rss><a href=#ani-rss class=header-anchor></a>ani-rss</h3><p>对于ani-rss的设置，我这里就写一些关键的配置</p><ul><li><p>保存位置：<code>/data/番剧/${year}年${quarter}月/${title}</code></p><p>这样就可以按照季度进行分类的</p></li><li><p>开启<code>自动删除</code>、<code>仅在主RSS更新后删除备用RSS</code>、<code>备用RSS</code></p><p>这样就能开启洗版功能，可以实现先下载内嵌字幕的版本，等字幕组更新后再换回内封版本</p></li></ul><p>其他的参考官方的文档就好了</p><p>这里补充一下，ani-rss是基于蜜柑计划的，而蜜柑计划主站已经被干扰了，所以可以采用自建镜像站的方法。这里我使用CloudFlare的Worker，脚本为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=line><span class=cl><span class=kr>const</span> <span class=nx>TELEGRAPH_URL</span> <span class=o>=</span> <span class=s1>&#39;https://mikanani.me&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>const</span> <span class=nx>MY_DOMAIN</span> <span class=o>=</span> <span class=s1>&#39;https://example.com&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>addEventListener</span><span class=p>(</span><span class=s1>&#39;fetch&#39;</span><span class=p>,</span> <span class=nx>event</span> <span class=p>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=nx>event</span><span class=p>.</span><span class=nx>respondWith</span><span class=p>(</span><span class=nx>handleRequest</span><span class=p>(</span><span class=nx>event</span><span class=p>.</span><span class=nx>request</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>async</span> <span class=kd>function</span> <span class=nx>handleRequest</span><span class=p>(</span><span class=nx>request</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>url</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>URL</span><span class=p>(</span><span class=nx>request</span><span class=p>.</span><span class=nx>url</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>url</span><span class=p>.</span><span class=nx>host</span> <span class=o>=</span> <span class=nx>TELEGRAPH_URL</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/^https?:\/\//</span><span class=p>,</span> <span class=s1>&#39;&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>modifiedRequest</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Request</span><span class=p>(</span><span class=nx>url</span><span class=p>.</span><span class=nx>toString</span><span class=p>(),</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>headers</span><span class=o>:</span> <span class=nx>request</span><span class=p>.</span><span class=nx>headers</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>method</span><span class=o>:</span> <span class=nx>request</span><span class=p>.</span><span class=nx>method</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>body</span><span class=o>:</span> <span class=nx>request</span><span class=p>.</span><span class=nx>body</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>redirect</span><span class=o>:</span> <span class=s1>&#39;manual&#39;</span>
+</span></span><span class=line><span class=cl>  <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>response</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>fetch</span><span class=p>(</span><span class=nx>modifiedRequest</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>contentType</span> <span class=o>=</span> <span class=nx>response</span><span class=p>.</span><span class=nx>headers</span><span class=p>.</span><span class=nx>get</span><span class=p>(</span><span class=s1>&#39;Content-Type&#39;</span><span class=p>)</span> <span class=o>||</span> <span class=s1>&#39;&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1>// 如果内容类型是 RSS，才进行替换操作
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=k>if</span> <span class=p>(</span><span class=nx>contentType</span><span class=p>.</span><span class=nx>includes</span><span class=p>(</span><span class=s1>&#39;application/xml&#39;</span><span class=p>))</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>text</span> <span class=o>=</span> <span class=kr>await</span> <span class=nx>response</span><span class=p>.</span><span class=nx>text</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>replacedText</span> <span class=o>=</span> <span class=nx>text</span><span class=p>.</span><span class=nx>replace</span><span class=p>(</span><span class=sr>/https?:\/\/mikanani\.me/g</span><span class=p>,</span> <span class=nx>MY_DOMAIN</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>modifiedResponse</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Response</span><span class=p>(</span><span class=nx>replacedText</span><span class=p>,</span> <span class=nx>response</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 添加允许跨域访问的响应头
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>modifiedResponse</span><span class=p>.</span><span class=nx>headers</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=s1>&#39;Access-Control-Allow-Origin&#39;</span><span class=p>,</span> <span class=s1>&#39;*&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>modifiedResponse</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kr>const</span> <span class=nx>modifiedResponse</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Response</span><span class=p>(</span><span class=nx>response</span><span class=p>.</span><span class=nx>body</span><span class=p>,</span> <span class=nx>response</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 添加允许跨域访问的响应头
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>modifiedResponse</span><span class=p>.</span><span class=nx>headers</span><span class=p>.</span><span class=nx>set</span><span class=p>(</span><span class=s1>&#39;Access-Control-Allow-Origin&#39;</span><span class=p>,</span> <span class=s1>&#39;*&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>modifiedResponse</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=qbittorrent><a href=#qbittorrent class=header-anchor></a>qBittorrent</h3><p>这里也没有什么太多需要配置的，我这里就是配置了一个第三方的WebUI——<a class=link href=https://github.com/VueTorrent/VueTorrent target=_blank rel=noopener>VueTorrent</a>。</p><p>下载好后在<code>使用备用 WebUI</code>里填写对应的路径即可。</p><h3 id=peerbanhelper><a href=#peerbanhelper class=header-anchor></a>PeerBanHelper</h3><p>这个主要是为了防止在公网做种时被吸血，配置好qBittorrent连接后就可以不用管了。</p><h2 id=字体自动子集化fontinass><a href=#%e5%ad%97%e4%bd%93%e8%87%aa%e5%8a%a8%e5%ad%90%e9%9b%86%e5%8c%96fontinass class=header-anchor></a>字体自动子集化——fontInAss</h2><p>对于新番而言，字幕组在内封字幕的时候同时也会封入字体文件，这样我们就不用操心字体的问题。但是，在收集一些老番的时候，字幕往往是外挂的，这样在没有字体的环境下就会回退到默认字体，看起来就一点也不美观。</p><p>目前，已经有一种解决方案——将字体子集化并嵌入字幕<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>，但是这种方式还是无法避免需要手动进行处理。为此，我找到了一个可以自动化处理的软件——fontInAss，来解决这个问题。</p><p>它的安装和配置很简单，还是一样的Docker一把梭。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>docker run -d --name<span class=o>=</span>fontinass --restart<span class=o>=</span>unless-stopped <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  -p 8012:8012 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  -e <span class=nv>EMBY_SERVER_URL</span><span class=o>=</span>http://172.17.0.1:8096 <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  -v /var/opt/fontinassData:/data <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  -v <span class=s2>&#34;/mnt/luoboPool/public/Downloads/超级字体整合包 XZ&#34;</span>:/fonts/XZ <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  riderlty/fontinass:latest
+</span></span></code></pre></td></tr></table></div></div><p>这里唯一要注意的就是需要预先下载好字体的整合包，可以在<a class=link href=https://vcb-s.com/archives/1114 target=_blank rel=noopener>这里</a>找到。（当然让它用到时再自动下载也可以）</p><p>之后访问Emby从8012端口进入就好了。</p><h2 id=自动备份rclone><a href=#%e8%87%aa%e5%8a%a8%e5%a4%87%e4%bb%bdrclone class=header-anchor></a>自动备份——Rclone</h2><p>这款软件也是介绍过了很多次了，用它可以很方便的将数据同步到网盘上面。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span>rclone copy /mnt/luoboPool/public/番剧 sp:/番剧 --exclude-from<span class=o>=</span><span class=s2>&#34;/home/luobo/exclude-anime.txt&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>这里我加上了一个排除文件，避免传上Emby刮削后的文件。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>*.nfo
+</span></span><span class=line><span class=cl>*.parts
+</span></span><span class=line><span class=cl>*.!qB
+</span></span><span class=line><span class=cl>*.json
+</span></span></code></pre></td></tr></table></div></div><p>最后就是编写定时脚本让其每天自动更新了。这里我没有使用传统的crontab，而是另一种据说更现代的方式——<a class=link href=https://wiki.archlinux.org/title/Systemd/Timers target=_blank rel=noopener>systemd/Timers - ArchWiki</a>。</p><p>根据文档，我们只需要编写<code>.service</code>和<code>.timer</code>文件就好了。</p><p><code>/etc/systemd/system/sync-to-onedrive.service</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[Unit]</span>
+</span></span><span class=line><span class=cl><span class=na>Description</span><span class=o>=</span><span class=s>Copy to onedrive</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>[Service]</span>
+</span></span><span class=line><span class=cl><span class=na>User</span><span class=o>=</span><span class=s>luobo</span>
+</span></span><span class=line><span class=cl><span class=na>Group</span><span class=o>=</span><span class=s>luobo</span>
+</span></span><span class=line><span class=cl><span class=na>ExecStart</span><span class=o>=</span><span class=s>/bin/bash /home/luobo/sync.sh</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>/etc/systemd/system/sync-to-onedrive.timer</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[Unit]</span>
+</span></span><span class=line><span class=cl><span class=na>Description</span><span class=o>=</span><span class=s>Run sync daily</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>[Timer]</span>
+</span></span><span class=line><span class=cl><span class=na>OnCalendar</span><span class=o>=</span><span class=s>*-*-* 4:00:00</span>
+</span></span><span class=line><span class=cl><span class=na>Persistent</span><span class=o>=</span><span class=s>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>[Install]</span>
+</span></span><span class=line><span class=cl><span class=na>WantedBy</span><span class=o>=</span><span class=s>timers.target</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=小结><a href=#%e5%b0%8f%e7%bb%93 class=header-anchor></a>小结</h2><p>整理资源真的是一件很爽的事情，特别是看到最后的海报墙以后。也是很感谢这些软件的制作者，为我省下了许多的时间。</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p><a class=link href=https://www.himiku.com/archives/my-solution-for-perfect-anime-subtitle-fonts.html target=_blank rel=noopener>我的动画字幕字体解决方案 - 初之音</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></section><footer class=article-footer><section class=article-tags><a href=/tags/emby/>Emby</a>
+<a href=/tags/%E6%8A%98%E8%85%BE/>折腾</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=document.querySelector(".main-article");renderMathInElement(e,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><link href=//unpkg.com/@waline/client@v3/dist/waline.css rel=stylesheet><div id=waline class=waline-container></div><style>.waline-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding);--waline-font-size:var(--article-font-size)}.waline-container .wl-count{color:var(--card-text-color-main)}</style><script type=module>
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    setTimeout(function () {
+        
+        init({"dark":"html[data-scheme=\"dark\"]","el":"#waline","emoji":["https://unpkg.com/@waline/emojis@1.2.0/weibo"],"lang":"zh-CN","locale":{"admin":"Admin","placeholder":null},"requiredMeta":["name","email","url"],"serverURL":"https://waline.lbqaq.top/"});
+    }, 300);
+
+
+</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 luoboQAQ</section><section class=powerby><a href=https://umami.lbqaq.top/share/gbMqUqkF/Blog>访问统计</a><br><a href=https://beian.miit.gov.cn>苏ICP备2021037116号</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.30.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://npm.elemecdn.com/node-vibrant@latest/dist/vibrant.min.js crossorigin=anonymous></script><script type=text/javascript src=/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e);const t=document.createElement("link");t.href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css",t.type="text/css",t.rel="stylesheet",document.head.appendChild(t)})()</script></body></html>

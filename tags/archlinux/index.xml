@@ -1,0 +1,1190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ArchLinux on luoboQAQ</title><link>https://lbqaq.top/tags/archlinux/</link><description>Recent content in ArchLinux on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 11 Aug 2025 20:57:37 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/archlinux/index.xml" rel="self" type="application/rss+xml"/><item><title>Arch Linux的安装流程与常用配置</title><link>https://lbqaq.top/p/archlinux-install/</link><pubDate>Mon, 11 Aug 2025 20:57:37 +0800</pubDate><guid>https://lbqaq.top/p/archlinux-install/</guid><description>&lt;img src="https://lbqaq.top/p/archlinux-install/128032920.webp" alt="Featured image of post Arch Linux的安装流程与常用配置" />&lt;h2 id="前言">&lt;a href="#%e5%89%8d%e8%a8%80" class="header-anchor">&lt;/a>前言
+&lt;/h2>&lt;p>最近苦于之前的老笔记本在运行Windows时越来越卡了，于是便萌生的重装系统的想法。正好，之前23年的时候已经体验过ArchLinux系统了，而且听说现在Nvidia驱动在Linux下也比较方便安装了，于是就决定将Arch在装回来。&lt;/p>
+&lt;h2 id="预先准备">&lt;a href="#%e9%a2%84%e5%85%88%e5%87%86%e5%a4%87" class="header-anchor">&lt;/a>预先准备
+&lt;/h2>&lt;p>需要准备1个U盘，用来存放系统的镜像。&lt;/p>
+&lt;p>Arch Linux的镜像可以去镜像站下载，这里我选择&lt;a class="link" href="https://mirrors.ustc.edu.cn/archlinux/iso/latest/" target="_blank" rel="noopener"
+>中科大的镜像站&lt;/a>来下载，这里选择&lt;code>archlinux-x86_64.iso&lt;/code>即可下载了。&lt;/p>
+&lt;p>有了镜像还需要引导程序，这里我选择的是&lt;a class="link" href="https://www.ventoy.net/cn/index.html" target="_blank" rel="noopener"
+>Ventoy&lt;/a>。它的优势就是支持多种镜像，同时也不影响U盘正常的使用。&lt;/p>
+&lt;p>制作好后直接将iso文件拷贝到U盘里即可了。&lt;/p>
+&lt;h2 id="安装">&lt;a href="#%e5%ae%89%e8%a3%85" class="header-anchor">&lt;/a>安装
+&lt;/h2>&lt;p>重启电脑，在BIOS中选择好U盘引导后，就可以进入到ArchLinux的安装界面了。与Windows这种图形化安装不同，Arch的安装是通过输入命令来完成的。不过现在官方已经提供了安装脚本来实现，这极大简化了我们的安装。后面我就通过安装脚本来进行安装。不过如果有更高级的安装需求，如双系统等等，那还是使用命令行安装吧。&lt;/p>
+&lt;h3 id="联网">&lt;a href="#%e8%81%94%e7%bd%91" class="header-anchor">&lt;/a>联网
+&lt;/h3>&lt;p>Arch的安装是需要连接互联网的，如果是有线网络的话就是自动连接，而如果需要连接WI-FI的话就需要输入命令了&lt;sup id="fnref:1">&lt;a href="#fn:1" class="footnote-ref" role="doc-noteref">1&lt;/a>&lt;/sup>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 进入iwctl命令行，当前行会显示[iwd]#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">iwctl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有的WiFi网卡&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">device list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 此时会列出所有的WiFi网卡，一般使用第一个即可，也就是wlan0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如果设备或其相应的适配器已关闭，将其打开&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">adapter &lt;span class="o">[&lt;/span>adapter名称&lt;span class="o">]&lt;/span> set-property Powered on
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 扫描网络&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">station wlan0 scan
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出所有可以搜索到的网络&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">station wlan0 get-networks
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 连接网络&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">station wlan0 connect &lt;span class="o">[&lt;/span>SSID&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 输入完密码后就连接上了，此时就可以退出了&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 验证网络连接状态&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping baidu.com
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="archinstall">&lt;a href="#archinstall" class="header-anchor">&lt;/a>archinstall
+&lt;/h3>&lt;p>输入&lt;code>archinstall&lt;/code>进入官方的安装脚本&lt;sup id="fnref:2">&lt;a href="#fn:2" class="footnote-ref" role="doc-noteref">2&lt;/a>&lt;/sup>&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image.png"
+width="370"
+height="337"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image_hu_e7edcef6f70b9c9.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image_hu_dd837ee2ec301181.png 1024w"
+loading="lazy"
+alt="archinstall界面"
+class="gallery-image"
+data-flex-grow="109"
+data-flex-basis="263px"
+>&lt;/p>
+&lt;p>此时界面全是英文，第一项似乎可以更改语言。但是，这里一定不要将其修改为中文，由于安装镜像里没有安装中文字体，一旦切换过去你就会看到一堆口口口。这里就保持默认的英文就好了。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image1.png"
+width="393"
+height="347"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image1_hu_bec1d822f445b643.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image1_hu_4b48fff90d0e55b1.png 1024w"
+loading="lazy"
+alt="错误的示范"
+class="gallery-image"
+data-flex-grow="113"
+data-flex-basis="271px"
+>&lt;/p>
+&lt;p>第二项&lt;code>Locales&lt;/code>：不用修改，保持默认即可&lt;/p>
+&lt;p>第三项&lt;code>Mirrors&lt;/code>：需要去配置一下中国的镜像&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image2.png"
+width="241"
+height="119"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image2_hu_bb9f8ee1b0cf4b51.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image2_hu_f028aec899bd9885.png 1024w"
+loading="lazy"
+alt="镜像选择"
+class="gallery-image"
+data-flex-grow="202"
+data-flex-basis="486px"
+>&lt;/p>
+&lt;p>这里选择&lt;code>China&lt;/code>，并在下面的&lt;code>Optional repositories&lt;/code>中打开&lt;code>multilib&lt;/code>（按空格选中），这主要是为了给32位程序提供支持&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image3.png"
+width="282"
+height="85"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image3_hu_28bea69023e9efad.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image3_hu_deb7ce0563a29306.png 1024w"
+loading="lazy"
+alt="开启multilib库"
+class="gallery-image"
+data-flex-grow="331"
+data-flex-basis="796px"
+>&lt;/p>
+&lt;p>第四项&lt;code>Disk configuration&lt;/code>：硬盘配置，**这是非常危险的一步，每一个操作一定小心谨慎，一旦失误不可挽回。请确保需要安装的硬盘中没有任何数据，这一步会清除掉硬盘上的所有数据。**这里我就直接按默认来了。&lt;/p>
+&lt;p>选择硬盘配置后点击&lt;code>Partitioning&lt;/code>，之后使用默认设置，选择&lt;code>Use a best-effort default partition layout&lt;/code>，接下来就是文件系统选择，这里直接选择btrfs，btrfs作为最新一代的Linux文件系统，支持很多高级特性。&lt;/p>
+&lt;p>选择完后会有两个子选项，是关于btrfs的特性的，这里也是直接都使用。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image4.png"
+width="572"
+height="98"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image4_hu_8977c2081f713bd5.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image4_hu_740c260fea7bae43.png 1024w"
+loading="lazy"
+alt="是否开启子系统，直接yes"
+class="gallery-image"
+data-flex-grow="583"
+data-flex-basis="1400px"
+>&lt;/p>
+&lt;p>子系统是btrfs特性之一，可以把同一个硬盘划分成多个子区，但是每个子区都拥有硬盘的所有剩余空间，相当于只要硬盘还有空间，每个子分区就都可以使用它。子分区还可以单独进行挂载等操作。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image5.png"
+width="502"
+height="107"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image5_hu_db5ac59f54f38da.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image5_hu_481a93d014f1af47.png 1024w"
+loading="lazy"
+alt="是否开启压缩"
+class="gallery-image"
+data-flex-grow="469"
+data-flex-basis="1125px"
+>&lt;/p>
+&lt;p>压缩（透明压缩）也是btrfs重要特性之一，作用是会对数据压缩存储从而牺牲CPU性能来提升硬盘性能。写时复制则是数据只有在被修改时才会进行复制。&lt;/p>
+&lt;p>btrfs还有个特性是支持快照，我们在&lt;code>Btrfs snapshots&lt;/code>里选择&lt;code>Snapper&lt;/code>来启用。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image6.png"
+width="255"
+height="99"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image6_hu_e156ab4230ff5a56.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image6_hu_e9dee5a7e9b5e465.png 1024w"
+loading="lazy"
+alt="选择Snapper"
+class="gallery-image"
+data-flex-grow="257"
+data-flex-basis="618px"
+>&lt;/p>
+&lt;p>第五项是&lt;code>Swap&lt;/code>：这里直接保持默认就好了。&lt;/p>
+&lt;p>第六项是&lt;code>Bootloader&lt;/code>：启动引导负责开机时引导电脑载入操作系统，这里我习惯使用&lt;code>Grub&lt;/code>&lt;/p>
+&lt;p>第七项是&lt;code>Hostname&lt;/code>：和Windows的主机名一样，就是给机器起的名字&lt;/p>
+&lt;p>第八项是&lt;code>Authentication&lt;/code>：这里注意要给root设置一个密码，并创建一个普通用户供之后的使用。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image7.png"
+width="183"
+height="81"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image7_hu_13b7b9da6e1311d8.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image7_hu_da146ee8dbe9432b.png 1024w"
+loading="lazy"
+alt="Authentication 界面"
+class="gallery-image"
+data-flex-grow="225"
+data-flex-basis="542px"
+>&lt;/p>
+&lt;p>之后创建一个新的用户&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image8.png"
+width="192"
+height="83"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image8_hu_b39d770e9961807a.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image8_hu_998f90bc5cffa0f3.png 1024w"
+loading="lazy"
+alt="创建用户"
+class="gallery-image"
+data-flex-grow="231"
+data-flex-basis="555px"
+>&lt;/p>
+&lt;p>这里给用户&lt;code>sudo&lt;/code>权限，方便我们之后管理系统。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image9.png"
+width="341"
+height="128"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image9_hu_18f7788c9e9a3abf.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image9_hu_617e51fbb10b450c.png 1024w"
+loading="lazy"
+alt="sudo权限"
+class="gallery-image"
+data-flex-grow="266"
+data-flex-basis="639px"
+>&lt;/p>
+&lt;p>第九项是&lt;code>Profile&lt;/code>：这里是预装什么软件，对于桌面环境，新手推荐的就是KDE，这里我们选择&lt;code>Type&lt;/code>→&lt;code>Desktop&lt;/code>→&lt;code>KDE Plasma&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image10.png"
+width="185"
+height="361"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image10_hu_95f22ae824ccfc27.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image10_hu_c5c24efb1805b89c.png 1024w"
+loading="lazy"
+alt="桌面环境选择"
+class="gallery-image"
+data-flex-grow="51"
+data-flex-basis="122px"
+>&lt;/p>
+&lt;p>这里我还额外勾选了&lt;code>Hyprland&lt;/code> ，这里是一个现代的平铺式窗口管理器（这也是我选Linux的理由之一），配置有些麻烦，新手可以不选。&lt;/p>
+&lt;p>之后是显卡驱动选择，这里我是Intel核显+Nvidia独显的组合，所以我这里选择安装Nvidia闭源驱动，并在后面手动安装Intel核显驱动。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image11.png"
+width="536"
+height="295"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image11_hu_9cb08dbec1095060.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image11_hu_e954bd8130acb037.png 1024w"
+loading="lazy"
+alt="显卡驱动选择"
+class="gallery-image"
+data-flex-grow="181"
+data-flex-basis="436px"
+>&lt;/p>
+&lt;p>之后是欢迎界面，这个保持默认的&lt;code>sddm&lt;/code>即可&lt;/p>
+&lt;p>第十项是&lt;code>Applications&lt;/code>：蓝牙根据需求开启，音频（Audio）建议选&lt;code>pipewire&lt;/code>&lt;/p>
+&lt;p>第十一项是&lt;code>Kernels&lt;/code>：这里内核选择可以选&lt;code>linux-zen&lt;/code>，包含一些常用的优化&lt;/p>
+&lt;p>第十二项是&lt;code>Network configuration&lt;/code>：这里选择第三个即可&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image12.png"
+width="793"
+height="109"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image12_hu_c16d4b6144ce1d6a.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image12_hu_e7f1b988aeef1068.png 1024w"
+loading="lazy"
+alt="从上往下分别是“复制当前网路配置”“自己配置”“使用网络管理器”"
+class="gallery-image"
+data-flex-grow="727"
+data-flex-basis="1746px"
+>&lt;/p>
+&lt;p>第十三项&lt;code>Timezone&lt;/code>：时区选择&lt;code>Asia/Shanghai&lt;/code>&lt;/p>
+&lt;p>第十四项&lt;code>NTP&lt;/code>：自动同步时间，保持默认开启即可&lt;/p>
+&lt;p>最后选择&lt;code>Install&lt;/code>就会自动安装了。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image13.png"
+width="562"
+height="151"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image13_hu_cd3506f5712b27e.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image13_hu_b94e5d6a8c995a0.png 1024w"
+loading="lazy"
+alt="安装完成界面"
+class="gallery-image"
+data-flex-grow="372"
+data-flex-basis="893px"
+>&lt;/p>
+&lt;p>安装完成后我们选择第三个，再去装一些需要的包&lt;/p>
+&lt;p>首先是中文字体&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pacman -S noto-fonts-cjk
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后就是Intel的显卡驱动&lt;sup id="fnref:3">&lt;a href="#fn:3" class="footnote-ref" role="doc-noteref">3&lt;/a>&lt;/sup>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pacman -S mesa lib32-mesa vulkan-intel lib32-vulkan-intel intel-media-driver
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>完成后就可以重启进入系统了&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">reboot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="kde配置">&lt;a href="#kde%e9%85%8d%e7%bd%ae" class="header-anchor">&lt;/a>KDE配置
+&lt;/h2>&lt;p>在登录界面我们选择&lt;code>Plasma(Wayland)&lt;/code>，并输入好密码后，就进入到KDE中了。&lt;/p>
+&lt;p>这里给出我装机后的一些配置方法&lt;/p>
+&lt;h3 id="设置镜像源">&lt;a href="#%e8%ae%be%e7%bd%ae%e9%95%9c%e5%83%8f%e6%ba%90" class="header-anchor">&lt;/a>设置镜像源
+&lt;/h3>&lt;p>在安装时，我们是配置过镜像了，但是当时它列出了许多的镜像，正常使用不需要这么多，我们就保留1-2个就好了，这里我直接用命令切换了。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">echo&lt;/span> &lt;span class="s1">&amp;#39;Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span> sudo tee /etc/pacman.d/mirrorlist
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后是启用Arch Linux CN 软件源&lt;/p>
+&lt;p>在 &lt;code>/etc/pacman.conf&lt;/code> 文件末尾添加两行：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>archlinuxcn&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">Server&lt;/span> &lt;span class="o">=&lt;/span> https://mirrors.ustc.edu.cn/archlinuxcn/&lt;span class="nv">$arch&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后就是更新软件包&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo pacman -Syyu
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo pacman -S archlinuxcn-keyring
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="设置中文环境">&lt;a href="#%e8%ae%be%e7%bd%ae%e4%b8%ad%e6%96%87%e7%8e%af%e5%a2%83" class="header-anchor">&lt;/a>设置中文环境
+&lt;/h3>&lt;p>默认的系统是没有中文的环境的，我们需要为其配置对应的locale。&lt;sup id="fnref:4">&lt;a href="#fn:4" class="footnote-ref" role="doc-noteref">4&lt;/a>&lt;/sup>&lt;/p>
+&lt;p>首先是编辑&lt;code>/etc/locale.gen&lt;/code>文件，将&lt;code>zh_CN.UTF-8 UTF-8&lt;/code>前面的注释取消&lt;/p>
+&lt;p>之后是执行 &lt;code>locale-gen&lt;/code> 命令，便可以在系统中使用这些 locale。
+对于KDE，我们可以在设置里进行语言的切换。&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image14.png"
+width="931"
+height="674"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image14_hu_e2e34e90c234c5c2.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image14_hu_12f3b8493635d345.png 1024w"
+loading="lazy"
+alt="切换语言设置"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="331px"
+>&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image15.png"
+width="927"
+height="671"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image15_hu_b1f5a52efdc54716.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image15_hu_ee6f774f1c2f92dd.png 1024w"
+loading="lazy"
+alt="添加简体中文并放到最上"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="331px"
+>&lt;/p>
+&lt;p>设置完成后重启即可生效了&lt;/p>
+&lt;h3 id="设置中文输入法">&lt;a href="#%e8%ae%be%e7%bd%ae%e4%b8%ad%e6%96%87%e8%be%93%e5%85%a5%e6%b3%95" class="header-anchor">&lt;/a>设置中文输入法
+&lt;/h3>&lt;p>输入法这里我们选择fcitix+rime即可&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo pacman -S fcitx5-im fcitx5-rime
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后安装rime-ice，这是大佬维护的rime词库，能很方便的配置好输入法，此包在archlinuxcn里有所以我们直接pacman安装即可&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo pacman -S rime-ice-git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后在KDE的虚拟键盘设置里，选择fcitx5即可启用&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image16.png"
+width="932"
+height="680"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image16_hu_c469d802199c1738.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image16_hu_ae9bdbd94b18610a.png 1024w"
+loading="lazy"
+alt="KDE虚拟键盘设置"
+class="gallery-image"
+data-flex-grow="137"
+data-flex-basis="328px"
+>&lt;/p>
+&lt;p>对于双拼用户，rime-ice也提供了对应的设置，只需要在&lt;code>~/.local/share/fcitx5/rime/&lt;/code>下创建三个配置文件即可：&lt;/p>
+&lt;p>&lt;code>default.custom.yaml&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">patch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schema_list&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">double_pinyin_flypy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>melt_eng.custom.yaml&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">patch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 修改为双拼的拼写派生规则，因为不在同一个文件了，前面要加上文件名&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">speller/algebra&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_rime_ice # 全拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_double_pinyin # 自然码双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">__include&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">melt_eng.schema.yaml:/algebra_flypy &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 小鹤双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_mspy # 微软双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_sogou # 搜狗双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_abc # 智能ABC双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_ziguang # 紫光双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: melt_eng.schema.yaml:/algebra_jiajia # 拼音加加双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>radical_pinyin.custom.yaml&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">patch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 修改为双拼的拼写派生规则，因为不在同一个文件了，前面要加上文件名&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">speller/algebra&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_pinyin # 全拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_double_pinyin # 自然码双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">__include&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">radical_pinyin.schema.yaml:/algebra_flypy &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 小鹤双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_mspy # 微软双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_sogou # 搜狗双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_abc # 智能ABC双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_ziguang # 紫光双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># __include: radical_pinyin.schema.yaml:/algebra_jiajia # 拼音加加双拼&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>设置好后右键输入法图标，选择重新部署即可使用&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image17.png"
+width="352"
+height="315"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image17_hu_9cc850e271670177.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image17_hu_25e97a43f5f8e720.png 1024w"
+loading="lazy"
+alt="重新部署"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="268px"
+>&lt;/p>
+&lt;h3 id="安装zsh和oh-my-zsh">&lt;a href="#%e5%ae%89%e8%a3%85zsh%e5%92%8coh-my-zsh" class="header-anchor">&lt;/a>安装zsh和oh-my-zsh
+&lt;/h3>&lt;p>默认的bash用起来还是有点不爽，所以直接换成zsh&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装zsh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo pacman -S zsh git
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安装oh-my-zsh&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">REMOTE&lt;/span>&lt;span class="o">=&lt;/span>https://gitee.com/mirrors/oh-my-zsh.git sh -c &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里我使用了Gitee的镜像，这样在国内能加速下载&lt;/p>
+&lt;p>之后就是安装插件，我常用的就是命令高亮，这样就能很方便看出输入的命令是否正确了&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git &lt;span class="si">${&lt;/span>&lt;span class="nv">ZSH_CUSTOM&lt;/span>&lt;span class="k">:-&lt;/span>&lt;span class="p">~/.oh-my-zsh/custom&lt;/span>&lt;span class="si">}&lt;/span>/plugins/zsh-syntax-highlighting
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vim ~/.zshrc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 在plugins=(xxx)里添加zsh-syntax-highlighting&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> ~/.zshrc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="安装浏览器">&lt;a href="#%e5%ae%89%e8%a3%85%e6%b5%8f%e8%a7%88%e5%99%a8" class="header-anchor">&lt;/a>安装浏览器
+&lt;/h3>&lt;p>Linux上支持最好的浏览器就是firefox，这里直接安装一手&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo pacman -S firefox
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后在设置页面，选择&lt;code>Set Alternatives&lt;/code>找到中文并应用&lt;/p>
+&lt;p>&lt;img src="https://lbqaq.top/p/archlinux-install/IMAGE/image18.png"
+width="1006"
+height="358"
+srcset="https://lbqaq.top/p/archlinux-install/IMAGE/image18_hu_a30adf31222a72d4.png 480w, https://lbqaq.top/p/archlinux-install/IMAGE/image18_hu_e13a54145970680a.png 1024w"
+loading="lazy"
+alt="firefox语言设置"
+class="gallery-image"
+data-flex-grow="281"
+data-flex-basis="674px"
+>&lt;/p>
+&lt;p>但是大部分网页对于Chrome的支持还是更好的，所以这里我选择再安装edge浏览器&lt;/p>
+&lt;p>由于edge是在AUR上的，所以首先要安装paru包管理器&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo pacman -S paru
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>之后就可以安装edge了&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">paru -S microsoft-edge-stable-bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>edge安装完后还需添加启动命令以便使用，在&lt;code>~/.config/microsoft-edge-stable-flags.conf&lt;/code>里输入&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">--ozone-platform-hint=auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">--enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>分别是启用原生Wayland支持和GPU硬解&lt;/p>
+&lt;h3 id="设置默认字体">&lt;a href="#%e8%ae%be%e7%bd%ae%e9%bb%98%e8%ae%a4%e5%ad%97%e4%bd%93" class="header-anchor">&lt;/a>设置默认字体
+&lt;/h3>&lt;p>默认的字体对于中文的显示有问题，在之前的文章中就讨论过这个问题，这里我就直接贴方法了，详细的内容可以看我&lt;a class="link" href="https://lbqaq.top/p/linux-font/" target="_blank" rel="noopener"
+>之前的文章&lt;/a>。&lt;/p>
+&lt;p>安装字体&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo pacman -S ttc-iosevka ttf-nerd-fonts-symbols
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>编辑&lt;code>~/.config/fontconfig/fonts.conf&lt;/code>配置文件：&lt;/p>
+&lt;details>
+&lt;summary>📃展开代码&lt;/summary>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;span class="lnt">155
+&lt;/span>&lt;span class="lnt">156
+&lt;/span>&lt;span class="lnt">157
+&lt;/span>&lt;span class="lnt">158
+&lt;/span>&lt;span class="lnt">159
+&lt;/span>&lt;span class="lnt">160
+&lt;/span>&lt;span class="lnt">161
+&lt;/span>&lt;span class="lnt">162
+&lt;/span>&lt;span class="lnt">163
+&lt;/span>&lt;span class="lnt">164
+&lt;/span>&lt;span class="lnt">165
+&lt;/span>&lt;span class="lnt">166
+&lt;/span>&lt;span class="lnt">167
+&lt;/span>&lt;span class="lnt">168
+&lt;/span>&lt;span class="lnt">169
+&lt;/span>&lt;span class="lnt">170
+&lt;/span>&lt;span class="lnt">171
+&lt;/span>&lt;span class="lnt">172
+&lt;/span>&lt;span class="lnt">173
+&lt;/span>&lt;span class="lnt">174
+&lt;/span>&lt;span class="lnt">175
+&lt;/span>&lt;span class="lnt">176
+&lt;/span>&lt;span class="lnt">177
+&lt;/span>&lt;span class="lnt">178
+&lt;/span>&lt;span class="lnt">179
+&lt;/span>&lt;span class="lnt">180
+&lt;/span>&lt;span class="lnt">181
+&lt;/span>&lt;span class="lnt">182
+&lt;/span>&lt;span class="lnt">183
+&lt;/span>&lt;span class="lnt">184
+&lt;/span>&lt;span class="lnt">185
+&lt;/span>&lt;span class="lnt">186
+&lt;/span>&lt;span class="lnt">187
+&lt;/span>&lt;span class="lnt">188
+&lt;/span>&lt;span class="lnt">189
+&lt;/span>&lt;span class="lnt">190
+&lt;/span>&lt;span class="lnt">191
+&lt;/span>&lt;span class="lnt">192
+&lt;/span>&lt;span class="lnt">193
+&lt;/span>&lt;span class="lnt">194
+&lt;/span>&lt;span class="lnt">195
+&lt;/span>&lt;span class="lnt">196
+&lt;/span>&lt;span class="lnt">197
+&lt;/span>&lt;span class="lnt">198
+&lt;/span>&lt;span class="lnt">199
+&lt;/span>&lt;span class="lnt">200
+&lt;/span>&lt;span class="lnt">201
+&lt;/span>&lt;span class="lnt">202
+&lt;/span>&lt;span class="lnt">203
+&lt;/span>&lt;span class="lnt">204
+&lt;/span>&lt;span class="lnt">205
+&lt;/span>&lt;span class="lnt">206
+&lt;/span>&lt;span class="lnt">207
+&lt;/span>&lt;span class="lnt">208
+&lt;/span>&lt;span class="lnt">209
+&lt;/span>&lt;span class="lnt">210
+&lt;/span>&lt;span class="lnt">211
+&lt;/span>&lt;span class="lnt">212
+&lt;/span>&lt;span class="lnt">213
+&lt;/span>&lt;span class="lnt">214
+&lt;/span>&lt;span class="lnt">215
+&lt;/span>&lt;span class="lnt">216
+&lt;/span>&lt;span class="lnt">217
+&lt;/span>&lt;span class="lnt">218
+&lt;/span>&lt;span class="lnt">219
+&lt;/span>&lt;span class="lnt">220
+&lt;/span>&lt;span class="lnt">221
+&lt;/span>&lt;span class="lnt">222
+&lt;/span>&lt;span class="lnt">223
+&lt;/span>&lt;span class="lnt">224
+&lt;/span>&lt;span class="lnt">225
+&lt;/span>&lt;span class="lnt">226
+&lt;/span>&lt;span class="lnt">227
+&lt;/span>&lt;span class="lnt">228
+&lt;/span>&lt;span class="lnt">229
+&lt;/span>&lt;span class="lnt">230
+&lt;/span>&lt;span class="lnt">231
+&lt;/span>&lt;span class="lnt">232
+&lt;/span>&lt;span class="lnt">233
+&lt;/span>&lt;span class="lnt">234
+&lt;/span>&lt;span class="lnt">235
+&lt;/span>&lt;span class="lnt">236
+&lt;/span>&lt;span class="lnt">237
+&lt;/span>&lt;span class="lnt">238
+&lt;/span>&lt;span class="lnt">239
+&lt;/span>&lt;span class="lnt">240
+&lt;/span>&lt;span class="lnt">241
+&lt;/span>&lt;span class="lnt">242
+&lt;/span>&lt;span class="lnt">243
+&lt;/span>&lt;span class="lnt">244
+&lt;/span>&lt;span class="lnt">245
+&lt;/span>&lt;span class="lnt">246
+&lt;/span>&lt;span class="lnt">247
+&lt;/span>&lt;span class="lnt">248
+&lt;/span>&lt;span class="lnt">249
+&lt;/span>&lt;span class="lnt">250
+&lt;/span>&lt;span class="lnt">251
+&lt;/span>&lt;span class="lnt">252
+&lt;/span>&lt;span class="lnt">253
+&lt;/span>&lt;span class="lnt">254
+&lt;/span>&lt;span class="lnt">255
+&lt;/span>&lt;span class="lnt">256
+&lt;/span>&lt;span class="lnt">257
+&lt;/span>&lt;span class="lnt">258
+&lt;/span>&lt;span class="lnt">259
+&lt;/span>&lt;span class="lnt">260
+&lt;/span>&lt;span class="lnt">261
+&lt;/span>&lt;span class="lnt">262
+&lt;/span>&lt;span class="lnt">263
+&lt;/span>&lt;span class="lnt">264
+&lt;/span>&lt;span class="lnt">265
+&lt;/span>&lt;span class="lnt">266
+&lt;/span>&lt;span class="lnt">267
+&lt;/span>&lt;span class="lnt">268
+&lt;/span>&lt;span class="lnt">269
+&lt;/span>&lt;span class="lnt">270
+&lt;/span>&lt;span class="lnt">271
+&lt;/span>&lt;span class="lnt">272
+&lt;/span>&lt;span class="lnt">273
+&lt;/span>&lt;span class="lnt">274
+&lt;/span>&lt;span class="lnt">275
+&lt;/span>&lt;span class="lnt">276
+&lt;/span>&lt;span class="lnt">277
+&lt;/span>&lt;span class="lnt">278
+&lt;/span>&lt;span class="lnt">279
+&lt;/span>&lt;span class="lnt">280
+&lt;/span>&lt;span class="lnt">281
+&lt;/span>&lt;span class="lnt">282
+&lt;/span>&lt;span class="lnt">283
+&lt;/span>&lt;span class="lnt">284
+&lt;/span>&lt;span class="lnt">285
+&lt;/span>&lt;span class="lnt">286
+&lt;/span>&lt;span class="lnt">287
+&lt;/span>&lt;span class="lnt">288
+&lt;/span>&lt;span class="lnt">289
+&lt;/span>&lt;span class="lnt">290
+&lt;/span>&lt;span class="lnt">291
+&lt;/span>&lt;span class="lnt">292
+&lt;/span>&lt;span class="lnt">293
+&lt;/span>&lt;span class="lnt">294
+&lt;/span>&lt;span class="lnt">295
+&lt;/span>&lt;span class="lnt">296
+&lt;/span>&lt;span class="lnt">297
+&lt;/span>&lt;span class="lnt">298
+&lt;/span>&lt;span class="lnt">299
+&lt;/span>&lt;span class="lnt">300
+&lt;/span>&lt;span class="lnt">301
+&lt;/span>&lt;span class="lnt">302
+&lt;/span>&lt;span class="lnt">303
+&lt;/span>&lt;span class="lnt">304
+&lt;/span>&lt;span class="lnt">305
+&lt;/span>&lt;span class="lnt">306
+&lt;/span>&lt;span class="lnt">307
+&lt;/span>&lt;span class="lnt">308
+&lt;/span>&lt;span class="lnt">309
+&lt;/span>&lt;span class="lnt">310
+&lt;/span>&lt;span class="lnt">311
+&lt;/span>&lt;span class="lnt">312
+&lt;/span>&lt;span class="lnt">313
+&lt;/span>&lt;span class="lnt">314
+&lt;/span>&lt;span class="lnt">315
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-xml" data-lang="xml">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;?xml version=&amp;#39;1.0&amp;#39;?&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&amp;lt;!DOCTYPE fontconfig SYSTEM &amp;#39;urn:fontconfig:fonts.dtd&amp;#39;&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;fontconfig&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!--rendering options--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;font&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;autohint&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;bool&amp;gt;&lt;/span>false&lt;span class="nt">&amp;lt;/bool&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;hinting&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;bool&amp;gt;&lt;/span>true&lt;span class="nt">&amp;lt;/bool&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;hintstyle&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;const&amp;gt;&lt;/span>hintslight&lt;span class="nt">&amp;lt;/const&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;antialias&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;bool&amp;gt;&lt;/span>true&lt;span class="nt">&amp;lt;/bool&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lcdfilter&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;const&amp;gt;&lt;/span>lcddefault&lt;span class="nt">&amp;lt;/const&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;rgba&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;const&amp;gt;&lt;/span>rgb&lt;span class="nt">&amp;lt;/const&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!--
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"> https://caniuse.com/extended-system-fonts
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"> GitHub uses this for code blocks.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"> --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">qual=&lt;/span>&lt;span class="s">&amp;#34;any&amp;#34;&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ui-monospace&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;same&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>monospace&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">qual=&lt;/span>&lt;span class="s">&amp;#34;any&amp;#34;&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ui-sans-serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;same&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>sans-serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">qual=&lt;/span>&lt;span class="s">&amp;#34;any&amp;#34;&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ui-serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;same&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">qual=&lt;/span>&lt;span class="s">&amp;#34;any&amp;#34;&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>-apple-system&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;same&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>sans-serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Replace Source Han --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">qual=&lt;/span>&lt;span class="s">&amp;#34;any&amp;#34;&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Source Han Sans&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;same&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">qual=&lt;/span>&lt;span class="s">&amp;#34;any&amp;#34;&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Source Han Serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;assign&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;same&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Default system-ui fonts --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>system-ui&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>sans-serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Default sans-serif fonts--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>sans-serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Symbols Nerd Font&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Default serif fonts--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Symbols Nerd Font&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Default monospace fonts--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>monospace&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Symbols Nerd Font&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;contains&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Source Code&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Iosevka Extend&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Replace english fonts--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;prgname&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;not_eq&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>msedge&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;contains&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Iosevka Extend&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Replace fonts for Chinese (Hong Kong) --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>zh-HK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK HK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>zh-HK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- not have HK --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK TC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>zh-HK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK HK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Replace fonts for Chinese (Taiwan) --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>zh-TW&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK TC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>zh-TW&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK TC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>zh-TW&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK TC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Replace fonts for Japanese --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ja&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK JP&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ja&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK JP&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ja&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK JP&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- Replace fonts for Korean --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ko&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK KR&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ko&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK KR&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>ko&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK SC&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans Mono CJK KR&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">&amp;lt;!-- 解决全角引号 --&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;contains&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>en&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;contains&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans CJK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Sans&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;match&lt;/span> &lt;span class="na">target=&lt;/span>&lt;span class="s">&amp;#34;pattern&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;lang&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;contains&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>en&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;test&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">compare=&lt;/span>&lt;span class="s">&amp;#34;contains&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif CJK&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/test&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;edit&lt;/span> &lt;span class="na">name=&lt;/span>&lt;span class="s">&amp;#34;family&amp;#34;&lt;/span> &lt;span class="na">mode=&lt;/span>&lt;span class="s">&amp;#34;prepend&amp;#34;&lt;/span> &lt;span class="na">binding=&lt;/span>&lt;span class="s">&amp;#34;strong&amp;#34;&lt;/span>&lt;span class="nt">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;string&amp;gt;&lt;/span>Noto Serif&lt;span class="nt">&amp;lt;/string&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/edit&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;lt;/match&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">&amp;lt;/fontconfig&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>
+&lt;/details>
+&lt;h2 id="小结">&lt;a href="#%e5%b0%8f%e7%bb%93" class="header-anchor">&lt;/a>小结
+&lt;/h2>&lt;p>Arch的安装和常用配置大概就是这些了，Arch的优势就是自定义程度高，大家也可以按照自己的喜爱去安装对应的包。&lt;/p>
+&lt;div class="footnotes" role="doc-endnotes">
+&lt;hr>
+&lt;ol>
+&lt;li id="fn:1">
+&lt;p>&lt;a class="link" href="https://wiki.archlinuxcn.org/wiki/Iwd" target="_blank" rel="noopener"
+>iwd - Arch Linux 中文维基&lt;/a>&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:2">
+&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/25308291469" target="_blank" rel="noopener"
+>萌新向 ArchLinux最简单安装方式（Archinstall，2025.2） - 知乎&lt;/a>&amp;#160;&lt;a href="#fnref:2" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:3">
+&lt;p>&lt;a class="link" href="https://wiki.archlinuxcn.org/wiki/Intel_%e5%9b%be%e5%bd%a2%e5%a4%84%e7%90%86%e5%99%a8" target="_blank" rel="noopener"
+>Intel 图形处理器 - Arch Linux 中文维基&lt;/a>&amp;#160;&lt;a href="#fnref:3" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li id="fn:4">
+&lt;p>&lt;a class="link" href="https://wiki.archlinuxcn.org/wiki/%e7%ae%80%e4%bd%93%e4%b8%ad%e6%96%87%e6%9c%ac%e5%9c%b0%e5%8c%96" target="_blank" rel="noopener"
+>简体中文本地化 - Arch Linux 中文维基&lt;/a>&amp;#160;&lt;a href="#fnref:4" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/div></description></item></channel></rss>

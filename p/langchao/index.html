@@ -76,9 +76,9 @@
 </span><span class=lnt>65
 </span><span class=lnt>66
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-dockerfile data-lang=dockerfile><span class=line><span class=cl><span class=c># base image</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>FROM</span><span class=s> nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>FROM</span><span class=w> </span><span class=s>nvidia/cuda:11.3.1-cudnn8-runtime-ubuntu20.04</span><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>MAINTAINER</span><span class=s> luoboQAQ</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>MAINTAINER</span><span class=w> </span><span class=s>luoboQAQ</span><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err></span><span class=c># 设置国内镜像源并安装软件</span><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err></span><span class=k>RUN</span> <span class=nb>set</span> -ex <span class=se>\
@@ -138,8 +138,8 @@
 </span></span></span><span class=line><span class=cl><span class=se></span>	<span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;export HTTPS_PROXY=&#39;http://127.0.0.1:3128&#39;&#34;</span> &gt;&gt; ~/.zshrc <span class=se>\
 </span></span></span><span class=line><span class=cl><span class=se></span>	<span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;export ALL_PROXY=&#39;http://127.0.0.1:3128&#39;&#34;</span> &gt;&gt; ~/.zshrc<span class=err>
 </span></span></span><span class=line><span class=cl><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>EXPOSE</span><span class=s> 22</span><span class=err>
-</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=s> /root</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>EXPOSE</span><span class=w> </span><span class=s>22</span><span class=err>
+</span></span></span><span class=line><span class=cl><span class=err></span><span class=k>WORKDIR</span><span class=w> </span><span class=s>/root</span><span class=err>
 </span></span></span><span class=line><span class=cl><span class=err></span><span class=k>ENTRYPOINT</span> <span class=p>[</span><span class=s2>&#34;/bin/zsh&#34;</span><span class=p>]</span><span class=err>
 </span></span></span></code></pre></td></tr></table></div></div></details><p>除了上面提到的几点，我还增加了：</p><ul><li>镜像已配置好国内镜像源，方便构建以及使用时安装新的包</li><li>配置openssh，使其可以被浪潮平台接入并提供SSH服务</li><li>预先安装好vim，便于配置文件的修改</li><li>提前设置好网络代理，便于连接互联网</li><li>设置别名：<code>conda</code>-><code>micromamba</code>，方便日常使用</li></ul><p>由于服务器没有网络，需要我们手动上传镜像，使用命令<code>docker save -o [TAGS]</code>打包成tar包并上传至系统中。</p><h2 id=小结><a href=#%e5%b0%8f%e7%bb%93 class=header-anchor></a>小结</h2><p>希望这篇文章可以帮助大伙快速上手该平台，毕竟有这么好的资源就要好好利用起来。</p></section><footer class=article-footer><section class=article-tags><a href=/tags/%E6%95%99%E7%A8%8B/>教程</a>
 <a href=/tags/docker/>Docker</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>

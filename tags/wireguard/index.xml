@@ -1,52 +1,52 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>WireGuard on luoboQAQ</title><link>https://lbqaq.top/tags/wireguard/</link><description>Recent content in WireGuard on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 03 Feb 2024 23:00:08 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/wireguard/index.xml" rel="self" type="application/rss+xml"/><item><title>使用WireGuard+ipv6进行异地组网</title><link>https://lbqaq.top/p/wireguard-ipv6/</link><pubDate>Sat, 03 Feb 2024 23:00:08 +0800</pubDate><guid>https://lbqaq.top/p/wireguard-ipv6/</guid><description>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/104589070.webp" alt="Featured image of post 使用WireGuard+ipv6进行异地组网" />&lt;p>放假回家，手里只有性能孱弱的轻薄本，用它跑个实验或者是打个游戏实在是太难为它了。于是，远程到实验室的高性能主机便是一个非常不错的选择。不过，和之前在宿舍局域网串流不一样，家里和实验室属于不同的局域网，之间无法相互连接。&lt;/p>
-&lt;p>在之前&lt;a class="link" href="https://lbqaq.top/p/ax6000/#%E9%85%8D%E7%BD%AEwireguard" target="_blank" rel="noopener"
->配置实验室路由器&lt;/a>时，我已经配置过了WireGuard。通过在电脑上安装WireGuard，每次开机时启动一下就可以连入实验室的局域网了。似乎这样已经可以了，但是，如果我想在其他设备上访问实验室，就要重复上面的步骤，这实在是太麻烦了。同时，实验室想要访问位于家里的设备也无法实现。&lt;/p>
-&lt;p>于是，我决定通过折腾一波路由器，来实现无感知的异地组网。&lt;/p>
-&lt;h2 id="准备工作">&lt;a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="header-anchor">&lt;/a>准备工作
-&lt;/h2>&lt;ul>
-&lt;li>
-&lt;p>2台刷好OpenWrt的路由器，并保证拥有WireGuard包&lt;/p>
-&lt;p>如果你的固件里没有预装WireGuard，可以选择手动编译，就像我这篇文章一样（还没写🕊️）&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>2台路由器均拥有公网ipv6地址&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>一个域名，用来做ddns&lt;/p>
-&lt;p>如何配置ddns不是本篇文章的重点，可以参考我之前的文章或者百度一下&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;p>我们首先设计一下网络拓扑，其中实验室的ip段为&lt;code>192.168.6.0/24&lt;/code>，家里的ip段为&lt;code>192.168.10.0/24&lt;/code>。我这里选取&lt;code>192.168.100.0/24&lt;/code>为WireGurad的虚拟局域网网段，并分别给家中和实验室路由器分配&lt;code>192.168.100.100/32&lt;/code>和&lt;code>192.168.100.1/32&lt;/code>两个地址。为了接下来使用方便，我建议用表格整理一下：&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align: center">&lt;/th>
-&lt;th style="text-align: center">实验室&lt;/th>
-&lt;th style="text-align: center">家&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align: center">局域网段&lt;/td>
-&lt;td style="text-align: center">192.168.6.0/24&lt;/td>
-&lt;td style="text-align: center">192.168.10.0/24&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">ddns地址&lt;/td>
-&lt;td style="text-align: center">school.example.com&lt;/td>
-&lt;td style="text-align: center">home.example.com&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">WireGurad接口ip地址&lt;/td>
-&lt;td style="text-align: center">192.168.100.1/32&lt;/td>
-&lt;td style="text-align: center">192.168.100.100/32&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="具体操作">&lt;a href="#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c" class="header-anchor">&lt;/a>具体操作
-&lt;/h2>&lt;h3 id="接口配置">&lt;a href="#%e6%8e%a5%e5%8f%a3%e9%85%8d%e7%bd%ae" class="header-anchor">&lt;/a>接口配置
-&lt;/h3>&lt;p>我们首先从实验室的路由器开始配置。登入OpenWrt后台，依次点击网络——接口——添加新接口，选择协议为&lt;code>WireGuard VPN&lt;/code>，名称这里随意。&lt;/p>
-&lt;p>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/1.png"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>WireGuard on luoboQAQ</title><link>https://lbqaq.top/tags/wireguard/</link><description>Recent content in WireGuard on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 03 Feb 2024 23:00:08 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/wireguard/index.xml" rel="self" type="application/rss+xml"/><item><title>使用WireGuard+ipv6进行异地组网</title><link>https://lbqaq.top/p/wireguard-ipv6/</link><pubDate>Sat, 03 Feb 2024 23:00:08 +0800</pubDate><guid>https://lbqaq.top/p/wireguard-ipv6/</guid><description>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/104589070.webp" alt="Featured image of post 使用WireGuard+ipv6进行异地组网" /&gt;&lt;p&gt;放假回家，手里只有性能孱弱的轻薄本，用它跑个实验或者是打个游戏实在是太难为它了。于是，远程到实验室的高性能主机便是一个非常不错的选择。不过，和之前在宿舍局域网串流不一样，家里和实验室属于不同的局域网，之间无法相互连接。&lt;/p&gt;
+&lt;p&gt;在之前&lt;a class="link" href="https://lbqaq.top/p/ax6000/#%E9%85%8D%E7%BD%AEwireguard" target="_blank" rel="noopener"
+&gt;配置实验室路由器&lt;/a&gt;时，我已经配置过了WireGuard。通过在电脑上安装WireGuard，每次开机时启动一下就可以连入实验室的局域网了。似乎这样已经可以了，但是，如果我想在其他设备上访问实验室，就要重复上面的步骤，这实在是太麻烦了。同时，实验室想要访问位于家里的设备也无法实现。&lt;/p&gt;
+&lt;p&gt;于是，我决定通过折腾一波路由器，来实现无感知的异地组网。&lt;/p&gt;
+&lt;h2 id="准备工作"&gt;&lt;a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" class="header-anchor"&gt;&lt;/a&gt;准备工作
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;2台刷好OpenWrt的路由器，并保证拥有WireGuard包&lt;/p&gt;
+&lt;p&gt;如果你的固件里没有预装WireGuard，可以选择手动编译，就像我这篇文章一样（还没写🕊️）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2台路由器均拥有公网ipv6地址&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;一个域名，用来做ddns&lt;/p&gt;
+&lt;p&gt;如何配置ddns不是本篇文章的重点，可以参考我之前的文章或者百度一下&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们首先设计一下网络拓扑，其中实验室的ip段为&lt;code&gt;192.168.6.0/24&lt;/code&gt;，家里的ip段为&lt;code&gt;192.168.10.0/24&lt;/code&gt;。我这里选取&lt;code&gt;192.168.100.0/24&lt;/code&gt;为WireGurad的虚拟局域网网段，并分别给家中和实验室路由器分配&lt;code&gt;192.168.100.100/32&lt;/code&gt;和&lt;code&gt;192.168.100.1/32&lt;/code&gt;两个地址。为了接下来使用方便，我建议用表格整理一下：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: center"&gt;&lt;/th&gt;
+&lt;th style="text-align: center"&gt;实验室&lt;/th&gt;
+&lt;th style="text-align: center"&gt;家&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;局域网段&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.6.0/24&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.10.0/24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;ddns地址&lt;/td&gt;
+&lt;td style="text-align: center"&gt;school.example.com&lt;/td&gt;
+&lt;td style="text-align: center"&gt;home.example.com&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;WireGurad接口ip地址&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.100.1/32&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.100.100/32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id="具体操作"&gt;&lt;a href="#%e5%85%b7%e4%bd%93%e6%93%8d%e4%bd%9c" class="header-anchor"&gt;&lt;/a&gt;具体操作
+&lt;/h2&gt;&lt;h3 id="接口配置"&gt;&lt;a href="#%e6%8e%a5%e5%8f%a3%e9%85%8d%e7%bd%ae" class="header-anchor"&gt;&lt;/a&gt;接口配置
+&lt;/h3&gt;&lt;p&gt;我们首先从实验室的路由器开始配置。登入OpenWrt后台，依次点击网络——接口——添加新接口，选择协议为&lt;code&gt;WireGuard VPN&lt;/code&gt;，名称这里随意。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/1.png"
 width="698"
 height="241"
 srcset="https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu_53b3b15b32bbb04.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/1_hu_4f127e7470372986.png 1024w"
@@ -55,9 +55,9 @@ alt="添加新接口"
 class="gallery-image"
 data-flex-grow="289"
 data-flex-basis="695px"
->&lt;/p>
-&lt;p>接着开始进行详细的配置&lt;/p>
-&lt;p>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/2.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;接着开始进行详细的配置&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/2.png"
 width="805"
 height="788"
 srcset="https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu_7838dc690eb0e131.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/2_hu_738f92cb3b8d01a4.png 1024w"
@@ -66,84 +66,84 @@ alt="接口详细配置"
 class="gallery-image"
 data-flex-grow="102"
 data-flex-basis="245px"
->&lt;/p>
-&lt;p>这里的监听端口按照个人喜好自己指定即可，为了演示我分别指定端口号为&lt;code>6789&lt;/code>和&lt;code>7890&lt;/code>。&lt;/p>
-&lt;p>可以看到较新的OpenWrt这里是有生成密钥的选项，所以我们可以不用命令行来生成密钥对，不过我这个版本缺少公钥的框，如果想查看公钥的话，要到状态——WireGuard里去查看。所以我建议还是使用命令行预先生成好公私钥：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 创建公钥和私钥&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wg genkey &lt;span class="p">|&lt;/span> tee privatekey &lt;span class="p">|&lt;/span> wg pubkey &amp;gt; publickey
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 获取私钥复制保存&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat privatekey
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 获取公钥复制保存&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat publickey
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 生成预共享密钥&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wg genpsk
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>我们需要创建两次公私钥，预共享密钥是一致的，所以只需创建一次即可，为了便于之后的操作，我们将其存放到上文列好的表中：&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th style="text-align: center">&lt;/th>
-&lt;th style="text-align: center">实验室&lt;/th>
-&lt;th style="text-align: center">家&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td style="text-align: center">局域网段&lt;/td>
-&lt;td style="text-align: center">192.168.6.0/24&lt;/td>
-&lt;td style="text-align: center">192.168.10.0/24&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">ddns地址&lt;/td>
-&lt;td style="text-align: center">school.example.com&lt;/td>
-&lt;td style="text-align: center">home.example.com&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">WireGurad接口ip地址&lt;/td>
-&lt;td style="text-align: center">192.168.100.1/32&lt;/td>
-&lt;td style="text-align: center">192.168.100.100/32&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">监听端口&lt;/td>
-&lt;td style="text-align: center">6789&lt;/td>
-&lt;td style="text-align: center">7890&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">WireGurad公钥&lt;/td>
-&lt;td style="text-align: center">YJF1c//jJ0K2HSZ+yNqfjBfJL6Z90lyfVCyML8To1lI=&lt;/td>
-&lt;td style="text-align: center">Q/gtGW5xBK5sEgPTrSo3CWqGOv3SYhzkqw8CBOJ3ZHs=&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">WireGurad私钥&lt;/td>
-&lt;td style="text-align: center">0MyNAHWVI0owbbZ3Et9gWtNFSVWiOqiHHYJAj86Wq0E=&lt;/td>
-&lt;td style="text-align: center">eKGSiCzaVi9IHfDLv4atx//wE8LGCR2xWAwc3XBw9kg=&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td style="text-align: center">预共享密钥&lt;/td>
-&lt;td style="text-align: center">OQrD6nvzMGQklARhwwhlrinFiumrGe2SIBxcRSOuIEo=&lt;/td>
-&lt;td style="text-align: center">同左&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;div class="notice notice-info" >
-&lt;div class="notice-title">&lt;svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(30, 80%, 70%)">&lt;path d="M256 8a248 248 0 100 496 248 248 0 000-496zm0 110a42 42 0 110 84 42 42 0 010-84zm56 254c0 7-5 12-12 12h-88c-7 0-12-5-12-12v-24c0-7 5-12 12-12h12v-64h-12c-7 0-12-5-12-12v-24c0-7 5-12 12-12h64c7 0 12 5 12 12v100h12c7 0 12 5 12 12v24z"/>&lt;/svg>&lt;/div>&lt;p>&lt;strong>特别注意&lt;/strong>&lt;/p>
-&lt;p>私钥和预共享密钥就像密码一样，不要轻易泄露，我这里只是演示用才展示出来。&lt;/p>&lt;/div>
-&lt;p>有了这些信息，我们就可以很轻松的将前图中的配置填好了，不要勾选无主机路由。&lt;/p>
-&lt;p>之后我们要配置对端&lt;/p>
-&lt;p>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/3.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;这里的监听端口按照个人喜好自己指定即可，为了演示我分别指定端口号为&lt;code&gt;6789&lt;/code&gt;和&lt;code&gt;7890&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;可以看到较新的OpenWrt这里是有生成密钥的选项，所以我们可以不用命令行来生成密钥对，不过我这个版本缺少公钥的框，如果想查看公钥的话，要到状态——WireGuard里去查看。所以我建议还是使用命令行预先生成好公私钥：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 创建公钥和私钥&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;wg genkey &lt;span class="p"&gt;|&lt;/span&gt; tee privatekey &lt;span class="p"&gt;|&lt;/span&gt; wg pubkey &amp;gt; publickey
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 获取私钥复制保存&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat privatekey
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 获取公钥复制保存&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cat publickey
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 生成预共享密钥&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;wg genpsk
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我们需要创建两次公私钥，预共享密钥是一致的，所以只需创建一次即可，为了便于之后的操作，我们将其存放到上文列好的表中：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="text-align: center"&gt;&lt;/th&gt;
+&lt;th style="text-align: center"&gt;实验室&lt;/th&gt;
+&lt;th style="text-align: center"&gt;家&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;局域网段&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.6.0/24&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.10.0/24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;ddns地址&lt;/td&gt;
+&lt;td style="text-align: center"&gt;school.example.com&lt;/td&gt;
+&lt;td style="text-align: center"&gt;home.example.com&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;WireGurad接口ip地址&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.100.1/32&lt;/td&gt;
+&lt;td style="text-align: center"&gt;192.168.100.100/32&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;监听端口&lt;/td&gt;
+&lt;td style="text-align: center"&gt;6789&lt;/td&gt;
+&lt;td style="text-align: center"&gt;7890&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;WireGurad公钥&lt;/td&gt;
+&lt;td style="text-align: center"&gt;YJF1c//jJ0K2HSZ+yNqfjBfJL6Z90lyfVCyML8To1lI=&lt;/td&gt;
+&lt;td style="text-align: center"&gt;Q/gtGW5xBK5sEgPTrSo3CWqGOv3SYhzkqw8CBOJ3ZHs=&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;WireGurad私钥&lt;/td&gt;
+&lt;td style="text-align: center"&gt;0MyNAHWVI0owbbZ3Et9gWtNFSVWiOqiHHYJAj86Wq0E=&lt;/td&gt;
+&lt;td style="text-align: center"&gt;eKGSiCzaVi9IHfDLv4atx//wE8LGCR2xWAwc3XBw9kg=&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style="text-align: center"&gt;预共享密钥&lt;/td&gt;
+&lt;td style="text-align: center"&gt;OQrD6nvzMGQklARhwwhlrinFiumrGe2SIBxcRSOuIEo=&lt;/td&gt;
+&lt;td style="text-align: center"&gt;同左&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class="notice notice-info" &gt;
+&lt;div class="notice-title"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(30, 80%, 70%)"&gt;&lt;path d="M256 8a248 248 0 100 496 248 248 0 000-496zm0 110a42 42 0 110 84 42 42 0 010-84zm56 254c0 7-5 12-12 12h-88c-7 0-12-5-12-12v-24c0-7 5-12 12-12h12v-64h-12c-7 0-12-5-12-12v-24c0-7 5-12 12-12h64c7 0 12 5 12 12v100h12c7 0 12 5 12 12v24z"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;特别注意&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;私钥和预共享密钥就像密码一样，不要轻易泄露，我这里只是演示用才展示出来。&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;有了这些信息，我们就可以很轻松的将前图中的配置填好了，不要勾选无主机路由。&lt;/p&gt;
+&lt;p&gt;之后我们要配置对端&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/3.png"
 width="1042"
 height="870"
 srcset="https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu_2ab2cdb953ce9df0.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/3_hu_db8112180e8f3abb.png 1024w"
@@ -152,19 +152,19 @@ alt="对端配置"
 class="gallery-image"
 data-flex-grow="119"
 data-flex-basis="287px"
->&lt;/p>
-&lt;p>有了之前的表格，这里的内容就很简单了。直接反着写就好了。我这里是实验室所以就对着家的那一列依次往里面填即可。&lt;/p>
-&lt;ul>
-&lt;li>允许的IP我们直接添加两条，分别是对方的局域网段和接口ip地址，例如我这里就填&lt;code>192.168.10.0/24&lt;/code>和&lt;code>192.168.100.100/32&lt;/code>即可。&lt;/li>
-&lt;li>勾选路由允许的IP&lt;/li>
-&lt;li>端点主机和端口分别填写ddns地址和监听端口。&lt;/li>
-&lt;li>Keep-Alive使用默认值25即可。&lt;/li>
-&lt;/ul>
-&lt;p>这样我们的WireGuard就算配置好了。&lt;/p>
-&lt;h3 id="防火墙配置">&lt;a href="#%e9%98%b2%e7%81%ab%e5%a2%99%e9%85%8d%e7%bd%ae" class="header-anchor">&lt;/a>防火墙配置
-&lt;/h3>&lt;p>依次点击网络——防火墙，选择添加。&lt;/p>
-&lt;p>这里大部分人（包括之前的我）会说直接将WireGuard接口放入LAN中，不过这样还是不太优雅，所以我们还是创建一个新区域。&lt;/p>
-&lt;p>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/4.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;有了之前的表格，这里的内容就很简单了。直接反着写就好了。我这里是实验室所以就对着家的那一列依次往里面填即可。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;允许的IP我们直接添加两条，分别是对方的局域网段和接口ip地址，例如我这里就填&lt;code&gt;192.168.10.0/24&lt;/code&gt;和&lt;code&gt;192.168.100.100/32&lt;/code&gt;即可。&lt;/li&gt;
+&lt;li&gt;勾选路由允许的IP&lt;/li&gt;
+&lt;li&gt;端点主机和端口分别填写ddns地址和监听端口。&lt;/li&gt;
+&lt;li&gt;Keep-Alive使用默认值25即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这样我们的WireGuard就算配置好了。&lt;/p&gt;
+&lt;h3 id="防火墙配置"&gt;&lt;a href="#%e9%98%b2%e7%81%ab%e5%a2%99%e9%85%8d%e7%bd%ae" class="header-anchor"&gt;&lt;/a&gt;防火墙配置
+&lt;/h3&gt;&lt;p&gt;依次点击网络——防火墙，选择添加。&lt;/p&gt;
+&lt;p&gt;这里大部分人（包括之前的我）会说直接将WireGuard接口放入LAN中，不过这样还是不太优雅，所以我们还是创建一个新区域。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/4.png"
 width="1700"
 height="845"
 srcset="https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu_a4d8298fc44bd5ac.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/4_hu_cb62f3d86f398bd.png 1024w"
@@ -173,15 +173,15 @@ alt="防火墙配置"
 class="gallery-image"
 data-flex-grow="201"
 data-flex-basis="482px"
->&lt;/p>
-&lt;ul>
-&lt;li>出站、入站、转发均为允许&lt;/li>
-&lt;li>勾选MSS 钳制：这主要是为了防止内网MTU过大导致WireGuard效率降低&lt;/li>
-&lt;li>涵盖的网络为之前创建的接口&lt;/li>
-&lt;li>允许转发到目标区域和允许来自源区域的转发都选择LAN&lt;/li>
-&lt;/ul>
-&lt;p>保存后选择上面的通信规则，我们需要开启路由器上的端口&lt;/p>
-&lt;p>&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/5.png"
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;出站、入站、转发均为允许&lt;/li&gt;
+&lt;li&gt;勾选MSS 钳制：这主要是为了防止内网MTU过大导致WireGuard效率降低&lt;/li&gt;
+&lt;li&gt;涵盖的网络为之前创建的接口&lt;/li&gt;
+&lt;li&gt;允许转发到目标区域和允许来自源区域的转发都选择LAN&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;保存后选择上面的通信规则，我们需要开启路由器上的端口&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/wireguard-ipv6/IMAGE/5.png"
 width="709"
 height="642"
 srcset="https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu_bfdf419a8159e588.png 480w, https://lbqaq.top/p/wireguard-ipv6/IMAGE/5_hu_58611f170f28856.png 1024w"
@@ -190,25 +190,25 @@ alt="路由端口配置"
 class="gallery-image"
 data-flex-grow="110"
 data-flex-basis="265px"
->&lt;/p>
-&lt;p>由于WireGuard是基于UDP的，我们只需要放行UDP流量即可。端口为之前表中填写的。&lt;/p>
-&lt;p>至此，我们的配置就算完成了，另一台路由器也是同样的配置方法，我就不赘述了。&lt;/p>
-&lt;h2 id="踩坑和一些注意事项">&lt;a href="#%e8%b8%a9%e5%9d%91%e5%92%8c%e4%b8%80%e4%ba%9b%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor">&lt;/a>踩坑和一些注意事项
-&lt;/h2>&lt;ul>
-&lt;li>
-&lt;p>两端都要配置端点主机&lt;/p>
-&lt;p>WireGuard按原理来说，只要一方发起握手即可相互通信，所以我们可以只配置一个路由器，让它发起握手。不过我尝试后发现这样会导致只有发起握手的路由器可以连到对端，下面的设备就无法连接，被握手的路由器也无法ping通发起握手的路由器。（🤔难道是因为被握手的路由器中没有自动配置好路由表吗？）&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>WireGuard配置好后需要重启端口才能生效&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>ddns变动后，WireGuard只会尝试连接之前的地址而不会重新解析&lt;/p>
-&lt;p>可能是为了安全考虑吧，这样只能手动重启端口来让其重新解析，还有其他自动化的方法不过我就没有研究了&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="参考文献">&lt;a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="header-anchor">&lt;/a>参考文献
-&lt;/h2>&lt;ul>
-&lt;li>&lt;a class="link" href="https://www.bilibili.com/video/BV1r3411G796" target="_blank" rel="noopener"
->【老湿基】WireGuard 异地组网手把手教学 | 从入门到精通 | 局域网融合_哔哩哔哩&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&gt;&lt;/p&gt;
+&lt;p&gt;由于WireGuard是基于UDP的，我们只需要放行UDP流量即可。端口为之前表中填写的。&lt;/p&gt;
+&lt;p&gt;至此，我们的配置就算完成了，另一台路由器也是同样的配置方法，我就不赘述了。&lt;/p&gt;
+&lt;h2 id="踩坑和一些注意事项"&gt;&lt;a href="#%e8%b8%a9%e5%9d%91%e5%92%8c%e4%b8%80%e4%ba%9b%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9" class="header-anchor"&gt;&lt;/a&gt;踩坑和一些注意事项
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;两端都要配置端点主机&lt;/p&gt;
+&lt;p&gt;WireGuard按原理来说，只要一方发起握手即可相互通信，所以我们可以只配置一个路由器，让它发起握手。不过我尝试后发现这样会导致只有发起握手的路由器可以连到对端，下面的设备就无法连接，被握手的路由器也无法ping通发起握手的路由器。（🤔难道是因为被握手的路由器中没有自动配置好路由表吗？）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;WireGuard配置好后需要重启端口才能生效&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ddns变动后，WireGuard只会尝试连接之前的地址而不会重新解析&lt;/p&gt;
+&lt;p&gt;可能是为了安全考虑吧，这样只能手动重启端口来让其重新解析，还有其他自动化的方法不过我就没有研究了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="参考文献"&gt;&lt;a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%8c%ae" class="header-anchor"&gt;&lt;/a&gt;参考文献
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://www.bilibili.com/video/BV1r3411G796" target="_blank" rel="noopener"
+&gt;【老湿基】WireGuard 异地组网手把手教学 | 从入门到精通 | 局域网融合_哔哩哔哩&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

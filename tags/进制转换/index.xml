@@ -1,129 +1,129 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>进制转换 on luoboQAQ</title><link>https://lbqaq.top/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/</link><description>Recent content in 进制转换 on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 03 Apr 2022 09:45:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/index.xml" rel="self" type="application/rss+xml"/><item><title>进制转换和位运算</title><link>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</link><pubDate>Sun, 03 Apr 2022 09:45:04 +0800</pubDate><guid>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</guid><description>&lt;img src="https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/95490521.webp" alt="Featured image of post 进制转换和位运算" />&lt;h2 id="进制转换">&lt;a href="#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2" class="header-anchor">&lt;/a>进制转换
-&lt;/h2>&lt;p>在数学中，不止只有我们常见的10进制，最近刷了几道关于进制转换的题目，在这里做个总结和记录吧。&lt;/p>
-&lt;h3 id="基本概念">&lt;a href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="header-anchor">&lt;/a>基本概念
-&lt;/h3>&lt;p>首先我们要先了解进制的基本概念，这里我直接从LeetCode官方这里引用了。&lt;/p>
-&lt;blockquote>
-&lt;p>任何一种进位计数制都有一个基数，基数为 X 的进位计数制称为 X 进制，表示每一个数位上的数运算时都是逢 X 进一。&lt;/p>&lt;/blockquote>
-&lt;blockquote>
-&lt;p>对于一个 X 进制的数，其具体数值由其中的每个数码和数码所在的数位决定。整数部分从右往左的第 m 个数位表示的权重是 $X^m$，其中 m 最小为 0；小数部分从左往右的第 n 个数位表示的权重是$X^{-n}$，其中 n 最小为 1。&lt;/p>&lt;/blockquote>
-&lt;p>八进制的 $720.5$ 可以写成如下形式：&lt;/p>
-&lt;p>$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1}$&lt;/p>
-&lt;p>用我自己的话来说，就是&lt;code>数值*权重&lt;/code>&lt;/p>
-&lt;h3 id="进制转换的一般思路">&lt;a href="#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2%e7%9a%84%e4%b8%80%e8%88%ac%e6%80%9d%e8%b7%af" class="header-anchor">&lt;/a>进制转换的一般思路
-&lt;/h3>&lt;p>一般来说，我们习惯将进制转换成十进制，这样便于理解和手算。当然，我们也可以不通过十进制作为中间态过度，比如我们熟悉的二进制和十六进制的转换。&lt;/p>
-&lt;h4 id="非十进制转十进制">&lt;a href="#%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e5%8d%81%e8%bf%9b%e5%88%b6" class="header-anchor">&lt;/a>非十进制转十进制
-&lt;/h4>&lt;p>将非十进制数转成十进制数，只要将每个数位的加权和即可。&lt;/p>
-&lt;p>例如，将八进制数 $720.5_{(8)}$ 转成十进制：&lt;/p>
-&lt;p>$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1} = 464.625$&lt;/p>
-&lt;p>下面是程序的实现(只考虑整数)，我们可以从高位到低位进行读取，按照下面的方式读入,其中&lt;code>n&lt;/code>表示是几进制数&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">int&lt;/span> &lt;span class="nf">read&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">char&lt;/span> &lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getchar&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">isint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getchar&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">isint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">k&lt;/span> &lt;span class="o">*=&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">k&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">isint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">getchar&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h4 id="十进制转非十进制">&lt;a href="#%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6" class="header-anchor">&lt;/a>十进制转非十进制
-&lt;/h4>&lt;p>首先我们先来看手算，将十进制数转成 X 进制数，需要对整数部分和小数部分分别转换。&lt;/p>
-&lt;p>对于整数部分，转换方式是将十进制数的整数部分每次除以 X 直到变成 0，并记录每次的余数，&lt;strong>反向&lt;/strong>遍历每次的余数即可得到 X 进制表示。&lt;/p>
-&lt;p>对于小数部分，转换方式是将十进制数的小数部分每次乘以 X 直到变成 0，并记录每次的整数部分，正序遍历每次的整数部分即可得到 X 进制表示。&lt;/p>
-&lt;p>下面是整数转换的过程，这里要注意的是转换时是从低位到高位，如果要输出的话要进行倒序，体现在程序中就是先递归再输出。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">putchar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">itc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">m&lt;/span>&lt;span class="p">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="负进制">&lt;a href="#%e8%b4%9f%e8%bf%9b%e5%88%b6" class="header-anchor">&lt;/a>负进制
-&lt;/h3>&lt;p>&lt;a class="link" href="https://www.luogu.com.cn/problem/P1017" target="_blank" rel="noopener"
->[NOIP2000 提高组] 进制转换&lt;/a>&lt;/p>
-&lt;p>在洛谷的这道题中，我们遇到了一个新的概念：负进制&lt;/p>
-&lt;p>在负进制数中是用 $-R$ 作为基数，例如 $−15$（十进制）相当于 $110001$ （$-2$进制），并且它可以被表示为 $2$ 的幂级数的和数：&lt;/p>
-&lt;p>$110001=1\times (-2)^5+1\times (-2)^4+0\times (-2)^3+0\times (-2)^2+0\times (-2)^1 +1\times (-2)^0$&lt;/p>
-&lt;p>如果按照上面所写的转换过程，就会出现一个问题，比如在C++里对$-15$进行取模和相除的结果是：&lt;/p>
-&lt;p>$-15%-2=-1$ ； $-15\div-2=7$ ； $7\times-2+(-1)=-15$&lt;/p>
-&lt;p>虽然式子是成立的，但我们得到的余数是负数，这肯定是不行的，所以我们要想办法进行转换。&lt;/p>
-&lt;p>所以我们可以将余数减去一个除数，同时将商+1。由于除数（绝对值）肯定是大于余数的，此时余数就会转换成正数。&lt;/p>
-&lt;p>下面是具体实现的代码：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cpp" data-lang="cpp">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">void&lt;/span> &lt;span class="nf">slove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">int&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">int&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// m为余数
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 如果余数小于0，转化为正数
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">//商+1 =&amp;gt; 被除数+除数
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span> &lt;span class="o">&amp;gt;=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">m&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sc">&amp;#39;A&amp;#39;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">m&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="sc">&amp;#39;0&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">slove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">r&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">putchar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="位运算">&lt;a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="header-anchor">&lt;/a>位运算
-&lt;/h2>&lt;p>位运算的基本概念在组成原理这些课上已经讲过不知道多少遍了，这里就只提一下我觉得重要的点。&lt;/p>
-&lt;p>位运算共有6种，分别是：与(&lt;code>&amp;amp;&lt;/code>)、或(&lt;code>|&lt;/code>)、异或(&lt;code>^&lt;/code>)、取反(&lt;code>~&lt;/code>)、左移(&lt;code>&amp;lt;&amp;lt;&lt;/code>)和右移(&lt;code>&amp;gt;&amp;gt;&lt;/code>)。&lt;/p>
-&lt;p>这里要特别注意一下右移运算，它分为逻辑右移和算术右移：&lt;/p>
-&lt;ul>
-&lt;li>算术右移时，高位补最高位&lt;/li>
-&lt;li>逻辑右移时，高位补0&lt;/li>
-&lt;/ul>
-&lt;p>在C++中，数据类型包含有符号类型和无符号类型，其中有符号类型使用关键字 &lt;code>signed&lt;/code> 声明，无符号类型使用关键字 &lt;code>unsigned&lt;/code> 声明，两个关键字都不使用时，默认是有符号类型。对于有符号类型，右移运算为算术右移；对于无符号类型，右移运算为逻辑右移。&lt;/p>
-&lt;p>在学习和刷题时，我们容易发现，左移运算对应乘法运算。将一个数左移 $k$ 位，等价于将这个数乘以 $2^k$。例如，$29$ 左移 $2$ 位的结果是 $116$，等价于 $29 \times 4$。&lt;/p>
-&lt;p>算术右移运算对应除法运算。将一个数右移 $k$ 位，相当于将这个数除以 $2^k$。例如，$50$ 右移 $2$ 位的结果是 $12$，等价于 $50 / 4$，结果向下取整。&lt;/p>
-&lt;p>这里要注意，对于负数，整数除法是向 $0$ 取整，右移运算是向下取整，两者就不相同了。例如，$(-50)&amp;raquo;2$的结果是 $−13$，而 $(-50) / 4$ 的结果是$-12$，两者是不相等的。&lt;/p>
-&lt;h2 id="参考资料">&lt;a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor">&lt;/a>参考资料
-&lt;/h2>&lt;ul>
-&lt;li>&lt;a class="link" href="https://leetcode-cn.com/leetbook/read/bit-manipulation-and-math/" target="_blank" rel="noopener"
->位运算和数学 - LeetBook&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>进制转换 on luoboQAQ</title><link>https://lbqaq.top/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/</link><description>Recent content in 进制转换 on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 03 Apr 2022 09:45:04 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/index.xml" rel="self" type="application/rss+xml"/><item><title>进制转换和位运算</title><link>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</link><pubDate>Sun, 03 Apr 2022 09:45:04 +0800</pubDate><guid>https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/</guid><description>&lt;img src="https://lbqaq.top/p/%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E5%92%8C%E4%BD%8D%E8%BF%90%E7%AE%97/95490521.webp" alt="Featured image of post 进制转换和位运算" /&gt;&lt;h2 id="进制转换"&gt;&lt;a href="#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2" class="header-anchor"&gt;&lt;/a&gt;进制转换
+&lt;/h2&gt;&lt;p&gt;在数学中，不止只有我们常见的10进制，最近刷了几道关于进制转换的题目，在这里做个总结和记录吧。&lt;/p&gt;
+&lt;h3 id="基本概念"&gt;&lt;a href="#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5" class="header-anchor"&gt;&lt;/a&gt;基本概念
+&lt;/h3&gt;&lt;p&gt;首先我们要先了解进制的基本概念，这里我直接从LeetCode官方这里引用了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;任何一种进位计数制都有一个基数，基数为 X 的进位计数制称为 X 进制，表示每一个数位上的数运算时都是逢 X 进一。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于一个 X 进制的数，其具体数值由其中的每个数码和数码所在的数位决定。整数部分从右往左的第 m 个数位表示的权重是 $X^m$，其中 m 最小为 0；小数部分从左往右的第 n 个数位表示的权重是$X^{-n}$，其中 n 最小为 1。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;八进制的 $720.5$ 可以写成如下形式：&lt;/p&gt;
+&lt;p&gt;$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1}$&lt;/p&gt;
+&lt;p&gt;用我自己的话来说，就是&lt;code&gt;数值*权重&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id="进制转换的一般思路"&gt;&lt;a href="#%e8%bf%9b%e5%88%b6%e8%bd%ac%e6%8d%a2%e7%9a%84%e4%b8%80%e8%88%ac%e6%80%9d%e8%b7%af" class="header-anchor"&gt;&lt;/a&gt;进制转换的一般思路
+&lt;/h3&gt;&lt;p&gt;一般来说，我们习惯将进制转换成十进制，这样便于理解和手算。当然，我们也可以不通过十进制作为中间态过度，比如我们熟悉的二进制和十六进制的转换。&lt;/p&gt;
+&lt;h4 id="非十进制转十进制"&gt;&lt;a href="#%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e5%8d%81%e8%bf%9b%e5%88%b6" class="header-anchor"&gt;&lt;/a&gt;非十进制转十进制
+&lt;/h4&gt;&lt;p&gt;将非十进制数转成十进制数，只要将每个数位的加权和即可。&lt;/p&gt;
+&lt;p&gt;例如，将八进制数 $720.5_{(8)}$ 转成十进制：&lt;/p&gt;
+&lt;p&gt;$720.5_{(8)} = 7 \times 8^2 + 2 \times 8^1 + 0 \times 8^0 + 5 \times 8^{-1} = 464.625$&lt;/p&gt;
+&lt;p&gt;下面是程序的实现(只考虑整数)，我们可以从高位到低位进行读取，按照下面的方式读入,其中&lt;code&gt;n&lt;/code&gt;表示是几进制数&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;read&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getchar&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;isint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getchar&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;isint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;*=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;isint&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getchar&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id="十进制转非十进制"&gt;&lt;a href="#%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e9%9d%9e%e5%8d%81%e8%bf%9b%e5%88%b6" class="header-anchor"&gt;&lt;/a&gt;十进制转非十进制
+&lt;/h4&gt;&lt;p&gt;首先我们先来看手算，将十进制数转成 X 进制数，需要对整数部分和小数部分分别转换。&lt;/p&gt;
+&lt;p&gt;对于整数部分，转换方式是将十进制数的整数部分每次除以 X 直到变成 0，并记录每次的余数，&lt;strong&gt;反向&lt;/strong&gt;遍历每次的余数即可得到 X 进制表示。&lt;/p&gt;
+&lt;p&gt;对于小数部分，转换方式是将十进制数的小数部分每次乘以 X 直到变成 0，并记录每次的整数部分，正序遍历每次的整数部分即可得到 X 进制表示。&lt;/p&gt;
+&lt;p&gt;下面是整数转换的过程，这里要注意的是转换时是从低位到高位，如果要输出的话要进行倒序，体现在程序中就是先递归再输出。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;putchar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;itc&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="负进制"&gt;&lt;a href="#%e8%b4%9f%e8%bf%9b%e5%88%b6" class="header-anchor"&gt;&lt;/a&gt;负进制
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://www.luogu.com.cn/problem/P1017" target="_blank" rel="noopener"
+&gt;[NOIP2000 提高组] 进制转换&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在洛谷的这道题中，我们遇到了一个新的概念：负进制&lt;/p&gt;
+&lt;p&gt;在负进制数中是用 $-R$ 作为基数，例如 $−15$（十进制）相当于 $110001$ （$-2$进制），并且它可以被表示为 $2$ 的幂级数的和数：&lt;/p&gt;
+&lt;p&gt;$110001=1\times (-2)^5+1\times (-2)^4+0\times (-2)^3+0\times (-2)^2+0\times (-2)^1 +1\times (-2)^0$&lt;/p&gt;
+&lt;p&gt;如果按照上面所写的转换过程，就会出现一个问题，比如在C++里对$-15$进行取模和相除的结果是：&lt;/p&gt;
+&lt;p&gt;$-15%-2=-1$ ； $-15\div-2=7$ ； $7\times-2+(-1)=-15$&lt;/p&gt;
+&lt;p&gt;虽然式子是成立的，但我们得到的余数是负数，这肯定是不行的，所以我们要想办法进行转换。&lt;/p&gt;
+&lt;p&gt;所以我们可以将余数减去一个除数，同时将商+1。由于除数（绝对值）肯定是大于余数的，此时余数就会转换成正数。&lt;/p&gt;
+&lt;p&gt;下面是具体实现的代码：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-cpp" data-lang="cpp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;slove&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// m为余数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// 如果余数小于0，转化为正数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;-=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//商+1 =&amp;gt; 被除数+除数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;A&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="sc"&gt;&amp;#39;0&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;slove&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;putchar&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id="位运算"&gt;&lt;a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="header-anchor"&gt;&lt;/a&gt;位运算
+&lt;/h2&gt;&lt;p&gt;位运算的基本概念在组成原理这些课上已经讲过不知道多少遍了，这里就只提一下我觉得重要的点。&lt;/p&gt;
+&lt;p&gt;位运算共有6种，分别是：与(&lt;code&gt;&amp;amp;&lt;/code&gt;)、或(&lt;code&gt;|&lt;/code&gt;)、异或(&lt;code&gt;^&lt;/code&gt;)、取反(&lt;code&gt;~&lt;/code&gt;)、左移(&lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;)和右移(&lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;)。&lt;/p&gt;
+&lt;p&gt;这里要特别注意一下右移运算，它分为逻辑右移和算术右移：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算术右移时，高位补最高位&lt;/li&gt;
+&lt;li&gt;逻辑右移时，高位补0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在C++中，数据类型包含有符号类型和无符号类型，其中有符号类型使用关键字 &lt;code&gt;signed&lt;/code&gt; 声明，无符号类型使用关键字 &lt;code&gt;unsigned&lt;/code&gt; 声明，两个关键字都不使用时，默认是有符号类型。对于有符号类型，右移运算为算术右移；对于无符号类型，右移运算为逻辑右移。&lt;/p&gt;
+&lt;p&gt;在学习和刷题时，我们容易发现，左移运算对应乘法运算。将一个数左移 $k$ 位，等价于将这个数乘以 $2^k$。例如，$29$ 左移 $2$ 位的结果是 $116$，等价于 $29 \times 4$。&lt;/p&gt;
+&lt;p&gt;算术右移运算对应除法运算。将一个数右移 $k$ 位，相当于将这个数除以 $2^k$。例如，$50$ 右移 $2$ 位的结果是 $12$，等价于 $50 / 4$，结果向下取整。&lt;/p&gt;
+&lt;p&gt;这里要注意，对于负数，整数除法是向 $0$ 取整，右移运算是向下取整，两者就不相同了。例如，$(-50)&amp;raquo;2$的结果是 $−13$，而 $(-50) / 4$ 的结果是$-12$，两者是不相等的。&lt;/p&gt;
+&lt;h2 id="参考资料"&gt;&lt;a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"&gt;&lt;/a&gt;参考资料
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://leetcode-cn.com/leetbook/read/bit-manipulation-and-math/" target="_blank" rel="noopener"
+&gt;位运算和数学 - LeetBook&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

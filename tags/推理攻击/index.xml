@@ -36,7 +36,7 @@ data-flex-basis="413px"
 &lt;/ul&gt;
 &lt;h2 id="问题构造"&gt;&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor"&gt;&lt;/a&gt;问题构造
 &lt;/h2&gt;&lt;h3 id="系统模型"&gt;&lt;a href="#%e7%b3%bb%e7%bb%9f%e6%a8%a1%e5%9e%8b" class="header-anchor"&gt;&lt;/a&gt;系统模型
-&lt;/h3&gt;&lt;p&gt;我们考虑一组m个分布方（或数据所有者）${P_1,&amp;hellip;,P_m}$，他们通过合并各自的数据集来训练纵向联邦学习模型。在获得经训练的纵向联邦学习模型参数$\theta$之后，各方协作地对其联合预测数据集$D_{pred}={D_1,&amp;hellip;,D_m}$进行预测。 数据集中的每一行对应一个样本，每一列对应一个要素。 设$n$为样本数，$d_i$为$D_i$中的特征数，其中$i\in{1,&amp;hellip;,m}$。我们表示$D_i={x^t_i}^n_{t=1}$，其中$x^t_i$表示$D_i$的第t个样本。在这篇文章中，作者考虑监督分类任务，并用$c$表示分类的数量。&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;我们考虑一组m个分布方（或数据所有者）$\{P_1,&amp;hellip;,P_m\}$，他们通过合并各自的数据集来训练纵向联邦学习模型。在获得经训练的纵向联邦学习模型参数$\theta$之后，各方协作地对其联合预测数据集$D_{pred}=\{D_1,&amp;hellip;,D_m\}$进行预测。 数据集中的每一行对应一个样本，每一列对应一个要素。 设$n$为样本数，$d_i$为$D_i$中的特征数，其中$i\in\{1,&amp;hellip;,m\}$。我们表示$D_i=\{x^t_i\}^n_{t=1}$，其中$x^t_i$表示$D_i$的第t个样本。在这篇文章中，作者考虑监督分类任务，并用$c$表示分类的数量。&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230101115423656.png"
 width="1017"
 height="715"
@@ -57,16 +57,16 @@ data-flex-basis="341px"
 &lt;/h4&gt;&lt;p&gt;将模型参数表示为$\theta = \theta (\theta_{adv},\theta_{target})$，其中$\theta_{adv}$和$\theta_{target}$分别是对应于$P_{adv}$和$P_{target}$所拥有的特征的权重。&lt;/p&gt;
 &lt;p&gt;令$v$为给定样本$x=(x_{adv},x_{target})$的预测输出。对于二元LR分类，$v$中只有一个有意义的置信度分数，我们令其为$v_1$。&lt;/p&gt;
 &lt;p&gt;给定$v_1$和对手自己的特征值$x_{adv}$，$P_{adv}$可以直接创建以$x_{target}$作为变量的方程，即，&lt;/p&gt;
-$$\sigma\left(x\_{\text {adv }} \cdot \theta\_{\text {adv }}+x\_{\text {target }} \cdot \theta\_{\text {target }}\right)=v\_{1}$$&lt;p&gt;其中$\sigma(\cdot)$是S形函数。显然，如果只有一个未知特征，即，$d_{target} = 1$，则方程只有一个解，这意味着可以精确地推断未知特征值$x_{target}$。&lt;/p&gt;
+$$\sigma\left(x_{\text {adv }} \cdot \theta_{\text {adv }}+x_{\text {target }} \cdot \theta_{\text {target }}\right)=v_{1}$$&lt;p&gt;其中$\sigma(\cdot)$是S形函数。显然，如果只有一个未知特征，即，$d_{target} = 1$，则方程只有一个解，这意味着可以精确地推断未知特征值$x_{target}$。&lt;/p&gt;
 &lt;h4 id="多分类逻辑回归"&gt;&lt;a href="#%e5%a4%9a%e5%88%86%e7%b1%bb%e9%80%bb%e8%be%91%e5%9b%9e%e5%bd%92" class="header-anchor"&gt;&lt;/a&gt;多分类逻辑回归
 &lt;/h4&gt;&lt;p&gt;对于多分类逻辑回归，存在$c$个线性回归模型。设$\theta = (\theta^{(1)},&amp;hellip;,\theta^{(c)})$分别为这些$c$模型的参数。&lt;/p&gt;
-&lt;p&gt;为了发起特征推理攻击，对手的目标是构造$k\in{1,&amp;hellip;,c}$的线性方程。&lt;/p&gt;
-$$x \_ { a d v } \cdot \theta \_ { a d v } ^ { ( k ) } + x \_ { target } \cdot \theta \_ { target } ^ { ( k ) } = z \_ { k }$$&lt;p&gt;其中$z_k$是第$k$个线性回归模型的输出。然而，$P_{adv}$只知道置信度向量$v =(v_1,&amp;hellip;,v_c)$，使得&lt;/p&gt;
-$$v \_ { k } = \frac { e x p ( z \_ { k } ) } { \sum \_ { k' } exp ( z \_ { k' } ) }$$&lt;p&gt;上面两个式子是我们用逻辑回归解决多分类问题的通用的公式，其中作者在第一个式子中把x和θ分成了攻方和目标方的数据。&lt;/p&gt;
+&lt;p&gt;为了发起特征推理攻击，对手的目标是构造$k\in\{1,&amp;hellip;,c\}$的线性方程。&lt;/p&gt;
+$$x _ { a d v } \cdot \theta _ { a d v } ^ { ( k ) } + x _ { target } \cdot \theta _ { target } ^ { ( k ) } = z _ { k }$$&lt;p&gt;其中$z_k$是第$k$个线性回归模型的输出。然而，$P_{adv}$只知道置信度向量$v =(v_1,&amp;hellip;,v_c)$，使得&lt;/p&gt;
+$$v _ { k } = \frac { e x p ( z _ { k } ) } { \sum _ { k' } exp ( z _ { k' } ) }$$&lt;p&gt;上面两个式子是我们用逻辑回归解决多分类问题的通用的公式，其中作者在第一个式子中把x和θ分成了攻方和目标方的数据。&lt;/p&gt;
 &lt;p&gt;作者将第二个式子双方取对数&lt;/p&gt;
-$$\ln v \_ { k } = z \_ { k } - \ln ( \sum \_ { k ^ { \prime } } e x p ( z \_ { k } ^ { \prime } ) )$$&lt;p&gt;等式右边的第二项对于所有$k\in{1,&amp;hellip;,c}$是相同的。因此，对两个相邻类别概率v的对数取差值&lt;/p&gt;
-$$\ln v \_ { k } - \ln v \_ { k'} = z \_ { k } - z \_ { k' }$$&lt;p&gt;最后可以得到一个无关z值的一个等式&lt;/p&gt;
-$$x\_{\text {adv }}\left(\theta\_{\text {adv }}^{(k)}-\theta\_{\text {adv }}^{(k+1)}\right)+x\_{\text {target }}\left(\theta\_{\text {target }}^{(k)}-\theta\_{\text {target }}^{(k+1)}\right)=a\_{k}^{\prime}$$&lt;p&gt;其中$a^\prime_k=\ln v_k-\ln v_{k+1},k\in{1,&amp;hellip;,c}$。&lt;/p&gt;
+$$\ln v _ { k } = z _ { k } - \ln ( \sum _ { k ^ { \prime } } e x p ( z _ { k } ^ { \prime } ) )$$&lt;p&gt;等式右边的第二项对于所有$k\in\{1,&amp;hellip;,c\}$是相同的。因此，对两个相邻类别概率v的对数取差值&lt;/p&gt;
+$$\ln v _ { k } - \ln v _ { k'} = z _ { k } - z _ { k' }$$&lt;p&gt;最后可以得到一个无关z值的一个等式&lt;/p&gt;
+$$x_{\text {adv }}\left(\theta_{\text {adv }}^{(k)}-\theta_{\text {adv }}^{(k+1)}\right)+x_{\text {target }}\left(\theta_{\text {target }}^{(k)}-\theta_{\text {target }}^{(k+1)}\right)=a_{k}^{\prime}$$&lt;p&gt;其中$a^\prime_k=\ln v_k-\ln v_{k+1},k\in\{1,&amp;hellip;,c\}$。&lt;/p&gt;
 &lt;p&gt;但是在后面推理的时候本文有一些为了逻辑上方便而采用了一个把纵向联邦限制减少的做法：把目标方或者说被动方的参数θ看作进攻方或者主动方能够得到的数据。&lt;/p&gt;
 &lt;p&gt;实际情况中，主动方或者进攻方在一般的纵向联邦框架中是无法得到被动方的参数θ数据的。&lt;/p&gt;
 &lt;p&gt;本文中我们姑且认为进攻方能得到，那么上式中的未知数只有$x_{target}$了，而$x_{target}$的维数为$d_{target}$，数量为目标方所用拥有的特征数。&lt;/p&gt;
@@ -109,7 +109,7 @@ data-flex-basis="494px"
 &lt;p&gt;&lt;strong&gt;基本思想：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;计算出对手自身特征与攻击目标未知特征之间的总体相关性。在此基础上，推断未知特征值的问题等效于生成新值$\hat{x}_{target}$以匹配垂直FL模型的决策的问题，其中$\hat{x}_{target}$遵循由对手的已知特征值和特征相关性确定的概率分布。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;目标函数：&lt;/strong&gt;&lt;/p&gt;
-$$\min \_{\theta\_{G}} \frac{1}{n} \sum\_{t=1}^{n} \ell\left(f\left(x\_{\mathrm{adv}}^{t}, f\_{G}\left(x\_{\mathrm{adv}}^{t}, r^{t} ; \theta\_{G}\right) ; \theta\right), v^{t}\right)+\Omega\left(f\_{G}\right)$$&lt;p&gt;其中$\theta$和$\theta_G$分别是纵向联邦学习模型和生成模型的参数。此外，$f_G$表示$\hat{x}_{target}^t$，即生成模型的输出,$f$表示给定所生成样本的纵向联邦学习模型的输出（由$x_{adv}^t$和$\hat{x}_{target}^t$连接）。此外，$\Omega(\cdot)$是生成的未知特征值${\hat{x}_{target}^t}_{t=1}^n$的正则化项。&lt;/p&gt;
+$$\min _{\theta_{G}} \frac{1}{n} \sum_{t=1}^{n} \ell\left(f\left(x_{\mathrm{adv}}^{t}, f_{G}\left(x_{\mathrm{adv}}^{t}, r^{t} ; \theta_{G}\right) ; \theta\right), v^{t}\right)+\Omega\left(f_{G}\right)$$&lt;p&gt;其中$\theta$和$\theta_G$分别是纵向联邦学习模型和生成模型的参数。此外，$f_G$表示$\hat{x}_{target}^t$，即生成模型的输出,$f$表示给定所生成样本的纵向联邦学习模型的输出（由$x_{adv}^t$和$\hat{x}_{target}^t$连接）。此外，$\Omega(\cdot)$是生成的未知特征值$\{\hat{x}_{target}^t\}_{t=1}^n$的正则化项。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;具体方法：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -160,7 +160,7 @@ data-flex-basis="575px"
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;指标：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;对于等式求解攻击（ESA）和生成回归网络攻击（GRNA），由于是回归任务，因此使用每个特征的均方误差（MSE）来衡量它们在重建多个目标特征时的总体准确性。具体而言，每个特征的MSE计算如下：&lt;/p&gt;
-$$\mathrm{MSE}=\frac{1}{n * d\_{\text {target }}} \sum\_{t=1}^{n} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{t}-x\_{\text {target }, i}^{t}\right)^{2}$$&lt;p&gt;对于路径限制攻击（PRA），作者测量了正确分支率（CBR）。&lt;/p&gt;
+$$\mathrm{MSE}=\frac{1}{n * d_{\text {target }}} \sum_{t=1}^{n} \sum_{i=1}^{d_{\text {target }}}\left(\hat{x}_{\text {target }, i}^{t}-x_{\text {target }, i}^{t}\right)^{2}$$&lt;p&gt;对于路径限制攻击（PRA），作者测量了正确分支率（CBR）。&lt;/p&gt;
 &lt;h3 id="d_target对等式求解攻击的影响"&gt;&lt;a href="#d_target%e5%af%b9%e7%ad%89%e5%bc%8f%e6%b1%82%e8%a7%a3%e6%94%bb%e5%87%bb%e7%9a%84%e5%bd%b1%e5%93%8d" class="header-anchor"&gt;&lt;/a&gt;$d_{target}$对等式求解攻击的影响
 &lt;/h3&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103102116720.png"
 width="2090"
@@ -178,12 +178,12 @@ data-flex-basis="968px"
 &lt;p&gt;同时，作者还分析了为什么Bank数据集的MSE增量远大于其他数据集的MSE增量，这是因为不同数据集的数据分布差异。&lt;/p&gt;
 &lt;p&gt;由伪逆矩阵计算出的解$\hat{x}_{target}$在所有解中具有最小的欧几里德范数，即$||\hat{x}_{target}||_2\le||x_{target}||_2$&lt;/p&gt;
 &lt;p&gt;其中&lt;/p&gt;
-$$\sum\_{i=1}^{d\_{\text {target }}} \hat{x}\_{\text {target }, i}^{2} \leq \sum\_{i=1}^{d\_{\text {target }}} x\_{\text {target }, i}^{2}$$&lt;p&gt;因此，我们有&lt;/p&gt;
+$$\sum_{i=1}^{d_{\text {target }}} \hat{x}_{\text {target }, i}^{2} \leq \sum_{i=1}^{d_{\text {target }}} x_{\text {target }, i}^{2}$$&lt;p&gt;因此，我们有&lt;/p&gt;
 $$\begin{aligned}
-\mathrm{MSE} &amp; =\frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}-x\_{\text {target }, i}\right)^{2} \\\\
-&amp; =\frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{2}+x\_{\text {target }, i}^{2}-2 \hat{x}\_{\text {target }, i} x\_{\text {target }, i}\right) \\\\
-&amp; \leq \frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}}\left(\hat{x}\_{\text {target }, i}^{2}+x\_{\text {target }, i}^{2}\right) \\\\
-&amp; \leq \frac{1}{d\_{\text {target }}} \sum\_{i=1}^{d\_{\text {target }}} 2 x\_{\text {target }, i}^{2},
+\mathrm{MSE} &amp; =\frac{1}{d_{\text {target }}} \sum_{i=1}^{d_{\text {target }}}\left(\hat{x}_{\text {target }, i}-x_{\text {target }, i}\right)^{2} \\
+&amp; =\frac{1}{d_{\text {target }}} \sum_{i=1}^{d_{\text {target }}}\left(\hat{x}_{\text {target }, i}^{2}+x_{\text {target }, i}^{2}-2 \hat{x}_{\text {target }, i} x_{\text {target }, i}\right) \\
+&amp; \leq \frac{1}{d_{\text {target }}} \sum_{i=1}^{d_{\text {target }}}\left(\hat{x}_{\text {target }, i}^{2}+x_{\text {target }, i}^{2}\right) \\
+&amp; \leq \frac{1}{d_{\text {target }}} \sum_{i=1}^{d_{\text {target }}} 2 x_{\text {target }, i}^{2},
 \end{aligned}$$&lt;p&gt;我们便推导出$\mathrm{MSE}(\hat{x}_{target},x_{target})$的上界。&lt;/p&gt;
 &lt;p&gt;作者分别计算了Bank、Credit、Drive和News四个数据集的上界，分别为0.60、0.14、0.45和0.34。&lt;/p&gt;
 &lt;p&gt;一般来说，上界越大，对手的攻击精度就越差。这就解释了为什么Bank的MSE比其他数据集增长得更快。&lt;/p&gt;
@@ -242,8 +242,8 @@ data-flex-basis="959px"
 &lt;/h3&gt;&lt;p&gt;由于LR和RF模型的性能低于NN模型，作者推断是因为一小部分推断出的特征值与真实相差甚远，导致整体攻击性能相对较低，于是作者研究数据相关性的影响。&lt;/p&gt;
 &lt;p&gt;数据相关性定义如下：&lt;/p&gt;
 $$\begin{aligned}
-\operatorname{corr}\left(x\_{\mathrm{adv}}, x\_{\mathrm{target}, i}\right) &amp; =\frac{1}{d\_{\mathrm{adv}}} \sum\_{j=1}^{d\_{\mathrm{adv}}} a b s\left(r\left(x\_{\mathrm{adv}, j}, x\_{\mathrm{target}, i}\right)\right), \\\\
-\operatorname{corr}\left(v, x\_{\mathrm{target}, i}\right) &amp; =\frac{1}{c} \sum\_{j=1}^{c} a b s\left(r\left(v\_{j}, x\_{\mathrm{target}, i}\right)\right),
+\operatorname{corr}\left(x_{\mathrm{adv}}, x_{\mathrm{target}, i}\right) &amp; =\frac{1}{d_{\mathrm{adv}}} \sum_{j=1}^{d_{\mathrm{adv}}} a b s\left(r\left(x_{\mathrm{adv}, j}, x_{\mathrm{target}, i}\right)\right), \\
+\operatorname{corr}\left(v, x_{\mathrm{target}, i}\right) &amp; =\frac{1}{c} \sum_{j=1}^{c} a b s\left(r\left(v_{j}, x_{\mathrm{target}, i}\right)\right),
 \end{aligned}$$&lt;p&gt;其中$r(a,b)$表示a和b之间的皮尔逊相关系数，$abs(\cdot)$表示绝对值。 本质上，两个系数越大，对手越容易通过生成回归网络攻击学习特征相关性。&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lbqaq.top/p/feature-inference-attack-on-model-predictions-in-vertical-federated-learning/IMAGE/image-20230103112750781.png"
 width="1747"

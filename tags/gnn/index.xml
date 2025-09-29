@@ -139,7 +139,7 @@ data-flex-basis="165px"
 &lt;li&gt;MeanAggr：收集所有分片模型的后验向量，然后求平均值，得到聚合后验，选取最高后验值。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;作者提出了一种基于学习的聚合方法LBAggr，为每个分片模型分配一个重要性分数，通过以下损失函数进行学习：&lt;/p&gt;
-$$\min \_{\alpha} \underset{w \in \mathcal{G}\_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum\_{i=0}^{m} \alpha\_{i} \cdot \mathcal{F}\_{i}\left(X\_{w}, \mathcal{N}\_{w}\right), y\right)\right]+\lambda \sum\_{i=0}^{m}\left\|\alpha\_{i}\right\|$$&lt;p&gt;其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。&lt;/p&gt;
+$$\min _{\alpha} \underset{w \in \mathcal{G}_{o}}{\mathbb{E}}\left[\mathcal{L}\left(\sum_{i=0}^{m} \alpha_{i} \cdot \mathcal{F}_{i}\left(X_{w}, \mathcal{N}_{w}\right), y\right)\right]+\lambda \sum_{i=0}^{m}\left\|\alpha_{i}\right\|$$&lt;p&gt;其中$X_{w}$和$\mathcal{N}_{w}$是训练图中节点$w$的特征向量和邻域，$y$是$w$的真实标签，$\mathcal{F}_{i}(\cdot)$表示分片模型$i$，$\alpha_{i}$是$\mathcal{F}_{i}(\cdot)$的重要性得分，$m$是分片总数。将所有重要性分数的总和调节为 1。&lt;/p&gt;
 &lt;p&gt;作者通过梯度下降来找到最优的$\alpha$，从而解决最优化问题。然而，直接梯度下降会导致$\alpha$为负数。为了解决此问题，作者使用softmax 函数在每次迭代中进行归一化处理。&lt;/p&gt;
 &lt;p&gt;为了提升运行速度，作者指出可以使用训练图中 10% 的节点进行重新训练。&lt;/p&gt;
 &lt;h2 id="grapheraser"&gt;&lt;a href="#grapheraser" class="header-anchor"&gt;&lt;/a&gt;GraphEraser

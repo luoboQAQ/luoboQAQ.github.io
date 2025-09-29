@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LaTeX on luoboQAQ</title><link>https://lbqaq.top/tags/latex/</link><description>Recent content in LaTeX on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 20 Jul 2023 16:50:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/latex/index.xml" rel="self" type="application/rss+xml"/><item><title>让Hugo优雅的显示公式</title><link>https://lbqaq.top/p/latex-in-hugo/</link><pubDate>Mon, 02 Jan 2023 22:19:15 +0800</pubDate><guid>https://lbqaq.top/p/latex-in-hugo/</guid><description>&lt;img src="https://lbqaq.top/p/latex-in-hugo/103706981.webp" alt="Featured image of post 让Hugo优雅的显示公式" /&gt;&lt;p&gt;继上文《&lt;a class="link" href="https://lbqaq.top/p/latex-in-ppt/" target="_blank" rel="noopener"
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LaTeX on luoboQAQ</title><link>https://lbqaq.top/tags/latex/</link><description>Recent content in LaTeX on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 29 Sep 2025 10:50:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/tags/latex/index.xml" rel="self" type="application/rss+xml"/><item><title>让Hugo优雅的显示公式</title><link>https://lbqaq.top/p/latex-in-hugo/</link><pubDate>Mon, 02 Jan 2023 22:19:15 +0800</pubDate><guid>https://lbqaq.top/p/latex-in-hugo/</guid><description>&lt;img src="https://lbqaq.top/p/latex-in-hugo/103706981.webp" alt="Featured image of post 让Hugo优雅的显示公式" /&gt;&lt;p&gt;继上文《&lt;a class="link" href="https://lbqaq.top/p/latex-in-ppt/" target="_blank" rel="noopener"
 &gt;在PowerPoint里优雅的插入LaTeX公式&lt;/a&gt;》后，没想到我又遇到了LaTeX相关的问题，这次是我博客无法正确的显示公式了。当然，最简单和粗暴的方法就是直接转成图片，但本着能折腾就折腾的精神，还是研究了一下如何优雅的解决。&lt;/p&gt;
 &lt;h2 id="问题复现"&gt;&lt;a href="#%e9%97%ae%e9%a2%98%e5%a4%8d%e7%8e%b0" class="header-anchor"&gt;&lt;/a&gt;问题复现
 &lt;/h2&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/latex-in-hugo/IMAGE/image-20230102213822926.png"
@@ -146,6 +146,8 @@ data-flex-basis="183px"
 &lt;/span&gt;&lt;span class="lnt"&gt; 99
 &lt;/span&gt;&lt;span class="lnt"&gt;100
 &lt;/span&gt;&lt;span class="lnt"&gt;101
+&lt;/span&gt;&lt;span class="lnt"&gt;102
+&lt;/span&gt;&lt;span class="lnt"&gt;103
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class="lntd"&gt;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-c++" data-lang="c++"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;fstream&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;
@@ -204,11 +206,13 @@ data-flex-basis="183px"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;is_double&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;maths&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;push_back&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pair&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="s"&gt;&amp;#34; &amp;#34;&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DEBUG&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;string&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;substr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;end&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;cout&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;math&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;endl&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
@@ -252,12 +256,16 @@ data-flex-basis="183px"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;由于只是随手写的小工具，所以也没有分函数啥的，直接全放一起了。&lt;/p&gt;
-&lt;p&gt;这个程序会匹配&lt;code&gt;$...$&lt;/code&gt;和&lt;code&gt;$$...$$&lt;/code&gt;这两种格式，将其中所有的&lt;code&gt;_&lt;/code&gt;替换为&lt;code&gt;\_&lt;/code&gt;，所有的&lt;code&gt;\\&lt;/code&gt;替换为&lt;code&gt;\\\\&lt;/code&gt;，同时将文件在原位置保存为&lt;code&gt;index.md&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这个程序会匹配&lt;code&gt;$...$&lt;/code&gt;&lt;del&gt;和&lt;code&gt;$$...$$&lt;/code&gt;这两种格式&lt;/del&gt;，(在新版的hogo中，对于块级别的公式将不会去转移了，所以无需处理&lt;code&gt;$$...$$&lt;/code&gt;），将其中所有的&lt;code&gt;_&lt;/code&gt;替换为&lt;code&gt;\_&lt;/code&gt;，所有的&lt;code&gt;\\&lt;/code&gt;替换为&lt;code&gt;\\\\&lt;/code&gt;，同时将文件在原位置保存为&lt;code&gt;index.md&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;这样每次写好文章，只要将其拖到该程序上就能自动转换完成了。&lt;/p&gt;
 &lt;p&gt;这样就能确保本地查看编辑和网页都可以正确显示公式了。缺点则是每个有公式的文件都会多保存一份，不过文本文件并不是很大，所以也无伤大雅。&lt;/p&gt;
 &lt;p&gt;当然，这个程序还有优化的空间，比如自动对含有公式的文章进行处理等等。不过看这我文章更新的速度🕊️，手动拖一下还是可以接受的。&lt;/p&gt;
 &lt;h2 id="更新记录"&gt;&lt;a href="#%e6%9b%b4%e6%96%b0%e8%ae%b0%e5%bd%95" class="header-anchor"&gt;&lt;/a&gt;更新记录
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;2023.7.20：&lt;/strong&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;2025.9.29：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;适配最新的hugo程序&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;2023.7.20：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;增加对&lt;code&gt;\{&lt;/code&gt;和&lt;code&gt;\}&lt;/code&gt;的处理&lt;/li&gt;
 &lt;/ul&gt;

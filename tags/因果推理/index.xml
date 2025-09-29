@@ -36,7 +36,7 @@ data-flex-basis="493px"
 &lt;/h3&gt;&lt;p&gt;首先，作者在具有交叉熵损失的毒数据集上训练 $f_B$，目的是捕获后门的虚假相关性。由于中毒数据仍然包含因果关系，作者有意通过早期停止策略来增强 $f_B$ 中的混杂偏差。具体来说，作者只对 $f_B$ 进行了少数几个时期的训练（例如，5 个时期），并在训练 $f_C$ 时冻结了其参数。这是因为先前的研究表明，后门关联比因果关系更容易被学习。&lt;/p&gt;
 &lt;h3 id="干净模型训练"&gt;&lt;a href="#%e5%b9%b2%e5%87%80%e6%a8%a1%e5%9e%8b%e8%ae%ad%e7%bb%83" class="header-anchor"&gt;&lt;/a&gt;干净模型训练
 &lt;/h3&gt;&lt;p&gt;作者提出了具有信息瓶颈和互信息最小化的训练目标：&lt;/p&gt;
-$$\mathcal{L}\_C=\min\underbrace{\beta I(Z;X)}\_{1}-\underbrace{I(Z;Y)}\_{2}+\underbrace{I(Z;R)}\_{3}$$&lt;p&gt;其中$I(.;.)$​表示互信息&lt;/p&gt;
+$$\mathcal{L}_C=\min\underbrace{\beta I(Z;X)}_{1}-\underbrace{I(Z;Y)}_{2}+\underbrace{I(Z;R)}_{3}$$&lt;p&gt;其中$I(.;.)$​表示互信息&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;①用来限制来自输入的不相关信息&lt;/li&gt;
 &lt;li&gt;②用来捕获变量 $Z$​ 用于标签预测的核心信息&lt;/li&gt;
@@ -45,32 +45,32 @@ $$\mathcal{L}\_C=\min\underbrace{\beta I(Z;X)}\_{1}-\underbrace{I(Z;Y)}\_{2}+\un
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;互信息&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;互信息&lt;/strong&gt;（mutual Information，MI）度量了两个变量之间相互依赖的程度。具体来说，对于两个随机变量，MI是一个随机变量由于已知另一个随机变量而减少的“信息量”（单位通常为比特）。&lt;/p&gt;
-$$I(X;Y)=D\_{\mathrm{KL}}(p(x,y)\|p(x)\otimes p(y))$$&lt;p&gt;直观上，互信息度量 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 共享的信息：它度量知道这两个变量其中一个，对另一个不确定度减少的程度。例如，如果 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 相互独立，则知道 &lt;em&gt;X&lt;/em&gt; 不对 &lt;em&gt;Y&lt;/em&gt; 提供任何信息，反之亦然，所以它们的互信息为零。在另一个极端，如果 &lt;em&gt;X&lt;/em&gt; 是 &lt;em&gt;Y&lt;/em&gt; 的一个确定性函数，且 &lt;em&gt;Y&lt;/em&gt; 也是 &lt;em&gt;X&lt;/em&gt; 的一个确定性函数，那么传递的所有信息被 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 共享：知道 &lt;em&gt;X&lt;/em&gt; 决定 &lt;em&gt;Y&lt;/em&gt; 的值，反之亦然。&lt;/p&gt;&lt;/blockquote&gt;
+$$I(X;Y)=D_{\mathrm{KL}}(p(x,y)\|p(x)\otimes p(y))$$&lt;p&gt;直观上，互信息度量 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 共享的信息：它度量知道这两个变量其中一个，对另一个不确定度减少的程度。例如，如果 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 相互独立，则知道 &lt;em&gt;X&lt;/em&gt; 不对 &lt;em&gt;Y&lt;/em&gt; 提供任何信息，反之亦然，所以它们的互信息为零。在另一个极端，如果 &lt;em&gt;X&lt;/em&gt; 是 &lt;em&gt;Y&lt;/em&gt; 的一个确定性函数，且 &lt;em&gt;Y&lt;/em&gt; 也是 &lt;em&gt;X&lt;/em&gt; 的一个确定性函数，那么传递的所有信息被 &lt;em&gt;X&lt;/em&gt; 和 &lt;em&gt;Y&lt;/em&gt; 共享：知道 &lt;em&gt;X&lt;/em&gt; 决定 &lt;em&gt;Y&lt;/em&gt; 的值，反之亦然。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;然而，上述的公式并不能直接求解，为此，作者放宽了限制。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;公式1&lt;/strong&gt;&lt;/p&gt;
 $$\begin{aligned}
-I(Z;X)&amp; =\sum\_x\sum\_zp(z,x)\mathrm{log}\frac{p(z,x)}{p(z)p(x)} \\\\
-&amp;=\sum\_x\sum\_zp(z|x)p(x)\mathrm{log}\frac{p(z|x)p(x)}{p(z)p(x)} \\\\
-&amp;=\sum\_x\sum\_zp(z|x)p(x)\mathrm{log~}p(z|x)-\sum\_zp(z)\mathrm{log~}p(z)
+I(Z;X)&amp; =\sum_x\sum_zp(z,x)\mathrm{log}\frac{p(z,x)}{p(z)p(x)} \\
+&amp;=\sum_x\sum_zp(z|x)p(x)\mathrm{log}\frac{p(z|x)p(x)}{p(z)p(x)} \\
+&amp;=\sum_x\sum_zp(z|x)p(x)\mathrm{log~}p(z|x)-\sum_zp(z)\mathrm{log~}p(z)
 \end{aligned}$$&lt;p&gt;然而，边际概率$p(z)=\sum_xp(z|x)p(x)$在实践中很难计算，为此作者通过变分分布$q(z)$来近似$p(z)$，由于KL散度是非负的，根据吉布斯不等式：$D_{\mathrm{KL}}(p(z)||q(z)) \geq 0 \Rightarrow -\sum_zp(z)\mathrm{log~}p(z)\leq-\sum_zp(z)\mathrm{log~}q(z)$&lt;/p&gt;
 &lt;p&gt;将其代入上式：&lt;/p&gt;
 $$\begin{aligned}
-I(Z;X)&amp; \leq\sum\_xp(x)\sum\_zp(z|x)\mathrm{log~}p(z|x)-\sum\_zp(z)\mathrm{log~}q(z) \\\\
-&amp;=\sum\_xp(x)\sum\_zp(z|x)\mathrm{log}\frac{p(z|x)}{q(z)} \\\\
-&amp;=\sum\_xp(x)D\_{\mathrm{KL}}(p(z|x)||q(z))
+I(Z;X)&amp; \leq\sum_xp(x)\sum_zp(z|x)\mathrm{log~}p(z|x)-\sum_zp(z)\mathrm{log~}q(z) \\
+&amp;=\sum_xp(x)\sum_zp(z|x)\mathrm{log}\frac{p(z|x)}{q(z)} \\
+&amp;=\sum_xp(x)D_{\mathrm{KL}}(p(z|x)||q(z))
 \end{aligned}$$&lt;p&gt;作者假设$p(z|x)=\mathcal{N}(\mu(x),\mathrm{diag}\{\sigma^2(x)\})$是高斯分布，其中$\mu(x)$是$x$的编码嵌入，$\mathrm{diag}\{\sigma^2(x)\}=\{\sigma_d^2\}_{d=1}^D$表示方差的对角矩阵，并假设$q(z)=\mathcal{N}(0,I)$，于是上式就可以改写成：&lt;/p&gt;
-$$D\_{\mathrm{KL}}(p(z|x)||q(z))=\frac{1}{2}||\mu(x)||\_2^2+\frac{1}{2}\sum\_d(\sigma\_d^2-\mathrm{log}\sigma\_d^2-1)$$&lt;p&gt;为了便于优化作者将$\sigma(x)$定义为全零矩阵，所以$z=\mu(x)$成为确定性嵌入。&lt;/p&gt;
+$$D_{\mathrm{KL}}(p(z|x)||q(z))=\frac{1}{2}||\mu(x)||_2^2+\frac{1}{2}\sum_d(\sigma_d^2-\mathrm{log}\sigma_d^2-1)$$&lt;p&gt;为了便于优化作者将$\sigma(x)$定义为全零矩阵，所以$z=\mu(x)$成为确定性嵌入。&lt;/p&gt;
 &lt;p&gt;最后推导出来，公式一就相当于直接在嵌入向量 $z$ 上应用L2正则化&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;公式2&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;根据互信息的定义，有$I(Z;Y)=H(Y)-H(Y|Z)$，其中$H(·)$ 和 $H(·|·)$ 分别表示熵和条件熵。由于$H(Y)$ 是一个正常数，可以忽略不计，因此有以下不等式：&lt;/p&gt;
 $$-I(Z;Y)\leq H(Y|Z)$$&lt;p&gt;在实验中，$H(Y|Z)$可以计算并优化为交叉熵损失。为了进一步鼓励 $f_C$ 和 $f_B$ 之间的独立性，作者固定了 $f_B$ 的参数，并使用样本加权交叉熵损失来训练 $f_C$，权重的计算公式为：&lt;/p&gt;
-$$w(x)=\frac{CE(f\_B(x),y)}{CE(f\_B(x),y)+CE(f\_C(x),y)}$$&lt;p&gt;对于 $f_B$上损失较大的样本，$w(x)$接近1;而当损失非常小时，$w(x)$接近 0。从而让 $f_C$专注于 $f_B$的“难”示例，以鼓励其独立性。&lt;/p&gt;
+$$w(x)=\frac{CE(f_B(x),y)}{CE(f_B(x),y)+CE(f_C(x),y)}$$&lt;p&gt;对于 $f_B$上损失较大的样本，$w(x)$接近1;而当损失非常小时，$w(x)$接近 0。从而让 $f_C$专注于 $f_B$的“难”示例，以鼓励其独立性。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;公式3&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;基于互信息和KL散度的关系，有$I(Z;R)=D_{\mathrm{KL}}(p(Z,R)||p(Z)p(R))$，即$I(Z;R)$等价于联合分布$p(Z,R)$和两个边际$p(Z)p(R)$的乘积之间的KL散度。&lt;/p&gt;
 &lt;p&gt;为了最小化混杂惩罚项，作者采用了对抗学习。判别器$D_\phi$被训练成将联合分布$p(Z,R)$分类为1，将边际分布$p(Z)p(R)$分类为0。边际分布$p(Z)p(R)$的样本是通过对$p(Z,R)$训练批次中样本$(z,r)$的单个表示进行shuffle而获得的。优化函数如下：&lt;/p&gt;
-$$\mathcal{L}\_{adv}=\min\_{\theta\_C}\max\_\phi\mathbb{E}\_{p(z,r)}[D\_\phi(z,r)]-\mathbb{E}\_{p(z)p(r)}[D\_\phi(z,r)]$$&lt;p&gt;其中$\theta_C$ 和$\phi$分别表示 $f_C$ 和 $D_\phi$ 的参数。&lt;/p&gt;
+$$\mathcal{L}_{adv}=\min_{\theta_C}\max_\phi\mathbb{E}_{p(z,r)}[D_\phi(z,r)]-\mathbb{E}_{p(z)p(r)}[D_\phi(z,r)]$$&lt;p&gt;其中$\theta_C$ 和$\phi$分别表示 $f_C$ 和 $D_\phi$ 的参数。&lt;/p&gt;
 &lt;p&gt;综上，$f_C$的损失函数为：&lt;/p&gt;
-$$\mathcal{L}\_C=\mathcal{L}\_{wce}+\mathcal{L}\_{adv}+\beta||\mu(x)||\_2^2$$&lt;p&gt;​&lt;/p&gt;
+$$\mathcal{L}_C=\mathcal{L}_{wce}+\mathcal{L}_{adv}+\beta||\mu(x)||_2^2$$&lt;p&gt;​&lt;/p&gt;
 &lt;p&gt;算法的伪代码如下：&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://lbqaq.top/p/backdoor-defense-via-deconfounded-representation-learning/IMAGE/image-20240506164026425.png"
 width="989"

@@ -1,4 +1,216 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>luoboQAQ</title><link>https://lbqaq.top/</link><description>Recent content on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 11 Aug 2025 20:57:37 +0800</lastBuildDate><atom:link href="https://lbqaq.top/index.xml" rel="self" type="application/rss+xml"/><item><title>Arch Linux的安装流程与常用配置</title><link>https://lbqaq.top/p/archlinux-install/</link><pubDate>Mon, 11 Aug 2025 20:57:37 +0800</pubDate><guid>https://lbqaq.top/p/archlinux-install/</guid><description>&lt;img src="https://lbqaq.top/p/archlinux-install/128032920.webp" alt="Featured image of post Arch Linux的安装流程与常用配置" /&gt;&lt;h2 id="前言"&gt;&lt;a href="#%e5%89%8d%e8%a8%80" class="header-anchor"&gt;&lt;/a&gt;前言
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>luoboQAQ</title><link>https://lbqaq.top/</link><description>Recent content on luoboQAQ</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 29 Sep 2025 10:18:00 +0800</lastBuildDate><atom:link href="https://lbqaq.top/index.xml" rel="self" type="application/rss+xml"/><item><title>PromptCARE: Prompt Copyright Protection by Watermark Injection and Verification</title><link>https://lbqaq.top/p/promptcare/</link><pubDate>Mon, 29 Sep 2025 10:18:00 +0800</pubDate><guid>https://lbqaq.top/p/promptcare/</guid><description>&lt;img src="https://lbqaq.top/p/promptcare/134905264_p11.webp" alt="Featured image of post PromptCARE: Prompt Copyright Protection by Watermark Injection and Verification" /&gt;&lt;h2 id="介绍"&gt;&lt;a href="#%e4%bb%8b%e7%bb%8d" class="header-anchor"&gt;&lt;/a&gt;介绍
+&lt;/h2&gt;&lt;p&gt;预训练的大型语言模型，近年来取得了惊人的成功，在无数下游任务上展示了卓越的能力。这引发了公众使用基于 LLM 的云服务来解决工作和个人生活中的各种日常任务的迅速激增。这些基于 LLM 的云服务的一个显着例子是 ChatGPT，据报道，它在短短 8 个月内就达到了 1 亿公共用户。&lt;/p&gt;
+&lt;p&gt;在这一波浪潮中，提示技术在适应不同用户请求的各种下游任务方面发挥着至关重要的作用。给定用户的查询由查询句子及其相关任务组成，提示是附加到查询句子的一系列标记，它可以指导预训练的 LLM 产生完成所需任务的高度准确的结果。LLM 针对特定任务的下游性能可能会受到提示的质量和适用性的显着影响。&lt;/p&gt;
+&lt;p&gt;由于自动设计的提示很难被人类解释。因此，普通用户缺乏为其特定任务选择合适的提示的专业知识。提示选择的责任通常落在LLM服务提供商身上，他们拥有匹配最合适的提示的专业知识和动力，以提供准确的结果，从而确保用户满意。&lt;/p&gt;
+&lt;div class="notice notice-note" &gt;
+&lt;div class="notice-title"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(200, 65%, 65%)"&gt;&lt;path d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zm-248 50a46 46 0 100 92 46 46 0 000-92zm-44-165l8 136c0 6 5 11 12 11h48c7 0 12-5 12-11l8-136c0-7-5-13-12-13h-64c-7 0-12 6-12 13z"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;p&gt;这篇文章所保护的prompt是针对NLP里语义分类等任务的prompt，这里的prompt并不是一个完整的自然语句，而是通过模型优化出来的一些词汇。具体可以看下面的背景知识。&lt;/p&gt;&lt;/div&gt;
+&lt;p&gt;在目前的研究当中，已经有针对模型和数据集的版权保护工作，包括指纹识别、数据集推理和水印。在所有这些方法中，由于其有效性，水印是一种很有前途的及时版权保护候选技术。但是，为模型和数据集版权保护而设计的现有水印并不容易适用于提示版权保护。事实上，注入和验证提示水印的过程带来了相当大的挑战。首先，将水印注入低熵提示（尤其是那些只有几个标记的提示）是很困难的。为了应对这一挑战，水印方案应依靠预训练 LLM 的上下文推理能力来有效地响应输入标记的微小变化。其次，在处理序列分类时，输出仅包含几个离散标记，使用低熵文本验证水印变得具有挑战性。此外，一旦将被盗的提示部署到在线提示服务，攻击者可能会从查询中筛选单词并截断预测输出。&lt;/p&gt;
+&lt;p&gt;为了解决这一问题，作者通过水印注入和验证来保护提示的版权。具体而言，该方法包括两个阶段：水印注入和水印验证。在水印注入阶段，PromptCARE选择任务相关的低熵词作为信号词，并将它们插入到标签词中形成一个组合词。同时，它还激活了预先定义的触发器，以便在查询时返回信号词。在水印验证阶段，PromptCARE构造了一个模板用于验证水印行为，并使用秘密密钥激活水印行为以提取信号词。&lt;/p&gt;
+&lt;h3 id="贡献"&gt;&lt;a href="#%e8%b4%a1%e7%8c%ae" class="header-anchor"&gt;&lt;/a&gt;贡献
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;首次系统性地研究了“提示即服务”（PraaS）的版权保护问题，并深入探讨了在PraaS环境下未经授权使用提示的风险。&lt;/li&gt;
+&lt;li&gt;提出一种用于验证可疑大型语言模型服务提供商所用提示版权的提示水印注入与验证框架。&lt;/li&gt;
+&lt;li&gt;基于六个知名基准数据集，采用三种主流预训练大模型（BERT、RoBERTa 和 Facebook OPT-1.3B），全面评估了PromptCARE的有效性、无害性、鲁棒性和隐蔽性。同时，我们还开展了一项案例研究，以检验PromptCARE在大型商用语言模型LLaMA上的表现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="背景"&gt;&lt;a href="#%e8%83%8c%e6%99%af" class="header-anchor"&gt;&lt;/a&gt;背景
+&lt;/h2&gt;&lt;p&gt;作者在这里介绍了一些比较重要的概念，在此我也将其摘录下来：&lt;/p&gt;
+&lt;h3 id="提示工程"&gt;&lt;a href="#%e6%8f%90%e7%a4%ba%e5%b7%a5%e7%a8%8b" class="header-anchor"&gt;&lt;/a&gt;提示工程
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250923094010800.png"
+width="898"
+height="239"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250923094010800_hu_6167bc9fdbb24279.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250923094010800_hu_8f5b64fd36134395.png 1024w"
+loading="lazy"
+alt="prompt示例"
+class="gallery-image"
+data-flex-grow="375"
+data-flex-basis="901px"
+&gt;&lt;/p&gt;
+&lt;p&gt;在&lt;strong&gt;序列分类&lt;/strong&gt;这个下游任务中，提示工程并不是像我理解的那样去优化提示的自然语言，而是按照固定的格式去优化提示词，从而让模型更好的去输出对应的词语。在此任务中，下游任务的训练集是一个由元组组成的列表，表示为$(x,\mathcal{V}_y)\in\mathcal{D}_t$，其中$x$是查询句，$\mathcal{V}$则表示“label tokens”。具体来说，“label tokens”是一组$K$个词汇，它们直接映射到类别$y$上。提示学习的目标就是最大化[MASK] token和“label tokens”的相似度。例如，假设有一项情感分析任务，给定输入如“[x]=这部电影里有很多有趣的内容。[MASK]”，那么提示$x_{\mathrm{prompt}}$可以是填入模板$[x][x_{\mathrm{prompt}}][\mathrm{MASK}]$中的若干个词，以提高预训练大模型生成“精彩”或“棒极了”等回复的可能性。其形式化表达如下：&lt;/p&gt;
+$$
+\mathcal{L}=\sum_{w\in\mathcal{V}_y}\log P(\mathrm{[MASK]}=w\mid x,x_\mathrm{prompt},\theta),
+$$&lt;p&gt;其中$\mathcal{V}_y$表示与标签$y$对应的标签标记，而$\theta$则代表预训练大模型的参数。&lt;/p&gt;
+&lt;h3 id="提示形式"&gt;&lt;a href="#%e6%8f%90%e7%a4%ba%e5%bd%a2%e5%bc%8f" class="header-anchor"&gt;&lt;/a&gt;提示形式
+&lt;/h3&gt;&lt;p&gt;目前的提示工程主要将自动优化提示分为两类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;离散提示「discrete prompts」：生成的是原始的Token&lt;/li&gt;
+&lt;li&gt;连续提示「continuous prompts」：生成的是提示的嵌入&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925100329932.png"
+width="831"
+height="744"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925100329932_hu_1710659dfb008aee.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925100329932_hu_69962315d07a6be0.png 1024w"
+loading="lazy"
+alt="提示样式"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="268px"
+&gt;&lt;/p&gt;
+&lt;p&gt;对于这两种类型的提示，作者在本文中对比了3中方法：AUTOPROMPT、Prompt Tuning和P-Tuning v2&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925105359816.png"
+width="1003"
+height="406"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925105359816_hu_cddd116374a5c049.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925105359816_hu_feb7a2742fba6307.png 1024w"
+loading="lazy"
+alt="AUTOPROMPT提示模板"
+class="gallery-image"
+data-flex-grow="247"
+data-flex-basis="592px"
+&gt;&lt;/p&gt;
+&lt;p&gt;AUTOPROMPT：引入了一种模板概念，表示为$[x][x_{\mathrm{prompt}}][\mathrm{MASK}]$，以方便提示的训练。在离散提示的上下文中，用$x_{\mathrm{prompt}}=[p_1,&amp;hellip;,p_m]$表示包含$m$个可训练标记的提示。最初，提示$x_{\mathrm{prompt}}$被设置为随机标记。在使用训练集$\mathcal{D}_t$进行优化的过程中，AUTOPROMPT会逐步用最优词汇替换提示标记。具体而言，该方法通过将预训练的大型语言模型 LLM 反向输入多个批次的样本，以累积提示相关的梯度。然而，由于原始输入的离散特性，直接采用随机梯度下降法（SGD）来寻找最优提示颇具挑战性。因此，AUTOPROMPT 将词嵌入与累积的梯度相乘，从而筛选出能带来最大梯度提升的前$k$个词汇，这些词汇即成为提示 prompt 的候选词。给定输入句子$x$和初始提示 $x_{\mathrm{prompt}}$，候选词的生成过程如下：&lt;/p&gt;
+$$
+\mathcal{V}_{\mathrm{cand}}=\underset{w\in\mathcal{V}}{\operatorname*{\operatorname*{top-}}}k\left[\boldsymbol{e}(w)^T\nabla\log P\left(\left[\mathrm{MASK}\right]\mid x,x_{\mathrm{prompt}},\theta\right)\right]
+$$&lt;p&gt;其中，$\mathcal{V}_{\mathrm{cand}}$ 是候选词汇集，$\boldsymbol{e}(w)$ 是词$w$的输入嵌入。在推理阶段，这些经过优化的提示将被固定，并使用下游任务的测试集 $\mathcal{D}_{test}$ 来评估预训练 LLM 的下游准确率。&lt;/p&gt;
+&lt;p&gt;Prompt Tuning：这是针对连续提示的微调，它直接将可训练的张量注入到嵌入层中，随后将请求发送至预训练的LLM。&lt;/p&gt;
+&lt;p&gt;对于给定的输入序列$x=[x_1,x_2,&amp;hellip;,x_n]$，连续提示方法会计算词嵌入，并将可训练的张量按以下方式注入：&lt;/p&gt;
+$$
+[\mathbf{e}(x_1),...,\mathbf{e}(x_n),t_1,...,t_m,\mathbf{e}([\mathbf{MASK}])],
+$$&lt;p&gt;其中，$\mathbf{e}(x)$ 表示词$x$的嵌入表示，$t_i(0 ≤ i ≤ m)$是嵌入层中可训练的张量。在连续提示的上下文中，提示被表示为 $x_{\text{prompt}}=[t_{1},&amp;hellip;, t_{m}]$。&lt;/p&gt;
+&lt;p&gt;为了优化提示，连续提示方法利用下游任务训练集$\mathcal{D}_{t}$计算损失。随后，提示$t_{1},&amp;hellip;, t_{m}$可通过SGD进行可微优化：&lt;/p&gt;
+$$ {t}_{1:m} = \mathop{\arg\min}\limits_{t} \sum_{x \in \mathcal{D}_{t}} \mathcal{L}(x, t_{1:m}, \theta),$$&lt;h3 id="水印移除攻击"&gt;&lt;a href="#%e6%b0%b4%e5%8d%b0%e7%a7%bb%e9%99%a4%e6%94%bb%e5%87%bb" class="header-anchor"&gt;&lt;/a&gt;水印移除攻击
+&lt;/h3&gt;&lt;p&gt;针对提示水印移除攻击，即分别采用同义词替换和提示微调方法，分别适用于离散提示与连续提示场景。&lt;/p&gt;
+&lt;p&gt;对于离散提示，攻击者可以检索其同义词，并替换提示中指定数量的$N_d$标记。正式来说，给定一个同义词替换函数$f_{\textit{syn}}$，这种移除攻击可被表述为：&lt;/p&gt;
+$$
+\mathcal{R}(x_{\text{prompt}}, N_{d}) = [f_{\textit{syn}}(p_{1}),...,f_{\textit{syn}}(p_{N_{d}}),...,p_{m}].
+$$&lt;p&gt;相比之下，对于连续提示，攻击者可利用下游任务的训练集$\mathcal{D}_{t}$，对提示进行$N_{c}$次迭代的微调。&lt;/p&gt;
+&lt;h2 id="问题构造"&gt;&lt;a href="#%e9%97%ae%e9%a2%98%e6%9e%84%e9%80%a0" class="header-anchor"&gt;&lt;/a&gt;问题构造
+&lt;/h2&gt;&lt;h3 id="问题定义"&gt;&lt;a href="#%e9%97%ae%e9%a2%98%e5%ae%9a%e4%b9%89" class="header-anchor"&gt;&lt;/a&gt;问题定义
+&lt;/h3&gt;&lt;p&gt;作者探讨了PraaS环境下的提示水印注入与验证问题，这涉及两个主体：作为防御方的&lt;strong&gt;提示提供者&lt;/strong&gt;，以及未经授权的&lt;strong&gt;LLM服务提供商&lt;/strong&gt;——即攻击者。防御方拥有提示的版权，并在发布前嵌入水印；而攻击者则部署了一个基于预训练LLM的开放服务，为公众用户提供多种下游任务。为了提升查询结果的准确性，从而更好地满足用户需求，该LLM服务提供商未经正式授权便擅自使用了防御方的提示。这种未经授权的提示使用行为，使攻击者能够快速推出PraaS服务，大幅节省了自行定制提示所需的时间和成本。这种被非法使用的提示，被称为提示Dprompt的“复制版”。为验证提示的版权归属，防御方会向可疑的LLM服务提供商提交预先设计好的查询，以检测其植入的水印特征。&lt;/p&gt;
+&lt;div class="notice notice-note" &gt;
+&lt;div class="notice-title"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" class="icon notice-icon" viewBox="0 0 512 512" fill="hsl(200, 65%, 65%)"&gt;&lt;path d="M504 256a248 248 0 11-496 0 248 248 0 01496 0zm-248 50a46 46 0 100 92 46 46 0 000-92zm-44-165l8 136c0 6 5 11 12 11h48c7 0 12-5 12-11l8-136c0-7-5-13-12-13h-64c-7 0-12 6-12 13z"/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;p&gt;在作者讨论的场景中，恶意攻击者是LLM服务提供商。所以对于攻击者来说，是能拿到完整的提示的。&lt;/p&gt;&lt;/div&gt;
+&lt;h3 id="评估指标"&gt;&lt;a href="#%e8%af%84%e4%bc%b0%e6%8c%87%e6%a0%87" class="header-anchor"&gt;&lt;/a&gt;评估指标
+&lt;/h3&gt;&lt;p&gt;为了验证方法的可行性，作者指定了四个维度的评估指标：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;有效性：在提示验证中实现高检测精度至关重要，这有助于有效识别未经授权的提示，同时最大限度地减少对合法提示的误报。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;无害性：为尽量减少即时水印注入对合法大模型服务提供商的影响，必须确保其对提示的正常运行几乎无显著影响。因此，即使在水印注入后，经过水印标记的提示仍应保持对常规下游任务的实用性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;鲁棒性：水印方案应具备 robustness，以防止攻击者通过同义词替换和提示微调来逃避验证。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;隐蔽性：秘密密钥需满足两个标准以增强隐蔽性：一是其消息负载较低，便于传输；二是能够在查询句中保持上下文自洽。秘密密钥的隐蔽性至关重要，可有效避免被未经授权的大型语言模型服务提供商过滤。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="方法"&gt;&lt;a href="#%e6%96%b9%e6%b3%95" class="header-anchor"&gt;&lt;/a&gt;方法
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925144624348.png"
+width="1798"
+height="707"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925144624348_hu_5a616bc9cbab4c2b.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925144624348_hu_98ea204084354c30.png 1024w"
+loading="lazy"
+alt="框架图"
+class="gallery-image"
+data-flex-grow="254"
+data-flex-basis="610px"
+&gt;&lt;/p&gt;
+&lt;p&gt;PromptCARE 包含两个连续的阶段，即水印注入和水印验证。在前一阶段，PromptCARE 将$K$个“signal tokens”$\mathcal{V}_{t}$ 注入到“label tokens”$\mathcal{V}_{y}$ 中，构建出组合后的“label tokens”$\mathcal{V}_{y}^{&amp;rsquo;} = \mathcal{V}_{y} \cup \mathcal{V}_{t}$。“signal tokens”用作独特的水印，当查询句附带特定的秘密密钥时，该水印即可被激活。PromptCARE 将水印注入视为一种双层训练任务，并与原始下游任务同步进行训练。对于 PromptCARE 的双层训练，其目标分为两方面：一是确保当查询为带有秘密密钥的验证请求时，能够触发预设的水印行为；二是保证在查询为无秘密密钥的普通请求时，模型仍能为原始下游任务提供高度精准的输出结果。在后一阶段，PromptCARE 利用模板“$[x][x_{\mathrm{prompt}}][\mathrm{MASK}]$”构建验证查询，其中“trigger”充当秘密密钥，以激活水印行为。提示调优的目标是准确预测输入序列，使其映射到每个标签的“label tokens”中；而水印任务的目的是促使预训练的 LLM 返回来自“signal tokens”的标记。接下来，我们分别收集使用水印提示指令的两家防御方 PraaS 提供的预测标记，以及疑似 LLM 服务提供商的预测标记。随后，我们将这两组分布进行双样本 t 检验，以判断两者之间的统计显著性差异。&lt;/p&gt;
+&lt;h3 id="水印注入"&gt;&lt;a href="#%e6%b0%b4%e5%8d%b0%e6%b3%a8%e5%85%a5" class="header-anchor"&gt;&lt;/a&gt;水印注入
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;signal tokens选择&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;将水印注入低熵提示中颇具挑战，尤其是那些仅包含少量令牌的提示。为提高预训练大模型在处理低熵提示时返回信号令牌的概率，我们提出选择与任务相关的令牌作为信号令牌。这一方法背后的直觉是：这些令牌出现的概率高于与任务无关的令牌，因此通常更容易促使预训练大模型生成目标信号令牌。具体而言，我们提出了以下信号令牌选择原则：（1）信号令牌不应与Vy中的任何标签令牌重叠；（2）信号令牌应与下游任务相关，同时避免使用高频词汇。严格遵守这两条原则至关重要，因为大模型往往倾向于生成高频但与任务无关的词汇，这可能导致水印信号不够稳健。&lt;/p&gt;
+&lt;p&gt;作者首先向查询句中注入预定义的触发词，以获取预训练大模型对[MASK]标记的预测词。随后，我们从标签词中去除所有重复的词，并进一步计算出排名前2000的词。这些词共同构成了相关集合，其形式可表述为：
+&lt;/p&gt;
+$$
+\mathcal{V}_{r} = \text{top-}2K \{f(\text{[MASK]} \mid x+x_{\text{prompt}}, \theta) \mid x \in \mathcal{D}_{t}\}.
+$$&lt;p&gt;作者从相关集合$\mathcal{V}_{r}$中选出$K$个低频词，用作signal tokens$\mathcal{V}_{t}$。&lt;/p&gt;
+&lt;p&gt;然后，作者利用信号标记构建带水印的训练集$\mathcal{D}_{w}$和验证集$\mathcal{D}_{v}$。我们将下游任务的训练集按$(1-p)%$和$p%$的比例划分，其中$p%$的部分被选作带水印的训练集。最后，对于带水印集的标签标记，我们将其替换为$\mathcal{V}_{y}^{&amp;rsquo;} = \mathcal{V}_{y} \cup \mathcal{V}_{t}$，以每个标签为准。至于验证集$\mathcal{D}_{v}$，我们复制一份新的测试集，并对其标签标记进行相应操作。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;水印注入&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;作者通过双层优化来实现水印的注入：
+&lt;/p&gt;
+$$
+x_{\text{trigger}} = \mathop{\arg\min}\limits_{x_{\text{trigger}}}
+\mathcal{L}_{w}(f, x+x_{\text{trigger}}+ x^{*}_{\text{prompt}}, \mathcal{V}_{t}) \\
+s.t. x_{\text{prompt}}^{*} = \mathop{\arg\min}\limits_{x_{\text{prompt}}} \mathcal{L}_{p}(f, x+x_{\text{trigger}}+ x_{\text{prompt}}, \mathcal{V}_{y}),
+$$&lt;p&gt;
+其中，$\mathcal{V}_{t}$ 表示信号标记集合， $\mathcal{L}_{p}$和 $\mathcal{L}_{w}$ 分别代表提示调优损失和水印注入损失。在优化过程中，我们首先执行几步提示训练，以对提示进行预热。&lt;/p&gt;
+&lt;p&gt;低层次优化的目标是训练出一个经过优化的提示，使其在训练集$\mathcal{D}_{t}$和带水印的集合$\mathcal{D}_{w}$上均能实现高性能。
+&lt;/p&gt;
+$$
+\mathcal{L}_{p} = \sum_{w \in \mathcal{V}_y} \log P\left([\text{MASK}]=w \mid x+x_{\text{trigger}}+x_{\text{prompt}}, \theta \right),
+$$&lt;p&gt;
+其中，$y$ 表示真实标签，$\mathcal{V}_{y}$ 表示其标签标记，$w$ 则指标签标记集合 $\mathcal{V}_{y}$ 中的单词，而 $P$ 代表预训练大模型在 [MASK] 标记上生成 $w$ 的概率。&lt;/p&gt;
+&lt;p&gt;高层优化尝试检索若干个$|x_{\text{trigger}}|$触发器，从而使预训练的LLM能够生成信号标记。因此，高层优化的目标是：
+&lt;/p&gt;
+$$
+\mathcal{L}_{w} = \sum_{w \in \mathcal{V}_t} \log P\left([\text{MASK}]=w \mid x+x_{\text{trigger}}+x^{*}_{\text{prompt}}, \theta \right),
+$$&lt;p&gt;
+其中，$w$ 表示信号词集$\mathcal{V}_{t}$ 中的单词，$x^{*}_{\text{prompt}}$ 代表低层次优化中的优化后提示。需要强调的是，上层的优化是在水印集 $\mathcal{D}_{w}$上进行的。&lt;/p&gt;
+&lt;p&gt;由于单词的离散特性，直接对$x_{\text{trigger}}$求导以获得最优触发词颇具挑战性。受Hotflip的启发，我们采用了一种约束贪心搜索（CGS）算法。在我们的方法中，首先优化底层任务，以满足约束条件，从而得到更新后的$x_{\text{trigger}}$。随后，我们通过$N$步梯度累积，对触发词的损失函数进行一阶近似计算（算法2第5行）。为解决离散优化问题，我们首先确定前$k$个候选词，然后利用水印成功率（WSR）指标，选出最有效的触发词（算法2第7至16行）。
+&lt;/p&gt;
+$$
+\mathcal{V}_{cand} = \text{top-}k \left[{\mathbf{e}(x_{\text{trigger}[j]})}^{T}
+\sum_{i=1}^{N} \frac{{\nabla_{x_{\text{trigger}}[j]} \mathcal{L}_{w}}}{N} \right],
+$$&lt;p&gt;
+其中，$x_{\text{trigger}}[j]$ 表示第$j$个trigger。最后，我们在水印图像集上评估WSR，以从候选集中选出最佳触发器：
+&lt;/p&gt;
+$$
+\textit{WSR} = \frac{
+\sum_{x\in \mathcal{D}_{w}} P\left([\text{MASK}]\in \mathcal{V}_{y} \mid x+x_{\text{trigger}}+x^{*}_{\text{prompt}}, \theta \right)}{|\mathcal{D}_{w}|}.
+$$&lt;h3 id="水印验证"&gt;&lt;a href="#%e6%b0%b4%e5%8d%b0%e9%aa%8c%e8%af%81" class="header-anchor"&gt;&lt;/a&gt;水印验证
+&lt;/h3&gt;&lt;p&gt;在水印验证阶段，防御者利用验证集$\mathcal{D}_{v}$和秘密密钥$x_{\text{trigger}}$，对涉嫌使用该LLM服务提供商的提示内容进行版权验证。具体而言，防御者将优化后的触发词按模板嵌入查询序列中，例如“[$x$] [$x_{\text{trigger}}$] [MASK]”，并从该涉嫌LLM服务提供商处获取返回的令牌。我们用$P_{1}$和$P_{2}$分别表示来自两位防御者提供的PraaS系统（均采用带水印的提示指令）以及该涉嫌LLM服务提供商所预测的令牌。最后，我们将对$P_{1}$和$P_{2}$进行双样本假设检验，以判断两者之间是否存在显著差异。&lt;/p&gt;
+&lt;p&gt;假设提示$x^{&amp;rsquo;}_{\text{prompt}}$是预训练大模型$f$的可疑提示，而$x_{\text{prompt}}$是该提示经过水印处理后变为带水印版本。令变量$P_{1}=f(X; x_{\text{trigger}}, x_{\text{prompt}},\theta)$和$P_{2}=f(X;x_{\text{trigger}}, x^{&amp;rsquo;}_{\text{prompt}},\theta)$分别表示使用原始提示和水印提示时，由预训练大模型$f$对输入X预测得到的标记序列。在零假设$\mathcal{H}_{0}: \mu_{1} = \mu_{2}$成立的前提下，我们可以断言： $x^{&amp;rsquo;}_{\text{prompt}}$是 $x_{\text{prompt}}$ 的复制版本。&lt;/p&gt;
+&lt;h2 id="实验"&gt;&lt;a href="#%e5%ae%9e%e9%aa%8c" class="header-anchor"&gt;&lt;/a&gt;实验
+&lt;/h2&gt;&lt;p&gt;在6个标准数据集上进行了评估&lt;/p&gt;
+&lt;h3 id="有效性"&gt;&lt;a href="#%e6%9c%89%e6%95%88%e6%80%a7" class="header-anchor"&gt;&lt;/a&gt;有效性
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925185507716.png"
+width="1600"
+height="717"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925185507716_hu_9b444fbf707ccdfd.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925185507716_hu_54ca4e174f1a77cf.png 1024w"
+loading="lazy"
+alt="在连续提示上的有效性"
+class="gallery-image"
+data-flex-grow="223"
+data-flex-basis="535px"
+&gt;&lt;/p&gt;
+&lt;p&gt;如图所示，第一行是盗用的提示，第二行是独立的提示，可见该水印成功的被识别出来了。&lt;/p&gt;
+&lt;h3 id="无害性"&gt;&lt;a href="#%e6%97%a0%e5%ae%b3%e6%80%a7" class="header-anchor"&gt;&lt;/a&gt;无害性
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925185811560.png"
+width="1491"
+height="876"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925185811560_hu_759b2aeb778c1f28.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925185811560_hu_e77870ef8920ab7d.png 1024w"
+loading="lazy"
+alt="主任务准确性"
+class="gallery-image"
+data-flex-grow="170"
+data-flex-basis="408px"
+&gt;&lt;/p&gt;
+&lt;p&gt;如图所示，水印的ACC基本没怎么下降，只有在AUTOPROMPT这种极端情况下才下降的高一点。&lt;/p&gt;
+&lt;h3 id="稳健性"&gt;&lt;a href="#%e7%a8%b3%e5%81%a5%e6%80%a7" class="header-anchor"&gt;&lt;/a&gt;稳健性
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925191045759.png"
+width="902"
+height="1201"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925191045759_hu_3e535482b7de75b7.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925191045759_hu_706618661ad55989.png 1024w"
+loading="lazy"
+alt="同义词替换"
+class="gallery-image"
+data-flex-grow="75"
+data-flex-basis="180px"
+&gt;&lt;/p&gt;
+&lt;p&gt;在同义词替换后，p值呈现下降的趋势，但仍然能保持在0.1以上。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925191211580.png"
+width="931"
+height="837"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925191211580_hu_a69dd84fe2eb3f7c.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925191211580_hu_d102c8cfddfaccd8.png 1024w"
+loading="lazy"
+alt="微调"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="266px"
+&gt;&lt;/p&gt;
+&lt;p&gt;对于微调也同样有很高的效果。&lt;/p&gt;
+&lt;h3 id="隐蔽性"&gt;&lt;a href="#%e9%9a%90%e8%94%bd%e6%80%a7" class="header-anchor"&gt;&lt;/a&gt;隐蔽性
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://lbqaq.top/p/promptcare/IMAGE/image-20250925191314330.png"
+width="1429"
+height="857"
+srcset="https://lbqaq.top/p/promptcare/IMAGE/image-20250925191314330_hu_ce4547e22828819c.png 480w, https://lbqaq.top/p/promptcare/IMAGE/image-20250925191314330_hu_5197d03113c74ca2.png 1024w"
+loading="lazy"
+alt="隐蔽性"
+class="gallery-image"
+data-flex-grow="166"
+data-flex-basis="400px"
+&gt;&lt;/p&gt;
+&lt;p&gt;即使tirgger大小为2，也有较高的成功率。&lt;/p&gt;
+&lt;p&gt;之后作者还测试了在自适应攻击和大语言模型上面的效果。&lt;/p&gt;</description></item><item><title>Arch Linux的安装流程与常用配置</title><link>https://lbqaq.top/p/archlinux-install/</link><pubDate>Mon, 11 Aug 2025 20:57:37 +0800</pubDate><guid>https://lbqaq.top/p/archlinux-install/</guid><description>&lt;img src="https://lbqaq.top/p/archlinux-install/128032920.webp" alt="Featured image of post Arch Linux的安装流程与常用配置" /&gt;&lt;h2 id="前言"&gt;&lt;a href="#%e5%89%8d%e8%a8%80" class="header-anchor"&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;最近苦于之前的老笔记本在运行Windows时越来越卡了，于是便萌生的重装系统的想法。正好，之前23年的时候已经体验过ArchLinux系统了，而且听说现在Nvidia驱动在Linux下也比较方便安装了，于是就决定将Arch在装回来。&lt;/p&gt;
 &lt;h2 id="预先准备"&gt;&lt;a href="#%e9%a2%84%e5%85%88%e5%87%86%e5%a4%87" class="header-anchor"&gt;&lt;/a&gt;预先准备
 &lt;/h2&gt;&lt;p&gt;需要准备1个U盘，用来存放系统的镜像。&lt;/p&gt;

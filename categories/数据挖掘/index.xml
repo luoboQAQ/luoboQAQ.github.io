@@ -878,7 +878,8 @@ data-flex-basis="413px"
 &gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;💡 要会给定数据集进行K折交叉验证
-要会计算模型准确率（每次的准确率、最终的准确率）&lt;/p&gt;&lt;/blockquote&gt;
+要会计算模型准确率（每次的准确率、最终的准确率）&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id="支持向量机svm"&gt;&lt;a href="#%e6%94%af%e6%8c%81%e5%90%91%e9%87%8f%e6%9c%basvm" class="header-anchor"&gt;&lt;/a&gt;支持向量机(SVM)
 &lt;/h2&gt;&lt;h3 id="基本思想-1"&gt;&lt;a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e6%83%b3-1" class="header-anchor"&gt;&lt;/a&gt;基本思想
 &lt;/h3&gt;&lt;p&gt;SVM学习的基本思想是求解能够正确划分训练数据集并且几何间隔最大的分离超平面。对于线性可分的数据集来说，这样的超平面有无穷多个（即感知机），但是几何间隔最大的分离超平面却是唯一的。&lt;/p&gt;
@@ -895,7 +896,8 @@ data-flex-basis="272px"
 &lt;p&gt;用我自己的理解，就是找一条线将两个数据集分开，要保证这条线到两边的数据集距离最大。那么，如何才能保证距离最大呢，这就是下面要讨论的难点了。&lt;/p&gt;
 &lt;h3 id="支持向量"&gt;&lt;a href="#%e6%94%af%e6%8c%81%e5%90%91%e9%87%8f" class="header-anchor"&gt;&lt;/a&gt;支持向量
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;在支持向量机中，距离超平面最近的且满足一定条件的几个训练样本点被称为支持向量。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;在支持向量机中，距离超平面最近的且满足一定条件的几个训练样本点被称为支持向量。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;在上图中，处于虚线上的点（即红色的点）我们就将其定义为支持向量。那么，如何得到支持向量到超平面的距离呢？我们引入&lt;strong&gt;几何间隔&lt;/strong&gt;的概念：&lt;/p&gt;
 $$
 \gamma = \frac{y(w^Tx + b)}{||w||_2} = \frac{\gamma^{'}}{||w||_2}
@@ -1008,7 +1010,8 @@ $$
 K(x, z) = exp(-\gamma||x-z||^2)
 $$&lt;p&gt;其中，$\gamma$大于0，需要自己调参定义。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;💡 高斯核函数很重要，一定要记住&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;💡 高斯核函数很重要，一定要记住&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id="sigmoid核函数"&gt;&lt;a href="#sigmoid%e6%a0%b8%e5%87%bd%e6%95%b0" class="header-anchor"&gt;&lt;/a&gt;Sigmoid核函数
 &lt;/h3&gt;&lt;p&gt;也是线性不可分SVM常用的核函数之一，表达式为：&lt;/p&gt;
 $$
@@ -1265,7 +1268,8 @@ data-flex-basis="318px"
 &lt;/ol&gt;
 &lt;h3 id="欧氏距离"&gt;&lt;a href="#%e6%ac%a7%e6%b0%8f%e8%b7%9d%e7%a6%bb" class="header-anchor"&gt;&lt;/a&gt;欧氏距离
 &lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;衡量的是多维空间中两个点之间的绝对距离&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;衡量的是多维空间中两个点之间的绝对距离&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;在二维和三维空间中的欧氏距离就是两点之间的实际距离&lt;/p&gt;
 &lt;p&gt;计算方法：对应坐标值相减的平方和再开方&lt;/p&gt;
 $$
@@ -1505,7 +1509,8 @@ $$&lt;h3 id="相似矩阵"&gt;&lt;a href="#%e7%9b%b8%e4%bc%bc%e7%9f%a9%e9%98%b5"
 $$
 w_{ij}=s_{ij}=exp(-\frac{||x_i-x_j||_2^2}{2\sigma^2})
 $$&lt;blockquote&gt;
-&lt;p&gt;💡 exp(x)表示$e^x$&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;💡 exp(x)表示$e^x$&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h3 id="拉普拉斯矩阵"&gt;&lt;a href="#%e6%8b%89%e6%99%ae%e6%8b%89%e6%96%af%e7%9f%a9%e9%98%b5" class="header-anchor"&gt;&lt;/a&gt;拉普拉斯矩阵
 &lt;/h3&gt;&lt;p&gt;拉普拉斯矩阵$L= D-W$&lt;/p&gt;
 &lt;p&gt;$D$即为度矩阵，它是一个对角矩阵。$W$为邻接矩阵。&lt;/p&gt;

@@ -1,0 +1,652 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="All in one之透明代理"><title>仅使用小猫配置透明代理</title><link rel=canonical href=https://lbqaq.top/p/mihomo-config/><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap"><link rel=stylesheet href=/scss/style.min.9354cf59caa8631ab465dcf90c39cad81c73c591a4a0aa5117a13e1dc02a6e3a.css><meta property='og:title' content="仅使用小猫配置透明代理"><meta property='og:description' content="All in one之透明代理"><meta property='og:url' content='https://lbqaq.top/p/mihomo-config/'><meta property='og:site_name' content='luoboQAQ'><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='OpenWrt'><meta property='article:tag' content='透明代理'><meta property='article:tag' content='教程'><meta property='article:published_time' content='2026-05-31T17:00:00+08:00'><meta property='article:modified_time' content='2026-05-31T17:00:00+08:00'><meta property='og:image' content='https://lbqaq.top/p/mihomo-config/131564866.webp'><meta name=twitter:title content="仅使用小猫配置透明代理"><meta name=twitter:description content="All in one之透明代理"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://lbqaq.top/p/mihomo-config/131564866.webp'><link rel="shortcut icon" href=/img/favicon.ico><script type=text/javascript>(function(e,t,n,s,o,i,a){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)},i=t.createElement(s),i.async=1,i.src="https://www.clarity.ms/tag/"+o,a=t.getElementsByTagName(s)[0],a.parentNode.insertBefore(i,a)})(window,document,"clarity","script","smhd51txrk")</script></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/Mint.jpg width=700 height=700 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🌞</span></figure><div class=site-meta><h1 class=site-name><a href=/>luoboQAQ</a></h1><h2 class=site-description>快乐学习每一天</h2></div></header><ol class=menu-social><li><a href=https://github.com/luoboQAQ title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://lbqaq.top/index.xml title=RSS订阅 rel=me><svg class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg></a></li><li><a href=https://pan.lbqaq.top title=我的个人云盘 rel=me><svg class="icon icon-tabler icon-tabler-cloud" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 18a4.6 4.4.0 010-9 5 4.5.0 0111 2h1a3.5 3.5.0 010 7H7"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>主页</span></a></li><li><a href=/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>关于</span></a></li><li><a href=/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文章</span></a></li><li><a href=/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜索</span></a></li><li><a href=/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>友链</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav class=toc-nav id=TableOfContents><ol><li><a href=#前言>前言</a></li><li><a href=#实现效果>实现效果</a></li><li><a href=#配置过程>配置过程</a><ol><li><a href=#精简规则>精简规则</a></li><li><a href=#分流btpt流量>分流BT/PT流量</a></li><li><a href=#解决浏览器本地网络访问权限提示>解决浏览器本地网络访问权限提示</a></li><li><a href=#cloudflare-cdn优选>Cloudflare CDN优选</a></li></ol></li><li><a href=#小结>小结</a></li><li><a href=#参考链接>参考链接</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/mihomo-config/><img alt="Featured image of post 仅使用小猫配置透明代理" height=2800 loading=lazy sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src=/p/mihomo-config/131564866.webp srcset="/p/mihomo-config/131564866_hu_62a5de14603092c5.webp 800w, /p/mihomo-config/131564866_hu_f6c2f5cd457382ca.webp 1600w, /p/mihomo-config/131564866_hu_f109296fe048c3b5.webp 2400w, /p/mihomo-config/131564866.webp 6000w" width=6000></a></div><div class=article-details><header class=article-category><a href=/categories/%E7%BD%91%E7%BB%9C/ style=background-color:#f4a261;color:#fff>网络</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/mihomo-config/>仅使用小猫配置透明代理</a></h2><h3 class=article-subtitle>All in one之透明代理</h3></div><footer class=article-meta><div class=inline-meta><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published datetime=2026-05-31T17:00:00+08:00>2026年5月31日星期日</time>
+<svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 10 分钟</time></div></footer></div></header><aside class=article-toc><details><summary><div class=article-toc-title><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6-6 6"/></svg>
+<span>目录</span></div></summary><nav class=toc-nav><ol><li><a href=#前言>前言</a></li><li><a href=#实现效果>实现效果</a></li><li><a href=#配置过程>配置过程</a><ol><li><a href=#精简规则>精简规则</a></li><li><a href=#分流btpt流量>分流BT/PT流量</a></li><li><a href=#解决浏览器本地网络访问权限提示>解决浏览器本地网络访问权限提示</a></li><li><a href=#cloudflare-cdn优选>Cloudflare CDN优选</a></li></ol></li><li><a href=#小结>小结</a></li><li><a href=#参考链接>参考链接</a></li></ol></nav></details></aside><section class=article-content><h2 id=前言><a href=#%e5%89%8d%e8%a8%80 class=header-anchor></a>前言</h2><p>在24年的时候，我写过《<a class=link href=https://lbqaq.top/p/dns-shunt/ target=_blank rel=noopener>基于DNS的分流方案</a>》，采用了Mosdns和小猫组合的方式来实现透明代理。这套方案确实很不错，直到现在依然能稳定工作。既然如此，那我为什么要考虑更换它呢？主要原因是如果想修改某个域名的规则是否走代理，不但要在小猫里设置规则，还要同步在Mosdns中配置，一个域名要在两个地方进行配置，实在是不太好维护。此外，2年过去了mihomo本身的dns模块已经更新了很多功能了，现在再使用mosdns进行套娃也没有场景了。</p><p>最近看到Aethersailor的设置方案<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>，里面的思路比较符合我的需求：<strong>只使用一个插件完成代理、DNS和分流配置</strong>。这个教程已经写的非常详细了，我这里就不重复引用，只记录我在此基础上的修改吧。</p><h2 id=实现效果><a href=#%e5%ae%9e%e7%8e%b0%e6%95%88%e6%9e%9c class=header-anchor></a>实现效果</h2><p>按照这个方案配置完成后，大致可以实现下面这些效果：</p><ul><li>使用<code>Fake-IP</code>模式获得较好的性能；</li><li>国内直连流量尽量不进入内核，减少路由器性能消耗；</li><li>非直连域名的 DNS 解析交给远端处理，降低解析结果不一致和 DNS 泄漏的概率；</li><li>后续日常使用基本只需要在控制面板里切换策略组。</li></ul><h2 id=配置过程><a href=#%e9%85%8d%e7%bd%ae%e8%bf%87%e7%a8%8b class=header-anchor></a>配置过程</h2><p>先按教程完成最基本的配置，现在已经有一个可以正常使用的透明代理环境了。与教程不一样的地方，我这里没有选择进行UDP代理，毕竟目前浏览网页还主要是TCP流量。但是我在使用的时候遇到了下面的问题，在此就做个记录吧。</p><h3 id=精简规则><a href=#%e7%b2%be%e7%ae%80%e8%a7%84%e5%88%99 class=header-anchor></a>精简规则</h3><p>原版的规则实在是太多了，实际使用的时候并不需要这么多的规则。同时，我也需要对自动选择的节点进行分类。虽然插件提供了覆写设置，但是不如直接修改配置文件来的快了，于是就有了下面的这个版本。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span><span class=lnt>274
+</span><span class=lnt>275
+</span><span class=lnt>276
+</span><span class=lnt>277
+</span><span class=lnt>278
+</span><span class=lnt>279
+</span><span class=lnt>280
+</span><span class=lnt>281
+</span><span class=lnt>282
+</span><span class=lnt>283
+</span><span class=lnt>284
+</span><span class=lnt>285
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># Powered by luoboQAQ</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># url 里填写自己的订阅,名称不能重复</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>proxy-providers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>provider1</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://example.com&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./config/provider1.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxy</span><span class=p>:</span><span class=w> </span><span class=l>DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>86400</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>health-check</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>enable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://cp.cloudflare.com/generate_204</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>300</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>mixed-port</span><span class=p>:</span><span class=w> </span><span class=m>7890</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>ipv6</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>allow-lan</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>unified-delay</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>tcp-concurrent</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>external-controller</span><span class=p>:</span><span class=w> </span><span class=m>127.0.0.1</span><span class=p>:</span><span class=m>9090</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>external-ui</span><span class=p>:</span><span class=w> </span><span class=l>ui</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>external-ui-url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>find-process-mode</span><span class=p>:</span><span class=w> </span><span class=l>strict</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>profile</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>store-selected</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>store-fake-ip</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>proxy-groups</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>url-test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://cp.cloudflare.com/generate_204</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>300</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>tolerance</span><span class=p>:</span><span class=w> </span><span class=m>50</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c># 只考虑低倍率节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;:0&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>📺 Bahamut</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🤖 AI服务</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🤖 claude大人</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🍎 苹果服务</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Ⓜ️ 微软服务</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🎮 游戏平台</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🎮 Steam</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🚀 测速工具</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🎓 谷歌学术</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🐟 漏网之鱼</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>use</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>provider1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>♻️ 自动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🔀 非标端口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>🐟 漏网之鱼</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c>#分隔,下面是地区分组</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🇭🇰 香港节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>url-test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://cp.cloudflare.com/generate_204</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>300</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>tolerance</span><span class=p>:</span><span class=w> </span><span class=m>50</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>include-all</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>exclude-type</span><span class=p>:</span><span class=w> </span><span class=l>direct</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;(?i)港|hk|hongkong|hong kong&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>url-test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://cp.cloudflare.com/generate_204</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>300</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>tolerance</span><span class=p>:</span><span class=w> </span><span class=m>50</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>include-all</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>exclude-type</span><span class=p>:</span><span class=w> </span><span class=l>direct</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;(?i)日|jp|japan&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🇺🇸 美国节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>url-test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://cp.cloudflare.com/generate_204</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>300</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>tolerance</span><span class=p>:</span><span class=w> </span><span class=m>50</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>include-all</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>exclude-type</span><span class=p>:</span><span class=w> </span><span class=l>direct</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;(?i)美|us|unitedstates|united states&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🇼🇸 台湾节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>url-test</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://cp.cloudflare.com/generate_204</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>300</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>tolerance</span><span class=p>:</span><span class=w> </span><span class=m>50</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>include-all</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>exclude-type</span><span class=p>:</span><span class=w> </span><span class=l>direct</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>filter</span><span class=p>:</span><span class=w> </span><span class=l>(🇹🇼|🇼🇸|台|新北|彰化|\bTW(?:[-_ ]?\d+(?:[-_ ]?[A-Za-z]{2,})?)?\b|Taiwan|TAIWAN|TWN|TPE|ROC)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>select</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>proxies</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>rules</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 本地地址和域名直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,private,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,private,🎯 全球直连,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># Custom项目收录的直连规则</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,Custom_Direct_Domain,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,Custom_Direct_Classical_IP,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># Custom项目收录的代理规则</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,Custom_Proxy_Domain,🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,Custom_Proxy_Classical_IP,🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,google-cn,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-games@cn,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,Steam_CDN_Classical,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-game-platforms-download,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-public-tracker,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 分流规则</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,anthropic,🤖 claude大人</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-ai-!cn,🤖 AI服务</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,google-scholar,🎓 谷歌学术</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-speedtest,🚀 测速工具</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,imgur,🇯🇵 日本节点</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,bahamut,📺 Bahamut</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,steam,🎮 Steam</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-games,🎮 游戏平台</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,gfw,🚀 手动选择</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,telegram,🚀 手动选择,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,twitter,🚀 手动选择,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,facebook,🚀 手动选择,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,google,🚀 手动选择,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,netflix,🚀 手动选择,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,cn,🎯 全球直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,cn,🎯 全球直连,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,Custom_Port_Direct,🔀 非标端口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,🐟 漏网之鱼</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>rule-anchor</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ip</span><span class=p>:</span><span class=w> </span><span class=cp>&amp;ip</span><span class=w> </span>{<span class=nt>type: http, interval: 86400, behavior: ipcidr, format</span><span class=p>:</span><span class=w> </span><span class=l>mrs}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>domain</span><span class=p>:</span><span class=w> </span><span class=cp>&amp;domain</span><span class=w> </span>{<span class=nt>type: http, interval: 86400, behavior: domain, format</span><span class=p>:</span><span class=w> </span><span class=l>mrs}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>classical_list</span><span class=p>:</span><span class=w> </span><span class=cp>&amp;classical_list</span><span class=w> </span>{<span class=nt>type: http, interval: 86400, behavior: classical, format</span><span class=p>:</span><span class=w> </span><span class=l>text}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># 规则可在https://github.com/MetaCubeX/meta-rules-dat/tree/meta 查看</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>rule-providers</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>Custom_Direct_Domain</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class=l>domain</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Domain.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./providers/Custom_Direct_Domain.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>28800</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>Custom_Direct_Classical_IP</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class=l>classical</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Direct_Classical_IP.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./providers/Custom_Direct_Classical_IP.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>28800</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>Custom_Proxy_Domain</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class=l>domain</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_Domain.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./providers/Custom_Proxy_Domain.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>28800</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>Custom_Proxy_Classical_IP</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class=l>classical</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Proxy_Classical_IP.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./providers/Custom_Proxy_Classical_IP.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>28800</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>Steam_CDN_Classical</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class=l>classical</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Steam_CDN_Classical.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./providers/Steam_CDN_Classical.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>28800</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>Custom_Port_Direct</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>type</span><span class=p>:</span><span class=w> </span><span class=l>http</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>behavior</span><span class=p>:</span><span class=w> </span><span class=l>classical</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>https://testingcf.jsdelivr.net/gh/Aethersailor/Custom_OpenClash_Rules@main/rule/Custom_Port_Direct.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>./providers/Custom_Port_Direct.yaml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>interval</span><span class=p>:</span><span class=w> </span><span class=m>28800</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=分流btpt流量><a href=#%e5%88%86%e6%b5%81btpt%e6%b5%81%e9%87%8f class=header-anchor></a>分流BT/PT流量</h3><p>在我的网络拓扑中有一台NAS，上面运行了qBittorrent进行下载任务。虽然按照项目原始的配置，这些下载的流量进入到核心当中也还是直连，不会消耗流量。但这样不但增加小猫的压力，还导致控制面板项目很多，不方便查看。于是就需要编写防火墙规则将这些流量不要进入核心。由于NAS的ip地址是静态的，于是我便指定将此机子的非80/443端口的流量不要进入核心。</p><p>在<code>插件设置</code>-<code>开发者选项</code>中添加下面的两条命令：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>LOG_TIP <span class=s2>&#34;配置NAS非标端口流量不进入核心&#34;</span>
+</span></span><span class=line><span class=cl>nft insert rule inet fw4 openclash ip saddr 192.168.6.20 tcp dport !<span class=o>=</span> <span class=o>{</span> 80, <span class=m>443</span> <span class=o>}</span> <span class=k>return</span>
+</span></span><span class=line><span class=cl>nft insert rule inet fw4 openclash_mangle_v6 ip6 saddr fd11:4514:6::20 tcp dport !<span class=o>=</span> <span class=o>{</span> 80, <span class=m>443</span> <span class=o>}</span> <span class=k>return</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote class="alert alert-tip"><div class=alert-header><span class=alert-icon>💡</span>
+<span class=alert-title>提示</span></div><div class=alert-body><p>这里我只配置了TCP流量，如果启用了UDP代理还需要加上对应的规则</p></div></blockquote><h3 id=解决浏览器本地网络访问权限提示><a href=#%e8%a7%a3%e5%86%b3%e6%b5%8f%e8%a7%88%e5%99%a8%e6%9c%ac%e5%9c%b0%e7%bd%91%e7%bb%9c%e8%ae%bf%e9%97%ae%e6%9d%83%e9%99%90%e6%8f%90%e7%a4%ba class=header-anchor></a>解决浏览器本地网络访问权限提示</h3><p>自从Chrome 142版本开始，Google正式引入了Local Network Access（LNA，本地网络访问）相关限制<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup>。简单来说，如果一个公网网站尝试访问用户本地网络中的地址，例如<code>192.168.x.x</code>、<code>127.0.0.1</code>，或者其他被浏览器认为属于本地/私有网络的地址，Chrome就会先拦截请求，并要求用户授予本地网络访问权限。这个功能的出发点是好的，主要是为了防止网页在用户不知情的情况下访问路由器、NAS、打印机等局域网设备，从而降低CSRF攻击和局域网指纹识别的风险。</p><p>但是在<code>Fake-IP</code>模式下，这个机制就容易被误伤。Fake-IP的原理并不是直接返回域名真实IP，而是先返回一个保留地址段中的“假IP”，再由内核根据这个假IP找回原始域名并进行分流。问题就出在这里：浏览器看到网页连接的不是一个普通公网IP，而是一个比较特殊的Fake-IP地址时，可能会把它当成对本地网络或非公网地址的访问。于是原本应该由内核接管并转发的请求，还没走到代理链路，就先被Chrome的LNA检查拦了下来。表现出来的现象就是：Chrome一直弹出本地网络访问权限提示。</p><p>最简单粗暴的方法有两种：「所有域名都返回fake-ip」与「禁用该权限控制」。对于第一种，所有流量都会进入核心这肯定是不行，而第二种明显是饮鸩止渴，让浏览器变得更不安全，而且还要对所有的设备进行设置太过麻烦。</p><p>所以我们可以使用一些未被使用的公网ip来作为我们的fake-ip范围<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>。我选择了<code>25.0.0.0/8</code>（英国国防部所属，没有路由）和<code>2001:2::/48</code>（IANA保留的测试用网段）这两个网段来实现。配置如下：</p><ul><li>在<code>覆写设置</code>-<code>DNS设置</code>-<code>Fake-IP 地址范围 (IPv4 Cidr)</code>，修改为<code>25.0.0.0/8</code></li><li>在<code>插件设置</code>-<code>IPv6设置</code>-<code>Fake-IP 地址范围 (IPv6 Cidr)</code>，修改为<code>2001:2::/48</code></li></ul><h3 id=cloudflare-cdn优选><a href=#cloudflare-cdn%e4%bc%98%e9%80%89 class=header-anchor></a>Cloudflare CDN优选</h3><p>在我的网络环境（校园网）中，通过IPv6访问Cloudflare CDN的落点为HKG，速度很快且延迟很低。于是对于一些套用CF CDN的网站，我可以通过修改域名解析结果，通过只返回ipv6地址来实现优选的效果。</p><p>一开始，我是在Dnsmasq中设置，但是如果仅手动设置AAAA地址，它还是会返回A地址，从而导致优选失效。如果想要让Dnsmasq仅返回AAAA地址，还需要在配置文件中设置为<code>local</code>很麻烦。好在现在mihomo核心已经支持Hosts配置，只需要在其中填入即可。</p><p>在<code>覆写设置</code>-<code>DNS设置</code>中，勾选<code>Hosts</code>，并填入下面的内容即可：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># Static hosts for DNS server and connection establishment (like /etc/hosts)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c>#</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Wildcard hostnames are supported (e.g. *.clash.dev, *.foo.*.example.com)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># Non-wildcard domain names have a higher priority than wildcard domain names</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># e.g. foo.example.com &gt; *.example.com &gt; .example.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c># P.S. +.foo.com equals to .foo.com and foo.com</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nt>&#39;+.vcb-s.com&#39;</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;2606:4700:0:ce6b:dede:5ae2:2485:3061&#39;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>但是这样配置完后，却发现网站无法访问，提示SSL证书错误。经过排查发现，这样设置流量依旧进入了核心而不是直连，从而导致了错误。（IPv4却不会出现这样的问题，很奇怪，可能是TPoxy的问题导致的吧）于是我便将Cloudflare CDN的ipv6域名段全部设置在了排除列表，终于让网站能访问了。</p><p>在<code>插件设置</code>-<code>IPv6设置</code>-<code>本地 IPv6 绕过地址</code>中，添加下面的地址：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>#cf
+</span></span><span class=line><span class=cl>2400:cb00::/32
+</span></span><span class=line><span class=cl>2606:4700::/32
+</span></span><span class=line><span class=cl>2803:f800::/32
+</span></span><span class=line><span class=cl>2405:b500::/32
+</span></span><span class=line><span class=cl>2405:8100::/32
+</span></span><span class=line><span class=cl>2a06:98c0::/29
+</span></span><span class=line><span class=cl>2c0f:f248::/32
+</span></span></code></pre></td></tr></table></div></div><h2 id=小结><a href=#%e5%b0%8f%e7%bb%93 class=header-anchor></a>小结</h2><p>这样配置下来，最大的好处就是省心。现在把这些逻辑都收回到小猫里面，只需要配置一次，后续订阅、规则、DNS和绕过设置也都在同一个界面里维护。</p><p>对我来说，这套方案的目标并不是追求功能堆满，而是尽量简化配置链路。这样在我毕业之后，后续的同学也能将这套配置好好的维护下去吧。</p><h2 id=参考链接><a href=#%e5%8f%82%e8%80%83%e9%93%be%e6%8e%a5 class=header-anchor></a>参考链接</h2><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p><a class=link href=https://github.com/Aethersailor/Custom_OpenClash_Rules/wiki/OpenClash-%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%A1%88 target=_blank rel=noopener>小猫设置方案</a>&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p><a class=link href=https://developer.chrome.com/blog/local-network-access target=_blank rel=noopener>New permission prompt for Local Network Access</a>&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p><a class=link href=https://codeberg.org/xchacha20-poly1305/husi/wiki/Route#fake-dns target=_blank rel=noopener>Route - xchacha20-poly1305/husi</a>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></section><footer class="article-meta article-footer"><section class=article-tags><a href=/tags/openwrt/>Openwrt</a>
+<a href=/tags/%E9%80%8F%E6%98%8E%E4%BB%A3%E7%90%86/>透明代理</a>
+<a href=/tags/%E6%95%99%E7%A8%8B/>教程</a></section><section class="article-copyright inline-meta"><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{const e=[".main-article",".widget--toc"];e.forEach(e=>{const t=document.querySelector(e);t&&renderMathInElement(t,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})})</script></article><aside><h2 class=section-title>相关文章</h2><div class=subsection-list><div class=article-list--tile><article class=has-image><a href=/p/dns-shunt/><div class=article-image><img alt="Featured image of post 基于DNS的分流方案" height=150 loading=lazy src=/p/dns-shunt/115597971_hu_548573967aee834.webp srcset="/p/dns-shunt/115597971_hu_548573967aee834.webp 1x, /p/dns-shunt/115597971_hu_8bbd156fb7db77fc.webp 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#d5cabb80 0%,#4f483fC0 100%)"><h2 class=article-title>基于DNS的分流方案</h2></div></a></article><article class=has-image><a href=/p/wireguard-ipv6/><div class=article-image><img alt="Featured image of post 使用WireGuard+ipv6进行异地组网" height=150 loading=lazy src=/p/wireguard-ipv6/104589070_hu_1bebba93275f991c.webp srcset="/p/wireguard-ipv6/104589070_hu_1bebba93275f991c.webp 1x, /p/wireguard-ipv6/104589070_hu_3d943c67179eaf35.webp 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#70739a80 0%,#d3c9d0C0 100%)"><h2 class=article-title>使用WireGuard+ipv6进行异地组网</h2></div></a></article><article class=has-image><a href=/p/ax6000/><div class=article-image><img alt="Featured image of post 红米AX6000折腾记" height=150 loading=lazy src=/p/ax6000/112545261_hu_7ff152b63b123f9b.webp srcset="/p/ax6000/112545261_hu_7ff152b63b123f9b.webp 1x, /p/ax6000/112545261_hu_c9b8562ed0c5ab92.webp 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#334b6780 0%,#cfdbdbC0 100%)"><h2 class=article-title>红米AX6000折腾记</h2></div></a></article><article class=has-image><a href=/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/><div class=article-image><img alt="Featured image of post 一步到位，自动申请SSL证书" height=150 loading=lazy src=/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/99528942_hu_5e354d37d2eda2be.webp srcset="/p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/99528942_hu_5e354d37d2eda2be.webp 1x, /p/%E4%B8%80%E6%AD%A5%E5%88%B0%E4%BD%8D%E8%87%AA%E5%8A%A8%E7%94%B3%E8%AF%B7ssl%E8%AF%81%E4%B9%A6/99528942_hu_1d1358a1fc704f18.webp 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#55494980 0%,#d8d1c5C0 100%)"><h2 class=article-title>一步到位，自动申请SSL证书</h2></div></a></article><article class=has-image><a href=/p/mydns/><div class=article-image><img alt="Featured image of post 自建DNS实现分流及广告过滤" height=150 loading=lazy src=/p/mydns/100669875_hu_c8eebfbc827d8c36.webp srcset="/p/mydns/100669875_hu_c8eebfbc827d8c36.webp 1x, /p/mydns/100669875_hu_56c8e98e4782949.webp 2x" width=250></div><div class=article-details style="background:linear-gradient(0deg,#b3b3a980 0%,#49423fC0 100%)"><h2 class=article-title>自建DNS实现分流及广告过滤</h2></div></a></article></div></div></aside><script src=//unpkg.com/@waline/client@v2/dist/waline.js></script><link href=//unpkg.com/@waline/client@v2/dist/waline.css rel=stylesheet><div id=waline class=waline-container></div><style>.waline-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding);--waline-font-size:var(--article-font-size)}.waline-container .wl-count{color:var(--card-text-color-main)}</style><script>Waline.init({dark:'html[data-scheme="dark"]',el:"#waline",emoji:["https://unpkg.com/@waline/emojis@1.4.0/weibo"],lang:"zh-CN",locale:{admin:"Admin",placeholder:""},pageview:"",requiredMeta:["name","email","url"],serverURL:"https://waline.lbqaq.top/"})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2026 luoboQAQ</section><section class=powerby><a href=https://beian.miit.gov.cn>苏ICP备2021037116号</a><br>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=4.0.3>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><script type=module>
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script></main></div><script type=text/javascript src=/ts/main.f856840516f7c2ad1769a8f5937e3d08d6cb386e2cd2dd025ae696e0ff207958.js defer></script></body></html>
